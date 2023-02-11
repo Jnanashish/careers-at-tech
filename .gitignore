@@ -27,7 +27,6 @@ yarn-error.log*
 .firebaseerc
 .env
 /.firebase
-
+package-lock.json
 /src/CSS
-*.json
 *.css
