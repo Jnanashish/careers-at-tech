@@ -1,7 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
-import "../styles/globals.css";
 import { Inter } from "@next/font/google";
 
 // set up inter font for the project
