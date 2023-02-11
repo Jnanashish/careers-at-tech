@@ -1,0 +1,189 @@
+.jobCardContainer {
+    border-radius: 12px;
+    border: 0.8px solid rgba(218, 223, 231, 1);
+    margin-bottom: 20px;
+    background-color: #fff;
+
+    @media (max-width: 768px) {
+        margin-bottom: 15px;
+    }
+}
+.mainSection {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 20px 15px 20px 0px;
+    cursor: pointer;
+    text-align: left;
+    font-family: "Inter", sans-serif;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 18% 82%;
+        padding: 14px 10px;
+        margin: 0px auto;
+    }
+}
+
+.companyLogoContainer {
+    margin-top: 3px;
+    place-self: center;
+    justify-self: center;
+
+    grid-column: 1;
+    grid-row: 1/3;
+
+    @media (max-width: 768px) {
+        grid-column: 1;
+        grid-row: 1;
+    }
+}
+
+.logotext {
+    border: 0.8px solid #0069ff;
+    width: 37px;
+    height: 37px;
+    margin: 0px auto;
+    border-radius: 50px;
+
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    color: #fff;
+
+    p {
+        margin: 6px auto 0px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgba(18, 25, 38, 1);
+    }
+}
+
+.companyLogo {
+    border-radius: 50px;
+    border: 0.6px solid rgba(218, 223, 231, 1);
+    @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.jobtitle {
+    grid-column: 2/6;
+    grid-row: 1;
+
+    font-size: 1.3rem;
+    color: rgba(18, 25, 38, 1);
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0px;
+    justify-self: start;
+    align-self: center;
+
+    @media (max-width: 768px) {
+        font-size: 1.06rem;
+        line-height: 1.4rem;
+        margin: 0px 0px 0px 2px;
+    }
+    @media (max-width: 300px) {
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+    }
+}
+
+.jobdetails {
+    margin-top: 10px;
+    grid-column: 2/6;
+    grid-row: 2;
+
+    @media (max-width: 768px) {
+        grid-column: 1/6;
+        grid-row: 2;
+    }
+}
+
+.jobdetailsItem {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    align-items: center;
+    justify-items: start;
+    margin: 0px 0px 2px;
+    line-height: 1.1rem;
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    p {
+        color: #697586;
+        margin-left: 8px;
+
+        @media (max-width: 768px) {
+            font-size: 0.7rem;
+        }
+    }
+
+    h5 {
+        color: #121212;
+        @media (max-width: 600px) {
+            font-size: 0.7rem;
+            justify-self: end;
+        }
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 18% 82%;
+        line-height: 1.08rem;
+    }
+    @media (max-width: 300px) {
+        grid-template-columns: 20% 80%;
+        line-height: 1.08rem;
+        p {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+.chipContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 8px;
+}
+
+.chip {
+    padding: 3px 8px;
+    background-color: #deebff;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    margin-right: 10px;
+    font-weight: 500;
+
+    img {
+        width: 10px;
+        margin-right: 3px;
+    }
+}
+.chipIcon {
+    height: 8px;
+    width: 8px;
+    margin-bottom: 1px;
+    margin-right: 3px;
+    color: #4b5565;
+}
+.footerSection {
+    border-top: 1px solid #e1ebff;
+    height: 24px;
+    border-radius: 0px 0px 12px 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 12px;
+
+    p {
+        font-size: 0.6rem;
+        color: #1d4ed8;
+        font-weight: 600;
+    }
+}

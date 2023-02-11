@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="30" viewBox="0 0 200 30">
+  <defs>
+    <clipPath id="clip-catlogosmall">
+      <rect width="200" height="30"/>
+    </clipPath>
+  </defs>
+  <g id="catlogosmall" clip-path="url(#clip-catlogosmall)">
+    <rect width="200" height="30" fill="#fff"/>
+    <rect id="Rectangle_32" data-name="Rectangle 32" width="66" height="30" transform="translate(134)" fill="#0069ff"/>
+    <text id="careers_tech" data-name="careers@ tech" transform="translate(0 25)" fill="#fff" font-size="30" font-family="HelveticaNowDisplay-Bold, Helvetica Now Display" font-weight="700"><tspan x="0" y="0" fill="#000">careers@</tspan><tspan y="0" xml:space="preserve" fill="#fff"> tech</tspan></text>
+  </g>
+</svg>
