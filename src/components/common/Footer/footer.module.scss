@@ -1,0 +1,29 @@
+.footer {
+    background-color: #f4faff;
+    display: flex;
+    flex-direction: row;
+    padding: 15px 0px;
+
+    a {
+        color: #0050ff;
+        font-size: 0.8rem;
+        text-decoration: underline;
+        margin-left: 5px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 4768px) {
+        width: 100%;
+
+        padding-bottom: 12px;
+        flex-direction: column;
+
+        p {
+            margin: 2px auto;
+            font-size: 0.8rem;
+            color: #000;
+            font-weight: 500;
+            padding: 0px;
+        }
+    }
+}

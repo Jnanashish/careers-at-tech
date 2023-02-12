@@ -45,8 +45,16 @@
     border: none;
     cursor: pointer;
     text-align: center;
-}
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.redirectIcon {
+    height: 22px;
+    width: 22px;
+    margin-left: 10px;
+}
 .crossIcon {
     text-align: left;
     color: #3b3b3b;
@@ -69,4 +77,24 @@
     font-weight: 600;
     margin: 10px 0px 6px;
     color: #0050ff;
+}
+
+.moreJobContainer {
+    background-color: #0f172a;
+    padding: 10px;
+    width: 70%;
+    margin: 0px auto;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+    margin-bottom: 15px;
+
+    a {
+        color: #fff;
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        display: block;
+    }
 }

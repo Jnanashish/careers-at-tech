@@ -2,7 +2,7 @@ import { API } from "../backend";
 
 // get list of jobs available from database
 export const getJobListData = (pagenum) => {
-    return fetch(`${API}/jd/get?page=${pagenum}&size=10`, { method: "GET" })
+    return fetch(`${API}/jd/get?page=${pagenum}&size=20`, { method: "GET" })
         .then((res) => {
             return res.json();
         })

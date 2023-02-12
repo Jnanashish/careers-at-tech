@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { handleRequestGET } from "@/core/apis/dasapicall";
 import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { storeDASLinkData, storeDASBannerData, storeDASPopUpType } from "@/Redux/actions";
+import Footer from "@/components/common/Footer/Footer";
 
 const Jobs = (props) => {
     const { jobdata } = props;
@@ -54,6 +55,7 @@ const Jobs = (props) => {
         <div>
             <Header />
             <JobList jobdata={jobdata} />
+            <Footer />
         </div>
     );
 };

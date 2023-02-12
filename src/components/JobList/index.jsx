@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Linkmid from "./Linkmid";
 import DasBanner from "../Das/DasBanner";
 import DasLink from "../Das/DasLink";
+import styles from "./linkmid.module.scss";
 
 const JobList = (jobdata) => {
     const [dasBanner, setDasBanner] = useState(null);
@@ -31,6 +32,9 @@ const JobList = (jobdata) => {
                             </div>
                         );
                     })}
+            </div>
+            <div className={styles.moreJobContainer}>
+                <a href="http://bit.ly/3K1qQ8w">For more jobs join Telegram</a>
             </div>
         </>
     );

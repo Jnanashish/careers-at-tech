@@ -102,10 +102,13 @@ const Linkmid = (props) => {
                             }
                             onClick={() => handleRedirection()}>
                             {timer === 0 ? (
-                                <p>
-                                    Redirect to Job page
-                                    <FontAwesomeIcon icon={faArrowRight} />
-                                </p>
+                                <>
+                                    <p>Redirect to Job page</p>
+                                    <FontAwesomeIcon
+                                        className={styles.redirectIcon}
+                                        icon={faArrowRight}
+                                    />
+                                </>
                             ) : (
                                 <p>{timer}</p>
                             )}
