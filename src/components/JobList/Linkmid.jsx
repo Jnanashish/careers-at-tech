@@ -11,6 +11,8 @@ import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 // import internal components and methods
 import Jobcard from "../Jobcard/Jobcard";
 import { countClickinJd } from "@/core/apis/jobapicall";
+import { apiEndPoint } from "@/core/apis/apiEndpoints";
+import { handleRequestPATCH } from "@/core/apis/dasapicall";
 
 const Linkmid = (props) => {
     const { id, link, jdpage } = props.data;
@@ -45,6 +47,10 @@ const Linkmid = (props) => {
         setShowRedirectBtn(true);
     }, "1000");
 
+    const handleBannerClick = (id) => {
+        handleRequestPATCH(`${apiEndPoint.countBannerClick}${id}`);
+    };
+
     const handleRedirection = () => {
         if (jdpage === "true") {
             history.push(`/jd/${id}`);
@@ -69,6 +75,7 @@ const Linkmid = (props) => {
                             <a
                                 key={dasBannerData._id}
                                 href={dasBannerData.link}
+                                onClick={() => handleBannerClick(dasBannerData._id)}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 <Image
@@ -108,7 +115,11 @@ const Linkmid = (props) => {
             </ReactModal>
             <div className={styles.jobCardContainer}>
                 {jdpage === "false" && popType === "none" ? (
-                    <a target="_blank" rel="noopener noreferrer" href={link}>
+                    <a
+                        onClick={() => countClickinJd(id)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={link}>
                         <Jobcard data={props.data} />
                     </a>
                 ) : (

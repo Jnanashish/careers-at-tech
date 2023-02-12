@@ -1,51 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import HomePage from "./home";
-import { useDispatch } from "react-redux";
 
-// import methods
-import { handleRequestGET } from "@/core/apis/dasapicall";
-import { apiEndPoint } from "@/core/apis/apiEndpoints";
-import { storeDASLinkData, storeDASBannerData, storeDASPopUpType } from "@/Redux/actions";
 
 const Home = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        getDASLinkData();
-        getDASBannerData();
-        getDASPoptypeData();
-    }, []);
-
-    const getDASLinkData = () => {
-        handleRequestGET(apiEndPoint.dasLink).then((res) => {
-            if (!res) {
-                dispatch(storeDASLinkData([]));
-            } else {
-                dispatch(storeDASLinkData(res));
-            }
-        });
-    };
-
-    const getDASBannerData = () => {
-        handleRequestGET(apiEndPoint.dasBanner).then((res) => {
-            if (!res) {
-                dispatch(storeDASBannerData([]));
-            } else {
-                dispatch(storeDASBannerData(res));
-            }
-        });
-    };
-
-    const getDASPoptypeData = () => {
-        handleRequestGET(apiEndPoint.dasPopupType).then((res) => {
-            if (!res) {
-                dispatch(storeDASPopUpType([]));
-            } else {
-                dispatch(storeDASPopUpType(res));
-            }
-        });
-    };
 
     return (
         <>
