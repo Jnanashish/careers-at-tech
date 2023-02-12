@@ -1,7 +1,7 @@
+import "../styles/globals.css";
+
 import React from "react";
 import { Analytics } from "@vercel/analytics/react";
-
-import "../styles/globals.css";
 
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
