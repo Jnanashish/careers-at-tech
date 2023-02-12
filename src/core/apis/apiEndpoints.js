@@ -6,7 +6,7 @@ export const apiEndPoint = {
     dasPopupType: "/showadpop/get",
 
     // count das clicks
-    countBannerlLick: "/sda/banner/count",
+    countBannerClick: "/sda/banner/count",
     countdasLinkClick: "/sda/link/count",
     countdasLinkImgClick: "/sda/linkimg/count",
 };

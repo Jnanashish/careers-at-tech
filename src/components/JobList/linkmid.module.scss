@@ -1,96 +1,71 @@
 .jobCardContainer {
     max-width: 60%;
     margin: 20px auto;
-
     @media (max-width: 768px) {
         max-width: 93%;
+        margin: 10px auto;
     }
-
     a {
         color: inherit;
         text-decoration: none;
     }
 }
 
-.modal_con {
-    width: 35%;
-    min-height: 600px;
+.modalContainer {
+    width: 100%;
+    height: 100vh;
     margin: 0px auto;
-    border: none;
     outline: none;
-    opacity: 1;
-    padding: 0px 0px;
-
+    background-color: #f3f3f3;
+    padding-top: 20px;
     @media (max-width: 768px) {
         width: 100%;
-        background-color: #e7edf9;
-        // background-color: rgba(255, 255, 255, 0.6);
-        height: 100vh;
-        padding: 20px 20px;
+        padding: 20px 15px;
     }
 }
-.modal_items {
-    margin-top: 5%;
+.modalItems {
+    margin-top: 15%;
+    width: 35%;
+    margin: 0px auto;
 
     @media (max-width: 768px) {
-        margin-top: 30%;
+        margin-top: 34%;
+        width: 100%;
     }
 }
 
-.close_btn {
-    padding: 12px 18px;
-    font-size: 1.1rem;
+.redirectButton {
+    padding: 12px 0px;
+    font-size: 1rem;
     background-color: #0069ff;
     border-radius: 6px;
     color: #fff;
-    border: 0px solid #2e57e8;
     margin: 0px auto;
     width: 100%;
-
-    &:hover {
-        border: 2px solid #000;
-        cursor: pointer;
-        font-size: 1.1rem;
-        background-color: #0000ff;
-    }
-
-    @media (max-width: 768px) {
-        width: 100%;
-    }
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
 }
 
-.cross_icon {
-    font-size: 1.8rem;
-    color: red;
+.crossIcon {
+    font-size: 1.4rem;
     text-align: left;
+    color: #3b3b3b;
     cursor: pointer;
 }
 
-.bannerda_con {
+.dasBanner {
     margin: 0px auto 20px auto;
     max-width: 100%;
-    max-height: 100vh;
+    height: 100%;
     cursor: pointer;
     border-radius: 10px;
-
-    &:hover {
-        border: 1px solid #000;
-    }
-
-    @media (max-width: 768px) {
-        width: 100%;
-        max-width: 100%;
-    }
 }
 
-.ad_text {
+.clickText {
     text-align: right;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    margin: 10px 0px 5px;
+    margin: 10px 0px 6px;
     color: #0050ff;
 }

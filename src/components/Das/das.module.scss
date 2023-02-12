@@ -1,0 +1,41 @@
+.dasLinkContainer {
+    background-color: #2142d7;
+    color: #ffffff;
+    width: 93%;
+    margin: 0px auto 15px;
+
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: none;
+
+    @media screen and (max-width: 700px) {
+        display: block;
+        font-size: 1.04rem;
+        margin-bottom: 12px;
+        line-height: 1.45rem;
+        text-align: left;
+    }
+}
+
+// for DAS banner ---------
+.dasBannerContainer {
+    width: 60%;
+    text-align: right;
+    margin: 15px auto 0px;
+    display: none;
+    @media screen and (max-width: 768px) {
+        width: 93%;
+        display: block;
+    }
+}
+.dasBanner {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(218, 223, 231, 1);
+    border-radius: 12px;
+}
