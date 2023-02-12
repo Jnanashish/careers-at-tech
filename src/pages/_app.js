@@ -1,4 +1,8 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
+
+import "../styles/globals.css";
+
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
 import { Inter } from "@next/font/google";
@@ -15,6 +19,7 @@ const App = (props) => {
         <Provider store={store}>
             <main className={inter.className}>
                 <Component {...pageProps} />
+                <Analytics />
             </main>
         </Provider>
     );
