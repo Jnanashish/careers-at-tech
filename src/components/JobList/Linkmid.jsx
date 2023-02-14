@@ -86,7 +86,7 @@ const Linkmid = (props) => {
                                     width={400}
                                     height={400}
                                     alt="Ads Poster"
-                                    loading={eager}
+                                    loading="eager"
                                 />
                             </a>
                         </>
