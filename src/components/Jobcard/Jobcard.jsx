@@ -5,8 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEye, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const Jobcard = (props) => {
-    const { title, degree, batch, imagePath, jobtype, location, experience, jdpage, createdAt, totalclick } =
-        props.data;
+    console.log("PROPS", props);
+    const {
+        title,
+        degree,
+        batch,
+        imagePath,
+        jobtype,
+        location,
+        experience,
+        jdpage,
+        createdAt,
+        totalclick,
+    } = props.data;
 
     return (
         <div className={styles.jobCardContainer}>
@@ -40,18 +51,27 @@ const Jobcard = (props) => {
                     <div className={styles.chipContainer}>
                         <div>
                             {jobtype !== "N" && (
-                                <span style={{ backgroundColor: "#e1ebff", color: "#1d4ed8" }} className={styles.chip}>
+                                <span
+                                    style={{ backgroundColor: "#e1ebff", color: "#1d4ed8" }}
+                                    className={styles.chip}>
                                     {jobtype}
                                 </span>
                             )}
                             {location !== "N" && (
-                                <span style={{ backgroundColor: "#def7ec", color: "#046C4E" }} className={styles.chip}>
-                                    <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
+                                <span
+                                    style={{ backgroundColor: "#def7ec", color: "#046C4E" }}
+                                    className={styles.chip}>
+                                    <FontAwesomeIcon
+                                        className={styles.chipIcon}
+                                        icon={faLocationDot}
+                                    />
                                     {location}
                                 </span>
                             )}
                             {experience !== "N" && experience.length < 12 && (
-                                <span style={{ backgroundColor: "#F0ECFF", color: "#6B46C1" }} className={styles.chip}>
+                                <span
+                                    style={{ backgroundColor: "#F0ECFF", color: "#6B46C1" }}
+                                    className={styles.chip}>
                                     <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
                                     {experience}
                                 </span>
@@ -67,7 +87,11 @@ const Jobcard = (props) => {
                         {totalclick + 200} impressions
                     </p>
                 )}
-                <p>{createdAt && createdAt !== "null" ? createdAt.slice(0, 10).split("-").reverse().join("-") : ""}</p>
+                <p>
+                    {createdAt && createdAt !== "null"
+                        ? createdAt.slice(0, 10).split("-").reverse().join("-")
+                        : ""}
+                </p>
             </div>
         </div>
     );

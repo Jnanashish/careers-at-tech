@@ -19,9 +19,8 @@ const JobList = (jobdata) => {
     var itemCount = 0;
     return (
         <>
-            {dasBanner && dasBanner.length === 0 && <DasLink />}
-
-            <DasBanner />
+            {dasBanner && dasBanner.length <= 1 && <DasLink />}
+            {dasBanner && dasBanner.length > 1 && <DasBanner />}
             <div>
                 {jobdata &&
                     jobdata.jobdata.map((data) => {

@@ -20,7 +20,6 @@ const Jobs = (props) => {
         getDASLinkData();
         getDASBannerData();
         getDASPoptypeData();
-        window.scrollTo(0, 1);
     }, []);
 
     const getDASLinkData = () => {

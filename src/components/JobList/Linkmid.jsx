@@ -31,7 +31,6 @@ const Linkmid = (props) => {
         }
     }, [dasPoptype]);
     useEffect(() => {
-        window.scrollTo(0, 10);
         if (dasBanner.length > 1) {
             setDasBannerData(dasBanner[1]);
         } else if (dasBanner.length === 1) {
@@ -65,14 +64,40 @@ const Linkmid = (props) => {
         <div>
             <ReactModal isOpen={showModal} className={styles.modalContainer}>
                 <div className={styles.modalItems}>
-                    <FontAwesomeIcon
-                        onClick={() => setShowModal(false)}
-                        className={styles.crossIcon}
-                        icon={faXmark}
-                    />
+                    <div className={styles.modalHeader}>
+                        <FontAwesomeIcon
+                            onClick={() => setShowModal(false)}
+                            className={styles.crossIcon}
+                            icon={faXmark}
+                        />
+                        {showRedirectBtn && (
+                            <button
+                                className={styles.redirectButton}
+                                style={
+                                    timer !== 0
+                                        ? {
+                                              backgroundColor: "#deebff",
+                                              color: "#121212",
+                                          }
+                                        : {}
+                                }
+                                onClick={() => handleRedirection()}>
+                                {timer === 0 ? (
+                                    <>
+                                        <p>Redirect to Job page</p>
+                                        <FontAwesomeIcon
+                                            className={styles.redirectIcon}
+                                            icon={faArrowRight}
+                                        />
+                                    </>
+                                ) : (
+                                    <p>{timer}</p>
+                                )}
+                            </button>
+                        )}
+                    </div>
                     {dasBannerData && (
                         <>
-                            <p className={styles.clickText}>Click to know more👇</p>
                             <a
                                 key={dasBannerData._id}
                                 href={dasBannerData.link}
@@ -83,38 +108,14 @@ const Linkmid = (props) => {
                                     className={styles.dasBanner}
                                     src={dasBannerData.imagePath}
                                     priority={1}
-                                    width={400}
-                                    height={400}
+                                    width={600}
+                                    height={600}
                                     alt="Ads Poster"
                                     loading="eager"
                                 />
                             </a>
+                            <p className={styles.clickText}>Click to know more👆</p>
                         </>
-                    )}
-                    {showRedirectBtn && (
-                        <button
-                            className={styles.redirectButton}
-                            style={
-                                timer !== 0
-                                    ? {
-                                          backgroundColor: "#deebff",
-                                          color: "#121212",
-                                      }
-                                    : {}
-                            }
-                            onClick={() => handleRedirection()}>
-                            {timer === 0 ? (
-                                <>
-                                    <p>Redirect to Job page</p>
-                                    <FontAwesomeIcon
-                                        className={styles.redirectIcon}
-                                        icon={faArrowRight}
-                                    />
-                                </>
-                            ) : (
-                                <p>{timer}</p>
-                            )}
-                        </button>
                     )}
                 </div>
             </ReactModal>

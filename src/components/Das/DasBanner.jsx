@@ -28,7 +28,7 @@ const DasBanner = () => {
                         className={styles.dasBanner}
                         src={dasBanner.imagePath}
                         alt="banner"
-                        height={130}
+                        height={150}
                         width={400}
                         priority={1}
                         loading="eager"
