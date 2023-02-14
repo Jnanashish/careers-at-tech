@@ -30,6 +30,8 @@ const DasBanner = () => {
                         alt="banner"
                         height={130}
                         width={400}
+                        priority={1}
+                        loading={eager}
                     />
                 </a>
             )}

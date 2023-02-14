@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import JobList from "@/components/JobList";
 import Header from "@/components/common/Header/header";
 import { getJobListData } from "@/core/apis/jobapicall";
+import Head from "next/head";
 
 import { useDispatch } from "react-redux";
 
@@ -19,6 +20,7 @@ const Jobs = (props) => {
         getDASLinkData();
         getDASBannerData();
         getDASPoptypeData();
+        window.scrollTo(0, 1);
     }, []);
 
     const getDASLinkData = () => {
@@ -53,6 +55,13 @@ const Jobs = (props) => {
 
     return (
         <div>
+            <Head>
+                <title>Careers at Tech</title>
+                <meta
+                    name="description"
+                    content="One place solution to get regular Internship and Job Updates."
+                />
+            </Head>
             <Header />
             <JobList jobdata={jobdata} />
             <Footer />

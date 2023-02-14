@@ -31,6 +31,7 @@ const Linkmid = (props) => {
         }
     }, [dasPoptype]);
     useEffect(() => {
+        window.scrollTo(0, 10);
         if (dasBanner.length > 1) {
             setDasBannerData(dasBanner[1]);
         } else if (dasBanner.length === 1) {
@@ -85,6 +86,7 @@ const Linkmid = (props) => {
                                     width={400}
                                     height={400}
                                     alt="Ads Poster"
+                                    loading={eager}
                                 />
                             </a>
                         </>
