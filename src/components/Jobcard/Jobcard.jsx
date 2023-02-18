@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEye, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const Jobcard = (props) => {
-    console.log("PROPS", props);
     const {
         title,
         degree,
