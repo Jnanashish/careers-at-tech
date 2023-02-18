@@ -1,13 +1,40 @@
 import React from "react";
+
 import Image from "next/image";
 import styles from "./jobdetails.module.scss";
 import parse from "html-react-parser";
+import useClipboard from "react-use-clipboard";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faShare, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import DasBanner from "../Das/DasBanner";
 
 function Jobdetails(jobdata) {
     const data = jobdata.jobdata;
+    const [isCopied, setCopied] = useClipboard(data.link);
+
+    const shareJobDetail = () => {
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: `${data.title} | ${data.title}`,
+                    text: `Check out this job : ${data.title}`,
+                    url: document.location.href,
+                })
+                .then(() => {
+                    console.log("Successfully shared");
+                })
+                .catch((error) => {
+                    console.error("Something went wrong sharing the blog", error);
+                });
+        } else {
+            shareonWhatsApp();
+        }
+    };
+    const shareonWhatsApp = () => {
+        window.open(`whatsapp://send?text=${document.location.href}`);
+    };
+
     console.log("DATA==>", data);
     return (
         <div className={styles.mainContainer}>
@@ -19,7 +46,14 @@ function Jobdetails(jobdata) {
                         src={data.imagePath}
                         alt={data.companyName + "logo"}
                     />
-                    <div className={styles.shareBtn}>Share Job</div>
+                    <div
+                        onClick={() => {
+                            shareJobDetail();
+                        }}
+                        className={styles.shareBtn}>
+                        Share Job
+                        <FontAwesomeIcon className={styles.icon} icon={faShareNodes} />
+                    </div>
                 </div>
                 <h1 className={styles.jobTitle}>{data.title}</h1>
             </div>
@@ -53,7 +87,7 @@ function Jobdetails(jobdata) {
             {data.jobdesc !== "<p>N</p>" && (
                 <div className={styles.joddetailContainer}>{parse(data.jobdesc)}</div>
             )}
-
+            <DasBanner />
             {data.responsibility !== "<p>N</p>" && (
                 <div className={styles.joddetailContainer}>
                     <h3>Responsibility : </h3>
@@ -66,6 +100,7 @@ function Jobdetails(jobdata) {
                     {parse(data.eligibility)}
                 </div>
             )}
+            <DasBanner />
             {data.skills !== "<p>N</p>" && (
                 <div className={styles.joddetailContainer}>
                     <h3>Prefered Skills : </h3>
@@ -77,11 +112,22 @@ function Jobdetails(jobdata) {
                     To apply directly on company portail copy the link and open this job detail page
                     on your browser
                 </p>
-                <div className={styles.openonBrowswer}>
-                    <p> Copy the Apply link</p>
-                    <FontAwesomeIcon className={styles.chipIcon} icon={faCopy} />
+                <div onClick={setCopied}>
+                    {isCopied ? (
+                        <div className={styles.openonBrowswer}>Copied 👍</div>
+                    ) : (
+                        <div className={styles.openonBrowswer}>
+                            <p> Copy the Apply link</p>
+                            <FontAwesomeIcon className={styles.icon} icon={faCopy} />
+                        </div>
+                    )}
                 </div>
-                <div className={styles.whatsappShareBtn}>
+
+                <div
+                    onClick={() => {
+                        shareonWhatsApp();
+                    }}
+                    className={styles.whatsappShareBtn}>
                     <p> Share this Job on WhatsApp</p>
                 </div>
             </div>
@@ -91,6 +137,24 @@ function Jobdetails(jobdata) {
                     {parse(data.aboutCompany)}
                 </div>
             )}
+            <div className={styles.whatsAppGroup}>
+                <div style={{ display: "flex" }}>
+                    <p>
+                        Join our <span>WhastApp</span> group to get direct apply links for
+                        Internship and Jobs
+                    </p>
+                    <Image
+                        src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1676743231/get-logo-whatsapp-png-pictures-1_1_1_iy5c8o.png"
+                        alt="whatsapp icon"
+                        height={60}
+                        width={60}
+                    />
+                </div>
+                <div className={styles.whatsAppJoinBtn}>
+                    <p>Join us Now on WhatsApp</p>
+                    <FontAwesomeIcon className={styles.icon} icon={faShare} />
+                </div>
+            </div>
             <a href={data.link} rel="noreferrer" target="_blank">
                 <div className={styles.applyBtn}>Apply Now</div>
             </a>
