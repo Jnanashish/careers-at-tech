@@ -1,5 +1,4 @@
 import React from "react";
-
 import Image from "next/image";
 import parse from "html-react-parser";
 import useClipboard from "react-use-clipboard";
@@ -29,7 +28,6 @@ function Jobdetails(jobdata) {
         window.open(`whatsapp://send?text=${document.location.href}`);
     };
 
-    console.log("DATA==>", jobdata);
     return (
         <div className={styles.mainContainer}>
             <div>
@@ -90,13 +88,12 @@ function Jobdetails(jobdata) {
                     {parse(data.responsibility)}
                 </div>
             )}
-            {data.eligibility !== "N" && (
+            {data.eligibility !== "N" && data.eligibility !== "<p>N</p>" && (
                 <div className={styles.joddetailContainer}>
                     <h3>Eligibility : </h3>
                     {parse(data.eligibility)}
                 </div>
             )}
-            <DasBanner />
             {data.skills !== "<p>N</p>" && (
                 <div className={styles.joddetailContainer}>
                     <h3>Prefered Skills : </h3>
@@ -146,12 +143,18 @@ function Jobdetails(jobdata) {
                         width={60}
                     />
                 </div>
-                <div className={styles.whatsAppJoinBtn}>
-                    <p>Join us Now on WhatsApp</p>
-                    <FontAwesomeIcon className={styles.icon} icon={faShare} />
-                </div>
+                <a href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc">
+                    <div className={styles.whatsAppJoinBtn}>
+                        <p>Join us Now on WhatsApp</p>
+                        <FontAwesomeIcon className={styles.icon} icon={faShare} />
+                    </div>
+                </a>
             </div>
-            <a onClick={() => countClickinJd(data._id)} href={data.link} rel="noreferrer" target="_blank">
+            <a
+                onClick={() => countClickinJd(data._id)}
+                href={data.link}
+                rel="noreferrer"
+                target="_blank">
                 <div className={styles.applyBtn}>Apply Now</div>
             </a>
         </div>
