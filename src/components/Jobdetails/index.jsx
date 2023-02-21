@@ -1,10 +1,10 @@
 import React from "react";
 
 import Image from "next/image";
-import styles from "./jobdetails.module.scss";
 import parse from "html-react-parser";
 import useClipboard from "react-use-clipboard";
 
+import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faShare, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import DasBanner from "../Das/DasBanner";
@@ -15,18 +15,11 @@ function Jobdetails(jobdata) {
 
     const shareJobDetail = () => {
         if (navigator.share) {
-            navigator
-                .share({
-                    title: `${data.title} | ${data.title}`,
-                    text: `Check out this job : ${data.title}`,
-                    url: document.location.href,
-                })
-                .then(() => {
-                    console.log("Successfully shared");
-                })
-                .catch((error) => {
-                    console.error("Something went wrong sharing the blog", error);
-                });
+            navigator.share({
+                title: `${data.title} | ${data.title}`,
+                text: `Check out this job : ${data.title}`,
+                url: document.location.href,
+            });
         } else {
             shareonWhatsApp();
         }
@@ -35,17 +28,18 @@ function Jobdetails(jobdata) {
         window.open(`whatsapp://send?text=${document.location.href}`);
     };
 
-    console.log("DATA==>", data);
     return (
         <div className={styles.mainContainer}>
             <div>
                 <div className={styles.headerContainer}>
-                    <Image
-                        height={45}
-                        width={45}
-                        src={data.imagePath}
-                        alt={data.companyName + "logo"}
-                    />
+                    {data.imagePath !== "none" && (
+                        <Image
+                            height={45}
+                            width={45}
+                            src={data.imagePath}
+                            alt={data.companyName + "logo"}
+                        />
+                    )}
                     <div
                         onClick={() => {
                             shareJobDetail();

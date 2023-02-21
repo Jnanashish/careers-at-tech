@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
+import Router from "next/router";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
@@ -13,9 +14,11 @@ import Jobcard from "../Jobcard/Jobcard";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { handleRequestPATCH } from "@/core/apis/dasapicall";
+import JobdetailsPage from "@/pages/jobdetails/[id]";
 
 const Linkmid = (props) => {
     const { id, link, jdpage } = props.data;
+
     const [showModal, setShowModal] = useState(false);
     const [showRedirectBtn, setShowRedirectBtn] = useState(false);
     const [popType, setPopType] = useState("none");
@@ -58,6 +61,11 @@ const Linkmid = (props) => {
             countClickinJd(id);
             window.location.assign(link);
         }
+    };
+
+    const redirectToJobdetailPage = () => {
+        console.log("ID", id);
+        Router.push(`/jobdetails/${id}`);
     };
 
     return (
@@ -120,7 +128,7 @@ const Linkmid = (props) => {
                 </div>
             </ReactModal>
             <div className={styles.jobCardContainer}>
-                {jdpage === "false" && popType === "none" ? (
+                {jdpage === "false" && popType === "none" && (
                     <a
                         onClick={() => countClickinJd(id)}
                         target="_blank"
@@ -128,8 +136,14 @@ const Linkmid = (props) => {
                         href={link}>
                         <Jobcard data={props.data} />
                     </a>
-                ) : (
+                )}
+                {jdpage === "false" && popType !== "none" && (
                     <div onClick={() => setShowModal(true)}>
+                        <Jobcard data={props.data} />
+                    </div>
+                )}
+                {jdpage === "true" && (
+                    <div onClick={() => redirectToJobdetailPage()}>
                         <Jobcard data={props.data} />
                     </div>
                 )}

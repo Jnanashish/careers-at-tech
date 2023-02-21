@@ -14,15 +14,26 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 const JobdetailsPage = ({ data }) => {
+    console.log("DATA*******==>", data);
     return (
         <>
-            <Header />
-            <Meta jobTitle={data.title} description={parse(data.jobdesc)} logo={data.imagePath} />
-            <div className={styles.jobdetailContainer}>
-                <div className={ibmPlexSans.className}>
-                    <Jobdetails jobdata={data} />
+            {data && (
+                <div>
+                    <Header />
+
+                    {/* <Meta
+                        jobTitle={data.title}
+                        description={parse(data.jobdesc)}
+                        logo={data.imagePath}
+                    /> */}
+
+                    <div className={styles.jobdetailContainer}>
+                        <div className={ibmPlexSans.className}>
+                            <Jobdetails jobdata={data} />
+                        </div>
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };

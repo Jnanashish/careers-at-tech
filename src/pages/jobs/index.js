@@ -51,7 +51,7 @@ const Jobs = (props) => {
             }
         });
     };
-
+    console.log("JOB DETAILS", jobdata);
     return (
         <div>
             <Head>
