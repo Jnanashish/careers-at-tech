@@ -20,7 +20,7 @@ const JobList = (jobdata) => {
     return (
         <>
             {dasBanner && dasBanner.length <= 1 && <DasLink />}
-            {dasBanner && dasBanner.length > 1 && <DasBanner />}
+            <div className={styles.dasContainer}>{dasBanner && dasBanner.length > 1 && <DasBanner />}</div>
             <div>
                 {jobdata &&
                     jobdata.jobdata.map((data) => {

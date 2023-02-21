@@ -31,6 +31,7 @@ const DasBanner = () => {
                         height={150}
                         width={400}
                         priority={1}
+                        quality={100}
                         loading="eager"
                     />
                 </a>

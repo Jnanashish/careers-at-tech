@@ -115,6 +115,7 @@ const Linkmid = (props) => {
                                     className={styles.dasBanner}
                                     src={dasBannerData.imagePath}
                                     priority={1}
+                                    quality={100}
                                     width={600}
                                     height={600}
                                     alt="Ads Poster"
