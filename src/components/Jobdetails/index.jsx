@@ -8,6 +8,7 @@ import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faShare, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import DasBanner from "../Das/DasBanner";
+import { countClickinJd } from "@/core/apis/jobapicall";
 
 function Jobdetails(jobdata) {
     const data = jobdata.jobdata;
@@ -28,6 +29,7 @@ function Jobdetails(jobdata) {
         window.open(`whatsapp://send?text=${document.location.href}`);
     };
 
+    console.log("DATA==>", jobdata);
     return (
         <div className={styles.mainContainer}>
             <div>
@@ -149,7 +151,7 @@ function Jobdetails(jobdata) {
                     <FontAwesomeIcon className={styles.icon} icon={faShare} />
                 </div>
             </div>
-            <a href={data.link} rel="noreferrer" target="_blank">
+            <a onClick={() => countClickinJd(data._id)} href={data.link} rel="noreferrer" target="_blank">
                 <div className={styles.applyBtn}>Apply Now</div>
             </a>
         </div>

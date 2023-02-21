@@ -14,10 +14,10 @@ import Jobcard from "../Jobcard/Jobcard";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { handleRequestPATCH } from "@/core/apis/dasapicall";
-import JobdetailsPage from "@/pages/jobdetails/[id]";
 
 const Linkmid = (props) => {
     const { id, link, jdpage } = props.data;
+    const title = props.data.title.replace(/[\s;]+/g, "-");
 
     const [showModal, setShowModal] = useState(false);
     const [showRedirectBtn, setShowRedirectBtn] = useState(false);
@@ -64,8 +64,7 @@ const Linkmid = (props) => {
     };
 
     const redirectToJobdetailPage = () => {
-        console.log("ID", id);
-        Router.push(`/jobdetails/${id}`);
+        Router.push(`/${title}/${id}`);
     };
 
     return (
