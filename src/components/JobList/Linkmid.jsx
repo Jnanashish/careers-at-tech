@@ -64,7 +64,8 @@ const Linkmid = (props) => {
     };
 
     const redirectToJobdetailPage = () => {
-        Router.push(`/${title}/${id}`);
+        const jobTitle = title.toLowerCase();
+        Router.push(`/${jobTitle}/${id}`);
     };
 
     return (

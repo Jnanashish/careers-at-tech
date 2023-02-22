@@ -14,6 +14,11 @@
 .dasContainer {
     max-width: 93%;
     margin: 10px auto;
+
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
 }
 
 .modalContainer {

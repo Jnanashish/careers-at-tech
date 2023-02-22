@@ -14,13 +14,17 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 const JobdetailsPage = ({ data }) => {
-    const jobDesc = parse(data.jobdesc);
+    const jobDesc = parse(data.jobdesc).props.children;
     return (
         <>
             {data && (
                 <div>
                     <Header />
-                    <Meta jobTitle={data.title} description={jobDesc} logo={data.imagePath} />
+                    <Meta
+                        jobTitle={data.title.toLowerCase()}
+                        description={jobDesc}
+                        logo={data.imagePath}
+                    />
                     <div className={styles.jobdetailContainer}>
                         <div className={ibmPlexSans.className}>
                             <Jobdetails jobdata={data} />
