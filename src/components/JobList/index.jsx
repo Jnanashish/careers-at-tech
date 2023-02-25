@@ -7,6 +7,7 @@ import DasBanner from "../Das/DasBanner";
 import DasLink from "../Das/DasLink";
 import styles from "./linkmid.module.scss";
 import WhatsAppJoin from "../common/WhatsappJoin";
+import Jobcard from "../Jobcard/Jobcard";
 
 const JobList = (jobdata) => {
     const [dasBanner, setDasBanner] = useState(null);
@@ -24,17 +25,17 @@ const JobList = (jobdata) => {
             <div className={styles.dasContainer}>
                 {dasBanner && dasBanner.length > 1 && <DasBanner />}
             </div>
-            <div>
+            <div className={styles.jobCardContainer}>
                 {jobdata &&
                     jobdata.jobdata.map((data) => {
                         return (
                             <div cnt={itemCount++} key={data.id}>
                                 {itemCount % 5 === 3 && (
-                                    <div className={styles.dasContainer}>
+                                    <div style={{ marginBottom: "20px" }}>
                                         <WhatsAppJoin />
                                     </div>
                                 )}
-                                <Linkmid data={data} />
+                                <Jobcard data={data} />
                             </div>
                         );
                     })}

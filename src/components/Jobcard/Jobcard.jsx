@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Router from "next/router";
+import { useSelector } from "react-redux";
+
 import Image from "next/image";
-import styles from "./jobcard.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faEye, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+
+// import local components and methods
+import Modal from "../common/Modal/Modal";
+import { countClickinJd } from "@/core/apis/jobapicall";
+import styles from "./jobcard.module.scss";
 
 const Jobcard = (props) => {
     const {
@@ -14,13 +21,86 @@ const Jobcard = (props) => {
         location,
         experience,
         jdpage,
-        createdAt,
         totalclick,
+        id,
+        link,
     } = props.data;
+    const [showModal, setShowModal] = useState(false);
+    const [popType, setPopType] = useState("none");
+    const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
+    const impression =
+        totalclick === 0 ? 100 : totalclick < 200 ? totalclick + 200 : totalclick + 300;
+
+    // set type of das popup when page load
+    const dasPoptype = useSelector((state) => state.das.dasPoptype);
+    useEffect(() => {
+        if (dasPoptype && dasPoptype[0]) {
+            setPopType(dasPoptype[0].adpoptype);
+        }
+    }, [dasPoptype]);
+
+    // redirect to job detail page when jdpage is true
+    const redirectToJobdetailPage = () => {
+        Router.push(`/${titleforShare}/${id}`);
+    };
+
+    const toggleModalView = () => {
+        setShowModal(!showModal);
+    };
+
+    // handle job card and footer section click
+    const handleJobCardClick = () => {
+        if (jdpage === "true") {
+            redirectToJobdetailPage();
+        }
+        if (jdpage === "false" && popType === "none") {
+            window.location.assign(link);
+            countClickinJd(id);
+        }
+        if (jdpage === "false" && popType !== "none") {
+            setShowModal(true);
+        }
+    };
+
+    const handleShareClick = () => {
+        if (jdpage === "true") {
+            const joblink = `https://careersat.tech/${titleforShare}/${id}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: `${title} | ${title}`,
+                    text: `Check out this job : ${title}`,
+                    url: joblink,
+                });
+            } else {
+                window.open(`whatsapp://send?text=${joblink}`);
+            }
+        } else {
+            if (navigator.share) {
+                navigator.share({
+                    title: `${title} | ${title}`,
+                    text: `Check out this job : ${title} Apply to this job from here ${link}`,
+                    url: "https://careersat.tech/jobs",
+                });
+            } else {
+                const url = "https://careersat.tech/jobs";
+                const msg = title + "\n Apply to this job role from here" + link + "      ";
+                "\n\n For more jobs related to this visit" + url;
+                window.open(`whatsapp://send?text=${msg}`);
+            }
+        }
+    };
 
     return (
         <div className={styles.jobCardContainer}>
-            <div className={styles.mainSection}>
+            {showModal && (
+                <Modal
+                    id={id}
+                    link={link}
+                    showModal={showModal}
+                    toggleModalView={toggleModalView}
+                />
+            )}
+            <div onClick={() => handleJobCardClick()} className={styles.mainSection}>
                 <div className={styles.companyLogoContainer}>
                     {imagePath === "none" ? (
                         <div className={styles.logotext}>
@@ -79,18 +159,15 @@ const Jobcard = (props) => {
                     </div>
                 </div>
             </div>
-            <div className={styles.footerSection}>
-                {totalclick && (
-                    <p>
-                        <FontAwesomeIcon className={styles.chipIcon} icon={faEye} />
-                        {totalclick + 200} impressions
-                    </p>
-                )}
+            <div onClick={() => handleShareClick()} className={styles.footerSection}>
                 <p>
-                    {createdAt && createdAt !== "null"
-                        ? createdAt.slice(0, 10).split("-").reverse().join("-")
-                        : ""}
+                    <FontAwesomeIcon className={styles.chipIcon} icon={faEye} />
+                    {impression + 300} impressions
                 </p>
+                <div className={styles.shareContainer}>
+                    <p>Share</p>
+                    <FontAwesomeIcon className={styles.chipIcon} icon={faShareNodes} />
+                </div>
             </div>
         </div>
     );

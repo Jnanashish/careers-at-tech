@@ -11,14 +11,14 @@
 .mainSection {
     display: grid;
     grid-template-columns: 15% 85%;
-    padding: 20px 15px 20px 0px;
+    padding: 20px 20px 20px 0px;
     cursor: pointer;
     text-align: left;
     font-family: "Inter", sans-serif;
 
     @media (max-width: 768px) {
         grid-template-columns: 18% 82%;
-        padding: 14px 10px;
+        padding: 15px 14px;
         margin: 0px auto;
     }
 }
@@ -70,7 +70,7 @@
     grid-column: 2/6;
     grid-row: 1;
 
-    font-size: 1.3rem;
+    font-size: 20px;
     color: rgba(18, 25, 38, 1);
     font-weight: 600;
     line-height: 24px;
@@ -79,7 +79,7 @@
     align-self: center;
 
     @media (max-width: 768px) {
-        font-size: 1.06rem;
+        font-size: 1.02rem;
         line-height: 1.4rem;
         margin: 0px 0px 0px 2px;
     }
@@ -90,7 +90,7 @@
 }
 
 .jobdetails {
-    margin-top: 10px;
+    margin-top: 12px;
     grid-column: 2/6;
     grid-row: 2;
 
@@ -101,10 +101,7 @@
 }
 
 .jobdetailsItem {
-    display: grid;
-    grid-template-columns: 15% 85%;
-    align-items: center;
-    justify-items: start;
+    display: flex;
     margin: 0px 0px 2px;
     line-height: 1.1rem;
 
@@ -130,11 +127,9 @@
     }
 
     @media (max-width: 768px) {
-        grid-template-columns: 18% 82%;
         line-height: 1.08rem;
     }
     @media (max-width: 300px) {
-        grid-template-columns: 20% 80%;
         line-height: 1.08rem;
         p {
             font-size: 0.7rem;
@@ -155,8 +150,8 @@
     padding: 3px 8px;
     background-color: #deebff;
     border-radius: 6px;
-    font-size: 0.7rem;
-    margin-right: 10px;
+    font-size: 0.6rem;
+    margin-right: 8px;
     font-weight: 500;
 
     img {
@@ -173,17 +168,34 @@
 }
 .footerSection {
     border-top: 1px solid #e1ebff;
-    height: 24px;
+    height: 30px;
     border-radius: 0px 0px 12px 12px;
+    cursor: pointer;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 12px;
+    padding: 0px 15px;
 
     p {
         font-size: 0.6rem;
         color: #1d4ed8;
-        font-weight: 600;
+        font-weight: 500;
+    }
+}
+.shareContainer {
+    display: flex;
+    align-items: center;
+
+    p {
+        font-size: 0.8rem;
+    }
+    .chipIcon {
+        height: 12px;
+        width: 12px;
+        color: #1d4ed8;
+        margin-bottom: 0px;
+        margin-left: 3px;
+        margin-right: 0px;
     }
 }

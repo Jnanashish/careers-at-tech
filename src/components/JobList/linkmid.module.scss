@@ -21,79 +21,7 @@
     }
 }
 
-.modalContainer {
-    width: 100%;
-    height: 100vh;
-    margin: 0px auto;
-    outline: none;
-    background-color: #f3f3f3;
-    padding-top: 25px;
-    @media (max-width: 768px) {
-        width: 100%;
-        padding: 20px 15px;
-    }
-}
-.modalItems {
-    margin-top: 10%;
-    width: 35%;
-    margin: 0px auto;
 
-    @media (max-width: 768px) {
-        margin-top: 30%;
-        width: 100%;
-    }
-}
-.modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.redirectButton {
-    padding: 12px 0px;
-    font-size: 1rem;
-    background-color: #0069ff;
-    border-radius: 6px;
-    color: #fff;
-    margin: 0px auto;
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 20px;
-}
-.redirectIcon {
-    height: 20px;
-    width: 20px;
-    margin-left: 10px;
-}
-.crossIcon {
-    text-align: left;
-    color: #979797;
-    cursor: pointer;
-    height: 24px;
-    width: 24px;
-}
-
-.dasBanner {
-    margin: 0px auto 0px auto;
-    max-width: 100%;
-    height: 100%;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.clickText {
-    text-align: right;
-    font-size: 12px;
-    font-weight: 600;
-    margin: 2px 0px 0px;
-    color: #0050ff;
-}
 
 .moreJobContainer {
     background-color: #0f172a;
