@@ -24,7 +24,8 @@ const Jobdetails = (jobdata) => {
         }
     };
     const shareonWhatsApp = () => {
-        window.open(`whatsapp://send?text=${document.location.href}`);
+        const msg = `Hey 👋! %0ACheckout this job opening at ${data.companyName}. %0A%0ATo know more visit here : %0A${document.location.href}`;
+        window.open(`whatsapp://send?text=${msg}`);
     };
 
     return (
@@ -82,7 +83,9 @@ const Jobdetails = (jobdata) => {
                 {data.jobdesc !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>{parse(data.jobdesc)}</div>
                 )}
-                <DasBanner />
+                <div>
+                    <DasBanner />
+                </div>
                 {data.responsibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h3>Responsibility : </h3>
@@ -101,7 +104,9 @@ const Jobdetails = (jobdata) => {
                         {parse(data.skills)}
                     </div>
                 )}
-                <WhatsAppJoin />
+                <div className="mobileViewBanner">
+                    <WhatsAppJoin />
+                </div>
                 {data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h3>About Company : </h3>

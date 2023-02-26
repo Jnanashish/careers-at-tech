@@ -3,36 +3,35 @@
     height: 100vh;
     margin: 0px auto;
     outline: none;
-    background-color: #f3f3f3;
-    padding-top: 25px;
+    background-color: #fcfcfc;
     @media (max-width: 768px) {
         width: 100%;
         padding: 20px 15px;
     }
+    display: flex;
+    align-items: center;
 }
 .modalItems {
-    margin-top: 10%;
-    width: 35%;
     margin: 0px auto;
 
     @media (max-width: 768px) {
-        margin-top: 30%;
-        width: 100%;
+        margin-bottom: 50px;
     }
 }
 .modalHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    z-index: 1;
 }
 .redirectButton {
-    padding: 12px 0px;
+    padding: 10px 0px;
     font-size: 1rem;
     background-color: #0069ff;
     border-radius: 6px;
     color: #fff;
-    margin: 0px auto;
+    margin: 20px auto 0px;
     width: 100%;
     border: none;
     cursor: pointer;
@@ -41,7 +40,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 20px;
 }
 .redirectIcon {
     height: 20px;
@@ -52,8 +50,9 @@
     text-align: left;
     color: #979797;
     cursor: pointer;
-    height: 24px;
-    width: 24px;
+    height: 26px;
+    width: 26px;
+    margin-bottom: 10px;
 }
 
 .dasBanner {
@@ -61,7 +60,7 @@
     max-width: 100%;
     height: 100%;
     cursor: pointer;
-    border-radius: 10px;
+    border: 0.6px solid #3b3b3b;
 }
 .clickText {
     text-align: right;

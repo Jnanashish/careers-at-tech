@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 // import components
-import Linkmid from "./Linkmid";
 import DasBanner from "../Das/DasBanner";
 import DasLink from "../Das/DasLink";
 import styles from "./linkmid.module.scss";
@@ -30,8 +29,10 @@ const JobList = (jobdata) => {
                     jobdata.jobdata.map((data) => {
                         return (
                             <div cnt={itemCount++} key={data.id}>
-                                {itemCount % 5 === 3 && (
-                                    <div style={{ marginBottom: "20px" }}>
+                                {itemCount % 3 === 0 && (
+                                    <div
+                                        className="mobileViewBanner"
+                                        style={{ marginBottom: "20px" }}>
                                         <WhatsAppJoin />
                                     </div>
                                 )}

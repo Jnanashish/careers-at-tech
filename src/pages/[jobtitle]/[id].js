@@ -7,6 +7,7 @@ import { getAlljdData } from "@/core/apis/jobapicall";
 import { IBM_Plex_Sans } from "@next/font/google";
 import styles from "./jobdetail.module.scss";
 import Meta from "@/core/meta";
+import Footer from "@/components/common/Footer/Footer";
 
 const ibmPlexSans = IBM_Plex_Sans({
     weight: ["300", "400", "500", "600", "700"],
@@ -14,22 +15,18 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 const JobdetailsPage = ({ data }) => {
-    const jobDesc = parse(data.jobdesc).props.children;
     return (
         <>
             {data && (
                 <div>
                     <Header />
-                    <Meta
-                        jobTitle={data.title.toLowerCase()}
-                        description={jobDesc}
-                        logo={data.imagePath}
-                    />
+                    <Meta jobTitle={data.title} logo={data.imagePath} />
                     <div className={styles.jobdetailContainer}>
                         <div className={ibmPlexSans.className}>
                             <Jobdetails jobdata={data} />
                         </div>
                     </div>
+                    <Footer />
                 </div>
             )}
         </>

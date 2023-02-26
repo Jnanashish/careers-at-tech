@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faArrowRight, faSquareCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 // import internal methods and components
 import styles from "./modal.module.scss";
@@ -43,7 +43,6 @@ const Modal = (props) => {
     };
 
     const handleRedirection = () => {
-        toggleModalView();
         countClickinJd(id);
         window.location.assign(link);
     };
@@ -56,37 +55,19 @@ const Modal = (props) => {
         <div>
             <ReactModal isOpen={modalisOpen} className={styles.modalContainer}>
                 <div className={styles.modalItems}>
+                    <FontAwesomeIcon
+                        onClick={() => handleCrossClicked()}
+                        className={styles.crossIcon}
+                        icon={faXmark}
+                    />
                     <div className={styles.modalHeader}>
+                        <p className={styles.clickText}>Click to know more 👇</p>
                         <FontAwesomeIcon
-                            onClick={() => handleCrossClicked()}
+                            style={timer === 0 ? { color: "#0069ff" } : { color: "#979797" }}
+                            onClick={() => handleRedirection()}
                             className={styles.crossIcon}
-                            icon={faXmark}
+                            icon={faSquareCaretRight}
                         />
-                        {showRedirectBtn && (
-                            <button
-                                className={styles.redirectButton}
-                                style={
-                                    timer !== 0
-                                        ? {
-                                              backgroundColor: "#deebff",
-                                              color: "#121212",
-                                          }
-                                        : {}
-                                }
-                                onClick={() => handleRedirection()}>
-                                {timer === 0 ? (
-                                    <>
-                                        <p>Redirect to Job page</p>
-                                        <FontAwesomeIcon
-                                            className={styles.redirectIcon}
-                                            icon={faArrowRight}
-                                        />
-                                    </>
-                                ) : (
-                                    <p>{timer}</p>
-                                )}
-                            </button>
-                        )}
                     </div>
                     {dasBannerData && (
                         <>
@@ -101,15 +82,39 @@ const Modal = (props) => {
                                     src={dasBannerData.imagePath}
                                     priority={1}
                                     quality={100}
-                                    width={600}
-                                    height={600}
+                                    width={400}
+                                    height={400}
                                     alt="Ads Poster"
                                     loading="eager"
                                 />
                             </a>
-                            <p className={styles.clickText}>Click to know more👆</p>
                         </>
                     )}
+                    <div>
+                        <button
+                            className={styles.redirectButton}
+                            style={
+                                timer !== 0
+                                    ? {
+                                          backgroundColor: "#deebff",
+                                          color: "#121212",
+                                      }
+                                    : {}
+                            }
+                            onClick={() => handleRedirection()}>
+                            {timer === 0 ? (
+                                <>
+                                    <p>Redirect to Job page</p>
+                                    <FontAwesomeIcon
+                                        className={styles.redirectIcon}
+                                        icon={faArrowRight}
+                                    />
+                                </>
+                            ) : (
+                                <p style={{ fontSize: "1.1rem" }}>{timer}</p>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </ReactModal>
         </div>

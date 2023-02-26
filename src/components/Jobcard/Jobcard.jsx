@@ -24,7 +24,7 @@ const Jobcard = (props) => {
         totalclick,
         id,
         link,
-    } = props.data;
+        } = props.data;
     const [showModal, setShowModal] = useState(false);
     const [popType, setPopType] = useState("none");
     const [jobcardClicked, setJobcardClicked] = useState(false);
@@ -47,6 +47,7 @@ const Jobcard = (props) => {
 
     const toggleModalView = () => {
         setShowModal(!showModal);
+        setJobcardClicked(false);
     };
 
     // handle job card and footer section click
@@ -70,23 +71,23 @@ const Jobcard = (props) => {
             if (navigator.share) {
                 navigator.share({
                     title: `${title} | ${title}`,
-                    text: `Check out this job : ${title}`,
+                    text: `Hey 👋! %0ACheckout this job : ${title}`,
                     url: joblink,
                 });
             } else {
-                window.open(`whatsapp://send?text=${joblink}`);
+                const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0ATo know more visit here : %0A${joblink}`;
+                window.open(`whatsapp://send?text=${msg}`);
             }
         } else {
             if (navigator.share) {
                 navigator.share({
                     title: `${title} | ${title}`,
-                    text: `Check out this job : ${title} Apply to this job from here ${link}`,
+                    text: `Hey 👋! %0ACheckout this job : ${title} %0AApply to this job from here ${link}. %0A%0AFor more job opportunity visit %0A`,
                     url: "https://careersat.tech/jobs",
                 });
             } else {
                 const url = "https://careersat.tech/jobs";
-                const msg = title + "\n Apply to this job role from here" + link + "      ";
-                "\n\n For more jobs related to this visit" + url;
+                const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0AApply to this job role from here : %0A${link}%0A%0AFor more job opportunity visit %0A$👉{url}`;
                 window.open(`whatsapp://send?text=${msg}`);
             }
         }

@@ -23,9 +23,9 @@ const Similarjob = (props) => {
                     jobData.map((item, index) => {
                         return (
                             <div key={index}>
-                                {item.companytype === companytype &&
-                                    item.id !== id &&
-                                    item.jdpage === "true" && <Similarjobcard data={item} />}
+                                {item.id !== id && item.jdpage === "true" && (
+                                    <Similarjobcard data={item} />
+                                )}
                             </div>
                         );
                     })}
