@@ -24,7 +24,7 @@ const Jobcard = (props) => {
         totalclick,
         id,
         link,
-        } = props.data;
+    } = props.data;
     const [showModal, setShowModal] = useState(false);
     const [popType, setPopType] = useState("none");
     const [jobcardClicked, setJobcardClicked] = useState(false);
@@ -53,15 +53,19 @@ const Jobcard = (props) => {
     // handle job card and footer section click
     const handleJobCardClick = () => {
         setJobcardClicked(true);
-        if (jdpage === "true") {
-            redirectToJobdetailPage();
-        }
-        if (jdpage === "false" && popType === "none") {
+        if (jobtype === "promo") {
             window.location.assign(link);
-            countClickinJd(id);
-        }
-        if (jdpage === "false" && popType !== "none") {
-            setShowModal(true);
+        } else {
+            if (jdpage === "true") {
+                redirectToJobdetailPage();
+            }
+            if (jdpage === "false" && popType === "none") {
+                window.location.assign(link);
+                countClickinJd(id);
+            }
+            if (jdpage === "false" && popType !== "none") {
+                setShowModal(true);
+            }
         }
     };
 
@@ -122,49 +126,51 @@ const Jobcard = (props) => {
                     </div>
 
                     <p className={styles.jobtitle}>{title}</p>
-                    <div className={styles.jobdetails}>
-                        <div className={styles.jobdetailsItem}>
-                            <h5>Degree :</h5>
-                            <p>{degree}</p>
-                        </div>
-                        <div className={styles.jobdetailsItem}>
-                            <h5>Batch :</h5>
-                            <p>{batch}</p>
-                        </div>
-                        <div className={styles.chipContainer}>
-                            <div>
-                                {jobtype !== "N" && (
-                                    <span
-                                        style={{ backgroundColor: "#e1ebff", color: "#1d4ed8" }}
-                                        className={styles.chip}>
-                                        {jobtype}
-                                    </span>
-                                )}
-                                {location !== "N" && (
-                                    <span
-                                        style={{ backgroundColor: "#def7ec", color: "#046C4E" }}
-                                        className={styles.chip}>
-                                        <FontAwesomeIcon
-                                            className={styles.chipIcon}
-                                            icon={faLocationDot}
-                                        />
-                                        {location}
-                                    </span>
-                                )}
-                                {experience !== "N" && experience.length < 12 && (
-                                    <span
-                                        style={{ backgroundColor: "#F0ECFF", color: "#6B46C1" }}
-                                        className={styles.chip}>
-                                        <FontAwesomeIcon
-                                            className={styles.chipIcon}
-                                            icon={faClock}
-                                        />
-                                        {experience}
-                                    </span>
-                                )}
+                    {jobtype !== "promo" && (
+                        <div className={styles.jobdetails}>
+                            <div className={styles.jobdetailsItem}>
+                                <h5>Degree :</h5>
+                                <p>{degree}</p>
+                            </div>
+                            <div className={styles.jobdetailsItem}>
+                                <h5>Batch :</h5>
+                                <p>{batch}</p>
+                            </div>
+                            <div className={styles.chipContainer}>
+                                <div>
+                                    {jobtype !== "N" && (
+                                        <span
+                                            style={{ backgroundColor: "#e1ebff", color: "#1d4ed8" }}
+                                            className={styles.chip}>
+                                            {jobtype}
+                                        </span>
+                                    )}
+                                    {location !== "N" && (
+                                        <span
+                                            style={{ backgroundColor: "#def7ec", color: "#046C4E" }}
+                                            className={styles.chip}>
+                                            <FontAwesomeIcon
+                                                className={styles.chipIcon}
+                                                icon={faLocationDot}
+                                            />
+                                            {location}
+                                        </span>
+                                    )}
+                                    {experience !== "N" && experience.length < 12 && (
+                                        <span
+                                            style={{ backgroundColor: "#F0ECFF", color: "#6B46C1" }}
+                                            className={styles.chip}>
+                                            <FontAwesomeIcon
+                                                className={styles.chipIcon}
+                                                icon={faClock}
+                                            />
+                                            {experience}
+                                        </span>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             )}
             {jobcardClicked && (
