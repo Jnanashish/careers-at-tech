@@ -1,6 +1,5 @@
 import React from "react";
-import parse from "html-react-parser";
-
+import Head from "next/head";
 import Header from "@/components/common/Header/header";
 import Jobdetails from "@/components/Jobdetails";
 import { getAlljdData } from "@/core/apis/jobapicall";
@@ -16,7 +15,13 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 const JobdetailsPage = ({ data }) => {
     return (
-        <>
+        <div>
+            <Head>
+                <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
+                    crossorigin="anonymous"></script>
+            </Head>
             {data && (
                 <div>
                     <Header />
@@ -29,7 +34,7 @@ const JobdetailsPage = ({ data }) => {
                     <Footer />
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

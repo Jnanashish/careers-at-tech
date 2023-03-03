@@ -1,0 +1,78 @@
+.jobCardContainer {
+    max-width: 60%;
+    margin: 20px auto;
+    @media (max-width: 768px) {
+        max-width: 93%;
+        margin: 10px auto;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+.dasContainer {
+    max-width: 93%;
+    margin: 10px auto;
+
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.moreJobContainer {
+    background-color: #f5f7ff;
+    padding: 10px;
+    width: 200px;
+    margin: 0px auto 20px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+
+    p {
+        color: #000ee6;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-decoration: underline;
+    }
+}
+
+// loader css
+.loaderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+
+    @media (max-width: 768px) {
+        height: 70vh;
+    }
+}
+.loader {
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid #0069ff;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
