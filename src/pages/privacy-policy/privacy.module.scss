@@ -1,0 +1,32 @@
+.privacyContainer {
+    width: 80%;
+    margin: 0px auto;
+    padding: 20px 0px;
+    color: #121212;
+
+    h1 {
+        font-size: 24px;
+        margin: 14px 0px 10px;
+        color: #121926;
+    }
+    h2 {
+        font-size: 20px;
+        margin: 10px 0px 8px;
+        color: #121926;
+    }
+    h3 {
+        font-size: 18px;
+        margin: 8px 0px 6px;
+        color: #121926;
+    }
+    p {
+        color: #4b5556;
+    }
+    li {
+        margin-left: 14px;
+        margin-top: 5px;
+    }
+    @media screen and (max-width: 768px) {
+        width: 92%;
+    }
+}

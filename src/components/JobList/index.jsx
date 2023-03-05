@@ -7,14 +7,19 @@ import DasLink from "../Das/DasLink";
 import styles from "./joblist.module.scss";
 import WhatsAppJoin from "../common/WhatsappJoin";
 import Jobcard from "../Jobcard/Jobcard";
-import { getJobListData } from "@/core/apis/jobapicall";
+import { getJobListData, getcompanynamedata } from "@/core/apis/jobapicall";
 import Notice from "../common/Notice/notice";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const JobList = () => {
     const [dasBanner, setDasBanner] = useState(null);
     const [jobdata, setJobdata] = useState([]);
     const [pageno, setPageno] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [companyname, setCompanyname] = useState("");
+    const [jobType, setJobType] = useState("fulltime");
 
     const dasBannerData = useSelector((state) => state.das.dasBanner);
 
@@ -23,7 +28,6 @@ const JobList = () => {
             setDasBanner(dasBannerData);
         }
     }, [dasBannerData]);
-
     useEffect(() => {
         callJobList();
     }, [pageno]);
@@ -36,10 +40,69 @@ const JobList = () => {
             setLoading(false);
         }
     };
+    const getCompanyData = () => {
+        setLoading(true);
+        getcompanynamedata(companyname).then((result) => {
+            setJobdata([]);
+            if (result.error) {
+                console.log("Cannot Load data");
+            }
+            setLoading(false);
+            setJobdata(result.data);
+        });
+    };
 
     var itemCount = 0;
     return (
         <div>
+            <div className={styles.headerSection}>
+                <h2>
+                    Discover verified 💯 <br /> tech <span>Jobs</span> and <span>Internships</span>
+                    <br /> at top companies.
+                </h2>
+
+                <div className={styles.searchContainer}>
+                    <input
+                        type="text"
+                        className={styles.searchcompany}
+                        value={companyname}
+                        onChange={(e) => setCompanyname(e.target.value)}
+                        placeholder="Search Jobs with company name"
+                    />
+                    <button onClick={() => getCompanyData()} className={styles.search_btn}>
+                        <FontAwesomeIcon icon={faSearch} />
+                    </button>
+                </div>
+                <div className={styles.radioGroup}>
+                    <span onClick={() => setJobType("fulltime")}>
+                        <input type="radio" checked={jobType === "fulltime"} name="gender" />{" "}
+                        <p
+                            style={
+                                jobType === "fulltime"
+                                    ? { color: "#0069ff", fontWeight: "600" }
+                                    : {}
+                            }>
+                            Full time
+                        </p>
+                    </span>
+                    <span onClick={() => setJobType("internship")}>
+                        <input type="radio" checked={jobType === "internship"} name="gender" />{" "}
+                        <p
+                            style={
+                                jobType === "internship"
+                                    ? { color: "#0069ff", fontWeight: "600" }
+                                    : {}
+                            }>
+                            Internship
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <div className={styles.nojobContainer}>
+                <p>
+                    No jobs found 😔 ! <br /> Please try differnet filter
+                </p>
+            </div>
             {dasBanner && dasBanner.length <= 1 && <DasLink />}
             <div className={styles.dasContainer}>
                 {dasBanner && dasBanner.length > 1 && <DasBanner />}
