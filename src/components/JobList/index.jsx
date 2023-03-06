@@ -55,7 +55,7 @@ const JobList = () => {
     var itemCount = 0;
     return (
         <div>
-            <div className={styles.headerSection}>
+            {/* <div className={styles.headerSection}>
                 <h2>
                     Discover verified 💯 <br /> tech <span>Jobs</span> and <span>Internships</span>
                     <br /> at top companies.
@@ -102,7 +102,7 @@ const JobList = () => {
                 <p>
                     No jobs found 😔 ! <br /> Please try differnet filter
                 </p>
-            </div>
+            </div> */}
             {dasBanner && dasBanner.length <= 1 && <DasLink />}
             <div className={styles.dasContainer}>
                 {dasBanner && dasBanner.length > 1 && <DasBanner />}

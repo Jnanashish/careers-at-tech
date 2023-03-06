@@ -1,10 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import HomePage from "./home";
-
-
 const Home = () => {
-
     return (
         <>
             <Head>
@@ -17,5 +14,4 @@ const Home = () => {
         </>
     );
 };
-
 export default Home;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
+import Script from "next/script";
 import Header from "@/components/common/Header/header";
-import { getJobListData } from "@/core/apis/jobapicall";
 import Head from "next/head";
 
 import { useDispatch } from "react-redux";
@@ -59,11 +59,13 @@ const Jobs = (props) => {
                     name="description"
                     content="One place solution to get regular Internship and Job Updates."
                 />
-                <script
-                    async
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
-                    crossorigin="anonymous"></script>
             </Head>
+            <Script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
+                crossorigin="anonymous"
+                strategy="lazyOnload"
+            />
             <Header />
             <JobList />
             <Footer />

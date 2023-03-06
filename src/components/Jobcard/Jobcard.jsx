@@ -68,6 +68,9 @@ const Jobcard = (props) => {
             }
         }
     };
+    const handleMouseOver = () => {
+        Router.prefetch(`/${titleforShare}/${id}`);
+    };
 
     const handleShareClick = () => {
         if (jdpage === "true") {
@@ -108,7 +111,10 @@ const Jobcard = (props) => {
                 />
             )}
             {!jobcardClicked && (
-                <div onClick={() => handleJobCardClick()} className={styles.mainSection}>
+                <div
+                    onMouseEnter={() => handleMouseOver()}
+                    onClick={() => handleJobCardClick()}
+                    className={styles.mainSection}>
                     <div className={styles.companyLogoContainer}>
                         {imagePath === "none" ? (
                             <div className={styles.logotext}>

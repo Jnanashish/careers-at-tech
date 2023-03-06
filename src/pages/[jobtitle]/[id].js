@@ -1,5 +1,6 @@
 import React from "react";
-import Head from "next/head";
+import Script from "next/script";
+
 import Header from "@/components/common/Header/header";
 import Jobdetails from "@/components/Jobdetails";
 import { getAlljdData } from "@/core/apis/jobapicall";
@@ -16,12 +17,12 @@ const ibmPlexSans = IBM_Plex_Sans({
 const JobdetailsPage = ({ data }) => {
     return (
         <div>
-            <Head>
-                <script
-                    async
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
-                    crossorigin="anonymous"></script>
-            </Head>
+            <Script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
+                crossorigin="anonymous"
+                strategy="lazyOnload"
+            />
             {data && (
                 <div>
                     <Header />
@@ -40,7 +41,6 @@ const JobdetailsPage = ({ data }) => {
 
 export const getServerSideProps = async (context) => {
     const apiResponse = await getAlljdData(context?.query.id);
-
     return {
         props: {
             data: apiResponse,
