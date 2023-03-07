@@ -118,14 +118,6 @@
         }
     }
 
-    h5 {
-        color: #121212;
-        @media (max-width: 600px) {
-            font-size: 0.8rem;
-            justify-self: end;
-        }
-    }
-
     @media (max-width: 768px) {
         line-height: 1.08rem;
     }
@@ -133,6 +125,15 @@
         line-height: 1.08rem;
         p {
             font-size: 0.7rem;
+        }
+    }
+}
+.detailTitle {
+    p {
+        color: #121212 !important;
+        @media (max-width: 600px) {
+            font-size: 0.8rem;
+            justify-self: end;
         }
     }
 }

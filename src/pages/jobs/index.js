@@ -60,12 +60,6 @@ const Jobs = (props) => {
                     content="One place solution to get regular Internship and Job Updates."
                 />
             </Head>
-            <Script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
-                crossorigin="anonymous"
-                strategy="lazyOnload"
-            />
             <Header />
             <JobList />
             <Footer />

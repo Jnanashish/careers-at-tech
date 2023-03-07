@@ -17,12 +17,6 @@ const ibmPlexSans = IBM_Plex_Sans({
 const JobdetailsPage = ({ data }) => {
     return (
         <div>
-            <Script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199"
-                crossorigin="anonymous"
-                strategy="lazyOnload"
-            />
             {data && (
                 <div>
                     <Header />

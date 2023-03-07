@@ -135,11 +135,11 @@ const Jobcard = (props) => {
                     {jobtype !== "promo" && (
                         <div className={styles.jobdetails}>
                             <div className={styles.jobdetailsItem}>
-                                <h5>Degree :</h5>
+                                <p className={styles.detailTitle}>Degree :</p>
                                 <p>{degree}</p>
                             </div>
                             <div className={styles.jobdetailsItem}>
-                                <h5>Batch :</h5>
+                                <p className={styles.detailTitle}>Batch :</p>
                                 <p>{batch}</p>
                             </div>
                             <div className={styles.chipContainer}>
