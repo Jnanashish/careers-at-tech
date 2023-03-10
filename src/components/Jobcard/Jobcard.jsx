@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -111,73 +112,81 @@ const Jobcard = (props) => {
                 />
             )}
             {!jobcardClicked && (
-                <div
-                    onMouseEnter={() => handleMouseOver()}
-                    onClick={() => handleJobCardClick()}
-                    className={styles.mainSection}>
-                    <div className={styles.companyLogoContainer}>
-                        {imagePath === "none" ? (
-                            <div className={styles.logotext}>
-                                <p>{title[0]}</p>
-                            </div>
-                        ) : (
-                            <Image
-                                className={styles.companyLogo}
-                                src={imagePath}
-                                alt="Company logo"
-                                height={50}
-                                width={50}
-                            />
-                        )}
-                    </div>
+                <Link href={`/${titleforShare}/${id}`}>
+                    <div className={styles.mainSection}>
+                        <div className={styles.companyLogoContainer}>
+                            {imagePath === "none" ? (
+                                <div className={styles.logotext}>
+                                    <p>{title[0]}</p>
+                                </div>
+                            ) : (
+                                <Image
+                                    className={styles.companyLogo}
+                                    src={imagePath}
+                                    alt="Company logo"
+                                    height={50}
+                                    width={50}
+                                />
+                            )}
+                        </div>
 
-                    <p className={styles.jobtitle}>{title}</p>
-                    {jobtype !== "promo" && (
-                        <div className={styles.jobdetails}>
-                            <div className={styles.jobdetailsItem}>
-                                <p className={styles.detailTitle}>Degree :</p>
-                                <p>{degree}</p>
-                            </div>
-                            <div className={styles.jobdetailsItem}>
-                                <p className={styles.detailTitle}>Batch :</p>
-                                <p>{batch}</p>
-                            </div>
-                            <div className={styles.chipContainer}>
-                                <div>
-                                    {jobtype !== "N" && (
-                                        <span
-                                            style={{ backgroundColor: "#e1ebff", color: "#1d4ed8" }}
-                                            className={styles.chip}>
-                                            {jobtype}
-                                        </span>
-                                    )}
-                                    {location !== "N" && (
-                                        <span
-                                            style={{ backgroundColor: "#def7ec", color: "#046C4E" }}
-                                            className={styles.chip}>
-                                            <FontAwesomeIcon
-                                                className={styles.chipIcon}
-                                                icon={faLocationDot}
-                                            />
-                                            {location}
-                                        </span>
-                                    )}
-                                    {experience !== "N" && experience.length < 12 && (
-                                        <span
-                                            style={{ backgroundColor: "#F0ECFF", color: "#6B46C1" }}
-                                            className={styles.chip}>
-                                            <FontAwesomeIcon
-                                                className={styles.chipIcon}
-                                                icon={faClock}
-                                            />
-                                            {experience}
-                                        </span>
-                                    )}
+                        <p className={styles.jobtitle}>{title}</p>
+                        {jobtype !== "promo" && (
+                            <div className={styles.jobdetails}>
+                                <div className={styles.jobdetailsItem}>
+                                    <p className={styles.detailTitle}>Degree :</p>
+                                    <p>{degree}</p>
+                                </div>
+                                <div className={styles.jobdetailsItem}>
+                                    <p className={styles.detailTitle}>Batch :</p>
+                                    <p>{batch}</p>
+                                </div>
+                                <div className={styles.chipContainer}>
+                                    <div>
+                                        {jobtype !== "N" && (
+                                            <span
+                                                style={{
+                                                    backgroundColor: "#e1ebff",
+                                                    color: "#1d4ed8",
+                                                }}
+                                                className={styles.chip}>
+                                                {jobtype}
+                                            </span>
+                                        )}
+                                        {location !== "N" && (
+                                            <span
+                                                style={{
+                                                    backgroundColor: "#def7ec",
+                                                    color: "#046C4E",
+                                                }}
+                                                className={styles.chip}>
+                                                <FontAwesomeIcon
+                                                    className={styles.chipIcon}
+                                                    icon={faLocationDot}
+                                                />
+                                                {location}
+                                            </span>
+                                        )}
+                                        {experience !== "N" && experience.length < 12 && (
+                                            <span
+                                                style={{
+                                                    backgroundColor: "#F0ECFF",
+                                                    color: "#6B46C1",
+                                                }}
+                                                className={styles.chip}>
+                                                <FontAwesomeIcon
+                                                    className={styles.chipIcon}
+                                                    icon={faClock}
+                                                />
+                                                {experience}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                </Link>
             )}
             {jobcardClicked && (
                 <div className={styles.loaderContainer}>
