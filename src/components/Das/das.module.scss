@@ -1,11 +1,11 @@
 .dasLinkContainer {
-    background-color: #2142d7;
+    background-color: #0069ff;
     color: #ffffff;
-    width: 93%;
-    margin: 15px auto 15px;
+    width: 100%;
+    margin: 16px auto 16px;
 
     padding: 12px 14px;
-    border-radius: 12px;
+    border-radius: 8px;
     font-weight: 500;
 
     display: flex;
@@ -14,12 +14,17 @@
     display: none;
 
     @media screen and (max-width: 700px) {
-        display: block;
-        font-size: 1.04rem;
-        margin-bottom: 12px;
-        line-height: 1.45rem;
+        display: flex;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.5rem;
         text-align: left;
+        font-weight: 500;
     }
+}
+.chipIcon {
+    height: 22px;
+    width: 22px;
 }
 
 // for DAS banner ---------

@@ -1,16 +1,27 @@
+.centerContainer {
+    display: flex;
+    width: 100%;
+}
 .jobCardContainer {
-    max-width: 60%;
-    margin: 20px auto;
+    width: 70%;
+    margin: 10px auto;
+    padding: 0px 50px;
     @media (max-width: 768px) {
-        max-width: 93%;
-        margin: 10px auto;
+        width: 93%;
+        padding: 0px;
+        margin: 0px auto;
     }
     a {
         color: inherit;
         text-decoration: none;
     }
 }
-
+.sidebar {
+    width: 30%;
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
 .dasContainer {
     max-width: 93%;
     margin: 10px auto;
@@ -22,23 +33,23 @@
 }
 
 .moreJobContainer {
-    background-color: #f5f7ff;
+    background-color: #f4faff;
     padding: 12px;
-    width: 200px;
+    width: 100%;
     margin: 0px auto 20px;
     border-radius: 8px;
     text-align: center;
     cursor: pointer;
 
     p {
-        color: #000ee6;
+        color: #0069ff;
         font-weight: 500;
         font-size: 0.9rem;
         text-decoration: underline;
     }
 }
 
-// loader css
+// loader css --------------------------
 .loaderContainer {
     display: flex;
     align-items: center;
@@ -53,8 +64,8 @@
     border: 6px solid #f3f3f3;
     border-radius: 50%;
     border-top: 6px solid #0069ff;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
 
@@ -80,38 +91,58 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
+    height: 400px;
     text-align: center;
     line-height: 1.5;
 }
 
-// search container
-.headerSection {
+// search and header container --------------------------
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    width: "100%";
     background-color: #f4faff;
-    width: 100%;
-    padding: 24px 20px;
-    border-radius: 0px 0px 20px 20px;
+    padding: 28px 52px;
     margin-bottom: 20px;
-
+    @media (max-width: 768px) {
+        padding: 24px 0px;
+    }
+}
+.imageContainer {
+    width: 40%;
+    text-align: center;
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+.headerSection {
+    width: 60%;
+    border-radius: 0px 0px 20px 20px;
+    margin: 0px auto;
     h2 {
-        font-size: 26px;
+        font-size: 46px;
         font-weight: 500;
-        margin-bottom: 20px;
-
+        margin-bottom: 30px;
         line-height: 1.3;
         span {
             color: #0069ff;
             font-weight: 600;
         }
     }
+    @media (max-width: 768px) {
+        width: 92%;
+        h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+    }
 }
 .searchContainer {
     display: grid;
-    grid-template-columns: 85% 15%;
+    grid-template-columns: 80% 5% 15%;
     margin: 0px auto;
-
     @media (max-width: 768px) {
-        grid-template-columns: 85% 15%;
+        grid-template-columns: 75% 10% 15%;
     }
 }
 
@@ -126,7 +157,7 @@
     border-right: none;
     color: #0066ff;
     background-color: #fff;
-    border: 0.6px solid #0066ff;
+    border: 0px solid #0066ff;
 
     @media (max-width: 600px) {
         padding: 12px 14px;
@@ -135,7 +166,6 @@
         margin: 0px 0px 25px;
         width: 100%;
         background-color: #fff;
-        border: 0px solid #0066ff;
     }
 }
 
@@ -148,6 +178,9 @@
         outline: none;
     }
 }
+.cancelButton {
+    @include searchtheme();
+}
 
 .search_btn {
     @include searchtheme();
@@ -156,13 +189,15 @@
     padding: 12px 0px;
     cursor: pointer;
     border-left: none;
+    color: #fff;
+    background-color: #0069ff;
 
     &:hover {
-        background-color: #cadbff;
+        background-color: #0050ff;
     }
 
     @media (max-width: 768px) {
-        background-color: #fff;
+        background-color: #0069ff;
     }
 }
 .radioGroup {
@@ -179,13 +214,11 @@
         font-weight: 500;
         font-size: 1rem;
     }
-
     input {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
         transform: scale(1);
-
         border-radius: 50%;
         width: 18px;
         height: 18px;

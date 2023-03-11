@@ -1,8 +1,8 @@
 import { API } from "../backend";
 
 // get list of jobs available from database
-export const getJobListData = (pagenum) => {
-    return fetch(`${API}/jd/get?page=${pagenum}&size=10`, { method: "GET" })
+export const getJobListData = (pagenum, dataPerPage = 10) => {
+    return fetch(`${API}/jd/get?page=${pagenum}&size=${dataPerPage}`, { method: "GET" })
         .then((res) => {
             return res.json();
         })

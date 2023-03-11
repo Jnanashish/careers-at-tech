@@ -3,7 +3,9 @@ import styles from "./das.module.scss";
 import { handleRequestPATCH } from "@/core/apis/dasapicall";
 import { useSelector } from "react-redux";
 import { apiEndPoint } from "@/core/apis/apiEndpoints";
-import Image from "next/image";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 const DasLink = () => {
     const [dasLinkData, setDasLinkData] = useState(null);
@@ -24,6 +26,7 @@ const DasLink = () => {
                 <a onClick={() => handleLinkClick(dasLinkData._id)} href={dasLinkData.link}>
                     <div className={styles.dasLinkContainer}>
                         <p>{dasLinkData.title}</p>
+                        <FontAwesomeIcon className={styles.chipIcon} icon={faUpRightFromSquare} />
                     </div>
                 </a>
             )}

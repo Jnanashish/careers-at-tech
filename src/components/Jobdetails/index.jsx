@@ -4,11 +4,12 @@ import parse from "html-react-parser";
 
 import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import DasBanner from "../Das/DasBanner";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import WhatsAppJoin from "../common/WhatsappJoin";
 import Similarjob from "../Similarjob/Similarjob";
+import DasLink from "../Das/DasLink";
 
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
@@ -80,13 +81,13 @@ const Jobdetails = (jobdata) => {
                         </p>
                     )}
                 </div>
-                {data.jobdesc !== "<p>N</p>" && (
+                {data.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>{parse(data.jobdesc)}</div>
                 )}
                 <div>
                     <DasBanner />
                 </div>
-                {data.responsibility !== "<p>N</p>" && (
+                {data.responsibility !== "N" && data.responsibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h3>Responsibility : </h3>
                         {parse(data.responsibility)}
@@ -98,7 +99,7 @@ const Jobdetails = (jobdata) => {
                         {parse(data.eligibility)}
                     </div>
                 )}
-                {data.skills !== "<p>N</p>" && (
+                {data.skills !== "N" && data.skills !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h3>Prefered Skills : </h3>
                         {parse(data.skills)}
@@ -107,7 +108,7 @@ const Jobdetails = (jobdata) => {
                 <div className="mobileViewBanner">
                     <WhatsAppJoin />
                 </div>
-                {data.aboutCompany !== "<p>N</p>" && (
+                {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h3>About Company : </h3>
                         {parse(data.aboutCompany)}
@@ -120,6 +121,7 @@ const Jobdetails = (jobdata) => {
                     target="_blank">
                     <div className={styles.applyBtn}>Apply Now</div>
                 </a>
+                <DasLink />
             </div>
             <Similarjob companytype={data.companytype} id={data._id} />
         </div>

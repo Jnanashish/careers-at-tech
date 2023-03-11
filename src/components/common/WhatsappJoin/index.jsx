@@ -17,7 +17,8 @@ const style = {
         backgroundColor: " #f9f9fb",
         padding: "20px",
         borderRadius: "8px",
-        marginTop: "20px",
+        marginTop: "18px",
+        border: "0.8px solid rgba(218, 223, 231, 1)",
     },
     shareIcon: {
         height: "15px",

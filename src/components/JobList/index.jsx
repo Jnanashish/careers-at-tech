@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Image from "next/image";
+
+import styles from "./joblist.module.scss";
 
 // import components
 import DasBanner from "../Das/DasBanner";
 import DasLink from "../Das/DasLink";
-import styles from "./joblist.module.scss";
-import WhatsAppJoin from "../common/WhatsappJoin";
 import Jobcard from "../Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
 import Notice from "../common/Notice/notice";
+import WhatsAppJoin from "../common/WhatsappJoin";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const JobList = () => {
     const [dasBanner, setDasBanner] = useState(null);
@@ -19,8 +21,7 @@ const JobList = () => {
     const [pageno, setPageno] = useState(1);
     const [loading, setLoading] = useState(true);
     const [companyname, setCompanyname] = useState("");
-    const [jobType, setJobType] = useState("");
-
+    const [jobType, setJobType] = useState(null);
     const dasBannerData = useSelector((state) => state.das.dasBanner);
 
     useEffect(() => {
@@ -32,8 +33,10 @@ const JobList = () => {
         callJobList();
     }, [pageno]);
     useEffect(() => {
-        setLoading(true);
-        getRoleData(jobType);
+        if (jobType) {
+            setLoading(true);
+            getRoleData(jobType);
+        }
     }, [jobType]);
 
     const callJobList = async () => {
@@ -46,6 +49,7 @@ const JobList = () => {
     };
     const getCompanyData = () => {
         setLoading(true);
+        setJobdata([]);
         getcompanynamedata(companyname).then((result) => {
             setJobdata([]);
             if (result.error) {
@@ -65,63 +69,103 @@ const JobList = () => {
             setLoading(false);
             setJobdata(result.data);
         });
+        1;
+    };
+
+    const handleCancelClick = () => {
+        setJobdata([]);
+        setCompanyname("");
+        callJobList();
     };
 
     var itemCount = 0;
     return (
         <div>
-            <div className={styles.headerSection}>
-                <h2>
-                    Discover 💯 verified <br /> tech <span>Jobs</span> and <span>Internships</span>
-                    <br /> at top companies.
-                </h2>
+            {/* Header section and filter  */}
+            <div className={styles.headerContainer}>
+                <div className={styles.headerSection}>
+                    <h2>
+                        Discover 💯 verified <br /> tech <span>Jobs</span> and{" "}
+                        <span>Internships</span>
+                        <br /> at top companies.
+                    </h2>
 
-                <div className={styles.searchContainer}>
-                    <input
-                        type="text"
-                        className={styles.searchcompany}
-                        value={companyname}
-                        onChange={(e) => setCompanyname(e.target.value)}
-                        placeholder="Search jobs with company name or title"
-                    />
-                    <button onClick={() => getCompanyData()} className={styles.search_btn}>
-                        <FontAwesomeIcon icon={faSearch} />
-                    </button>
+                    <div className={styles.searchContainer}>
+                        <input
+                            type="text"
+                            className={styles.searchcompany}
+                            value={companyname}
+                            onChange={(e) => setCompanyname(e.target.value)}
+                            placeholder="Search jobs with company or title"
+                        />
+
+                        <button
+                            style={
+                                companyname && companyname.length != 0
+                                    ? { color: "#0069FF" }
+                                    : { color: "#FFF" }
+                            }
+                            onClick={() => handleCancelClick()}
+                            className={styles.cancelButton}>
+                            <FontAwesomeIcon icon={faXmark} />
+                        </button>
+
+                        <button onClick={() => getCompanyData()} className={styles.search_btn}>
+                            <FontAwesomeIcon icon={faSearch} />
+                        </button>
+                    </div>
+
+                    <div className={styles.radioGroup}>
+                        <span onClick={() => setJobType("full")}>
+                            <input type="radio" checked={jobType === "full"} name="gender" />{" "}
+                            <p
+                                style={
+                                    jobType === "full"
+                                        ? { color: "#0069ff", fontWeight: "600" }
+                                        : {}
+                                }>
+                                Full time
+                            </p>
+                        </span>
+                        <span onClick={() => setJobType("intern")}>
+                            <input type="radio" checked={jobType === "intern"} name="gender" />{" "}
+                            <p
+                                style={
+                                    jobType === "intern"
+                                        ? { color: "#0069ff", fontWeight: "600" }
+                                        : {}
+                                }>
+                                Internship
+                            </p>
+                        </span>
+                    </div>
                 </div>
-                <div className={styles.radioGroup}>
-                    <span onClick={() => setJobType("full")}>
-                        <input type="radio" checked={jobType === "full"} name="gender" />{" "}
-                        <p
-                            style={
-                                jobType === "full" ? { color: "#0069ff", fontWeight: "600" } : {}
-                            }>
-                            Full time
-                        </p>
-                    </span>
-                    <span onClick={() => setJobType("intern")}>
-                        <input type="radio" checked={jobType === "intern"} name="gender" />{" "}
-                        <p
-                            style={
-                                jobType === "intern" ? { color: "#0069ff", fontWeight: "600" } : {}
-                            }>
-                            Internship
-                        </p>
-                    </span>
+                <div className={styles.imageContainer}>
+                    <Image
+                        src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1678515591/3d-business-young-woman-sitting-with-laptop-and-stylus_fvym3e.png"
+                        alt="girl with computer"
+                        height={324}
+                        width={256}
+                    />
                 </div>
             </div>
-            {false && (
+
+            {/* No job found section  */}
+            {!loading && jobdata.length === 0 && (
                 <div className={styles.nojobContainer}>
                     <p>
                         No jobs found 😔 ! <br /> Please try differnet filter
                     </p>
                 </div>
             )}
-            {dasBanner && dasBanner.length <= 1 && <DasLink />}
+
+            {/* jobs and das list  */}
             <div className={styles.dasContainer}>
+                {dasBanner && dasBanner.length <= 1 && <DasLink />}
                 {dasBanner && dasBanner.length > 1 && <DasBanner />}
             </div>
             {(!loading || jobdata.length !== 0) && (
-                <div>
+                <div className={styles.centerContainer}>
                     <div className={styles.jobCardContainer}>
                         {jobdata.map((data) => {
                             return (
@@ -137,20 +181,23 @@ const JobList = () => {
                                 </div>
                             );
                         })}
+                        {jobdata.length !== 0 && (
+                            <div className={styles.moreJobContainer}>
+                                <p onClick={() => setPageno(pageno + 1)}>Show more jobs</p>
+                            </div>
+                        )}
                     </div>
-                    <div className={styles.moreJobContainer}>
-                        <p onClick={() => setPageno(pageno + 1)}>Show more jobs</p>
-                    </div>
+                    <div className={styles.sidebar}></div>
                 </div>
             )}
             {loading && (
                 <div
-                    style={jobdata.length === 0 ? { height: "70vh" } : { height: "100px" }}
+                    style={jobdata.length === 0 ? { height: "400px" } : { height: "100px" }}
                     className={styles.loaderContainer}>
                     <div className={styles.loader} />
                 </div>
             )}
-            <Notice />
+            {!loading && jobdata.length !== 0 && <Notice />}
         </div>
     );
 };

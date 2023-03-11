@@ -2,7 +2,7 @@ import React from "react";
 
 const styles = {
     noticeContainer: {
-        backgroundColor: "#f5f7ff",
+        backgroundColor: "#f4faff",
         padding: "20px",
         width: "92%",
         margin: "0px auto",
@@ -24,9 +24,12 @@ function Notice() {
         <div style={styles.noticeContainer}>
             <h4 style={styles.noticeHeader}>Important !</h4>
             <p style={styles.noticeText}>
-                All Company names, logos and trademarks are the intellectual property of the respective owners. All company, product and service names used in this website are for identification purposes only. Use of these names,trademarks and brands does not
+                All Company names, logos and trademarks are the intellectual property of the
+                respective owners. All company, product and service names used in this website are
+                for identification purposes only. Use of these names,trademarks and brands does not
                 imply endorsement.
-                <br /> <b> We do not charge any money or commision fees from students</b>, we are just an information provider for job openings.
+                <br /> <b> We do not charge any money or commision fees from students</b>, we are
+                just an information provider for job openings.
             </p>
         </div>
     );
