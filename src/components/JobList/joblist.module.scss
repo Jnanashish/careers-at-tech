@@ -42,7 +42,7 @@
     cursor: pointer;
 
     p {
-        color: #0069ff;
+        color: #0050ff;
         font-weight: 500;
         font-size: 0.9rem;
         text-decoration: underline;
@@ -180,10 +180,16 @@
 }
 .cancelButton {
     @include searchtheme();
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    cursor: pointer;
 }
 
 .search_btn {
     @include searchtheme();
+    display: flex;
+    justify-content: center;
     align-self: center;
     border-radius: 0px 8px 8px 0px;
     padding: 12px 0px;
@@ -191,7 +197,7 @@
     border-left: none;
     color: #fff;
     background-color: #0069ff;
-    
+
     &:hover {
         background-color: #0050ff;
     }

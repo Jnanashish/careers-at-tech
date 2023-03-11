@@ -99,7 +99,7 @@ const JobList = () => {
                             placeholder="Search jobs with company or title"
                         />
 
-                        <button
+                        <div
                             style={
                                 companyname && companyname.length != 0
                                     ? { color: "#0069FF" }
@@ -108,19 +108,24 @@ const JobList = () => {
                             onClick={() => handleCancelClick()}
                             className={styles.cancelButton}>
                             <FontAwesomeIcon icon={faXmark} />
-                        </button>
+                        </div>
 
-                        <button onClick={() => getCompanyData()} className={styles.search_btn}>
+                        <div onClick={() => getCompanyData()} className={styles.search_btn}>
                             <FontAwesomeIcon
                                 style={{ height: "20px", width: "20px" }}
                                 icon={faSearch}
                             />
-                        </button>
+                        </div>
                     </div>
 
                     <div className={styles.radioGroup}>
                         <span onClick={() => setJobType("full")}>
-                            <input type="radio" checked={jobType === "full"} name="gender" />{" "}
+                            <input
+                                placeholder="full time radio"
+                                type="radio"
+                                checked={jobType === "full"}
+                                name="gender"
+                            />{" "}
                             <p
                                 style={
                                     jobType === "full"
@@ -131,7 +136,12 @@ const JobList = () => {
                             </p>
                         </span>
                         <span onClick={() => setJobType("intern")}>
-                            <input type="radio" checked={jobType === "intern"} name="gender" />{" "}
+                            <input
+                                placeholder="intern radio"
+                                type="radio"
+                                checked={jobType === "intern"}
+                                name="gender"
+                            />{" "}
                             <p
                                 style={
                                     jobType === "intern"
