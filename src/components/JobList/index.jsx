@@ -111,7 +111,10 @@ const JobList = () => {
                         </button>
 
                         <button onClick={() => getCompanyData()} className={styles.search_btn}>
-                            <FontAwesomeIcon icon={faSearch} />
+                            <FontAwesomeIcon
+                                style={{ height: "20px", width: "20px" }}
+                                icon={faSearch}
+                            />
                         </button>
                     </div>
 
