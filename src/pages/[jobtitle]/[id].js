@@ -44,7 +44,6 @@ export async function getStaticProps(context) {
         props: {
             data: apiResponse,
         },
-        revalidate: 10800,
     };
 }
 export async function getStaticPaths() {

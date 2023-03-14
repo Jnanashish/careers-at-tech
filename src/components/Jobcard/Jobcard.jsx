@@ -49,6 +49,11 @@ const Jobcard = (props) => {
         setShowModal(!showModal);
         setJobcardClicked(false);
     };
+    const onMouseEnter = () => {
+        if (jdpage === "true") {
+            Router.prefetch(`/${titleforShare}/${id}`);
+        }
+    };
 
     // handle job card and footer section click
     const handleJobCardClick = () => {
@@ -113,6 +118,7 @@ const Jobcard = (props) => {
                     onClick={() => {
                         handleJobCardClick();
                     }}
+                    onMouseEnter={() => onMouseEnter()}
                     className={styles.mainSection}>
                     <div className={styles.companyLogoContainer}>
                         {imagePath === "none" ? (
