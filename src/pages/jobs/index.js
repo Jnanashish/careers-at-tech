@@ -11,6 +11,7 @@ import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { storeDASLinkData, storeDASBannerData, storeDASPopUpType } from "@/Redux/actions";
 import Footer from "@/components/common/Footer/Footer";
 import JobList from "@/components/JobList";
+import { getJobListData } from "@/core/apis/jobapicall";
 
 const Jobs = (props) => {
     const { jobdata } = props;

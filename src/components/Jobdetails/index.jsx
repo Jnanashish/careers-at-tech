@@ -89,19 +89,19 @@ const Jobdetails = (jobdata) => {
                 </div>
                 {data.responsibility !== "N" && data.responsibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>Responsibility : </h3>
+                        <h2>Responsibility : </h2>
                         {parse(data.responsibility)}
                     </div>
                 )}
                 {data.eligibility !== "N" && data.eligibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>Eligibility : </h3>
+                        <h2>Eligibility : </h2>
                         {parse(data.eligibility)}
                     </div>
                 )}
                 {data.skills !== "N" && data.skills !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>Prefered Skills : </h3>
+                        <h2>Prefered Skills : </h2>
                         {parse(data.skills)}
                     </div>
                 )}
@@ -110,7 +110,7 @@ const Jobdetails = (jobdata) => {
                 </div>
                 {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>About Company : </h3>
+                        <h2>About Company : </h2>
                         {parse(data.aboutCompany)}
                     </div>
                 )}

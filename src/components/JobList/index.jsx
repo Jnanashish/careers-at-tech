@@ -125,7 +125,8 @@ const JobList = () => {
                                 type="radio"
                                 checked={jobType === "full"}
                                 name="gender"
-                            />{" "}
+                                onChange={() => setJobType("full")}
+                            />
                             <p
                                 style={
                                     jobType === "full"
@@ -141,7 +142,8 @@ const JobList = () => {
                                 type="radio"
                                 checked={jobType === "intern"}
                                 name="gender"
-                            />{" "}
+                                onChange={() => setJobType("intern")}
+                            />
                             <p
                                 style={
                                     jobType === "intern"
