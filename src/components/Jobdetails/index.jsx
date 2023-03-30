@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
+import Router from "next/router";
 
 import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +18,7 @@ const Jobdetails = (jobdata) => {
         if (navigator.share) {
             navigator.share({
                 title: `${data.title} | ${data.title}`,
-                text: `Check out this job : ${data.title}`,
+                text: `Hey 👋! \nCheckout this job : ${title} \n\nTo know more visit`,
                 url: document.location.href,
             });
         } else {
@@ -38,7 +39,7 @@ const Jobdetails = (jobdata) => {
             <div className={styles.mainContainer}>
                 <span
                     onClick={() => {
-                        handleBackButtonclick;
+                        handleBackButtonclick();
                     }}
                     className={styles.backButtonContainer}>
                     <FontAwesomeIcon className={styles.backIcon} icon={faCaretLeft} />

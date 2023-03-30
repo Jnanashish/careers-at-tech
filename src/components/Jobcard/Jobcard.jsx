@@ -81,8 +81,8 @@ const Jobcard = (props) => {
             if (navigator.share) {
                 navigator.share({
                     title: `${title} | ${title}`,
-                    text: `Hey 👋! \n Checkout this job : ${title} \n\n`,
-                    url: `To know more visit ${joblink}`,
+                    text: `Hey 👋! \nCheckout this job : ${title} \n\nTo know more visit`,
+                    url: joblink,
                 });
             } else {
                 const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0ATo know more visit here : %0A${joblink}`;
