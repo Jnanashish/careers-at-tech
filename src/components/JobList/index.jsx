@@ -85,8 +85,7 @@ const JobList = () => {
             <div className={styles.headerContainer}>
                 <div className={styles.headerSection}>
                     <h2>
-                        Discover 💯 verified <br /> tech <span>Jobs</span> and{" "}
-                        <span>Internships</span>
+                        Discover verified <br /> tech <span>Jobs</span> and <span>Internships</span>
                         <br /> at top companies.
                     </h2>
 

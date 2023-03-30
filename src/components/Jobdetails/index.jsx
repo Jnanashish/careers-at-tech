@@ -4,7 +4,7 @@ import parse from "html-react-parser";
 
 import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import DasBanner from "../Das/DasBanner";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import WhatsAppJoin from "../common/WhatsappJoin";
@@ -24,6 +24,10 @@ const Jobdetails = (jobdata) => {
             shareonWhatsApp();
         }
     };
+    const handleBackButtonclick = () => {
+        Router.push("/jobs");
+    };
+
     const shareonWhatsApp = () => {
         const msg = `Hey 👋! %0ACheckout this job opening at ${data.companyName}. %0A%0ATo know more visit here : %0A${document.location.href}`;
         window.open(`whatsapp://send?text=${msg}`);
@@ -32,6 +36,14 @@ const Jobdetails = (jobdata) => {
     return (
         <div>
             <div className={styles.mainContainer}>
+                <span
+                    onClick={() => {
+                        handleBackButtonclick;
+                    }}
+                    className={styles.backButtonContainer}>
+                    <FontAwesomeIcon className={styles.backIcon} icon={faCaretLeft} />
+                    <p>Back to all jobs</p>
+                </span>
                 <div>
                     <div className={styles.headerContainer}>
                         {data.imagePath !== "none" && (

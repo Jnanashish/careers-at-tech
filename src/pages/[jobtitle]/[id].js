@@ -23,7 +23,7 @@ const JobdetailsPage = ({ data }) => {
             {data && (
                 <div>
                     <Header />
-                    <Meta jobTitle={data.title} description={data.title} logo={data.imagePath} />
+                    <Meta jobTitle={data.title} description={data.jobdesc} logo={data.imagePath} />
                     <div className={styles.jobdetailContainer}>
                         <div className={ibmPlexSans.className}>
                             <Jobdetails jobdata={data} />

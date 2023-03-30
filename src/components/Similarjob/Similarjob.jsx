@@ -12,7 +12,7 @@ const Similarjob = (props) => {
     }, []);
 
     const loadJobDetails = async () => {
-        const jobdata = await getJobListData(1, 20);
+        const jobdata = await getJobListData(1, 10);
         setJobData(jobdata.data);
     };
     return (
