@@ -22,6 +22,15 @@ const JobList = () => {
     const [loading, setLoading] = useState(true);
     const [companyname, setCompanyname] = useState("");
     const [jobType, setJobType] = useState(null);
+    const [searchWord, setSearchWord] = useState([
+        "Frontend",
+        "Backend",
+        "Software engineer",
+        "Web developer",
+        "Test Engineer",
+        "Fullstack",
+    ]);
+    const [selectedSearchWord, setSelectedSearchWord] = useState("");
     const dasBannerData = useSelector((state) => state.das.dasBanner);
 
     useEffect(() => {
@@ -33,7 +42,13 @@ const JobList = () => {
         callJobList();
     }, [pageno]);
     useEffect(() => {
+        setJobType("");
+    }, [companyname]);
+
+    useEffect(() => {
         if (jobType) {
+            setSelectedSearchWord("");
+            setCompanyname("");
             setLoading(true);
             getRoleData(jobType);
         }
@@ -47,10 +62,16 @@ const JobList = () => {
             setLoading(false);
         }
     };
-    const getCompanyData = () => {
+    const getCompanyData = (keyword = "") => {
+        let searchTerm;
+        if (keyword) {
+            searchTerm = keyword;
+        } else {
+            searchTerm = companyname;
+        }
         setLoading(true);
         setJobdata([]);
-        getcompanynamedata(companyname).then((result) => {
+        getcompanynamedata(searchTerm).then((result) => {
             setJobdata([]);
             if (result.error) {
                 console.log("Cannot Load data");
@@ -73,9 +94,22 @@ const JobList = () => {
     };
 
     const handleCancelClick = () => {
+        setPageno(1);
         setJobdata([]);
         setCompanyname("");
         callJobList();
+        setSelectedSearchWord("");
+    };
+
+    const handleSearchWordSelection = (word) => {
+        if (selectedSearchWord === word) {
+            setSelectedSearchWord("");
+        } else {
+            setJobType("");
+            setCompanyname(word);
+            setSelectedSearchWord(word);
+            getCompanyData(word);
+        }
     };
 
     var itemCount = 0;
@@ -95,7 +129,7 @@ const JobList = () => {
                             className={styles.searchcompany}
                             value={companyname}
                             onChange={(e) => setCompanyname(e.target.value)}
-                            placeholder="Search jobs with company or title"
+                            placeholder="Search with title or company name"
                         />
 
                         <div
@@ -106,15 +140,34 @@ const JobList = () => {
                             }
                             onClick={() => handleCancelClick()}
                             className={styles.cancelButton}>
-                            <FontAwesomeIcon icon={faXmark} />
+                            <FontAwesomeIcon
+                                icon={faXmark}
+                                style={{ height: "16px", width: "16px" }}
+                            />
                         </div>
 
                         <div onClick={() => getCompanyData()} className={styles.search_btn}>
                             <FontAwesomeIcon
-                                style={{ height: "20px", width: "20px" }}
+                                style={{ height: "18px", width: "18px" }}
                                 icon={faSearch}
                             />
                         </div>
+                    </div>
+                    <div className={styles.searchWordContainer}>
+                        {searchWord.map((word, i) => {
+                            return (
+                                <span
+                                    style={
+                                        selectedSearchWord === word
+                                            ? { backgroundColor: "#0069FF", color: "#FFF" }
+                                            : {}
+                                    }
+                                    onClick={() => handleSearchWordSelection(word)}
+                                    key={i}>
+                                    {word}
+                                </span>
+                            );
+                        })}
                     </div>
 
                     <div className={styles.radioGroup}>
@@ -123,7 +176,7 @@ const JobList = () => {
                                 placeholder="full time radio"
                                 type="radio"
                                 checked={jobType === "full"}
-                                name="gender"
+                                name="full time radio"
                                 onChange={() => setJobType("full")}
                             />
                             <p
@@ -140,7 +193,7 @@ const JobList = () => {
                                 placeholder="intern radio"
                                 type="radio"
                                 checked={jobType === "intern"}
-                                name="gender"
+                                name="intern radio"
                                 onChange={() => setJobType("intern")}
                             />
                             <p

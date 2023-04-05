@@ -21,7 +21,7 @@
     text-align: left;
 
     @media (max-width: 768px) {
-        padding: 18px 16px;
+        padding: 18px 16px 16px 16px;
         margin: 0px auto;
     }
 }
@@ -77,7 +77,7 @@
     grid-row: 1;
 }
 .jobtitle {
-    font-size: 22px;
+    font-size: 20px;
     color: #121926;
     font-weight: 600;
     line-height: 24px;
@@ -164,6 +164,10 @@
     @media (max-width: 768px) {
         display: none;
     }
+}
+.viewIcon {
+    height: 12px;
+    width: 12px;
 }
 //  chips design --------------
 .chipContainer {

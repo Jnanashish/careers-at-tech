@@ -10,6 +10,7 @@ import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-s
 import Modal from "../common/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import styles from "./jobcard.module.scss";
+import { handleShareClick } from "../../core/shareJobs";
 
 const Jobcard = (props) => {
     const {
@@ -32,8 +33,7 @@ const Jobcard = (props) => {
     const [popType, setPopType] = useState("none");
     const [jobcardClicked, setJobcardClicked] = useState(false);
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
-    const impression =
-        totalclick === 0 ? 100 : totalclick < 200 ? totalclick + 200 : totalclick + 300;
+    const impression = totalclick * 3;
 
     // set type of das popup when page load
     const dasPoptype = useSelector((state) => state.das.dasPoptype);
@@ -78,34 +78,6 @@ const Jobcard = (props) => {
         }
     };
 
-    const handleShareClick = () => {
-        if (jdpage === "true") {
-            const joblink = `https://careersat.tech/${titleforShare}/${id}`;
-            if (navigator.share) {
-                navigator.share({
-                    title: `${title} | ${title}`,
-                    text: `Hey 👋! \nCheckout this job : ${title} \n\nTo know more visit`,
-                    url: joblink,
-                });
-            } else {
-                const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0ATo know more visit here : %0A${joblink}`;
-                window.open(`whatsapp://send?text=${msg}`);
-            }
-        } else {
-            if (navigator.share) {
-                navigator.share({
-                    title: `${title} | ${title}`,
-                    text: `Hey 👋! %0ACheckout this job : ${title} %0AApply to this job from here ${link}. %0A%0AFor more job opportunity visit %0A`,
-                    url: "https://careersat.tech/jobs",
-                });
-            } else {
-                const url = "https://careersat.tech/jobs";
-                const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0AApply to this job role from here : %0A${link}%0A%0AFor more job opportunity visit %0A$👉{url}`;
-                window.open(`whatsapp://send?text=${msg}`);
-            }
-        }
-    };
-
     return (
         <div className={styles.jobCardContainer}>
             {showModal && (
@@ -140,7 +112,11 @@ const Jobcard = (props) => {
                     </div>
 
                     <div className={styles.jobTitleContainer}>
-                        <p className={styles.jobtitle}>{role !== "N" ? role : title}</p>
+                        <p
+                            style={jobtype === "promo" ? { color: "#3B3B3B" } : {}}
+                            className={styles.jobtitle}>
+                            {role !== "N" ? role : title}
+                        </p>
                         <p className={styles.companyName}>{companyName}</p>
                     </div>
 
@@ -200,7 +176,7 @@ const Jobcard = (props) => {
                             </div>
                             <p className={styles.views}>
                                 <FontAwesomeIcon
-                                    className={styles.footerIcon}
+                                    className={styles.viewIcon}
                                     style={{ marginRight: "3px" }}
                                     icon={faEye}
                                 />
@@ -210,27 +186,29 @@ const Jobcard = (props) => {
                     )}
                 </div>
             )}
-            {jobcardClicked && (
+            {jobtype !== "promo" && jobcardClicked && (
                 <div className={styles.loaderContainer}>
                     <div className={styles.loader} />
                 </div>
             )}
 
             {/* footer with view count and share for mobile only  */}
-            <div onClick={() => handleShareClick()} className={styles.footerSection}>
-                <p>
-                    <FontAwesomeIcon
-                        className={styles.footerIcon}
-                        style={{ marginRight: "3px" }}
-                        icon={faEye}
-                    />
-                    {impression + 300} views
-                </p>
-                <div className={styles.shareContainer}>
-                    <p>Share</p>
-                    <FontAwesomeIcon className={styles.footerIcon} icon={faShareNodes} />
+            {jobtype !== "promo" && (
+                <div onClick={() => handleShareClick(props.data)} className={styles.footerSection}>
+                    <p>
+                        <FontAwesomeIcon
+                            className={styles.footerIcon}
+                            style={{ marginRight: "3px" }}
+                            icon={faEye}
+                        />
+                        {impression + 300} views
+                    </p>
+                    <div className={styles.shareContainer}>
+                        <p>Share</p>
+                        <FontAwesomeIcon className={styles.footerIcon} icon={faShareNodes} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };
