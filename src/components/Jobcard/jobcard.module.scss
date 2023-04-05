@@ -1,30 +1,33 @@
 .jobCardContainer {
     border-radius: 12px;
-    border: 0.8px solid rgba(218, 223, 231, 1);
+    border: 1px solid rgba(218, 223, 231, 1);
     margin-bottom: 20px;
     background-color: #fff;
+    font-family: "Inter", sans-serif;
 
     @media (max-width: 768px) {
-        margin-bottom: 15px;
+        margin-bottom: 16px;
+    }
+    &:hover {
+        box-shadow: 0 2px 20px rgb(0 0 0 / 0.1);
+        transition-duration: 0.8s;
     }
 }
 .mainSection {
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 16% 84%;
     padding: 20px 20px 20px 0px;
     cursor: pointer;
     text-align: left;
-    font-family: "Inter", sans-serif;
 
     @media (max-width: 768px) {
-        grid-template-columns: 18% 82%;
-        padding: 15px 14px;
+        padding: 18px 16px;
         margin: 0px auto;
     }
 }
 
+// company logo image or text
 .companyLogoContainer {
-    margin-top: 3px;
     place-self: center;
     justify-self: center;
 
@@ -34,6 +37,8 @@
     @media (max-width: 768px) {
         grid-column: 1;
         grid-row: 1;
+        justify-self: start;
+        margin-left: 2px;
     }
 }
 
@@ -66,33 +71,49 @@
     }
 }
 
-.jobtitle {
+// job title and company name
+.jobTitleContainer {
     grid-column: 2/6;
     grid-row: 1;
-
-    font-size: 20px;
-    color: rgba(18, 25, 38, 1);
+}
+.jobtitle {
+    font-size: 22px;
+    color: #121926;
     font-weight: 600;
     line-height: 24px;
-    margin: 0px;
+
     justify-self: start;
     align-self: center;
 
     @media (max-width: 768px) {
-        font-size: 1.02rem;
+        font-size: 18px;
         line-height: 1.4rem;
-        margin: 0px 0px 0px 2px;
     }
     @media (max-width: 300px) {
-        font-size: 0.9rem;
+        font-size: 16px;
         line-height: 1.2rem;
     }
 }
+.companyName {
+    font-size: 12px;
+    color: #121926;
+    font-weight: 500;
+    margin-top: 4px;
 
+    @media (min-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+// job details batch and degree
 .jobdetails {
-    margin-top: 12px;
-    grid-column: 2/6;
+    grid-column: 2/4;
     grid-row: 2;
+    margin-top: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     @media (max-width: 768px) {
         grid-column: 1/6;
@@ -102,7 +123,7 @@
 
 .jobdetailsItem {
     display: flex;
-    margin: 0px 0px 2px;
+    margin: 0px 0px 4px;
     line-height: 1.1rem;
 
     font-family: "Inter", sans-serif;
@@ -111,8 +132,7 @@
 
     p {
         color: #697586;
-        margin-left: 8px;
-
+        margin-right: 6px;
         @media (max-width: 768px) {
             font-size: 0.8rem;
         }
@@ -129,35 +149,43 @@
     }
 }
 .detailTitle {
-    p {
-        color: #121212 !important;
-        @media (max-width: 600px) {
-            font-size: 0.8rem;
-            justify-self: end;
-        }
+    color: #121212 !important;
+    @media (max-width: 768px) {
+        font-size: 0.8rem;
+        justify-self: end;
     }
 }
+.views {
+    color: #697586;
+    font-size: 12px;
+    font-weight: 500;
+    align-self: flex-end;
 
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+//  chips design --------------
 .chipContainer {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 8px;
+    justify-content: flex-start;
+    margin-top: 12px;
 }
 
 .chip {
-    padding: 3px 8px;
-    background-color: #deebff;
-    border-radius: 6px;
-    font-size: 0.6rem;
+    padding: 4px 14px;
+    font-size: 12px;
     margin-right: 8px;
     font-weight: 500;
+    border-radius: 6px;
 
-    img {
-        width: 10px;
-        margin-right: 3px;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 4px 10px;
     }
 }
 .chipIcon {
@@ -165,8 +193,9 @@
     width: 8px;
     margin-bottom: 1px;
     margin-right: 3px;
-    color: #4b5565;
 }
+
+// loader when clicked on a card
 .loaderContainer {
     display: flex;
     align-items: center;
@@ -200,16 +229,22 @@
         }
     }
 }
+
+// footer with share and view button for mobile
 .footerSection {
-    border-top: 1px solid #e1ebff;
-    height: 30px;
+    @media (min-width: 768px) {
+        display: none;
+    }
+
+    height: 32px;
     border-radius: 0px 0px 12px 12px;
+    border-top: 1px solid #e1ebff;
     cursor: pointer;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 15px;
+    padding: 0px 16px;
 
     p {
         font-size: 0.6rem;
@@ -223,13 +258,13 @@
 
     p {
         font-size: 0.8rem;
+        font-weight: 600;
     }
-    .chipIcon {
-        height: 12px;
-        width: 12px;
+    .footerIcon {
+        height: 10px;
+        width: 10px;
         color: #1d4ed8;
-        margin-bottom: 0px;
-        margin-left: 3px;
-        margin-right: 0px;
+        margin-left: 4px;
+        margin-top: 1px;
     }
 }

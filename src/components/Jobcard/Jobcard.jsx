@@ -14,6 +14,7 @@ import styles from "./jobcard.module.scss";
 const Jobcard = (props) => {
     const {
         title,
+        role,
         degree,
         batch,
         imagePath,
@@ -24,6 +25,8 @@ const Jobcard = (props) => {
         totalclick,
         id,
         link,
+        companyName,
+        createdAt,
     } = props.data;
     const [showModal, setShowModal] = useState(false);
     const [popType, setPopType] = useState("none");
@@ -136,19 +139,25 @@ const Jobcard = (props) => {
                         )}
                     </div>
 
-                    <p className={styles.jobtitle}>{title}</p>
+                    <div className={styles.jobTitleContainer}>
+                        <p className={styles.jobtitle}>{role !== "N" ? role : title}</p>
+                        <p className={styles.companyName}>{companyName}</p>
+                    </div>
+
                     {jobtype !== "promo" && (
                         <div className={styles.jobdetails}>
-                            <div className={styles.jobdetailsItem}>
-                                <p className={styles.detailTitle}>Degree :</p>
-                                <p>{degree}</p>
-                            </div>
-                            <div className={styles.jobdetailsItem}>
-                                <p className={styles.detailTitle}>Batch :</p>
-                                <p>{batch}</p>
-                            </div>
-                            <div className={styles.chipContainer}>
-                                <div>
+                            <div>
+                                <div className={styles.jobdetailsItem}>
+                                    <p className={styles.detailTitle}> Degree :</p>
+                                    <p>{degree}</p>
+                                </div>
+                                <div className={styles.jobdetailsItem}>
+                                    <p className={styles.detailTitle}>Batch :</p>
+                                    <p>{batch}</p>
+                                </div>
+
+                                {/* chip section  */}
+                                <div className={styles.chipContainer}>
                                     {jobtype !== "N" && (
                                         <span
                                             style={{
@@ -170,7 +179,7 @@ const Jobcard = (props) => {
                                                 className={styles.chipIcon}
                                                 icon={faLocationDot}
                                             />
-                                            {location}
+                                            <p>{location}</p>
                                         </span>
                                     )}
                                     {experience !== "N" && experience.length < 12 && (
@@ -189,6 +198,14 @@ const Jobcard = (props) => {
                                     )}
                                 </div>
                             </div>
+                            <p className={styles.views}>
+                                <FontAwesomeIcon
+                                    className={styles.footerIcon}
+                                    style={{ marginRight: "3px" }}
+                                    icon={faEye}
+                                />
+                                {impression + 300} views
+                            </p>
                         </div>
                     )}
                 </div>
@@ -198,14 +215,20 @@ const Jobcard = (props) => {
                     <div className={styles.loader} />
                 </div>
             )}
+
+            {/* footer with view count and share for mobile only  */}
             <div onClick={() => handleShareClick()} className={styles.footerSection}>
                 <p>
-                    <FontAwesomeIcon className={styles.chipIcon} icon={faEye} />
+                    <FontAwesomeIcon
+                        className={styles.footerIcon}
+                        style={{ marginRight: "3px" }}
+                        icon={faEye}
+                    />
                     {impression + 300} views
                 </p>
                 <div className={styles.shareContainer}>
                     <p>Share</p>
-                    <FontAwesomeIcon className={styles.chipIcon} icon={faShareNodes} />
+                    <FontAwesomeIcon className={styles.footerIcon} icon={faShareNodes} />
                 </div>
             </div>
         </div>

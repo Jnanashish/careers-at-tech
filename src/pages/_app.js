@@ -5,18 +5,22 @@ import { Analytics } from "@vercel/analytics/react";
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
 import { Inter } from "@next/font/google";
+import { Open_Sans } from "@next/font/google";
 
 // set up inter font for the project
 const inter = Inter({
     weight: ["300", "400", "500", "600", "700", "800"],
     subsets: ["latin"],
 });
+const openSans = Open_Sans({
+    weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 const App = (props) => {
     const { Component, pageProps } = props;
     return (
         <Provider store={store}>
-            <main className={inter.className}>
+            <main className={`${inter.className} ${openSans.className}`}>
                 <Component {...pageProps} />
                 <Analytics />
             </main>
