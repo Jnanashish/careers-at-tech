@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 
 import Header from "@/components/common/Header/header";
@@ -8,6 +8,7 @@ import { IBM_Plex_Sans } from "@next/font/google";
 import styles from "./jobdetail.module.scss";
 import Meta from "@/core/meta";
 import Footer from "@/components/common/Footer/Footer";
+import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 
 const ibmPlexSans = IBM_Plex_Sans({
     weight: ["300", "400", "500", "600", "700"],
@@ -15,6 +16,10 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 const JobdetailsPage = ({ data }) => {
+    useEffect(() => {
+        handleIntialPageLoad();
+    }, []);
+
     return (
         <div>
             <Head>

@@ -11,6 +11,7 @@ import Modal from "../common/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import styles from "./jobcard.module.scss";
 import { handleShareClick } from "../../core/shareJobs";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Jobcard = (props) => {
     const {
@@ -60,6 +61,11 @@ const Jobcard = (props) => {
 
     // handle job card and footer section click
     const handleJobCardClick = () => {
+        firenbaseEventHandler("jobCardClick", {
+            id: id,
+            jdpage: jdpage,
+            jobTitle: title,
+        });
         setJobcardClicked(true);
         if (jobtype === "promo") {
             countClickinJd(id);

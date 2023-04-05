@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Script from "next/script";
 import Header from "@/components/common/Header/header";
 import Head from "next/head";
 
@@ -11,13 +10,14 @@ import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { storeDASLinkData, storeDASBannerData, storeDASPopUpType } from "@/Redux/actions";
 import Footer from "@/components/common/Footer/Footer";
 import JobList from "@/components/JobList";
-import { getJobListData } from "@/core/apis/jobapicall";
+import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 
 const Jobs = (props) => {
     const { jobdata } = props;
     const dispatch = useDispatch();
 
     useEffect(() => {
+        handleIntialPageLoad();
         getDASLinkData();
         getDASBannerData();
         getDASPoptypeData();

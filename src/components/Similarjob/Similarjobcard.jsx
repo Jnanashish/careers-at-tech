@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Router from "next/router";
 import Image from "next/image";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 import styles from "./similarjob.module.scss";
 
@@ -9,6 +10,10 @@ const Similarjobcard = (props) => {
 
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
     const redirectToJobdetailPage = () => {
+        firenbaseEventHandler("similarJobCardClicked", {
+            jobId: id,
+            jobTitle: title,
+        });
         Router.push(`/${titleforShare}/${id}`);
     };
     return (

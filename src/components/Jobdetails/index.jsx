@@ -11,10 +11,15 @@ import { countClickinJd } from "@/core/apis/jobapicall";
 import WhatsAppJoin from "../common/WhatsappJoin";
 import Similarjob from "../Similarjob/Similarjob";
 import DasLink from "../Das/DasLink";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
     const shareJobDetail = () => {
+        firenbaseEventHandler("shareJobDetails", {
+            id: data._id,
+            jobTitle: data.title,
+        });
         if (navigator.share) {
             navigator.share({
                 title: `${data.title} | ${data.title}`,
@@ -26,12 +31,24 @@ const Jobdetails = (jobdata) => {
         }
     };
     const handleBackButtonclick = () => {
+        firenbaseEventHandler("backButtonClicked", {
+            jobId: data._id,
+            jobTitle: data.title,
+        });
         Router.push("/jobs");
     };
 
     const shareonWhatsApp = () => {
         const msg = `Hey 👋! %0ACheckout this job opening at ${data.companyName}. %0A%0ATo know more visit here : %0A${document.location.href}`;
         window.open(`whatsapp://send?text=${msg}`);
+    };
+
+    const applyButtonClicked = () => {
+        firenbaseEventHandler("applyButtonClicked", {
+            jobId: data._id,
+            jobTitle: data.title,
+        });
+        countClickinJd(data._id);
     };
 
     return (
@@ -128,7 +145,7 @@ const Jobdetails = (jobdata) => {
                     </div>
                 )}
                 <a
-                    onClick={() => countClickinJd(data._id)}
+                    onClick={() => applyButtonClicked()}
                     href={data.link}
                     rel="noreferrer"
                     target="_blank">

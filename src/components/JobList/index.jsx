@@ -11,6 +11,7 @@ import Jobcard from "../Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
 import Notice from "../common/Notice/notice";
 import WhatsAppJoin from "../common/WhatsappJoin";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -57,18 +58,22 @@ const JobList = () => {
     const callJobList = async () => {
         setLoading(true);
         const apiResponse = await getJobListData(pageno);
-        if (apiResponse.data) {
+        if (apiResponse && apiResponse.data) {
             setJobdata([...jobdata, ...apiResponse.data]);
             setLoading(false);
         }
     };
     const getCompanyData = (keyword = "") => {
         let searchTerm;
-        if (keyword) {
+        if (keyword != "") {
             searchTerm = keyword;
         } else {
+            firenbaseEventHandler("searchFilterClicked", {
+                searchTerm: companyname,
+            });
             searchTerm = companyname;
         }
+
         setLoading(true);
         setJobdata([]);
         getcompanynamedata(searchTerm).then((result) => {
@@ -94,6 +99,9 @@ const JobList = () => {
     };
 
     const handleCancelClick = () => {
+        firenbaseEventHandler("clearSearchFieldClicked", {
+            searchTerm: companyname,
+        });
         setPageno(1);
         setJobdata([]);
         setCompanyname("");
@@ -102,6 +110,9 @@ const JobList = () => {
     };
 
     const handleSearchWordSelection = (word) => {
+        firenbaseEventHandler("searchTermClicked", {
+            searchTerm: word,
+        });
         if (selectedSearchWord === word) {
             setSelectedSearchWord("");
         } else {
@@ -110,6 +121,18 @@ const JobList = () => {
             setSelectedSearchWord(word);
             getCompanyData(word);
         }
+    };
+    const showMoreButtonClicked = () => {
+        firenbaseEventHandler("showMoreButtonClicked", {
+            pageno: pageno,
+        });
+        setPageno(pageno + 1);
+    };
+    const handleJobtypeFilterClicked = (jobtype) => {
+        setJobType(jobtype);
+        firenbaseEventHandler("jobTypeFilterClicked", {
+            jobtype: jobtype,
+        });
     };
 
     var itemCount = 0;
@@ -171,7 +194,7 @@ const JobList = () => {
                     </div>
 
                     <div className={styles.radioGroup}>
-                        <span onClick={() => setJobType("full")}>
+                        <span onClick={() => handleJobtypeFilterClicked("full")}>
                             <input
                                 placeholder="full time radio"
                                 type="radio"
@@ -188,7 +211,7 @@ const JobList = () => {
                                 Full time
                             </p>
                         </span>
-                        <span onClick={() => setJobType("intern")}>
+                        <span onClick={() => handleJobtypeFilterClicked("intern")}>
                             <input
                                 placeholder="intern radio"
                                 type="radio"
@@ -250,7 +273,7 @@ const JobList = () => {
                         })}
                         {jobdata.length !== 0 && (
                             <div className={styles.moreJobContainer}>
-                                <p onClick={() => setPageno(pageno + 1)}>Show more jobs</p>
+                                <p onClick={() => showMoreButtonClicked()}>Show more jobs</p>
                             </div>
                         )}
                     </div>

@@ -6,6 +6,7 @@ import telegramIcon from "../../../static/Image/telegramIcon.svg";
 import instagramIcon from "../../../static/Image/instagramIcon.svg";
 import whatsappIcon from "../../../static/Image/whatsappIcon.svg";
 import linkedinIcon from "../../../static/Image/linkedinIcon.svg";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Footer = () => {
     const [count, setCount] = useState("");
@@ -23,6 +24,13 @@ const Footer = () => {
             });
     };
 
+    const socialIconClicked = (name) => {
+        firenbaseEventHandler("socialIconClikced", {
+            socialMediaName: name,
+            source: "Footer",
+        });
+    };
+
     return (
         <div>
             <div className={styles.footerSection}>
@@ -30,16 +38,24 @@ const Footer = () => {
                 <div className={styles.iconContainer}>
                     <a
                         href="https://www.instagram.com/careersattech/"
+                        onClick={() => socialIconClicked("instagram")}
                         className={styles.socialIcon}>
                         <Image src={instagramIcon} alt="Telegram icon" height={25} width={25} />
                     </a>
-                    <a href="https://t.openinapp.co/careersattech-3" className={styles.socialIcon}>
+                    <a
+                        onClick={() => socialIconClicked("telegram")}
+                        href="https://t.openinapp.co/careersattech-3"
+                        className={styles.socialIcon}>
                         <Image src={telegramIcon} alt="Telegram icon" height={25} width={25} />
                     </a>
-                    <a href="https://openinapp.co/m04iq" className={styles.socialIcon}>
+                    <a
+                        onClick={() => socialIconClicked("linkedin")}
+                        href="https://openinapp.co/m04iq"
+                        className={styles.socialIcon}>
                         <Image src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
                     </a>
                     <a
+                        onClick={() => socialIconClicked("whatsApp")}
                         href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc"
                         className={styles.socialIcon}>
                         <Image src={whatsappIcon} alt="Telegram icon" height={25} width={25} />
