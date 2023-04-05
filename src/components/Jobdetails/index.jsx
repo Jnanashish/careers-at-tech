@@ -18,7 +18,7 @@ const Jobdetails = (jobdata) => {
         if (navigator.share) {
             navigator.share({
                 title: `${data.title} | ${data.title}`,
-                text: `Hey 👋! \nCheckout this job : ${title} \n\nTo know more visit`,
+                text: `Hey 👋! \nCheckout this job : ${data.title} \n\nTo know more visit`,
                 url: document.location.href,
             });
         } else {

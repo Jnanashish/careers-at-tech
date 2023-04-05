@@ -11,18 +11,18 @@ export const handleShareClick = (data) => {
                 url: joblink,
             });
         } else {
-            const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0ATo know more visit here : %0A${joblink}`;
+            const msg = `Hey 👋! \nCheckout this job opening.${title} \n\nTo know more visit here : ${joblink}`;
             window.open(`whatsapp://send?text=${msg}`);
         }
     } else {
         if (navigator.share) {
             navigator.share({
                 title: `${title} | ${title}`,
-                text: `Hey 👋! %0ACheckout this job : ${title} %0AApply to this job from here ${link}. %0A%0AFor more job opportunity visit %0A`,
+                text: `Hey 👋! \nCheckout this job : ${title} \n\nApply to this job from here ${link}. \n\nFor more job opportunity visit \n`,
                 url: "https://careersat.tech/jobs",
             });
         } else {
-            const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0AApply to this job role from here : %0A${link}%0A%0AFor more job opportunity visit %0A$👉{url}`;
+            const msg = `Hey 👋! \nCheckout this job opening.${title} \n\nApply to this job role from here : \n${link}\n\nFor more job opportunity visit \n$👉{url}`;
             window.open(`whatsapp://send?text=${msg}`);
         }
     }

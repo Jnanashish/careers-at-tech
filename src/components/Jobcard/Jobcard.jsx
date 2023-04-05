@@ -198,7 +198,7 @@ const Jobcard = (props) => {
                     <p>
                         <FontAwesomeIcon
                             className={styles.footerIcon}
-                            style={{ marginRight: "3px" }}
+                            style={{ marginRight: "3px", height: "10px", width: "10px" }}
                             icon={faEye}
                         />
                         {impression + 300} views
