@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const style = {
     whatsAppJoinBtn: {
@@ -26,6 +27,10 @@ const style = {
     },
 };
 
+const handleWhatsAppJoinClick = () => {
+    firenbaseEventHandler("whatsAppJoinCardClikced", true);
+};
+
 const WhatsAppJoin = () => {
     return (
         <div style={style.shareContainer}>
@@ -41,7 +46,9 @@ const WhatsAppJoin = () => {
                     width={60}
                 />
             </div>
-            <a href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc">
+            <a
+                onClick={() => handleWhatsAppJoinClick()}
+                href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc">
                 <div style={style.whatsAppJoinBtn}>
                     <p>Join us Now on WhatsApp</p>
                     <FontAwesomeIcon style={style.shareIcon} icon={faShare} />

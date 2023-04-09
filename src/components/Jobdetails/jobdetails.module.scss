@@ -4,10 +4,26 @@
         padding: 20px 20px 0px;
     }
 }
+.backButtonContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    p {
+        font-weight: 500;
+        color: #121212;
+    }
+}
+.backIcon {
+    height: 20px;
+    width: 20px;
+    color: #3b3b3b;
+}
 .headerContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 .shareBtn {
     padding: 10px 12px;
@@ -44,13 +60,15 @@
     margin-top: 15px;
     margin-bottom: 20px;
     p {
-        margin: 6px 0px;
+        margin: 10px 0px;
         color: #1d4ed8;
-        font-weight: 500;
+        font-weight: 600;
     }
     span {
-        font-weight: 600;
+        font-weight: 500;
         color: #1d4ed8;
+        text-decoration: underline;
+        text-underline-offset: 2px;
     }
 }
 .joddetailContainer {
@@ -60,7 +78,9 @@
     @media (max-width: 768px) {
         font-size: 1rem;
     }
-    h3 {
+    h2 {
+        font-size: 20px;
+
         margin: 20px 0px 8px;
         @media (max-width: 768px) {
             margin: 20px 0px 10px;

@@ -10,10 +10,13 @@ import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-s
 import Modal from "../common/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import styles from "./jobcard.module.scss";
+import { handleShareClick } from "../../core/shareJobs";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Jobcard = (props) => {
     const {
         title,
+        role,
         degree,
         batch,
         imagePath,
@@ -24,13 +27,14 @@ const Jobcard = (props) => {
         totalclick,
         id,
         link,
+        companyName,
+        createdAt,
     } = props.data;
     const [showModal, setShowModal] = useState(false);
     const [popType, setPopType] = useState("none");
     const [jobcardClicked, setJobcardClicked] = useState(false);
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
-    const impression =
-        totalclick === 0 ? 100 : totalclick < 200 ? totalclick + 200 : totalclick + 300;
+    const impression = totalclick * 3;
 
     // set type of das popup when page load
     const dasPoptype = useSelector((state) => state.das.dasPoptype);
@@ -49,9 +53,19 @@ const Jobcard = (props) => {
         setShowModal(!showModal);
         setJobcardClicked(false);
     };
+    const onMouseEnter = () => {
+        if (jdpage === "true") {
+            Router.prefetch(`/${titleforShare}/${id}`);
+        }
+    };
 
     // handle job card and footer section click
     const handleJobCardClick = () => {
+        firenbaseEventHandler("jobCardClick", {
+            id: id,
+            jdpage: jdpage,
+            jobTitle: title,
+        });
         setJobcardClicked(true);
         if (jobtype === "promo") {
             countClickinJd(id);
@@ -66,34 +80,6 @@ const Jobcard = (props) => {
             }
             if (jdpage === "false" && popType !== "none") {
                 setShowModal(true);
-            }
-        }
-    };
-
-    const handleShareClick = () => {
-        if (jdpage === "true") {
-            const joblink = `https://careersat.tech/${titleforShare}/${id}`;
-            if (navigator.share) {
-                navigator.share({
-                    title: `${title} | ${title}`,
-                    text: `Hey 👋! %0ACheckout this job : ${title}`,
-                    url: joblink,
-                });
-            } else {
-                const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0ATo know more visit here : %0A${joblink}`;
-                window.open(`whatsapp://send?text=${msg}`);
-            }
-        } else {
-            if (navigator.share) {
-                navigator.share({
-                    title: `${title} | ${title}`,
-                    text: `Hey 👋! %0ACheckout this job : ${title} %0AApply to this job from here ${link}. %0A%0AFor more job opportunity visit %0A`,
-                    url: "https://careersat.tech/jobs",
-                });
-            } else {
-                const url = "https://careersat.tech/jobs";
-                const msg = `Hey 👋! %0ACheckout this job opening.%0A${title} %0A%0AApply to this job role from here : %0A${link}%0A%0AFor more job opportunity visit %0A$👉{url}`;
-                window.open(`whatsapp://send?text=${msg}`);
             }
         }
     };
@@ -113,6 +99,7 @@ const Jobcard = (props) => {
                     onClick={() => {
                         handleJobCardClick();
                     }}
+                    onMouseEnter={() => onMouseEnter()}
                     className={styles.mainSection}>
                     <div className={styles.companyLogoContainer}>
                         {imagePath === "none" ? (
@@ -130,19 +117,29 @@ const Jobcard = (props) => {
                         )}
                     </div>
 
-                    <p className={styles.jobtitle}>{title}</p>
+                    <div className={styles.jobTitleContainer}>
+                        <p
+                            style={jobtype === "promo" ? { color: "#3B3B3B" } : {}}
+                            className={styles.jobtitle}>
+                            {role !== "N" ? role : title}
+                        </p>
+                        <p className={styles.companyName}>{companyName}</p>
+                    </div>
+
                     {jobtype !== "promo" && (
                         <div className={styles.jobdetails}>
-                            <div className={styles.jobdetailsItem}>
-                                <p className={styles.detailTitle}>Degree :</p>
-                                <p>{degree}</p>
-                            </div>
-                            <div className={styles.jobdetailsItem}>
-                                <p className={styles.detailTitle}>Batch :</p>
-                                <p>{batch}</p>
-                            </div>
-                            <div className={styles.chipContainer}>
-                                <div>
+                            <div>
+                                <div className={styles.jobdetailsItem}>
+                                    <p className={styles.detailTitle}> Degree :</p>
+                                    <p>{degree}</p>
+                                </div>
+                                <div className={styles.jobdetailsItem}>
+                                    <p className={styles.detailTitle}>Batch :</p>
+                                    <p>{batch}</p>
+                                </div>
+
+                                {/* chip section  */}
+                                <div className={styles.chipContainer}>
                                     {jobtype !== "N" && (
                                         <span
                                             style={{
@@ -164,7 +161,7 @@ const Jobcard = (props) => {
                                                 className={styles.chipIcon}
                                                 icon={faLocationDot}
                                             />
-                                            {location}
+                                            <p>{location}</p>
                                         </span>
                                     )}
                                     {experience !== "N" && experience.length < 12 && (
@@ -183,25 +180,41 @@ const Jobcard = (props) => {
                                     )}
                                 </div>
                             </div>
+                            <p className={styles.views}>
+                                <FontAwesomeIcon
+                                    className={styles.viewIcon}
+                                    style={{ marginRight: "3px" }}
+                                    icon={faEye}
+                                />
+                                {impression + 300} views
+                            </p>
                         </div>
                     )}
                 </div>
             )}
-            {jobcardClicked && (
+            {jobtype !== "promo" && jobcardClicked && (
                 <div className={styles.loaderContainer}>
                     <div className={styles.loader} />
                 </div>
             )}
-            <div onClick={() => handleShareClick()} className={styles.footerSection}>
-                <p>
-                    <FontAwesomeIcon className={styles.chipIcon} icon={faEye} />
-                    {impression + 300} views
-                </p>
-                <div className={styles.shareContainer}>
-                    <p>Share</p>
-                    <FontAwesomeIcon className={styles.chipIcon} icon={faShareNodes} />
+
+            {/* footer with view count and share for mobile only  */}
+            {jobtype !== "promo" && (
+                <div onClick={() => handleShareClick(props.data)} className={styles.footerSection}>
+                    <p>
+                        <FontAwesomeIcon
+                            className={styles.footerIcon}
+                            style={{ marginRight: "3px", height: "10px", width: "10px" }}
+                            icon={faEye}
+                        />
+                        {impression + 300} views
+                    </p>
+                    <div className={styles.shareContainer}>
+                        <p>Share</p>
+                        <FontAwesomeIcon className={styles.footerIcon} icon={faShareNodes} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

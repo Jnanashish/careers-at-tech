@@ -16,13 +16,14 @@ const styles = {
     noticeHeader: {
         color: "#121212",
         marginBottom: "10px",
+        fontWeight: "500",
     },
 };
 
 function Notice() {
     return (
         <div style={styles.noticeContainer}>
-            <h4 style={styles.noticeHeader}>Important !</h4>
+            <p style={styles.noticeHeader}>Important !</p>
             <p style={styles.noticeText}>
                 All Company names, logos and trademarks are the intellectual property of the
                 respective owners. All company, product and service names used in this website are

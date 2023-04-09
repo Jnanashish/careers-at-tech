@@ -11,6 +11,7 @@ import Jobcard from "../Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
 import Notice from "../common/Notice/notice";
 import WhatsAppJoin from "../common/WhatsappJoin";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -22,6 +23,15 @@ const JobList = () => {
     const [loading, setLoading] = useState(true);
     const [companyname, setCompanyname] = useState("");
     const [jobType, setJobType] = useState(null);
+    const [searchWord, setSearchWord] = useState([
+        "Frontend",
+        "Backend",
+        "Software engineer",
+        "Web developer",
+        "Test Engineer",
+        "Fullstack",
+    ]);
+    const [selectedSearchWord, setSelectedSearchWord] = useState("");
     const dasBannerData = useSelector((state) => state.das.dasBanner);
 
     useEffect(() => {
@@ -33,7 +43,13 @@ const JobList = () => {
         callJobList();
     }, [pageno]);
     useEffect(() => {
+        setJobType("");
+    }, [companyname]);
+
+    useEffect(() => {
         if (jobType) {
+            setSelectedSearchWord("");
+            setCompanyname("");
             setLoading(true);
             getRoleData(jobType);
         }
@@ -42,15 +58,25 @@ const JobList = () => {
     const callJobList = async () => {
         setLoading(true);
         const apiResponse = await getJobListData(pageno);
-        if (apiResponse.data) {
+        if (apiResponse && apiResponse.data) {
             setJobdata([...jobdata, ...apiResponse.data]);
             setLoading(false);
         }
     };
-    const getCompanyData = () => {
+    const getCompanyData = (keyword = "") => {
+        let searchTerm;
+        if (keyword != "") {
+            searchTerm = keyword;
+        } else {
+            firenbaseEventHandler("searchFilterClicked", {
+                searchTerm: companyname,
+            });
+            searchTerm = companyname;
+        }
+
         setLoading(true);
         setJobdata([]);
-        getcompanynamedata(companyname).then((result) => {
+        getcompanynamedata(searchTerm).then((result) => {
             setJobdata([]);
             if (result.error) {
                 console.log("Cannot Load data");
@@ -73,9 +99,40 @@ const JobList = () => {
     };
 
     const handleCancelClick = () => {
+        firenbaseEventHandler("clearSearchFieldClicked", {
+            searchTerm: companyname,
+        });
+        setPageno(1);
         setJobdata([]);
         setCompanyname("");
         callJobList();
+        setSelectedSearchWord("");
+    };
+
+    const handleSearchWordSelection = (word) => {
+        firenbaseEventHandler("searchTermClicked", {
+            searchTerm: word,
+        });
+        if (selectedSearchWord === word) {
+            setSelectedSearchWord("");
+        } else {
+            setJobType("");
+            setCompanyname(word);
+            setSelectedSearchWord(word);
+            getCompanyData(word);
+        }
+    };
+    const showMoreButtonClicked = () => {
+        firenbaseEventHandler("showMoreButtonClicked", {
+            pageno: pageno,
+        });
+        setPageno(pageno + 1);
+    };
+    const handleJobtypeFilterClicked = (jobtype) => {
+        setJobType(jobtype);
+        firenbaseEventHandler("jobTypeFilterClicked", {
+            jobtype: jobtype,
+        });
     };
 
     var itemCount = 0;
@@ -85,8 +142,7 @@ const JobList = () => {
             <div className={styles.headerContainer}>
                 <div className={styles.headerSection}>
                     <h2>
-                        Discover 💯 verified <br /> tech <span>Jobs</span> and{" "}
-                        <span>Internships</span>
+                        Discover verified <br /> tech <span>Jobs</span> and <span>Internships</span>
                         <br /> at top companies.
                     </h2>
 
@@ -96,10 +152,10 @@ const JobList = () => {
                             className={styles.searchcompany}
                             value={companyname}
                             onChange={(e) => setCompanyname(e.target.value)}
-                            placeholder="Search jobs with company or title"
+                            placeholder="Search with title or company name"
                         />
 
-                        <button
+                        <div
                             style={
                                 companyname && companyname.length != 0
                                     ? { color: "#0069FF" }
@@ -107,17 +163,45 @@ const JobList = () => {
                             }
                             onClick={() => handleCancelClick()}
                             className={styles.cancelButton}>
-                            <FontAwesomeIcon icon={faXmark} />
-                        </button>
+                            <FontAwesomeIcon
+                                icon={faXmark}
+                                style={{ height: "16px", width: "16px" }}
+                            />
+                        </div>
 
-                        <button onClick={() => getCompanyData()} className={styles.search_btn}>
-                            <FontAwesomeIcon icon={faSearch} />
-                        </button>
+                        <div onClick={() => getCompanyData()} className={styles.search_btn}>
+                            <FontAwesomeIcon
+                                style={{ height: "18px", width: "18px" }}
+                                icon={faSearch}
+                            />
+                        </div>
+                    </div>
+                    <div className={styles.searchWordContainer}>
+                        {searchWord.map((word, i) => {
+                            return (
+                                <span
+                                    style={
+                                        selectedSearchWord === word
+                                            ? { backgroundColor: "#0069FF", color: "#FFF" }
+                                            : {}
+                                    }
+                                    onClick={() => handleSearchWordSelection(word)}
+                                    key={i}>
+                                    {word}
+                                </span>
+                            );
+                        })}
                     </div>
 
                     <div className={styles.radioGroup}>
-                        <span onClick={() => setJobType("full")}>
-                            <input type="radio" checked={jobType === "full"} name="gender" />{" "}
+                        <span onClick={() => handleJobtypeFilterClicked("full")}>
+                            <input
+                                placeholder="full time radio"
+                                type="radio"
+                                checked={jobType === "full"}
+                                name="full time radio"
+                                onChange={() => setJobType("full")}
+                            />
                             <p
                                 style={
                                     jobType === "full"
@@ -127,8 +211,14 @@ const JobList = () => {
                                 Full time
                             </p>
                         </span>
-                        <span onClick={() => setJobType("intern")}>
-                            <input type="radio" checked={jobType === "intern"} name="gender" />{" "}
+                        <span onClick={() => handleJobtypeFilterClicked("intern")}>
+                            <input
+                                placeholder="intern radio"
+                                type="radio"
+                                checked={jobType === "intern"}
+                                name="intern radio"
+                                onChange={() => setJobType("intern")}
+                            />
                             <p
                                 style={
                                     jobType === "intern"
@@ -183,7 +273,7 @@ const JobList = () => {
                         })}
                         {jobdata.length !== 0 && (
                             <div className={styles.moreJobContainer}>
-                                <p onClick={() => setPageno(pageno + 1)}>Show more jobs</p>
+                                <p onClick={() => showMoreButtonClicked()}>Show more jobs</p>
                             </div>
                         )}
                     </div>

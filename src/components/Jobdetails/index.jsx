@@ -1,37 +1,67 @@
 import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
+import Router from "next/router";
 
 import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import DasBanner from "../Das/DasBanner";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import WhatsAppJoin from "../common/WhatsappJoin";
 import Similarjob from "../Similarjob/Similarjob";
 import DasLink from "../Das/DasLink";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
     const shareJobDetail = () => {
+        firenbaseEventHandler("shareJobDetails", {
+            id: data._id,
+            jobTitle: data.title,
+        });
         if (navigator.share) {
             navigator.share({
                 title: `${data.title} | ${data.title}`,
-                text: `Check out this job : ${data.title}`,
+                text: `Hey 👋! \nCheckout this job : ${data.title} \n\nTo know more visit`,
                 url: document.location.href,
             });
         } else {
             shareonWhatsApp();
         }
     };
+    const handleBackButtonclick = () => {
+        firenbaseEventHandler("backButtonClicked", {
+            jobId: data._id,
+            jobTitle: data.title,
+        });
+        Router.push("/jobs");
+    };
+
     const shareonWhatsApp = () => {
         const msg = `Hey 👋! %0ACheckout this job opening at ${data.companyName}. %0A%0ATo know more visit here : %0A${document.location.href}`;
         window.open(`whatsapp://send?text=${msg}`);
     };
 
+    const applyButtonClicked = () => {
+        firenbaseEventHandler("applyButtonClicked", {
+            jobId: data._id,
+            jobTitle: data.title,
+        });
+        countClickinJd(data._id);
+    };
+
     return (
         <div>
             <div className={styles.mainContainer}>
+                <span
+                    onClick={() => {
+                        handleBackButtonclick();
+                    }}
+                    className={styles.backButtonContainer}>
+                    <FontAwesomeIcon className={styles.backIcon} icon={faCaretLeft} />
+                    <p>Back to all jobs</p>
+                </span>
                 <div>
                     <div className={styles.headerContainer}>
                         {data.imagePath !== "none" && (
@@ -89,19 +119,19 @@ const Jobdetails = (jobdata) => {
                 </div>
                 {data.responsibility !== "N" && data.responsibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>Responsibility : </h3>
+                        <h2>Responsibility : </h2>
                         {parse(data.responsibility)}
                     </div>
                 )}
                 {data.eligibility !== "N" && data.eligibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>Eligibility : </h3>
+                        <h2>Eligibility : </h2>
                         {parse(data.eligibility)}
                     </div>
                 )}
                 {data.skills !== "N" && data.skills !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>Prefered Skills : </h3>
+                        <h2>Prefered Skills : </h2>
                         {parse(data.skills)}
                     </div>
                 )}
@@ -110,12 +140,12 @@ const Jobdetails = (jobdata) => {
                 </div>
                 {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
-                        <h3>About Company : </h3>
+                        <h2>About Company : </h2>
                         {parse(data.aboutCompany)}
                     </div>
                 )}
                 <a
-                    onClick={() => countClickinJd(data._id)}
+                    onClick={() => applyButtonClicked()}
                     href={data.link}
                     rel="noreferrer"
                     target="_blank">
