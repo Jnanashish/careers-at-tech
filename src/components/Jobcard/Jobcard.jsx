@@ -61,10 +61,10 @@ const Jobcard = (props) => {
 
     // handle job card and footer section click
     const handleJobCardClick = () => {
-        firenbaseEventHandler("jobCardClick", {
-            id: id,
-            jdpage: jdpage,
-            jobTitle: title,
+        firenbaseEventHandler("job_card_clicked", {
+            job_id: id,
+            jd_page: jdpage,
+            job_title: title,
         });
         setJobcardClicked(true);
         if (jobtype === "promo") {
@@ -75,6 +75,11 @@ const Jobcard = (props) => {
                 redirectToJobdetailPage();
             }
             if (jdpage === "false" && popType === "none") {
+                firenbaseEventHandler("apply_button_clicked", {
+                    job_id: id,
+                    job_title: title,
+                    is_jd_page: jdpage,
+                });
                 window.location.assign(link);
                 countClickinJd(id);
             }

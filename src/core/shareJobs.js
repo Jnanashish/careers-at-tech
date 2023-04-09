@@ -2,9 +2,11 @@ import { firenbaseEventHandler } from "./eventHandler";
 export const handleShareClick = (data) => {
     const { title, jdpage, id, link } = data;
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
-    firenbaseEventHandler("jobCardShareClicked", {
-        jobId: id,
-        jobTitle: title,
+
+    firenbaseEventHandler("share_job_clicked", {
+        job_id: id,
+        job_title: title,
+        source: "Job card",
     });
 
     if (jdpage === "true") {

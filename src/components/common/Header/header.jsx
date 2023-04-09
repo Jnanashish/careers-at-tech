@@ -1,9 +1,14 @@
 import React from "react";
 import Router from "next/router";
 import styles from "./header.module.scss";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Header = () => {
     const handleRedirection = () => {
+        firenbaseEventHandler("header_logo_click", {
+            source: "Header",
+            action : "Go to home page"
+        });
         Router.push("/jobs");
     };
     return (

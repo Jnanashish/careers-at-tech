@@ -28,7 +28,7 @@ const style = {
 };
 
 const handleWhatsAppJoinClick = () => {
-    firenbaseEventHandler("whatsAppJoinCardClikced", true);
+    firenbaseEventHandler("whatsapp_default_ad_clikced", true);
 };
 
 const WhatsAppJoin = () => {

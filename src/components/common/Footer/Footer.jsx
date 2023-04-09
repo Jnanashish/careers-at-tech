@@ -25,8 +25,8 @@ const Footer = () => {
     };
 
     const socialIconClicked = (name) => {
-        firenbaseEventHandler("socialIconClikced", {
-            socialMediaName: name,
+        firenbaseEventHandler("social_icon_clicked", {
+            social_media_name: name,
             source: "Footer",
         });
     };

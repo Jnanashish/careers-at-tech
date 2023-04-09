@@ -16,9 +16,10 @@ import { firenbaseEventHandler } from "@/core/eventHandler";
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
     const shareJobDetail = () => {
-        firenbaseEventHandler("shareJobDetails", {
-            id: data._id,
-            jobTitle: data.title,
+        firenbaseEventHandler("share_job_clicked", {
+            job_id: data._id,
+            job_title: data.title,
+            source : "Jd page"
         });
         if (navigator.share) {
             navigator.share({
@@ -31,9 +32,9 @@ const Jobdetails = (jobdata) => {
         }
     };
     const handleBackButtonclick = () => {
-        firenbaseEventHandler("backButtonClicked", {
-            jobId: data._id,
-            jobTitle: data.title,
+        firenbaseEventHandler("back_button_clicked", {
+            job_id: data._id,
+            job_title: data.title,
         });
         Router.push("/jobs");
     };
@@ -44,9 +45,10 @@ const Jobdetails = (jobdata) => {
     };
 
     const applyButtonClicked = () => {
-        firenbaseEventHandler("applyButtonClicked", {
-            jobId: data._id,
-            jobTitle: data.title,
+        firenbaseEventHandler("apply_button_clicked", {
+            job_id: data._id,
+            job_title: data.title,
+            is_jd_page: true,
         });
         countClickinJd(data._id);
     };

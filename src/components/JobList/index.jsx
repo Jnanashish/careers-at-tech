@@ -68,8 +68,8 @@ const JobList = () => {
         if (keyword != "") {
             searchTerm = keyword;
         } else {
-            firenbaseEventHandler("searchFilterClicked", {
-                searchTerm: companyname,
+            firenbaseEventHandler("search_filter_clicked", {
+                search_term: companyname,
             });
             searchTerm = companyname;
         }
@@ -99,8 +99,8 @@ const JobList = () => {
     };
 
     const handleCancelClick = () => {
-        firenbaseEventHandler("clearSearchFieldClicked", {
-            searchTerm: companyname,
+        firenbaseEventHandler("clear_search_field_clicked", {
+            search_term: companyname,
         });
         setPageno(1);
         setJobdata([]);
@@ -110,8 +110,8 @@ const JobList = () => {
     };
 
     const handleSearchWordSelection = (word) => {
-        firenbaseEventHandler("searchTermClicked", {
-            searchTerm: word,
+        firenbaseEventHandler("search_term_clicked", {
+            search_term: word,
         });
         if (selectedSearchWord === word) {
             setSelectedSearchWord("");
@@ -123,15 +123,15 @@ const JobList = () => {
         }
     };
     const showMoreButtonClicked = () => {
-        firenbaseEventHandler("showMoreButtonClicked", {
+        firenbaseEventHandler("showmore_button_clicked", {
             pageno: pageno,
         });
         setPageno(pageno + 1);
     };
     const handleJobtypeFilterClicked = (jobtype) => {
         setJobType(jobtype);
-        firenbaseEventHandler("jobTypeFilterClicked", {
-            jobtype: jobtype,
+        firenbaseEventHandler("jobtype_filter_selected", {
+            job_type: jobtype,
         });
     };
 

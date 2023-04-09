@@ -10,9 +10,9 @@ const Similarjobcard = (props) => {
 
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
     const redirectToJobdetailPage = () => {
-        firenbaseEventHandler("similarJobCardClicked", {
-            jobId: id,
-            jobTitle: title,
+        firenbaseEventHandler("similar_jobcard_clicked", {
+            job_id: id,
+            job_title: title,
         });
         Router.push(`/${titleforShare}/${id}`);
     };

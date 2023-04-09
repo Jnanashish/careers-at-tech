@@ -9,6 +9,7 @@ import styles from "./jobdetail.module.scss";
 import Meta from "@/core/meta";
 import Footer from "@/components/common/Footer/Footer";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
+import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const ibmPlexSans = IBM_Plex_Sans({
     weight: ["300", "400", "500", "600", "700"],
@@ -18,6 +19,10 @@ const ibmPlexSans = IBM_Plex_Sans({
 const JobdetailsPage = ({ data }) => {
     useEffect(() => {
         handleIntialPageLoad();
+        firenbaseEventHandler("jd_page_loaded", {
+            job_id: data._id,
+            jd_page_title: data.title,
+        });
     }, []);
 
     return (
