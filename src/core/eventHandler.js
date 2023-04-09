@@ -9,5 +9,7 @@ if (typeof window !== "undefined") {
 }
 
 export const firenbaseEventHandler = (eventName, eventAttributes) => {
+    alert(analytics);
+
     logEvent(analytics, eventName, eventAttributes);
 };
