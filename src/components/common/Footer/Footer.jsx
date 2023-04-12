@@ -32,7 +32,7 @@ const Footer = () => {
     };
 
     return (
-        <div>
+        <div className={styles.footerContainer}>
             <div className={styles.footerSection}>
                 <p className={styles.companyName}>Socials</p>
                 <div className={styles.iconContainer}>

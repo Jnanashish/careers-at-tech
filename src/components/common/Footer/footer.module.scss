@@ -1,9 +1,12 @@
-.footerSection {
-    background-color: #fff;
-    padding: 16px 0px 20px;
+.footerContainer {
     width: 92%;
+    background-color: #fff;
     margin: 0px auto;
 }
+.footerSection {
+    padding: 20px 0px;
+}
+
 .companyName {
     font-size: 16px;
     font-weight: 600;
@@ -42,34 +45,24 @@
 }
 
 .footer {
-    background-color: #0069ff;
+    border-top: 1px solid rgba(197, 205, 216, 1);
+    background-color: #fff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 32px 0px;
+    color: #4b5565;
+    font-size: 1rem;
+    font-weight: 500;
 
     a {
-        color: #fff;
-        font-size: 0.8rem;
-        text-decoration: underline;
         margin-left: 5px;
         font-weight: 600;
-    }
-    p {
-        color: #fff;
-        font-weight: 500;
+        color: #0069ff;
     }
 
     @media (max-width: 768px) {
-        padding: 14px 0px;
         flex-direction: column;
-
-        p {
-            margin: 3px auto;
-            font-size: 0.9rem;
-            color: #fff;
-            font-weight: 500;
-            padding: 0px;
-        }
+        gap: 12px;
     }
 }

@@ -34,12 +34,14 @@
 
 .moreJobContainer {
     background-color: #f4faff;
-    padding: 12px;
+    height: 50px;
     width: 100%;
     margin: 0px auto 20px;
     border-radius: 8px;
-    text-align: center;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     p {
         color: #0050ff;
@@ -60,9 +62,11 @@
     }
 }
 .loader {
-    border: 6px solid #f3f3f3;
+    border: 4px;
+    border-color: #f3f3f3;
     border-radius: 50%;
-    border-top: 6px solid #0069ff;
+    border-style: solid;
+    border-top-color: #0069ff;
     width: 60px;
     height: 60px;
     -webkit-animation: spin 1s linear infinite;

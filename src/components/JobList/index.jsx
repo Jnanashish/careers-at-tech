@@ -23,6 +23,7 @@ const JobList = () => {
     const [loading, setLoading] = useState(true);
     const [companyname, setCompanyname] = useState("");
     const [jobType, setJobType] = useState(null);
+    const [showMoreClicked, setShowMoreClicked] = useState(false);
     const [searchWord, setSearchWord] = useState([
         "Frontend",
         "Backend",
@@ -61,6 +62,7 @@ const JobList = () => {
         if (apiResponse && apiResponse.data) {
             setJobdata([...jobdata, ...apiResponse.data]);
             setLoading(false);
+            setShowMoreClicked(false);
         }
     };
     const getCompanyData = (keyword = "") => {
@@ -123,6 +125,7 @@ const JobList = () => {
         }
     };
     const showMoreButtonClicked = () => {
+        setShowMoreClicked(true);
         firenbaseEventHandler("showmore_button_clicked", {
             pageno: pageno,
         });
@@ -273,17 +276,30 @@ const JobList = () => {
                         })}
                         {jobdata.length !== 0 && (
                             <div className={styles.moreJobContainer}>
-                                <p onClick={() => showMoreButtonClicked()}>Show more jobs</p>
+                                {!showMoreClicked && (
+                                    <p onClick={() => showMoreButtonClicked()}>Show more jobs</p>
+                                )}
+                                {showMoreClicked && (
+                                    <div
+                                        style={{ height: "10px" }}
+                                        className={styles.loaderContainer}>
+                                        <div
+                                            style={{
+                                                height: "30px",
+                                                width: "30px",
+                                            }}
+                                            className={styles.loader}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
                     <div className={styles.sidebar}></div>
                 </div>
             )}
-            {loading && (
-                <div
-                    style={jobdata.length === 0 ? { height: "400px" } : { height: "100px" }}
-                    className={styles.loaderContainer}>
+            {!showMoreClicked && loading && (
+                <div style={{ height: "300px" }} className={styles.loaderContainer}>
                     <div className={styles.loader} />
                 </div>
             )}
