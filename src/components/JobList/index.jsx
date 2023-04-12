@@ -10,8 +10,9 @@ import DasLink from "../Das/DasLink";
 import Jobcard from "../Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
 import Notice from "../common/Notice/notice";
-import WhatsAppJoin from "../common/WhatsappJoin";
+import TelegramJoin from "../common/TelegramJoin";
 import { firenbaseEventHandler } from "@/core/eventHandler";
+import WhatAppModal from "../common/whatsAppModal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -267,7 +268,7 @@ const JobList = () => {
                                         <div
                                             className="mobileViewBanner"
                                             style={{ marginBottom: "20px" }}>
-                                            <WhatsAppJoin />
+                                            <TelegramJoin />
                                         </div>
                                     )}
                                     <Jobcard data={data} />
@@ -304,6 +305,8 @@ const JobList = () => {
                 </div>
             )}
             {!loading && jobdata.length !== 0 && <Notice />}
+
+            <WhatAppModal />
         </div>
     );
 };

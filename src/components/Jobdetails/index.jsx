@@ -8,10 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareNodes, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import DasBanner from "../Das/DasBanner";
 import { countClickinJd } from "@/core/apis/jobapicall";
-import WhatsAppJoin from "../common/WhatsappJoin";
 import Similarjob from "../Similarjob/Similarjob";
 import DasLink from "../Das/DasLink";
 import { firenbaseEventHandler } from "@/core/eventHandler";
+import TelegramJoin from "../common/TelegramJoin";
+import whatsappIcon from "../../static/Image/whatsappIcon.svg";
 
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
@@ -19,7 +20,7 @@ const Jobdetails = (jobdata) => {
         firenbaseEventHandler("share_job_clicked", {
             job_id: data._id,
             job_title: data.title,
-            source : "Jd page"
+            source: "Jd page",
         });
         if (navigator.share) {
             navigator.share({
@@ -51,6 +52,10 @@ const Jobdetails = (jobdata) => {
             is_jd_page: true,
         });
         countClickinJd(data._id);
+    };
+
+    const whatsAppClicked = () => {
+        firenbaseEventHandler("whatsappcard_jobpage_clicked", true);
     };
 
     return (
@@ -113,39 +118,49 @@ const Jobdetails = (jobdata) => {
                         </p>
                     )}
                 </div>
+                <a
+                    href="https://chat.whatsapp.com/C0avjznUDHjKXc16AKmhxB"
+                    onClick={() => whatsAppClicked()}
+                    className={styles.whatsAppJoinBtn}>
+                    <p>Get job updates on WhatsApp</p>
+                    <Image src={whatsappIcon} alt="Telegram icon" height={20} width={20} />
+                </a>
                 {data.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>{parse(data.jobdesc)}</div>
                 )}
-                <div>
-                    <DasBanner />
-                </div>
+
                 {data.responsibility !== "N" && data.responsibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h2>Responsibility : </h2>
                         {parse(data.responsibility)}
                     </div>
                 )}
+
                 {data.eligibility !== "N" && data.eligibility !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h2>Eligibility : </h2>
                         {parse(data.eligibility)}
                     </div>
                 )}
+                <div>
+                    <DasBanner />
+                </div>
                 {data.skills !== "N" && data.skills !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h2>Prefered Skills : </h2>
                         {parse(data.skills)}
                     </div>
                 )}
-                <div className="mobileViewBanner">
-                    <WhatsAppJoin />
-                </div>
+
                 {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>
                         <h2>About Company : </h2>
                         {parse(data.aboutCompany)}
                     </div>
                 )}
+                <div className="mobileViewBanner">
+                    <TelegramJoin />
+                </div>
                 <a
                     onClick={() => applyButtonClicked()}
                     href={data.link}
@@ -153,9 +168,10 @@ const Jobdetails = (jobdata) => {
                     target="_blank">
                     <div className={styles.applyBtn}>Apply Now</div>
                 </a>
-                <DasLink />
+                <br />
             </div>
             <Similarjob companytype={data.companytype} id={data._id} />
+            <DasLink />
         </div>
     );
 };
