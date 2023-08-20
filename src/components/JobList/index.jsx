@@ -138,6 +138,7 @@ const JobList = () => {
             job_type: jobtype,
         });
     };
+    
 
     var itemCount = 0;
     return (
@@ -262,6 +263,7 @@ const JobList = () => {
                 <div className={styles.centerContainer}>
                     <div className={styles.jobCardContainer}>
                         {jobdata.map((data) => {
+
                             return (
                                 <div cnt={itemCount++} key={data.id}>
                                     {itemCount % 3 === 0 && (
@@ -273,7 +275,7 @@ const JobList = () => {
                                     )}
                                     <Jobcard data={data} />
                                 </div>
-                            );
+                            );   
                         })}
                         {jobdata.length !== 0 && (
                             <div className={styles.moreJobContainer}>
