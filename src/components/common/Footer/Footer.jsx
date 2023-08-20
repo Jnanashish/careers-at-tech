@@ -10,19 +10,19 @@ import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Footer = () => {
     const [count, setCount] = useState("");
-    useEffect(() => {
-        pageview();
-    }, []);
+    // useEffect(() => {
+    //     pageview();
+    // }, []);
 
-    const pageview = () => {
-        fetch(
-            "https://api.countapi.xyz/update/interviewprep/ca0e20b7-5690-4571-a2b0-b45d4c26ec3d/?amount=1"
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                setCount(data.value);
-            });
-    };
+    // const pageview = () => {
+    //     fetch(
+    //         "https://api.countapi.xyz/update/careersattech/ca0e20b7-5690-4571-a2b0-b45d4c26ec3d/?amount=1"
+    //     )
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setCount(data.value);
+    //         });
+    // };
 
     const socialIconClicked = (name) => {
         firenbaseEventHandler("social_icon_clicked", {
@@ -80,7 +80,8 @@ const Footer = () => {
                 </div>
             </div>
             <div className={styles.footer}>
-                <p>Total Page view 🔎 {count}</p>
+                {/* <p>Total Page view 🔎 {count}</p>             */}
+
                 <p>
                     Made with ❤️ in India by
                     <a

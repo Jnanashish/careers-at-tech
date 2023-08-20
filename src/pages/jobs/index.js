@@ -9,7 +9,7 @@ import { handleRequestGET } from "@/core/apis/dasapicall";
 import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { storeDASLinkData, storeDASBannerData, storeDASPopUpType } from "@/Redux/actions";
 import Footer from "@/components/common/Footer/Footer";
-import JobList from "@/components/JobList";
+import JobList from "@/widgets/JobList";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 
 const Jobs = (props) => {

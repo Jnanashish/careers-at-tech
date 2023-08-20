@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import React from "react";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";

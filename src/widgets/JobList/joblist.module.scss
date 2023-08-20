@@ -1,0 +1,100 @@
+.centerContainer {
+    display: flex;
+    width: 100%;
+}
+.jobCardContainer {
+    width: 70%;
+    margin: 10px auto;
+    padding: 0px 50px;
+    @media (max-width: 768px) {
+        width: 93%;
+        padding: 0px;
+        margin: 0px auto;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+.sidebar {
+    width: 30%;
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+.dasContainer {
+    max-width: 93%;
+    margin: 10px auto;
+
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.moreJobContainer {
+    background-color: #f4faff;
+    height: 50px;
+    width: 100%;
+    margin: 0px auto 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        color: #0050ff;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+}
+
+// loader css --------------------------
+.loaderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+
+    @media (max-width: 768px) {
+        height: 50vh;
+    }
+}
+.loader {
+    border: 4px;
+    border-color: #f3f3f3;
+    border-radius: 50%;
+    border-style: solid;
+    border-top-color: #0069ff;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+.nojobContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    text-align: center;
+    line-height: 1.5;
+}

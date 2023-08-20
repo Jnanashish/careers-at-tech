@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Image from "next/image";
 
 import styles from "./joblist.module.scss";
 
 // import components
-import DasBanner from "../Das/DasBanner";
-import DasLink from "../Das/DasLink";
-import Jobcard from "../Jobcard/Jobcard";
+import DasBanner from "../../components/Das/DasBanner";
+import DasLink from "../../components/Das/DasLink";
+import Jobcard from "../../components/Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
-import Notice from "../common/Notice/notice";
-import TelegramJoin from "../common/TelegramJoin";
+import Notice from "../../components/common/Notice/notice";
+import TelegramJoin from "../../components/common/TelegramJoin";
 import { firenbaseEventHandler } from "@/core/eventHandler";
-import WhatAppModal from "../common/whatsAppModal";
+import WhatAppModal from "../../components/common/whatsAppModal";
+import NavHeader from "@/components/navHeader";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -126,11 +126,13 @@ const JobList = () => {
         }
     };
     const showMoreButtonClicked = () => {
-        setShowMoreClicked(true);
-        firenbaseEventHandler("showmore_button_clicked", {
-            pageno: pageno,
-        });
-        setPageno(pageno + 1);
+        if(!showMoreClicked){
+            setShowMoreClicked(true);
+            firenbaseEventHandler("showmore_button_clicked", {
+                pageno: pageno,
+            });
+            setPageno(pageno + 1);
+        }
     };
     const handleJobtypeFilterClicked = (jobtype) => {
         setJobType(jobtype);
@@ -143,107 +145,7 @@ const JobList = () => {
     var itemCount = 0;
     return (
         <div>
-            {/* Header section and filter  */}
-            <div className={styles.headerContainer}>
-                <div className={styles.headerSection}>
-                    <h2>
-                        Discover verified <br /> tech <span>Jobs</span> and <span>Internships</span>
-                        <br /> at top companies.
-                    </h2>
-
-                    <div className={styles.searchContainer}>
-                        <input
-                            type="text"
-                            className={styles.searchcompany}
-                            value={companyname}
-                            onChange={(e) => setCompanyname(e.target.value)}
-                            placeholder="Search with title or company name"
-                        />
-
-                        <div
-                            style={
-                                companyname && companyname.length != 0
-                                    ? { color: "#0069FF" }
-                                    : { color: "#FFF" }
-                            }
-                            onClick={() => handleCancelClick()}
-                            className={styles.cancelButton}>
-                            <FontAwesomeIcon
-                                icon={faXmark}
-                                style={{ height: "16px", width: "16px" }}
-                            />
-                        </div>
-
-                        <div onClick={() => getCompanyData()} className={styles.search_btn}>
-                            <FontAwesomeIcon
-                                style={{ height: "18px", width: "18px" }}
-                                icon={faSearch}
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.searchWordContainer}>
-                        {searchWord.map((word, i) => {
-                            return (
-                                <span
-                                    style={
-                                        selectedSearchWord === word
-                                            ? { backgroundColor: "#0069FF", color: "#FFF" }
-                                            : {}
-                                    }
-                                    onClick={() => handleSearchWordSelection(word)}
-                                    key={i}>
-                                    {word}
-                                </span>
-                            );
-                        })}
-                    </div>
-
-                    <div className={styles.radioGroup}>
-                        <span onClick={() => handleJobtypeFilterClicked("full")}>
-                            <input
-                                placeholder="full time radio"
-                                type="radio"
-                                checked={jobType === "full"}
-                                name="full time radio"
-                                onChange={() => setJobType("full")}
-                            />
-                            <p
-                                style={
-                                    jobType === "full"
-                                        ? { color: "#0069ff", fontWeight: "600" }
-                                        : {}
-                                }>
-                                Full time
-                            </p>
-                        </span>
-                        <span onClick={() => handleJobtypeFilterClicked("intern")}>
-                            <input
-                                placeholder="intern radio"
-                                type="radio"
-                                checked={jobType === "intern"}
-                                name="intern radio"
-                                onChange={() => setJobType("intern")}
-                            />
-                            <p
-                                style={
-                                    jobType === "intern"
-                                        ? { color: "#0069ff", fontWeight: "600" }
-                                        : {}
-                                }>
-                                Internship
-                            </p>
-                        </span>
-                    </div>
-                </div>
-                <div className={styles.imageContainer}>
-                    <Image
-                        src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1678515591/3d-business-young-woman-sitting-with-laptop-and-stylus_fvym3e.png"
-                        alt="girl with computer"
-                        height={324}
-                        width={256}
-                    />
-                </div>
-            </div>
+            <NavHeader companyname={companyname} selectedSearchWord={selectedSearchWord} jobType={jobType} setCompanyname={setCompanyname} handleCancelClick={handleCancelClick} getCompanyData={getCompanyData} handleSearchWordSelection={handleSearchWordSelection} handleJobtypeFilterClicked={handleJobtypeFilterClicked} setJobType={setJobType}/>
 
             {/* No job found section  */}
             {!loading && jobdata.length === 0 && (
@@ -255,32 +157,31 @@ const JobList = () => {
             )}
 
             {/* jobs and das list  */}
-            <div className={styles.dasContainer}>
+            {/* <div className={styles.dasContainer}>
                 {dasBanner && dasBanner.length <= 1 && <DasLink />}
                 {dasBanner && dasBanner.length > 1 && <DasBanner />}
-            </div>
+            </div> */}
             {(!loading || jobdata.length !== 0) && (
                 <div className={styles.centerContainer}>
                     <div className={styles.jobCardContainer}>
                         {jobdata.map((data) => {
-
                             return (
                                 <div cnt={itemCount++} key={data.id}>
-                                    {itemCount % 3 === 0 && (
+                                    {/* {itemCount % 3 === 0 && (
                                         <div
                                             className="mobileViewBanner"
                                             style={{ marginBottom: "20px" }}>
                                             <TelegramJoin />
                                         </div>
-                                    )}
+                                    )} */}
                                     <Jobcard data={data} />
                                 </div>
                             );   
                         })}
                         {jobdata.length !== 0 && (
-                            <div className={styles.moreJobContainer}>
+                            <div onClick={()=>showMoreButtonClicked()} className={styles.moreJobContainer}>
                                 {!showMoreClicked && (
-                                    <p onClick={() => showMoreButtonClicked()}>Show more jobs</p>
+                                    <p>Show more jobs</p>
                                 )}
                                 {showMoreClicked && (
                                     <div

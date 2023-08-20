@@ -6,6 +6,8 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
+import { format } from "timeago.js";
+
 // import local components and methods
 import Modal from "../common/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
@@ -33,6 +35,8 @@ const Jobcard = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [popType, setPopType] = useState("none");
     const [jobcardClicked, setJobcardClicked] = useState(false);
+    const [daysAgo, setDaysAgo] = useState(null);
+
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
     const impression = totalclick * 3;
 
@@ -91,21 +95,15 @@ const Jobcard = (props) => {
 
     return (
         <div className={styles.jobCardContainer}>
-            {showModal && (
-                <Modal
-                    id={id}
-                    link={link}
-                    showModal={showModal}
-                    toggleModalView={toggleModalView}
-                />
-            )}
+            {showModal && <Modal id={id} link={link} showModal={showModal} toggleModalView={toggleModalView} />}
             {!jobcardClicked && (
                 <div
                     onClick={() => {
                         handleJobCardClick();
                     }}
                     onMouseEnter={() => onMouseEnter()}
-                    className={styles.mainSection}>
+                    className={styles.mainSection}
+                >
                     <div className={styles.companyLogoContainer}>
                         {imagePath === "none" ? (
                             <div className={styles.logotext}>
@@ -123,9 +121,7 @@ const Jobcard = (props) => {
                     </div>
 
                     <div className={styles.jobTitleContainer}>
-                        <p
-                            style={jobtype === "promo" ? { color: "#3B3B3B" } : {}}
-                            className={styles.jobtitle}>
+                        <p style={jobtype === "promo" ? { color: "#3B3B3B" } : {}} className={styles.jobtitle}>
                             {role !== "N" ? role : title}
                         </p>
                         <p className={styles.companyName}>{companyName}</p>
@@ -134,14 +130,18 @@ const Jobcard = (props) => {
                     {jobtype !== "promo" && (
                         <div className={styles.jobdetails}>
                             <div>
-                                <div className={styles.jobdetailsItem}>
-                                    <p className={styles.detailTitle}> Degree :</p>
-                                    <p>{degree}</p>
-                                </div>
-                                <div className={styles.jobdetailsItem}>
-                                    <p className={styles.detailTitle}>Batch :</p>
-                                    <p>{batch}</p>
-                                </div>
+                                {degree !== "N" && (
+                                    <div className={styles.jobdetailsItem}>
+                                        <p className={styles.detailTitle}> Degree :</p>
+                                        <p>{degree}</p>
+                                    </div>
+                                )}
+                                {batch !== "N" && (
+                                    <div className={styles.jobdetailsItem}>
+                                        <p className={styles.detailTitle}>Batch :</p>
+                                        <p>{batch}</p>
+                                    </div>
+                                )}
 
                                 {/* chip section  */}
                                 <div className={styles.chipContainer}>
@@ -151,7 +151,8 @@ const Jobcard = (props) => {
                                                 backgroundColor: "#e1ebff",
                                                 color: "#1d4ed8",
                                             }}
-                                            className={styles.chip}>
+                                            className={styles.chip}
+                                        >
                                             {jobtype}
                                         </span>
                                     )}
@@ -161,11 +162,9 @@ const Jobcard = (props) => {
                                                 backgroundColor: "#def7ec",
                                                 color: "#046C4E",
                                             }}
-                                            className={styles.chip}>
-                                            <FontAwesomeIcon
-                                                className={styles.chipIcon}
-                                                icon={faLocationDot}
-                                            />
+                                            className={styles.chip}
+                                        >
+                                            <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
                                             <p>{location}</p>
                                         </span>
                                     )}
@@ -175,15 +174,14 @@ const Jobcard = (props) => {
                                                 backgroundColor: "#F0ECFF",
                                                 color: "#6B46C1",
                                             }}
-                                            className={styles.chip}>
-                                            <FontAwesomeIcon
-                                                className={styles.chipIcon}
-                                                icon={faClock}
-                                            />
+                                            className={styles.chip}
+                                        >
+                                            <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
                                             {experience}
                                         </span>
                                     )}
                                 </div>
+                                <p className={styles.postedMsg}>Posted {format(createdAt)}</p>
                             </div>
                             <p className={styles.views}>
                                 <FontAwesomeIcon
