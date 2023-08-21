@@ -209,7 +209,7 @@ const JobList = () => {
             )}
             {!loading && jobdata.length !== 0 && <Notice />}
 
-            <WhatAppModal />
+            {/* <WhatAppModal /> */}
         </div>
     );
 };

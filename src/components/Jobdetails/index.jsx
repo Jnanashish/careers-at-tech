@@ -118,13 +118,13 @@ const Jobdetails = (jobdata) => {
                         </p>
                     )}
                 </div>
-                <a
+                {/* <a
                     href="https://chat.whatsapp.com/C0avjznUDHjKXc16AKmhxB"
                     onClick={() => whatsAppClicked()}
                     className={styles.whatsAppJoinBtn}>
                     <p>Get job updates on WhatsApp</p>
                     <Image src={whatsappIcon} alt="Telegram icon" height={20} width={20} />
-                </a>
+                </a> */}
                 {data.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (
                     <div className={styles.joddetailContainer}>{parse(data.jobdesc)}</div>
                 )}
@@ -158,9 +158,9 @@ const Jobdetails = (jobdata) => {
                         {parse(data.aboutCompany)}
                     </div>
                 )}
-                <div className="mobileViewBanner">
+                {/* <div className="mobileViewBanner">
                     <TelegramJoin />
-                </div>
+                </div> */}
                 <a
                     onClick={() => applyButtonClicked()}
                     href={data.link}
