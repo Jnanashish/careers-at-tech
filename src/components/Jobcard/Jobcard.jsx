@@ -70,12 +70,12 @@ const Jobcard = (props) => {
             jd_page: jdpage,
             job_title: title,
         });
-        setJobcardClicked(true);
         if (jobtype === "promo") {
             countClickinJd(id);
-            window.location.assign(link);
+            window.open(link);
         } else {
             if (jdpage === "true") {
+                setJobcardClicked(true);
                 redirectToJobdetailPage();
             }
             if (jdpage === "false" && popType === "none") {
@@ -84,7 +84,8 @@ const Jobcard = (props) => {
                     job_title: title,
                     is_jd_page: jdpage,
                 });
-                window.location.assign(link);
+                window.open(link);
+                // window.location.assign(link);
                 countClickinJd(id);
             }
             if (jdpage === "false" && popType !== "none") {
