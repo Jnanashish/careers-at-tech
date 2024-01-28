@@ -70,7 +70,7 @@ const Jobcard = (props) => {
             jd_page: jdpage,
             job_title: title,
         });
-        if (jobtype === "promo") {
+        if (jobtype === "promo" || true) {
             countClickinJd(id);
             window.open(link);
         } else {
@@ -206,11 +206,11 @@ const Jobcard = (props) => {
             {jobtype !== "promo" && (
                 <div onClick={() => handleShareClick(props.data)} className={styles.footerSection}>
                     <p>
-                        <FontAwesomeIcon
-                            className={styles.footerIcon}
-                            style={{ marginRight: "3px", height: "10px", width: "10px" }}
-                            icon={faEye}
-                        />
+                        {/*<FontAwesomeIcon*/}
+                        {/*    className={styles.footerIcon}*/}
+                        {/*    style={{ marginRight: "3px", height: "10px", width: "10px" }}*/}
+                        {/*    icon={faEye}*/}
+                        {/*/>*/}
                         {impression + 300} views
                     </p>
                     <div className={styles.shareContainer}>

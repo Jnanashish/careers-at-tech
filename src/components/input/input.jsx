@@ -25,6 +25,7 @@ const CustomInput = (props) => {
                     placeholder={!!placeholder ? placeholder : ""}
                     onChange={(e) => props.event(e.target.value)}
                     onKeyDown = {(e) => !!props.onKeyDown ? props.onKeyDown(e) : {}}
+                    class="no-zoom"
                 />
             )}
         </>

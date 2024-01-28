@@ -93,14 +93,14 @@
     cursor: pointer;
     border-left: none;
     color: #fff;
-    background-color: #0069ff;
+//    background-color: #0069ff;
 
     &:hover {
         background-color: #0050ff;
     }
 
     @media (max-width: 768px) {
-        background-color: #0069ff;
+        background-color: #f3f4f6;
     }
 }
 
@@ -117,9 +117,10 @@
     }
 
     span {
-        background-color: #e1ebff;
+//        background-color: #e1ebff;
+        background-color: #f3f4f6;
         // color: #1d4ed8;
-        color: #1d4ed8;
+        color: #111817;
         white-space: nowrap;
         margin-right: 10px;
         border-radius: 6px;

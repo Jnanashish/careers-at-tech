@@ -47,18 +47,18 @@ const NavHeader = (props) => {
                         onClick={() => props.handleCancelClick()}
                         className={styles.cancelButton}
                     >
-                        <FontAwesomeIcon icon={faXmark} style={{ height: "16px", width: "16px" }} />
+                        <FontAwesomeIcon icon={faXmark} style={{ height: "16px", width: "16px", marginTop: "1px" }} />
                     </div>
 
                     <div onClick={() => props.getCompanyData()} className={styles.search_btn}>
-                        <FontAwesomeIcon icon={faSearch} style={{ height: "18px", width: "18px" }} />
+                        <FontAwesomeIcon icon={faSearch} style={{ height: "18px", width: "18px", color :"#111817", marginTop: "1px" }} />
                     </div>
                 </div>
                 <div className={styles.searchWordContainer}>
                     {searchWord.map((word, i) => {
                         return (
                             <span
-                                style={selectedSearchWord === word ? { backgroundColor: "#0069FF", color: "#FFF" } : {}}
+                                style={selectedSearchWord === word ? { backgroundColor: "#e1ebff", color: "#1d4ed8" } : {}}
                                 onClick={() => props.handleSearchWordSelection(word)}
                                 key={i}
                             >
