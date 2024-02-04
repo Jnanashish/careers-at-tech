@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ReactModal from "react-modal";
+import Image from "next/image";
+
 import styles from "./modalstyle.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import whatsappIcon from "../../../static/Image/whatsappIcon.svg";
-import Image from "next/image";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
 function WhatAppModal() {
@@ -43,7 +43,7 @@ function WhatAppModal() {
     const handleWhatsAppJoinClick = () => {
         if (typeof window !== "undefined") {
             var now = new Date().getTime();
-            var expirationTime = now + 7 * 24 * 60 * 60 * 1000;
+            var expirationTime = now + 20 * 24 * 60 * 60 * 1000;
             localStorage.setItem("expirationTime", expirationTime.toString());
             localStorage.setItem("whatsAppClickedLocal", "true");
         }
@@ -70,12 +70,12 @@ function WhatAppModal() {
                         </p>
                         <a
                             onClick={() => handleWhatsAppJoinClick()}
-                            href="https://chat.whatsapp.com/C0avjznUDHjKXc16AKmhxB">
+                            href="https://bit.ly/49nv3wG">
                             <div className={styles.whatsAppJoinBtn}>
                                 <p>Join us now on WhatsApp</p>
                                 <Image
                                     src={whatsappIcon}
-                                    alt="Telegram icon"
+                                    alt="Whatsapp icon"
                                     height={20}
                                     width={20}
                                 />

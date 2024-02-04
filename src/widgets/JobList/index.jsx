@@ -1,46 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 import styles from "./joblist.module.scss";
 
 // import components
-import DasBanner from "../../components/Das/DasBanner";
-import DasLink from "../../components/Das/DasLink";
 import Jobcard from "../../components/Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
 import Notice from "../../components/common/Notice/notice";
-import TelegramJoin from "../../components/common/TelegramJoin";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import WhatAppModal from "../../components/common/whatsAppModal";
-import NavHeader from "@/components/navHeader";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import NavHeader from "@/components/Navheader";
 
 const JobList = () => {
-    const [dasBanner, setDasBanner] = useState(null);
     const [jobdata, setJobdata] = useState([]);
     const [pageno, setPageno] = useState(1);
     const [loading, setLoading] = useState(true);
     const [companyname, setCompanyname] = useState("");
     const [jobType, setJobType] = useState(null);
     const [showMoreClicked, setShowMoreClicked] = useState(false);
-    const [searchWord, setSearchWord] = useState([
-        "Frontend",
-        "Backend",
-        "Software engineer",
-        "Web developer",
-        "Test Engineer",
-        "Fullstack",
-    ]);
     const [selectedSearchWord, setSelectedSearchWord] = useState("");
-    const dasBannerData = useSelector((state) => state.das.dasBanner);
 
-    useEffect(() => {
-        if (dasBannerData) {
-            setDasBanner(dasBannerData);
-        }
-    }, [dasBannerData]);
+
     useEffect(() => {
         callJobList();
     }, [pageno]);
@@ -156,24 +135,13 @@ const JobList = () => {
                 </div>
             )}
 
-            {/* jobs and das list  */}
-            {/* <div className={styles.dasContainer}>
-                {dasBanner && dasBanner.length <= 1 && <DasLink />}
-                {dasBanner && dasBanner.length > 1 && <DasBanner />}
-            </div> */}
+
             {(!loading || jobdata.length !== 0) && (
                 <div className={styles.centerContainer}>
                     <div className={styles.jobCardContainer}>
                         {jobdata.map((data) => {
                             return (
-                                <div cnt={itemCount++} key={data.id}>
-                                    {/* {itemCount % 3 === 0 && (
-                                        <div
-                                            className="mobileViewBanner"
-                                            style={{ marginBottom: "20px" }}>
-                                            <TelegramJoin />
-                                        </div>
-                                    )} */}
+                                <div cnt={itemCount++} key={data.id}> 
                                     <Jobcard data={data} />
                                 </div>
                             );   
@@ -208,8 +176,8 @@ const JobList = () => {
                 </div>
             )}
             {!loading && jobdata.length !== 0 && <Notice />}
-
-            {/* <WhatAppModal /> */}
+            
+            <WhatAppModal />
         </div>
     );
 };
