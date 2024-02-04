@@ -7,7 +7,7 @@ const Home = () => {
             <Head>
                 <title>Careers at Tech</title>
                 <meta name="description" content="One place solution to get regular Internship and Job Updates." />
-                <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 max-scale=1.0 user-scalable=0" />
+                <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <HomePage />

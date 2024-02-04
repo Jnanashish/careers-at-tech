@@ -122,10 +122,10 @@ const Jobcard = (props) => {
                     </div>
 
                     <div className={styles.jobTitleContainer}>
-                        <p style={jobtype === "promo" ? { color: "#3B3B3B" } : {}} className={styles.jobtitle}>
+                        <p className={styles.jobtitle}>
                             {role !== "N" ? role : title}
                         </p>
-                        <p className={styles.companyName}>{companyName}</p>
+                        {jobtype !== "promo" && <p className={styles.companyName}>{companyName}</p>}
                     </div>
 
                     {jobtype !== "promo" && (
