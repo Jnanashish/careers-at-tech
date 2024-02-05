@@ -8,7 +8,7 @@ import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/api
 import Notice from "../../components/common/Notice/notice";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import WhatAppModal from "../../components/common/whatsAppModal";
-import NavHeader from "@/components/NavHeader";
+import NavHeader from "@/components/navHeader";
 
 const JobList = () => {
     const [jobdata, setJobdata] = useState([]);
