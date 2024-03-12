@@ -4,13 +4,15 @@ import styles from "./header.module.scss";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Header = () => {
+    // ga logo click event
     const handleRedirection = () => {
         firenbaseEventHandler("header_logo_click", {
             source: "Header",
-            action : "Go to home page"
+            action: "Go to home page",
         });
         Router.push("/jobs");
     };
+    
     return (
         <div className={styles.headerContainer}>
             <div onClick={() => handleRedirection()} className={styles.header}>

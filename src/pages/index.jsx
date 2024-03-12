@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import HomePage from "./home";
+import Router from "next/router";
+
 const Home = () => {
+    // for now all routes are redirected to job listing page
+    useEffect(() => {
+        Router.push("/jobs");
+    }, []);
+
     return (
         <>
             <Head>
@@ -10,7 +16,6 @@ const Home = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <HomePage />
         </>
     );
 };

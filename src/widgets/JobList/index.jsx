@@ -19,7 +19,6 @@ const JobList = () => {
     const [showMoreClicked, setShowMoreClicked] = useState(false);
     const [selectedSearchWord, setSelectedSearchWord] = useState("");
 
-
     useEffect(() => {
         callJobList();
     }, [pageno]);
@@ -105,7 +104,7 @@ const JobList = () => {
         }
     };
     const showMoreButtonClicked = () => {
-        if(!showMoreClicked){
+        if (!showMoreClicked) {
             setShowMoreClicked(true);
             firenbaseEventHandler("showmore_button_clicked", {
                 pageno: pageno,
@@ -119,12 +118,21 @@ const JobList = () => {
             job_type: jobtype,
         });
     };
-    
 
     var itemCount = 0;
     return (
         <div>
-            <NavHeader companyname={companyname} selectedSearchWord={selectedSearchWord} jobType={jobType} setCompanyname={setCompanyname} handleCancelClick={handleCancelClick} getCompanyData={getCompanyData} handleSearchWordSelection={handleSearchWordSelection} handleJobtypeFilterClicked={handleJobtypeFilterClicked} setJobType={setJobType}/>
+            <NavHeader
+                companyname={companyname}
+                selectedSearchWord={selectedSearchWord}
+                jobType={jobType}
+                setCompanyname={setCompanyname}
+                handleCancelClick={handleCancelClick}
+                getCompanyData={getCompanyData}
+                handleSearchWordSelection={handleSearchWordSelection}
+                handleJobtypeFilterClicked={handleJobtypeFilterClicked}
+                setJobType={setJobType}
+            />
 
             {/* No job found section  */}
             {!loading && jobdata.length === 0 && (
@@ -135,26 +143,21 @@ const JobList = () => {
                 </div>
             )}
 
-
             {(!loading || jobdata.length !== 0) && (
                 <div className={styles.centerContainer}>
                     <div className={styles.jobCardContainer}>
                         {jobdata.map((data) => {
                             return (
-                                <div cnt={itemCount++} key={data.id}> 
+                                <div cnt={itemCount++} key={data.id}>
                                     <Jobcard data={data} />
                                 </div>
-                            );   
+                            );
                         })}
                         {jobdata.length !== 0 && (
-                            <div onClick={()=>showMoreButtonClicked()} className={styles.moreJobContainer}>
-                                {!showMoreClicked && (
-                                    <p>Show more jobs</p>
-                                )}
+                            <div onClick={() => showMoreButtonClicked()} className={styles.moreJobContainer}>
+                                {!showMoreClicked && <p>Show more jobs</p>}
                                 {showMoreClicked && (
-                                    <div
-                                        style={{ height: "10px" }}
-                                        className={styles.loaderContainer}>
+                                    <div style={{ height: "10px" }} className={styles.loaderContainer}>
                                         <div
                                             style={{
                                                 height: "30px",
@@ -176,7 +179,7 @@ const JobList = () => {
                 </div>
             )}
             {!loading && jobdata.length !== 0 && <Notice />}
-            
+
             <WhatAppModal />
         </div>
     );

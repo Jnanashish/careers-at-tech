@@ -1,4 +1,6 @@
 import { firenbaseEventHandler } from "./eventHandler";
+
+// handle share action of any job
 export const handleShareClick = (data) => {
     const { title, jdpage, id, link } = data;
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
@@ -18,18 +20,18 @@ export const handleShareClick = (data) => {
                 url: joblink,
             });
         } else {
-            const msg = `Hey 👋! \nCheckout this job opening.${title} \n\nTo know more visit here : ${joblink}`;
+            const msg = `Hey 👋, Checkout this job opening.${title} \n\nTo know more visit here : ${joblink}`;
             window.open(`whatsapp://send?text=${msg}`);
         }
     } else {
         if (navigator.share) {
             navigator.share({
                 title: `${title} | ${title}`,
-                text: `Hey 👋! \nCheckout this job : ${title} \n\nApply to this job from here ${link}. \n\nFor more job opportunity visit \n`,
+                text: `Hey 👋, Checkout this job : ${title} \n\nApply to this job from here ${link}. \n\nFor more job opportunity visit \n`,
                 url: "https://careersat.tech/jobs",
             });
         } else {
-            const msg = `Hey 👋! \nCheckout this job opening.${title} \n\nApply to this job role from here : \n${link}\n\nFor more job opportunity visit \n$👉{url}`;
+            const msg = `Hey 👋, Checkout this job opening.${title} \n\nApply to this job role from here : \n${link}\n\nFor more job opportunity visit \n$👉{url}`;
             window.open(`whatsapp://send?text=${msg}`);
         }
     }
