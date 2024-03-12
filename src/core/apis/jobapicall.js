@@ -19,7 +19,7 @@ export const getAlljdData = (id) => {
 
 // get job dara based on batch
 export const getcompanynamedata = (companyname) => {
-    return fetch(`${API}/jd/get/companyname?companyname=${companyname}`, {
+    return fetch(`${API}/jd/get/query?query=${companyname}`, {
         method: "GET",
     })
         .then((res) => {
