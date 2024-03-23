@@ -3,19 +3,19 @@ import React from "react";
 const styles = {
     noticeContainer: {
         backgroundColor: "#f4faff",
-        padding: "20px",
+        padding: "24px",
         width: "92%",
-        margin: "0px auto",
         borderRadius: "8px",
-        marginBottom: "20px",
+        margin: "30px auto",
     },
     noticeText: {
-        fontSize: "0.9rem",
+        fontSize: "1rem",
+        lineHeight : "1.5rem",
         color: "#3b3b3b",
     },
     noticeHeader: {
         color: "#121212",
-        marginBottom: "10px",
+        marginBottom: "12px",
         fontWeight: "500",
     },
 };

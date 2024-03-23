@@ -33,20 +33,29 @@
 }
 
 .moreJobContainer {
-    background-color: #f4faff;
-    height: 50px;
+    padding: 14px;
+    border: 1px solid #0069ff;
+    text-align: center;
+    border-radius: 6px;
+    margin: 40px 0px;
     width: 100%;
-    margin: 0px auto 20px;
-    border-radius: 8px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     p {
         color: #0050ff;
         font-weight: 500;
-        font-size: 0.9rem;
+        font-size: 1rem;
+    }
+}
+
+.showmore_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    .icon {
+        color: #0069ff;
     }
 }
 

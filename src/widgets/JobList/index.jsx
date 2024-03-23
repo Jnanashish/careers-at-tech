@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./joblist.module.scss";
 
 // import components
@@ -155,7 +157,12 @@ const JobList = () => {
                         })}
                         {jobdata.length !== 0 && (
                             <div onClick={() => showMoreButtonClicked()} className={styles.moreJobContainer}>
-                                {!showMoreClicked && <p>Show more jobs</p>}
+                                {!showMoreClicked && (
+                                    <span className={styles.showmore_button}>
+                                        <p>Show more jobs</p>
+                                        <FontAwesomeIcon className={styles.icon} icon={faChevronDown} />
+                                    </span>
+                                )}
                                 {showMoreClicked && (
                                     <div style={{ height: "10px" }} className={styles.loaderContainer}>
                                         <div

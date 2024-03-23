@@ -1,52 +1,53 @@
-.mainContainer {
-    padding: 40px 40px 0px;
+.similarjob_section {
+    padding: 52px;
+    letter-spacing: 0.2px;
+
     @media (max-width: 768px) {
         padding: 10px 20px 0px;
     }
-}
-.similarComponent {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0px;
+
+    h3 {
+        font-size: 1.3rem;
+        font-weight: 600 !important;
+        margin-bottom: 30px;
+    }
 }
 
 // similar job card container
-.jobCardContainer {
+.similarjobcard {
     background-color: #f9f9fb;
     width: 100%;
-    padding: 16px;
+    padding: 18px 36px;
     border-radius: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     cursor: pointer;
+
     @media (max-width: 768px) {
         padding: 12px;
     }
-}
-.headerContainer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.jobdetails {
-    margin-top: 8px;
-    p {
-        font-size: 12px;
-        margin: 2px 0px;
+
+    &_header {
+        display: flex;
+        align-items: center;
+        gap: 30px;
     }
-}
-.compantLogo {
-    border-radius: 50px;
-}
-.jobTitle {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.3;
-    color: #1d4ed8;
-    @media (max-width: 768px) {
-        font-size: 16px;
+
+    .compant_logo {
+        border-radius: 50px;
     }
-}
-.batch {
-    margin-top: 5px;
-    font-size: 12px;
+
+    .job_title {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.3;
+        color: #1d4ed8;
+    }
+
+    .job_details {
+        margin-top: 12px;
+        p {
+            font-size: 12px;
+            margin: 6px 0px;
+        }
+    }
 }

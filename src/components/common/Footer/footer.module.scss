@@ -1,56 +1,66 @@
-.footerContainer {
-    width: 92%;
-    background-color: #fff;
+.footer {
     margin: 0px auto;
-}
-.footerSection {
-    padding: 20px 0px;
-}
+    font-family: "Inter", sans-serif;
+    letter-spacing: 0.14px;
 
-.companyName {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-.iconContainer {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-.socialIcon {
-    height: 45px;
-    width: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    border: 0.8px solid rgba(218, 223, 231, 1);
-}
+    p {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
 
-.companyTabs {
-    margin-top: 20px;
-}
-.tabContainer {
-    display: flex;
-    flex-direction: rpw;
-    gap: 30px;
-    @media (max-width: 768px) {
+    &_links {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0px 0px;
+        padding: 52px;
+    }
+
+    .social_container {
+        display: flex;
         gap: 20px;
+        margin-top: 30px;
+
+        &_icons {
+            height: 46px;
+            width: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            border: 0.8px solid rgba(218, 223, 231, 1);
+        }
+    }
+
+    .companytabs {
+        display: flex;
+        justify-content: space-between;
+        gap: 50px;
+        width: 68%;
+
+        &_links {
+            display: flex;
+            flex-direction: column;
+            @media (max-width: 768px) {
+                gap: 20px;
+            }
+
+            .link {
+                margin: 10px 0px 0px;
+                color: #4b5565;
+                font-weight: 400;
+                font-size: 0.9rem;
+            }
+        }
     }
 }
-.linkTab {
-    margin: 8px 0px 0px;
-    color: #4b5565;
-    font-weight: 500;
-}
 
-.footer {
+.bottom_nav {
     border-top: 1px solid rgba(197, 205, 216, 1);
-    background-color: #fff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 32px 0px;
+    padding: 32px 52px;
     color: #4b5565;
     font-size: 1rem;
     font-weight: 500;

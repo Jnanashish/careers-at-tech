@@ -4,15 +4,15 @@ import Head from "next/head";
 import Header from "@/components/common/Header/header";
 import Jobdetails from "@/components/Jobdetails";
 import { getAlljdData, getJobListData } from "@/core/apis/jobapicall";
-import { IBM_Plex_Sans } from "@next/font/google";
+import { Inter } from "@next/font/google";
 import styles from "./jobdetail.module.scss";
 import Meta from "@/core/meta";
 import Footer from "@/components/common/Footer/Footer";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
-const ibmPlexSans = IBM_Plex_Sans({
-    weight: ["300", "400", "500", "600", "700"],
+const interFont = Inter({
+    weight: ["200", "300", "400", "500", "600", "700", "800"],
     subsets: ["latin"],
 });
 
@@ -35,7 +35,7 @@ const JobdetailsPage = ({ data }) => {
                     <Header />
                     <Meta jobTitle={data.title} description={data.jobdesc} logo={data.imagePath} />
                     <div className={styles.jobdetailContainer}>
-                        <div className={ibmPlexSans.className}>
+                        <div className={interFont.className}>
                             <Jobdetails jobdata={data} />
                         </div>
                     </div>
