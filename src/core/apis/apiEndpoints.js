@@ -9,4 +9,8 @@ export const apiEndPoint = {
     countBannerClick: "/sda/banner/count/",
     countdasLinkClick: "/sda/link/count/",
     countdasLinkImgClick: "/sda/linkimg/count/",
+
+    // job details api call
+    job_list: "/jd/get",
+    update_job_click_count : "/jd/update/count"
 };

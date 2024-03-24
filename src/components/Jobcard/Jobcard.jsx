@@ -9,29 +9,14 @@ import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-s
 import { format } from "timeago.js";
 
 // import local components and methods
-import Modal from "../common/Modal/Modal";
+import Modal from "../../Temp/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import styles from "./jobcard.module.scss";
 import { handleShareClick } from "../../core/shareJobs";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Jobcard = (props) => {
-    const {
-        title,
-        role,
-        degree,
-        batch,
-        imagePath,
-        jobtype,
-        location,
-        experience,
-        jdpage,
-        totalclick,
-        id,
-        link,
-        companyName,
-        createdAt,
-    } = props.data;
+    const { title, role, degree, batch, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt } = props.data;
     const [showModal, setShowModal] = useState(false);
     const [popType, setPopType] = useState("none");
     const [jobcardClicked, setJobcardClicked] = useState(false);
@@ -111,20 +96,12 @@ const Jobcard = (props) => {
                                 <p>{title[0]}</p>
                             </div>
                         ) : (
-                            <Image
-                                className={styles.companyLogo}
-                                src={imagePath}
-                                alt="Company logo"
-                                height={50}
-                                width={50}
-                            />
+                            <Image className={styles.companyLogo} src={imagePath} alt="Company logo" height={50} width={50} />
                         )}
                     </div>
 
                     <div className={styles.jobTitleContainer}>
-                        <p className={styles.jobtitle}>
-                            {role !== "N" ? role : title}
-                        </p>
+                        <p className={styles.jobtitle}>{role !== "N" ? role : title}</p>
                         {jobtype !== "promo" && <p className={styles.companyName}>{companyName}</p>}
                     </div>
 
@@ -185,11 +162,7 @@ const Jobcard = (props) => {
                                 <p className={styles.postedMsg}>Posted {format(createdAt)}</p>
                             </div>
                             <p className={styles.views}>
-                                <FontAwesomeIcon
-                                    className={styles.viewIcon}
-                                    style={{ marginRight: "3px" }}
-                                    icon={faEye}
-                                />
+                                <FontAwesomeIcon className={styles.viewIcon} style={{ marginRight: "3px" }} icon={faEye} />
                                 {impression + 300} views
                             </p>
                         </div>

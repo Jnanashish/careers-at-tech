@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./modalstyle.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import whatsappIcon from "../../../static/Image/whatsappIcon.svg";
+import whatsappIcon from "@/static/Image/whatsappIcon.svg";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
 function WhatAppModal() {

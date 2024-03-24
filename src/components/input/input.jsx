@@ -24,7 +24,7 @@ const CustomInput = (props) => {
                     name={!!name ? name : ""}
                     placeholder={!!placeholder ? placeholder : ""}
                     onChange={(e) => props.event(e.target.value)}
-                    onKeyDown = {(e) => !!props.onKeyDown ? props.onKeyDown(e) : {}}
+                    onKeyDown={(e) => (!!props.onKeyDown ? props.onKeyDown(e) : {})}
                 />
             )}
         </>

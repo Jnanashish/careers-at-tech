@@ -1,23 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { useSearchParams } from 'next/navigation'
-
+import { useSearchParams } from "next/navigation";
 
 import Footer from "@/components/common/Footer/Footer";
 import Header from "@/components/common/Header/header";
 import JobList from "@/widgets/JobList";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
-
+import { getJobListing } from "@/Helpers/jobdetailshelper";
 const Jobs = () => {
-    const searchParams = useSearchParams()
-    const search = searchParams.get('search') || '';
-    if(searchParams.has("location")){
+    const searchParams = useSearchParams();
+    const paramsToCheck = ["batch", "year", "companyname", "degree", "jobtype", "query", "location"];
+    const [params, setParams] = useState([
+        {
+            paramKey: "",
+            paramValue: "",
+        },
+    ]);
 
-    }
+    // add new key value in params array
+    const updateParam = (key, value) => {
+        console.log("KEY", key, value);
+        setParams((prevParam) => [...prevParam, { [key]: value }]);
+    };
 
-    useEffect(() => {
-        handleIntialPageLoad();
-    }, []);
+    const checkParamsinUrl = () => {
+        console.log("CALLED");
+        paramsToCheck.forEach((paramKey) => {
+            // if param is present in url then get the value
+            const paramValue = searchParams.get(paramKey);
+            if (!!paramValue) {
+                updateParam(paramKey, paramValue);
+            }
+        });
+    };
+
+    // useEffect(() => {
+    //     getJobListing(params);
+        
+    // }, [params]);
+
+    // useEffect(() => {
+    //     checkParamsinUrl();
+    //     handleIntialPageLoad();
+    // }, []);
 
     return (
         <div>

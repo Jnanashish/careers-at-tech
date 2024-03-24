@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
-import CustomInput from "../input/input";
+import CustomInput from "../Input/input";
 
 import styles from "./navheader.module.scss";
 

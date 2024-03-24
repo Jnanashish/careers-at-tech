@@ -55,38 +55,15 @@ const Modal = (props) => {
         <div>
             <ReactModal isOpen={modalisOpen} className={styles.modalContainer}>
                 <div className={styles.modalItems}>
-                    <FontAwesomeIcon
-                        onClick={() => handleCrossClicked()}
-                        className={styles.crossIcon}
-                        icon={faXmark}
-                    />
+                    <FontAwesomeIcon onClick={() => handleCrossClicked()} className={styles.crossIcon} icon={faXmark} />
                     <div className={styles.modalHeader}>
                         <p className={styles.clickText}>Click to know more 👇</p>
-                        <FontAwesomeIcon
-                            style={timer === 0 ? { color: "#0069ff" } : { color: "#979797" }}
-                            onClick={() => handleRedirection()}
-                            className={styles.crossIcon}
-                            icon={faSquareCaretRight}
-                        />
+                        <FontAwesomeIcon style={timer === 0 ? { color: "#0069ff" } : { color: "#979797" }} onClick={() => handleRedirection()} className={styles.crossIcon} icon={faSquareCaretRight} />
                     </div>
                     {dasBannerData && (
                         <>
-                            <a
-                                key={dasBannerData._id}
-                                href={dasBannerData.link}
-                                onClick={() => handleBannerClick(dasBannerData._id)}
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                <Image
-                                    className={styles.dasBanner}
-                                    src={dasBannerData.imagePath}
-                                    priority={1}
-                                    quality={100}
-                                    width={400}
-                                    height={400}
-                                    alt="Ads Poster"
-                                    loading="eager"
-                                />
+                            <a key={dasBannerData._id} href={dasBannerData.link} onClick={() => handleBannerClick(dasBannerData._id)} target="_blank" rel="noopener noreferrer">
+                                <Image className={styles.dasBanner} src={dasBannerData.imagePath} priority={1} quality={100} width={400} height={400} alt="Ads Poster" loading="eager" />
                             </a>
                         </>
                     )}
@@ -101,14 +78,12 @@ const Modal = (props) => {
                                       }
                                     : {}
                             }
-                            onClick={() => handleRedirection()}>
+                            onClick={() => handleRedirection()}
+                        >
                             {timer === 0 ? (
                                 <>
                                     <p>Redirect to Job page</p>
-                                    <FontAwesomeIcon
-                                        className={styles.redirectIcon}
-                                        icon={faArrowRight}
-                                    />
+                                    <FontAwesomeIcon className={styles.redirectIcon} icon={faArrowRight} />
                                 </>
                             ) : (
                                 <p style={{ fontSize: "1.1rem" }}>{timer}</p>

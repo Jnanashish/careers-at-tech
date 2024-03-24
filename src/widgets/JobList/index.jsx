@@ -9,7 +9,7 @@ import Jobcard from "../../components/Jobcard/Jobcard";
 import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
 import Notice from "../../components/common/Notice/notice";
 import { firenbaseEventHandler } from "@/core/eventHandler";
-import WhatAppModal from "../../components/common/whatsAppModal";
+import WhatAppModal from "../../Temp/whatsAppModal";
 import NavHeader from "@/components/navHeader";
 
 const JobList = () => {

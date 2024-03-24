@@ -51,3 +51,8 @@ const getDASPoptypeData = () => {
 export const handleIntialPageLoad = () => {
     checklocalStorage();
 };
+
+
+export const getJobListing = (params) => {
+
+}
