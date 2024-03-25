@@ -86,11 +86,11 @@ export const jobsbybatch = [
     },
     {
         title: "Jobs for 2021 batch",
-        redirection_url: "/",
+        redirection_url: "?batch=2021",
     },
     {
         title: "Jobs for 2022 batch",
-        redirection_url: "/",
+        redirection_url: "?batch=2022",
     },
     {
         title: "Jobs for 2023 batch",

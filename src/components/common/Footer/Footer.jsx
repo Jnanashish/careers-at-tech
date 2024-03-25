@@ -37,7 +37,7 @@ const Footer = () => {
                         </a>
                     </div>
                 </span>
-{/* 
+
                 <div className={styles.companytabs}>
                     <span>
                         <p>CareersAtTech</p>
@@ -82,7 +82,7 @@ const Footer = () => {
                             ))}
                         </span>
                     </span>
-                </div> */}
+                </div>
             </div>
             <div className={styles.bottom_nav}>
                 <p>

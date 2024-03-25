@@ -1,0 +1,37 @@
+.dropdown {
+    margin: 0 auto;
+    width: 200px;
+    position: relative;
+
+    &_button {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        color: #777;
+
+        .icon {
+            height: 15px;
+            width: 15px;
+        }
+    }
+
+    &_content {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.07);
+
+        .item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .item:hover {
+            background: #fcfcfc;
+        }
+    }
+}

@@ -48,7 +48,7 @@
     }
 }
 
-.showmore_button{
+.showmore_button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,51 +61,77 @@
     }
 }
 
-// loader css --------------------------
-.loaderContainer {
+
+
+
+//
+.joblist {
+    letter-spacing: 0.14px;
+    line-height: 1.5rem;
+}
+
+.nojob_section {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 100vh;
+    text-align: center;
+
+    font-size: 1.2rem;
+    line-height: 2rem;
+
+    span {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        color: #0069ff;
+    }
 
     @media (max-width: 768px) {
-        height: 50vh;
+        font-size: 1rem;
+        padding-bottom: 200px;
     }
 }
-.loader {
-    border: 4px;
-    border-color: #f3f3f3;
-    border-radius: 50%;
-    border-style: solid;
-    border-top-color: #0069ff;
-    width: 60px;
-    height: 60px;
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
 
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-}
-.nojobContainer {
+// loader css --------------------------
+.loader_section{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 400px;
-    text-align: center;
-    line-height: 1.5;
+    height: 30vh;
+
+    @media (max-width: 768px) {
+        height: 80vh;
+        padding-bottom: 60px;
+    }
+
+    .loader {
+        border: 6px;
+        border-color: #f3f3f3;
+        border-radius: 50%;
+        border-style: solid;
+        border-top-color: #0069ff;
+        width: 70px;
+        height: 70px;
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+    
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+    
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
 }
