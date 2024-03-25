@@ -9,7 +9,7 @@ import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-s
 import { format } from "timeago.js";
 
 // import local components and methods
-import Modal from "../../Temp/Modal/Modal";
+// import Modal from "../../Temp/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import styles from "./jobcard.module.scss";
 import { handleShareClick } from "../../core/shareJobs";
@@ -81,7 +81,6 @@ const Jobcard = (props) => {
 
     return (
         <div className={styles.jobCardContainer}>
-            {showModal && <Modal id={id} link={link} showModal={showModal} toggleModalView={toggleModalView} />}
             {!jobcardClicked && (
                 <div
                     onClick={() => {
