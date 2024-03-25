@@ -30,7 +30,7 @@ const Dropdown = () => {
                 <span>{isActive ? <FontAwesomeIcon icon={faChevronUp} className={styles.icon} /> : <FontAwesomeIcon icon={faChevronDown} className={styles.icon} />}</span>
             </div>
             <div className={styles.dropdown_content} style={{ display: isActive ? "block" : "none" }}>
-                {!!temp &&
+                {/* {!!temp &&
                     temp.map((item) => {
                         return (
                             <div
@@ -43,7 +43,7 @@ const Dropdown = () => {
                                 {item.title}
                             </div>
                         );
-                    })}
+                    })} */}
             </div>
         </div>
     );
