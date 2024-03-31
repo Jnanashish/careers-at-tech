@@ -1,40 +1,60 @@
-.centerContainer {
+.joblist {
+    letter-spacing: 0.14px;
+
+    &_nojobsection{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        height: 30vh;
+        margin-bottom: 200px;
+    
+        font-size: 1.2rem;
+        line-height: 2rem;
+    
+        span {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+            color: #0069ff;
+        }
+    
+        @media (max-width: 768px) {
+            font-size: 1rem;
+            padding-bottom: 200px;
+        }
+    }
+}
+
+.joblistcontainer{
     display: flex;
     width: 100%;
-}
-.jobCardContainer {
-    width: 70%;
-    margin: 10px auto;
-    padding: 0px 50px;
-    @media (max-width: 768px) {
-        width: 93%;
-        padding: 0px;
-        margin: 0px auto;
-    }
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-}
-.sidebar {
-    width: 30%;
-    @media (max-width: 768px) {
-        display: none;
-    }
-}
-.dasContainer {
-    max-width: 93%;
-    margin: 10px auto;
 
-    display: none;
-    @media (max-width: 768px) {
-        display: block;
+    &_jobcards{
+        width: 70%;
+        margin: 10px auto;
+        padding: 0px 50px;
+
+        @media (max-width: 768px) {
+            width: 93%;
+            padding: 0px;
+            margin: 0px auto;
+        }
+    }
+
+    &_sidebar {
+        width: 30%;
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 }
 
-.moreJobContainer {
+
+.showmoresection{
     padding: 14px;
-    border: 1px solid #0069ff;
+    border: 1px solid #ddd;
     text-align: center;
     border-radius: 6px;
     margin: 40px 0px;
@@ -46,92 +66,17 @@
         font-weight: 500;
         font-size: 1rem;
     }
-}
 
-.showmore_button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    .icon {
-        color: #0069ff;
-        height: 20px;
-        width: 20px;
-    }
-}
-
-
-
-
-//
-.joblist {
-    letter-spacing: 0.14px;
-    line-height: 1.5rem;
-}
-
-.nojob_section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-
-    font-size: 1.2rem;
-    line-height: 2rem;
-
-    span {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        cursor: pointer;
-        color: #0069ff;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 1rem;
-        padding-bottom: 200px;
-    }
-}
-
-// loader css --------------------------
-.loader_section{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30vh;
-
-    @media (max-width: 768px) {
-        height: 80vh;
-        padding-bottom: 60px;
-    }
-
-    .loader {
-        border: 6px;
-        border-color: #f3f3f3;
-        border-radius: 50%;
-        border-style: solid;
-        border-top-color: #0069ff;
-        width: 70px;
-        height: 70px;
-        -webkit-animation: spin 1s linear infinite;
-        animation: spin 1s linear infinite;
+    &_button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
     
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-    
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+        .icon {
+            color: #0069ff;
+            height: 16px;
+            width: 16px;
         }
     }
 }

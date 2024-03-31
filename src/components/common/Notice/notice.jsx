@@ -9,7 +9,7 @@ const styles = {
         margin: "30px auto",
     },
     noticeText: {
-        fontSize: "1rem",
+        fontSize: "0.9rem",
         lineHeight: "1.5rem",
         color: "#3b3b3b",
     },
@@ -27,7 +27,7 @@ function Notice() {
             <p style={styles.noticeText}>
                 All Company names, logos and trademarks are the intellectual property of the respective owners. All company, product and service names used in this website are for identification
                 purposes only. Use of these names,trademarks and brands does not imply endorsement.
-                <br /> <b> We do not charge any money or commision fees from students</b>, we are just an information provider for job openings.
+                <br /> <span> We do not charge any money or commision fees from students</span>, we are just an information provider for job openings.
             </p>
         </div>
     );

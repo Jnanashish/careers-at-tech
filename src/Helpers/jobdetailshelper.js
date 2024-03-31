@@ -6,7 +6,7 @@ export const getJobListing = async (params, page = 1, size = 10) => {
     let api_url = `${apiEndPoint.job_list}?page=${page}&size=${size}`;
 
     // if param present then create api url with param filter
-    !!params && params.forEach((param, index) => {
+    !!params && params.forEach((param) => {
         const key = Object.keys(param)[0];
         const value = param[key];
 

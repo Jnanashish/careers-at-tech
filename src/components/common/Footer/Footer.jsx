@@ -19,7 +19,7 @@ const Footer = () => {
 
     return (
         <div className={styles.footer}>
-            <div className={styles.footer_links}>
+            <div className={styles.footer_navigation}>
                 <span>
                     <p>Connect with us</p>
                     <div className={styles.social_container}>
@@ -40,7 +40,7 @@ const Footer = () => {
 
                 <div className={styles.companytabs}>
                     <span>
-                        <p>CareersAtTech</p>
+                        <p>Careers at tech</p>
                         <span className={styles.companytabs_links}>
                             {company.map((item, index) => (
                                 <Link key={index} className={styles.link} href={item.redirection_url}>
@@ -49,7 +49,6 @@ const Footer = () => {
                             ))}
                         </span>
                     </span>
-
                     <span>
                         <p>Jobs by types</p>
                         <span className={styles.companytabs_links}>
@@ -61,29 +60,31 @@ const Footer = () => {
                         </span>
                     </span>
 
-                    <span>
-                        <p>Jobs by location</p>
-                        <span className={styles.companytabs_links}>
-                            {jobsbylocation.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
-                                    {item.title}
-                                </Link>
-                            ))}
+                    <div className={styles.companytabs_group}>
+                        <span>
+                            <p>Jobs by location</p>
+                            <span className={styles.companytabs_links}>
+                                {jobsbylocation.map((item, index) => (
+                                    <Link key={index} className={styles.link} href={item.redirection_url}>
+                                        {item.title}
+                                    </Link>
+                                ))}
+                            </span>
                         </span>
-                    </span>
-
-                    <span>
-                        <p>Jobs by batch</p>
-                        <span className={styles.companytabs_links}>
-                            {jobsbybatch.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
-                                    {item.title}
-                                </Link>
-                            ))}
+                        <span>
+                            <p>Jobs by batch</p>
+                            <span className={styles.companytabs_links}>
+                                {jobsbybatch.map((item, index) => (
+                                    <Link key={index} className={styles.link} href={item.redirection_url}>
+                                        {item.title}
+                                    </Link>
+                                ))}
+                            </span>
                         </span>
-                    </span>
+                    </div>
                 </div>
             </div>
+
             <div className={styles.bottom_nav}>
                 <p>
                     Made with ❤️ in India by
