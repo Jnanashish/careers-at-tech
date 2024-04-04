@@ -68,7 +68,7 @@ const Dropdown = (props) => {
             <div ref={dropdownRef} className={styles.dropdown}>
                 <div style={selected.value !== placeholder ? { borderColor: "#9C9C9C" } : {}} onClick={(e) => setIsActive(!isActive)} className={styles.dropdown_button}>
                     <p style={selected.value !== placeholder ? { color: "#000" } : {}}>
-                        {selected?.display_text?.length > 12 ? `${selected.display_text.substring(0, 12)}...` : selected.display_text}
+                        {selected.value !== placeholder && <b>•</b>}{selected?.display_text?.length > 20 ? `${selected.display_text.substring(0, 20)}...` : selected.display_text}
                     </p>
                     <span>{isActive ? <FontAwesomeIcon icon={faChevronUp} className={styles.icon} /> : <FontAwesomeIcon icon={faChevronDown} className={styles.icon} />}</span>
                 </div>
@@ -102,11 +102,12 @@ const Dropdown = (props) => {
 
             {/* drawer only for mobile device  */}
             {isMobile() && (
-                <Drawer open={isActive} onClose={toggleDrawer} direction="bottom" className={styles.drawer} size={400}>
+                <Drawer open={isActive} onClose={toggleDrawer} direction="bottom" className={styles.drawer} size={460}>
                     <div style={{ display: isActive ? "block" : "none" }}>
                         <div className={styles.drawer_header}>
                             <p>Job type </p>
-                            <p className={styles.drawer_header_clearbtn}>Clear</p>
+                            <FontAwesomeIcon onClick={toggleDrawer} icon={faXmark} className={styles.icon} />
+                            {/* <p className={styles.drawer_header_clearbtn}>Clear</p> */}
                         </div>
                         <div className={styles.drawer_content}>
                             {!!data &&
@@ -118,7 +119,7 @@ const Dropdown = (props) => {
                                     );
                                 })}
                         </div>
-                        {/* <div className={styles.drawer_clearmessage}>Clear filter</div> */}
+                        <div onClick={()=>handleFiltervalueClick({ display_text: placeholder, value: placeholder })} className={styles.drawer_clearmessage}>Clear filter</div>
                     </div>
                 </Drawer>
             )}

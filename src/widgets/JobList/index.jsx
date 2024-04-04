@@ -31,11 +31,11 @@ const JobList = () => {
     // add new key value in params array state or update existing value
     const updateParam = (key, value) => {
         console.log("VALYE", value);
-        if(!value || value === ""){
-            const tempParams = params.filter(param => Object.keys(param)[0] !== key);
+        if (!value || value === "") {
+            const tempParams = params.filter((param) => Object.keys(param)[0] !== key);
             setParams(tempParams);
             return;
-        } 
+        }
         setParams((prevParam) => {
             if (prevParam !== null) {
                 const keyExists = prevParam.some((param) => Object.keys(param)[0] === key);
@@ -47,7 +47,6 @@ const JobList = () => {
                         return param;
                     });
                     return updatedParams;
-                    
                 } else {
                     return [...prevParam, { [key]: value }];
                 }
@@ -88,13 +87,10 @@ const JobList = () => {
         window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
     };
 
-
-
     const handleFilterChange = (param, userQuery) => {
-            setPageno(1);
-            setJobdata([]);
-            updateParam(param, userQuery);
-        
+        setPageno(1);
+        setJobdata([]);
+        updateParam(param, userQuery);
     };
 
     // when page number change call job list api with existing param
@@ -108,7 +104,7 @@ const JobList = () => {
         if (params !== null) {
             getJoblistingData(params);
             updateSearchparaminUrl(params);
-        } 
+        }
     }, [params]);
 
     // --------------------------------------------------------
@@ -186,7 +182,12 @@ const JobList = () => {
                                         <FontAwesomeIcon className={styles.icon} icon={faChevronDown} />
                                     </span>
                                 )}
-                                {showMoreClicked && <Loader loaderheight="30px" loadercontainerheright="30px" borderWidth="4px" />}
+                                {showMoreClicked && (
+                                    <span className={styles.showmoresection_loader}>
+                                        {" "}
+                                        <Loader loaderheight="30px" loadercontainerheright="30px" borderWidth="4px" />
+                                    </span>
+                                )}
                             </div>
                         )}
                     </div>

@@ -65,14 +65,14 @@ function WhatAppModal() {
                         </div>
 
                         <p>
-                            Join us on WhastApp to stay upto date with latest <b>Internship</b> and
+                            Join WhastApp Channel to get latest <b>Internship</b> and
                             <b> Job</b> updates.
                         </p>
                         <a
                             onClick={() => handleWhatsAppJoinClick()}
-                            href="https://bit.ly/49nv3wG">
+                            href="https://bit.ly/jobs-whatsappchannel">
                             <div className={styles.whatsAppJoinBtn}>
-                                <p>Join us now on WhatsApp</p>
+                                <p>Join us on WhatsApp Channel</p>
                                 <Image
                                     src={whatsappIcon}
                                     alt="Whatsapp icon"

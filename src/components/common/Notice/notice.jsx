@@ -26,7 +26,7 @@ function Notice() {
             <p style={styles.noticeHeader}>Important !</p>
             <p style={styles.noticeText}>
                 All Company names, logos and trademarks are the intellectual property of the respective owners. All company, product and service names used in this website are for identification
-                purposes only. Use of these names,trademarks and brands does not imply endorsement.
+                purposes only. 
                 <br /> <span> We do not charge any money or commision fees from students</span>, we are just an information provider for job openings.
             </p>
         </div>
