@@ -96,13 +96,21 @@
         height: 18px;
         width: 18px;
         color: #111817;
+
+        @media (max-width: 768px) {
+            height: 14px;
+            width: 14px;
+        }
     }
 
     &_searchbar {
         @include searchtheme();
-        // padding: 14px 0px 14px 16px !important;
         border-radius: 8px 0px 0px 8px;
         border-right: none;
+
+        @media (max-width: 768px) {
+            padding: 12px 0px 12px 12px !important;
+        }
     }
 
     &_cancelbutton {

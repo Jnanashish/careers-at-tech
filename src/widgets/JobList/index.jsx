@@ -184,7 +184,6 @@ const JobList = () => {
                                 )}
                                 {showMoreClicked && (
                                     <span className={styles.showmoresection_loader}>
-                                        {" "}
                                         <Loader loaderheight="30px" loadercontainerheright="30px" borderWidth="4px" />
                                     </span>
                                 )}
