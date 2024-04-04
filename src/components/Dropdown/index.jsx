@@ -86,6 +86,7 @@ const Dropdown = (props) => {
                             data.map((item) => {
                                 return (
                                     <div
+                                        key={item.display_text}
                                         onClick={() => handleFiltervalueClick(item)}
                                         className={`${styles.item} ${item.value === "Clear" ? styles.dropdown_clearmessage : ""}`}
                                         style={item.value === selected.value ? { backgroundColor: "#f1f1f1" } : {}}
@@ -111,7 +112,7 @@ const Dropdown = (props) => {
                             {!!data &&
                                 data.map((item) => {
                                     return (
-                                        <div onClick={() => handleFiltervalueClick(item)} className={styles.item} style={item.value === selected.value ? { backgroundColor: "#f1f1f1" } : {}}>
+                                        <div key={item.display_text} onClick={() => handleFiltervalueClick(item)} className={styles.item} style={item.value === selected.value ? { backgroundColor: "#f1f1f1" } : {}}>
                                             {item.display_text}
                                         </div>
                                     );

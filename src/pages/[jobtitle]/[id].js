@@ -10,6 +10,8 @@ import Meta from "@/core/meta";
 import Footer from "@/components/common/Footer/Footer";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { firenbaseEventHandler } from "@/core/eventHandler";
+import { getJobListing } from "@/Helpers/jobdetailshelper";
+
 
 const interFont = Inter({
     weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -49,7 +51,7 @@ const JobdetailsPage = ({ data }) => {
 export default JobdetailsPage;
 
 export async function getStaticProps(context) {
-    const apiResponse = await getAlljdData(context?.params?.id);
+    const apiResponse = await getJobListing([{id : context?.params?.id}]);
     return {
         props: {
             data: apiResponse,
@@ -57,7 +59,7 @@ export async function getStaticProps(context) {
     };
 }
 export async function getStaticPaths() {
-    const apiResponse = await getJobListData(1, 30);
+    const apiResponse = await getJobListing(null, 1, 30);
     const jobdata = apiResponse.data.filter((item) => item.jdpage === "true");
     const paths = jobdata.map((item) => {
         const titleforShare = item.title.replace(/[\s;]+/g, "-").toLowerCase();
