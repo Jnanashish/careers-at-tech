@@ -1,7 +1,7 @@
 .joblist {
     letter-spacing: 0.14px;
 
-    &_nojobsection{
+    &_nojobsection {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -9,17 +9,17 @@
 
         height: 30vh;
         margin-bottom: 200px;
-    
+
         font-size: 1.2rem;
         line-height: 2rem;
-    
+
         span {
             text-decoration: underline;
             text-underline-offset: 3px;
             cursor: pointer;
             color: #0069ff;
         }
-    
+
         @media (max-width: 768px) {
             font-size: 1rem;
             padding-bottom: 200px;
@@ -27,11 +27,11 @@
     }
 }
 
-.joblistcontainer{
+.joblistcontainer {
     display: flex;
     width: 100%;
 
-    &_jobcards{
+    &_jobcards {
         width: 70%;
         margin: 10px auto;
         padding: 0px 50px;
@@ -51,32 +51,36 @@
     }
 }
 
-
-.showmoresection{
+.showmoresection {
     padding: 14px;
-    border: 1px solid #ddd;
     text-align: center;
-    border-radius: 6px;
-    margin: 40px 0px;
-    width: 100%;
+    border-radius: 50px;
+    margin: 50px auto;
+    width: 30%;
     cursor: pointer;
+    background-color: #f4faff;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 30px auto;
+    }
 
     p {
         color: #0050ff;
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
-    &_button{
+    &_button {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
-    
+
         .icon {
             color: #0069ff;
-            height: 16px;
-            width: 16px;
+            height: 14px;
+            width: 14px;
         }
     }
 }

@@ -6,7 +6,7 @@ import instagramIcon from "../../../static/Image/instagramIcon.svg";
 import whatsappIcon from "../../../static/Image/whatsappIcon.svg";
 import linkedinIcon from "../../../static/Image/linkedinIcon.svg";
 
-import { jobsbylocation, jobsbybatch, company, jobsbytypes } from "./Helpers/staticdata";
+import { jobsbylocation, jobsbybatch, company, jobsbytypes, jobsbycategories } from "./Helpers/staticdata";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Footer = () => {
@@ -20,25 +20,24 @@ const Footer = () => {
     return (
         <div className={styles.footer}>
             <div className={styles.footer_navigation}>
-                <span>
-                    <p>Connect with us</p>
-                    <div className={styles.social_container}>
-                        <a href="https://www.instagram.com/careersattech/" onClick={() => socialIconClicked("instagram")} className={styles.social_container_icons}>
-                            <Image src={instagramIcon} alt="Telegram icon" height={25} width={25} />
-                        </a>
-                        <a onClick={() => socialIconClicked("telegram")} href="https://t.openinapp.co/careersattech-3" className={styles.social_container_icons}>
-                            <Image src={telegramIcon} alt="Telegram icon" height={25} width={25} />
-                        </a>
-                        <a onClick={() => socialIconClicked("linkedin")} href="https://openinapp.co/m04iq" className={styles.social_container_icons}>
-                            <Image src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
-                        </a>
-                        <a onClick={() => socialIconClicked("whatsApp")} href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc" className={styles.social_container_icons}>
-                            <Image src={whatsappIcon} alt="Telegram icon" height={25} width={25} />
-                        </a>
-                    </div>
-                </span>
-
-                <div className={styles.companytabs}>
+                <div>
+                    <span>
+                        <p>Connect with us</p>
+                        <div className={styles.social_container}>
+                            <a href="https://www.instagram.com/careersattech/" onClick={() => socialIconClicked("instagram")} className={styles.social_container_icons}>
+                                <Image src={instagramIcon} alt="Telegram icon" height={25} width={25} />
+                            </a>
+                            <a onClick={() => socialIconClicked("telegram")} href="https://t.openinapp.co/careersattech-3" className={styles.social_container_icons}>
+                                <Image src={telegramIcon} alt="Telegram icon" height={25} width={25} />
+                            </a>
+                            <a onClick={() => socialIconClicked("linkedin")} href="https://openinapp.co/m04iq" className={styles.social_container_icons}>
+                                <Image src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
+                            </a>
+                            <a onClick={() => socialIconClicked("whatsApp")} href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc" className={styles.social_container_icons}>
+                                <Image src={whatsappIcon} alt="Telegram icon" height={25} width={25} />
+                            </a>
+                        </div>
+                    </span>
                     <span>
                         <p>Careers at tech</p>
                         <span className={styles.companytabs_links}>
@@ -49,7 +48,9 @@ const Footer = () => {
                             ))}
                         </span>
                     </span>
-                    <span>
+                </div>
+                <div className={styles.companytabs}>
+                <span>
                         <p>Jobs by types</p>
                         <span className={styles.companytabs_links}>
                             {jobsbytypes.map((item, index) => (
@@ -59,6 +60,17 @@ const Footer = () => {
                             ))}
                         </span>
                     </span>
+                    <span>
+                        <p>Jobs by category</p>
+                        <span className={styles.companytabs_links}>
+                            {jobsbycategories.map((item, index) => (
+                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                                    {item.title}
+                                </Link>
+                            ))}
+                        </span>
+                    </span>
+
 
                     <div className={styles.companytabs_group}>
                         <span>

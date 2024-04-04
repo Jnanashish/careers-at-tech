@@ -1,81 +1,81 @@
 export const jobsbylocation = [
     {
         title: "Remote Jobs",
-        redirection_url: "/",
+        redirection_url: "?location=remote",
     },
     {
         title: "Hybrid Jobs",
-        redirection_url: "/",
+        redirection_url: "?location=hybrid",
     },
     {
-        title: "Jobs in Bangalore",
-        redirection_url: "/",
+        title: "Jobs in Bengaluru",
+        redirection_url: "?location=bengaluru",
     },
     {
         title: "Jobs in Noida",
-        redirection_url: "/",
+        redirection_url: "?location=noida",
     },
     {
         title: "Jobs in Gurgaon",
-        redirection_url: "/",
+        redirection_url: "?location=gurgaon",
     },
     {
         title: "Jobs in Delhi",
-        redirection_url: "/",
+        redirection_url: "?location=delhi",
     },
     {
         title: "Jobs in Pune",
-        redirection_url: "/",
+        redirection_url: "?location=pune",
     },
     {
         title: "Jobs in Mumbai",
-        redirection_url: "/",
+        redirection_url: "?location=mumbai",
     },
     {
         title: "Jobs in Hyderabad",
-        redirection_url: "/",
+        redirection_url: "?location=hyderabad",
     },
 ];
 
 export const jobsbycategories = [
     {
         title: "Jobs in Frontend development",
-        redirection_url: "/",
+        redirection_url: "?query=frontend",
     },
     {
         title: "Jobs in Backend development",
-        redirection_url: "/",
+        redirection_url: "?query=backend",
     },
     {
         title: "Jobs in App development",
-        redirection_url: "/",
+        redirection_url: "?query=app",
     },
     {
         title: "Jobs in Data analytics",
-        redirection_url: "/",
+        redirection_url: "?query=data",
     },
     {
         title: "Jobs in Fullstack development",
-        redirection_url: "/",
+        redirection_url: "?query=fullstack",
     },
     {
         title: "Jobs in Web development",
-        redirection_url: "/",
+        redirection_url: "?query=web",
     },
     {
         title: "Jobs in Quality analyst (QA)",
-        redirection_url: "/",
+        redirection_url: "?query=qa",
     },
 ];
 
 export const jobsbytypes = [
     {
         title: "Full time jobs",
-        redirection_url: "/",
+        redirection_url: "?jobtype=full",
     },
     {
         title: "Internships",
-        redirection_url: "/",
+        redirection_url: "?jobtype=internship",
     },
 ];
 

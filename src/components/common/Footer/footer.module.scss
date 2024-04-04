@@ -44,23 +44,28 @@
         display: flex;
         justify-content: space-between;
         gap: 40px;
-        width: 65%;
+        width: 70%;
         margin-right: 20px;
 
         @media (max-width: 768px) {
             flex-direction: column;
             width: 100%;
+            gap: 0px;
         }
 
         &_links {
             display: flex;
             flex-direction: column;
 
+            @media (max-width: 768px) {
+                margin-bottom: 32px;
+            }
+
             .link {
                 margin: 16px 0px 0px;
                 color: #4b5565;
                 font-weight: 400;
-                font-size: 1rem;
+                font-size: 0.9rem;
 
                 @media (max-width: 768px) {
                     margin: 14px 0px 0px;
@@ -85,6 +90,8 @@
     border-top: 1px solid rgba(197, 205, 216, 1);
     padding: 32px 52px;
     color: #4b5565;
+    display: flex;
+    justify-content: space-between;
 
     a {
         margin-left: 5px;

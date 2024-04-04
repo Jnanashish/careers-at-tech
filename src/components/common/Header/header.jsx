@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import styles from "./header.module.scss";
 import { firenbaseEventHandler } from "@/core/eventHandler";
-import logo from "../../../static/Image/logo-cat.svg";
+import logo from "../../../static/Image/careersattech-biglogo.svg";
 
 const Header = () => {
     // ga logo click event
@@ -18,7 +18,7 @@ const Header = () => {
 
     return (
         <div className={styles.header}>
-            <Image onClick={() => handleRedirection()} className={styles.logo} src={logo} height={30} width={162} />
+            <Image onClick={() => handleRedirection()} src={logo} height={30} width={150} />
         </div>
     );
 };

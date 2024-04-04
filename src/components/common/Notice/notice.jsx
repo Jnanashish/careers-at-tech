@@ -3,7 +3,7 @@ import React from "react";
 const styles = {
     noticeContainer: {
         backgroundColor: "#f4faff",
-        padding: "24px",
+        padding: "22px",
         width: "92%",
         borderRadius: "8px",
         margin: "30px auto",

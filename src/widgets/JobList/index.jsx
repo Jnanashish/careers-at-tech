@@ -5,43 +5,52 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./joblist.module.scss";
+
 // import components
-import Jobcard from "../../components/Jobcard/Jobcard";
-import { getJobListData, getcompanynamedata, getjdJobtypeData } from "@/core/apis/jobapicall";
-import Notice from "../../components/common/Notice/notice";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import Jobcard from "@/components/Jobcard/Jobcard";
+import Notice from "@/components/common/Notice/notice";
 import WhatAppModal from "../../Temp/whatsAppModal";
 import NavHeader from "@/components/navHeader";
-import { logEvent } from "firebase/analytics";
-import { getJobListing } from "@/Helpers/jobdetailshelper";
-
 import Loader from "@/components/common/Loader";
 
+import { getJobListing } from "@/Helpers/jobdetailshelper";
+
 const JobList = () => {
-    const [pageno, setPageno] = useState(1);
     var itemCount = 0;
 
+    const [pageno, setPageno] = useState(1);
     const [params, setParams] = useState(null); // array of object
     const [jobdata, setJobdata] = useState([]);
     const [loaderStatus, setLoaderStatus] = useState(true);
-    const [size, setSize] = useState(2);
 
     const router = useRouter();
     const paramsToCheck = ["batch", "year", "companyname", "degree", "jobtype", "query", "location"];
 
     const [showMoreClicked, setShowMoreClicked] = useState(false);
 
-    // add new key value in params array state
+    // add new key value in params array state or update existing value
     const updateParam = (key, value) => {
+        console.log("VALYE", value);
+        if(!value || value === ""){
+            const tempParams = params.filter(param => Object.keys(param)[0] !== key);
+            setParams(tempParams);
+            return;
+        } 
         setParams((prevParam) => {
             if (prevParam !== null) {
-                const updatedParams = prevParam.map((param) => {
-                    if (Object.keys(param)[0] === key) {
-                        return { [key]: value };
-                    }
-                    return param;
-                });
-                return updatedParams;
+                const keyExists = prevParam.some((param) => Object.keys(param)[0] === key);
+                if (keyExists) {
+                    const updatedParams = prevParam.map((param) => {
+                        if (Object.keys(param)[0] === key) {
+                            return { [key]: value };
+                        }
+                        return param;
+                    });
+                    return updatedParams;
+                    
+                } else {
+                    return [...prevParam, { [key]: value }];
+                }
             } else {
                 return [{ [key]: value }];
             }
@@ -56,20 +65,10 @@ const JobList = () => {
         }
     };
 
-    // when user search any query in searchbar
-    const handleQuerySearch = (searchedquery) => {
-        if (!!searchedquery) {
-            clearSearchParam()
-            setParams(null);
-            setJobdata([]);
-            updateParam("query", searchedquery);
-        }
-    };
-
     // call job listing data (send params as parameter)
-    const callJobListingApi = async (params) => {
+    const getJoblistingData = async (params) => {
         setLoaderStatus(true);
-        const res = await getJobListing(params, pageno, size);
+        const res = await getJobListing(params, pageno);
         if (!!res && Array.isArray(res?.data)) {
             setLoaderStatus(false);
             setShowMoreClicked(false);
@@ -77,33 +76,9 @@ const JobList = () => {
         }
     };
 
-    // check if any query parameter present in url
-    const checkParameterinUrl = () => {
-        const searchParams = new URLSearchParams(window.location.search);
-        let isQueryPresent = false;
-        setParams(null);
-        setJobdata([]);
-        paramsToCheck.forEach((paramKey) => {
-            // if parameter is present in url then get the value
-            const paramValue = searchParams.get(paramKey);
-            if (!!paramValue) {
-                updateParam(paramKey, paramValue);
-                isQueryPresent = true;
-            }
-        });
-        // if no query param present in url, call api for jobs without any query
-        if (!isQueryPresent) {
-            callJobListingApi(null);
-        }
-    };
-
-    // clear existing query params from url
-    const clearSearchParam = () => {
-        window.history.replaceState({}, "", `${window.location.pathname}`);
-    }
-
     // update search param in url
-    const updateSearchParam = (params) => {
+    const updateSearchparaminUrl = (params) => {
+        window.history.replaceState({}, "", `${window.location.pathname}`);
         const searchParams = new URLSearchParams(window.location.search);
         params.forEach((param) => {
             const key = Object.keys(param)[0];
@@ -113,37 +88,62 @@ const JobList = () => {
         window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
     };
 
-    const updateQueryParam = (selectedValue, param) =>{
-        updateParam(param, selectedValue);
 
-    }
 
-    // if any paramter change then call job listing api
-    useEffect(() => {
-        if (params !== null) {
-            callJobListingApi(params);
-            updateSearchParam(params);
-        }
-    }, [params]);
-
-    // detect any change in url and check for query parameter
-    useEffect(() => {
-        const handleRouteChange = ({ shallow }) => {
-            if (!shallow) {
-                checkParameterinUrl();
-            }
-        };
-
-        router.events.on("routeChangeComplete", handleRouteChange);
-        return () => {
-            router.events.off("routeChangeComplete", handleRouteChange);
-        };
-    }, [router.events]);
+    const handleFilterChange = (param, userQuery) => {
+            setPageno(1);
+            setJobdata([]);
+            updateParam(param, userQuery);
+        
+    };
 
     // when page number change call job list api with existing param
     useEffect(() => {
-        pageno !== 1 && callJobListingApi(params);
+        pageno !== 1 && getJoblistingData(params);
     }, [pageno]);
+
+    // if any paramter change then call job listing api
+    useEffect(() => {
+        console.log("params !== null", params !== null, params);
+        if (params !== null) {
+            getJoblistingData(params);
+            updateSearchparaminUrl(params);
+        } 
+    }, [params]);
+
+    // --------------------------------------------------------
+    // check if any query parameter present in url
+    const checkParameterinUrl = () => {
+        // clear existing data and params
+        setParams(null);
+        setJobdata([]);
+        setPageno(1);
+
+        const searchParams = new URLSearchParams(window.location.search);
+        let isQueryPresent = false;
+        paramsToCheck.forEach((paramKey) => {
+            // if any parameter is present in url then get the value
+            const paramValue = searchParams.get(paramKey);
+            if (!!paramValue) {
+                updateParam(paramKey, paramValue);
+                isQueryPresent = true;
+            }
+        });
+        // if no query param present in url, call api for jobs without any query
+        if (!isQueryPresent) {
+            getJoblistingData(params);
+        }
+    };
+
+    // detect any change in url and check if any query parama present in url
+    useEffect(() => {
+        const handleRouteChange = ({ shallow }) => {
+            if (!shallow) checkParameterinUrl();
+        };
+
+        router.events.on("routeChangeComplete", handleRouteChange);
+        return () => router.events.off("routeChangeComplete", handleRouteChange);
+    }, [router.events]);
 
     // on intial load check if any query parama present in url
     useEffect(() => {
@@ -152,7 +152,7 @@ const JobList = () => {
 
     return (
         <div className={styles.joblist}>
-            <NavHeader handleQuerySearch={handleQuerySearch} updateQueryParam={updateQueryParam}/>
+            <NavHeader params={params} handleFilterChange={handleFilterChange} />
 
             {/* No job found section when data is empty and page is not loading */}
             {!loaderStatus && jobdata.length === 0 && (
