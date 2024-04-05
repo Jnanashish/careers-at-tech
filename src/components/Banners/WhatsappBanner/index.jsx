@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-import styles from "./modalstyle.module.scss";
+import styles from "./whatsappbanner.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import whatsappIcon from "@/static/Image/whatsappIcon.svg";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 
-function WhatAppModal() {
-    const [showModal, setShowModal] = useState(false);
-
-    useEffect(() => {
-        handleInitialLoad();
-    }, []);
+function WhatAppBanner(props) {
+    const { isModal = false } = props;
+    const [showModal, setShowModal] = useState(true);
 
     const handleInitialLoad = () => {
         if (typeof window !== "undefined") {
@@ -41,7 +38,7 @@ function WhatAppModal() {
     };
 
     const handleWhatsAppJoinClick = () => {
-        if (typeof window !== "undefined") {
+        if (typeof window !== "undefined" && isModal) {
             var now = new Date().getTime();
             var expirationTime = now + 20 * 24 * 60 * 60 * 1000;
             localStorage.setItem("expirationTime", expirationTime.toString());
@@ -51,41 +48,34 @@ function WhatAppModal() {
         firenbaseEventHandler("whatsapp_modal_ad_clicked", true);
     };
 
+    useEffect(() => {
+        isModal && handleInitialLoad();
+    }, []);
+
     return (
         <>
             {showModal && (
-                <div
-                    overlayClassName={styles.overlayModalContainer}
-                    className={styles.modalContainer}>
-                    <div className={styles.cardContainer}>
-                        <div
-                            onClick={() => handleCancelClicked()}
-                            className={styles.crossIconContainer}>
-                            <FontAwesomeIcon className={styles.crossIcon} icon={faXmark} />
+                <div overlayClassName={isModal ? styles.overlayModalContainer : {}} className={`${styles.whatsappbanner} ${styles.whatsappmodal}`}>
+                    {isModal && (
+                        <div onClick={() => handleCancelClicked()} className={styles.crossIconContainer}>
+                            <FontAwesomeIcon className={styles.whatsappbanner_crossicon} icon={faXmark} />
                         </div>
+                    )}
 
-                        <p>
-                            Join WhastApp Channel to get latest <b>Internship</b> and
-                            <b> Job</b> updates.
-                        </p>
-                        <a
-                            onClick={() => handleWhatsAppJoinClick()}
-                            href="https://bit.ly/jobs-whatsappchannel">
-                            <div className={styles.whatsAppJoinBtn}>
-                                <p>Join us on WhatsApp Channel</p>
-                                <Image
-                                    src={whatsappIcon}
-                                    alt="Whatsapp icon"
-                                    height={20}
-                                    width={20}
-                                />
-                            </div>
-                        </a>
-                    </div>
+                    <p>
+                        Join WhastApp Channel to get latest <b>Internship</b> and
+                        <b> Job</b> updates.
+                    </p>
+                    <a onClick={() => handleWhatsAppJoinClick()} href="https://bit.ly/jobs-whatsappchannel">
+                        <div className={styles.whatsappbanner_joinbutton}>
+                            <p>Join us on WhatsApp Channel</p>
+                            <Image src={whatsappIcon} alt="Whatsapp icon" height={20} width={20} />
+                        </div>
+                    </a>
                 </div>
             )}
         </>
     );
 }
 
-export default WhatAppModal;
+export default WhatAppBanner;

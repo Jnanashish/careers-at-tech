@@ -9,9 +9,11 @@ import styles from "./joblist.module.scss";
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
 import Notice from "@/components/common/Notice/notice";
-import WhatAppModal from "../../Temp/whatsAppModal";
+import WhatAppBanner from "../../components/Banners/WhatsappBanner";
 import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
+import Sidebar from "@/components/Sidebar";
+import ScrolltoTop from "@/components/common/ScrolltoTop";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
@@ -189,18 +191,20 @@ const JobList = () => {
                                 )}
                             </div>
                         )}
+                        <WhatAppBanner isModal={true} />
                     </div>
 
                     {/* side bar  */}
-                    <div className={styles.joblistcontainer_sidebar}></div>
+                    <div className={styles.joblistcontainer_sidebar}>
+                        <Sidebar />
+                    </div>
                 </div>
             )}
 
             {/*  show loader  */}
             {!showMoreClicked && loaderStatus && <Loader />}
             {!loaderStatus && jobdata.length !== 0 && <Notice />}
-
-            <WhatAppModal />
+            <ScrolltoTop/>
         </div>
     );
 };

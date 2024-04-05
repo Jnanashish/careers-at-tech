@@ -1,0 +1,62 @@
+.whatsappbanner {
+    background-color: #f9f9fb;
+    width: 100%;
+
+    outline: none;
+    border-radius: 8px;
+    padding: 20px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+
+    border: 1px solid #25d366;
+
+    @media (max-width: 768px) {
+        padding: 16px 16px 20px;
+    }
+
+    &_crossicon {
+        height: 20px;
+        width: 20px;
+    }
+
+    &_joinbutton {
+        margin-top: 20px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        background-color: #25d366;
+
+        color: #121212;
+        font-weight: 500;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.whatsappmodal {
+    @media (max-width: 768px) {
+        position: fixed;
+        bottom: 20px;
+        right: 3%;
+        left: 3%;
+        width: 94%;
+    }
+}
+
+.overlayModalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.crossIconContainer {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 2px;
+}

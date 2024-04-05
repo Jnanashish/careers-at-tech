@@ -33,9 +33,9 @@
     width: 100%;
 
     &_jobcards {
-        width: 70%;
-        margin: 10px auto;
-        padding: 0px 50px;
+        width: 68%;
+        margin: 0px auto;
+        padding: 0px 40px 0px 50px;
 
         @media (max-width: 768px) {
             width: 93%;
@@ -45,7 +45,7 @@
     }
 
     &_sidebar {
-        width: 30%;
+        width: 32%;
         @media (max-width: 768px) {
             display: none;
         }
