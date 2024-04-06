@@ -191,7 +191,7 @@ const JobList = () => {
                                 )}
                             </div>
                         )}
-                        <WhatAppBanner isModal={true} />
+                        <span className="mobileview"><WhatAppBanner isModal={true} /></span>
                     </div>
 
                     {/* side bar  */}

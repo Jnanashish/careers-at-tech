@@ -11,6 +11,8 @@ import Similarjob from "../Similarjob/Similarjob";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import { shareJobDetails } from "@/Helpers/socialmediahandler";
 
+import { faLocationDot, faEye, faClock, faGraduationCap, faCalendar, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
+
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
 
@@ -36,17 +38,15 @@ const Jobdetails = (jobdata) => {
     return (
         <div>
             <div className={styles.jobdetails}>
-                {false && (
-                    <span onClick={handleBackButtonclick} className={styles.jobdetails_backbuttonsection}>
-                        <FontAwesomeIcon className={styles.back_icon} icon={faCaretLeft} />
-                        <p>Back to all jobs</p>
-                    </span>
-                )}
+                <span onClick={handleBackButtonclick} className={styles.jobdetails_backbuttonsection}>
+                    <FontAwesomeIcon className={styles.back_icon} icon={faCaretLeft} />
+                    <p>Back to all jobs</p>
+                </span>
 
                 {/* header section, share icon, logo, title */}
                 <>
                     <div className={styles.header}>
-                        <span>{data.imagePath !== "none" && <Image className={styles.companyLogo} height={45} width={45} src={data.imagePath} alt={data.companyName + "logo"} />}</span>
+                        <span>{data.imagePath !== "none" && <Image className={styles.companyLogo} height={42} width={42} src={data.imagePath} alt={data.companyName + "logo"} />}</span>
                         <span onClick={() => shareJobDetails(data)} className={styles.sharebutton}>
                             <span>Share job</span>
                             <FontAwesomeIcon className={styles.shareicon} icon={faShareNodes} />
@@ -61,12 +61,59 @@ const Jobdetails = (jobdata) => {
                 </>
 
                 {/* job details section in a box  */}
-                <div className={styles.detailssection}>
+                {/* <div className={styles.detailssection}>
                     {data.experience !== "N" && <p>Experience : {data.experience}</p>}
                     {data.degree !== "N" && <p>Degree : {data.degree}</p>}
                     {data.batch !== "N" && <p>Batch : {data.batch}</p>}
                     {data.location !== "N" && <p>Location : {data.location}</p>}
                     {data.salary !== "N" && <p>Salary : {data.salary}</p>}
+                </div> */}
+                <div className={styles.detailssectionnew}>
+                    {data.experience && (
+                        <div>
+                            <p>Experience</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faCalendar} />
+                                <p>{data.experience}</p>
+                            </span>
+                        </div>
+                    )}
+                    {data.degree && (
+                        <div>
+                            <p>Degree</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faGraduationCap} />
+                                <p>{data.degree}</p>
+                            </span>
+                        </div>
+                    )}
+                    {data.batch && (
+                        <div>
+                            <p>Batch</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
+                                <p>{data.batch}</p>
+                            </span>
+                        </div>
+                    )}
+                    {data.location && (
+                        <div>
+                            <p>Location</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
+                                <p>{data.location}</p>
+                            </span>
+                        </div>
+                    )}
+                    {data.salary && (
+                        <div>
+                            <p>Salary</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faMoneyCheckDollar} />
+                                <p>{data.salary}</p>
+                            </span>
+                        </div>
+                    )}
                 </div>
 
                 {data.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (

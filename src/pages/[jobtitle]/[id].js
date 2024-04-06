@@ -12,7 +12,7 @@ import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
-
+import Sidebar from "@/components/Sidebar";
 const interFont = Inter({
     weight: ["200", "300", "400", "500", "600", "700", "800"],
     subsets: ["latin"],
@@ -39,6 +39,9 @@ const JobdetailsPage = ({ data }) => {
                     <div className={styles.jobdetailContainer}>
                         <div className={interFont.className}>
                             <Jobdetails jobdata={data} />
+                        </div>
+                        <div>
+                            <Sidebar/>
                         </div>
                     </div>
                     <Footer />

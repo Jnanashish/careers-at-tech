@@ -16,6 +16,7 @@ const styles = {
         position: "fixed",
         bottom: "30px",
         right: "20px",
+        cursor : "pointer",
     },
     icon: {
         height: "16px",

@@ -6,7 +6,8 @@ import { firenbaseEventHandler } from "@/core/eventHandler";
 import styles from "./similarjob.module.scss";
 
 const Similarjobcard = (props) => {
-    const { title, imagePath, batch, degree, id } = props.data;
+    console.log("props", props);
+    const { title, imagePath, batch, degree, id, jobtype, location, experience } = props.data;
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
     const redirectToJobdetailPage = () => {
         firenbaseEventHandler("similar_jobcard_clicked", {
@@ -15,25 +16,16 @@ const Similarjobcard = (props) => {
         });
         Router.push(`/${titleforShare}/${id}`);
     };
-    
+
     return (
-        <div onClick={() => redirectToJobdetailPage()} className={styles.similarjobcard}>
-            <div className={styles.similarjobcard_header}>
-                <Image className={styles.compant_logo} src={imagePath} height={40} width={40} alt="company logo"></Image>
+        <div onClick={() => redirectToJobdetailPage()} className={styles.similarjob}>
+                <Image className={styles.similarjob_logo} src={imagePath} height={40} width={40} alt="company logo"></Image>
                 <div>
-                    <h4 className={styles.job_title}>{title}</h4>
-                    <div className={styles.job_details}>
-                        <p>
-                            <b>Batch : </b>
-                            {batch}
-                        </p>
-                        <p>
-                            <b>Degree : </b>
-                            {degree}
-                        </p>
+                    <h4 className={styles.similarjob_title}>{title}</h4>
+                    <div className={styles.similarjob_details}>
+                        <p>{jobtype} • {experience} • {location}</p>
                     </div>
-                </div>
-            </div>
+                    </div>
         </div>
     );
 };

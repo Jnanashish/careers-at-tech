@@ -19,10 +19,11 @@ const Similarjob = (props) => {
     return (
         <div className={styles.similarjob_section}>
             <h3>Similar jobs</h3>
+            <p>Here are other jobs you might want to apply for.</p>
             <div className={styles.similarComponent}>
                 {jobData &&
                     jobData.map((item, index) => {
-                        return <div key={index}>{(item.id !== id && item.jdpage === "true" || true) && <Similarjobcard data={item} />}</div>;
+                        return <div key={index}>{((item.id !== id && item.jdpage === "true") || true) && <Similarjobcard data={item} />}</div>;
                     })}
             </div>
         </div>
