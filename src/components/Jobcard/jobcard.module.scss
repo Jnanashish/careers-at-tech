@@ -99,13 +99,13 @@
 }
 .companyName {
     //    font-size: 12px;
-    font-size: 0.8rem;
+    font-size: 0.9rem !important;
     color: #121926;
     font-weight: 500;
     margin-top: 4px;
 
     @media (min-width: 768px) {
-        font-size: 14px;
+        font-size: 0.9px;
     }
 }
 
@@ -186,7 +186,7 @@
 
 .chip {
     padding: 4px 0px;
-    font-size: 12px;
+    font-size: 0.8rem;
     margin-right: 10px;
     font-weight: 500;
     border-radius: 6px;
@@ -195,10 +195,6 @@
     align-items: center;
     color: #697586;
 
-    @media (max-width: 768px) {
-        font-size: 10px;
-        // padding: 4px 10px;
-    }
 }
 .chipIcon {
     height: 8px;
