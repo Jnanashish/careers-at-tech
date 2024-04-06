@@ -120,7 +120,9 @@
     align-items: center;
 
     @media (max-width: 768px) {
-        grid-column: 1/6;
+    margin-top: 6px;
+
+        grid-column: 2/6;
         grid-row: 2;
     }
 }
@@ -161,7 +163,8 @@
 }
 .views {
     color: #697586;
-    font-size: 12px;
+    // font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
     align-self: flex-end;
 
@@ -170,30 +173,31 @@
     }
 }
 .viewIcon {
-    height: 12px;
-    width: 12px;
+    height: 8px;
+    width: 8px;
 }
 //  chips design --------------
 .chipContainer {
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    margin-top: 12px;
+    // margin-top: 12px;
 }
 
 .chip {
-    padding: 4px 14px;
+    padding: 4px 0px;
     font-size: 12px;
-    margin-right: 8px;
+    margin-right: 10px;
     font-weight: 500;
     border-radius: 6px;
 
     display: flex;
     align-items: center;
+    color: #697586;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        padding: 4px 10px;
+        // padding: 4px 10px;
     }
 }
 .chipIcon {
@@ -281,4 +285,8 @@
     font-size: 10px;
     margin-top: 10px;
     color: #697586;
+
+    @media (max-width: 768px) {
+        margin-top: 6px;
+    }
 }

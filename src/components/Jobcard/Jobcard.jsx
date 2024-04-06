@@ -107,7 +107,7 @@ const Jobcard = (props) => {
                     {jobtype !== "promo" && (
                         <div className={styles.jobdetails}>
                             <div>
-                                {degree !== "N" && (
+                                {/* {degree !== "N" && (
                                     <div className={styles.jobdetailsItem}>
                                         <p className={styles.detailTitle}> Degree :</p>
                                         <p>{degree}</p>
@@ -118,16 +118,16 @@ const Jobcard = (props) => {
                                         <p className={styles.detailTitle}>Batch :</p>
                                         <p>{batch}</p>
                                     </div>
-                                )}
+                                )} */}
 
                                 {/* chip section  */}
                                 <div className={styles.chipContainer}>
                                     {jobtype !== "N" && (
                                         <span
-                                            style={{
-                                                backgroundColor: "#e1ebff",
-                                                color: "#1d4ed8",
-                                            }}
+                                            // style={{
+                                            //     backgroundColor: "#e1ebff",
+                                            //     color: "#1d4ed8",
+                                            // }}
                                             className={styles.chip}
                                         >
                                             {jobtype}
@@ -135,10 +135,10 @@ const Jobcard = (props) => {
                                     )}
                                     {location !== "N" && (
                                         <span
-                                            style={{
-                                                backgroundColor: "#def7ec",
-                                                color: "#046C4E",
-                                            }}
+                                            // style={{
+                                            //     backgroundColor: "#def7ec",
+                                            //     color: "#046C4E",
+                                            // }}
                                             className={styles.chip}
                                         >
                                             <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
@@ -147,10 +147,10 @@ const Jobcard = (props) => {
                                     )}
                                     {experience !== "N" && experience.length < 12 && (
                                         <span
-                                            style={{
-                                                backgroundColor: "#F0ECFF",
-                                                color: "#6B46C1",
-                                            }}
+                                            // style={{
+                                            //     backgroundColor: "#F0ECFF",
+                                            //     color: "#6B46C1",
+                                            // }}
                                             className={styles.chip}
                                         >
                                             <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />

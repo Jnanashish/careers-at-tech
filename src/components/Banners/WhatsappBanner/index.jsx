@@ -49,13 +49,13 @@ function WhatAppBanner(props) {
     };
 
     useEffect(() => {
-        isModal && handleInitialLoad();
+        !!isModal && handleInitialLoad();
     }, []);
 
     return (
         <>
             {showModal && (
-                <div overlayClassName={isModal ? styles.overlayModalContainer : {}} className={`${styles.whatsappbanner} ${styles.whatsappmodal}`}>
+                <div overlayClassName={isModal ? styles.overlayModalContainer : {}} className={isModal ? `${styles.whatsappbanner} ${styles.whatsappmodal}` : `${styles.whatsappbanner}`}>
                     {isModal && (
                         <div onClick={() => handleCancelClicked()} className={styles.crossIconContainer}>
                             <FontAwesomeIcon className={styles.whatsappbanner_crossicon} icon={faXmark} />

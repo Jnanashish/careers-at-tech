@@ -1,6 +1,6 @@
 .jobdetails {
     font-family: "Inter", sans-serif;
-    padding: 40px 52px;
+    padding: 40px 40px 40px 52px;
     letter-spacing: 0.14px;
 
     @media (max-width: 768px) {
@@ -22,6 +22,28 @@
     }
 }
 
+.jobinfo {
+    &_title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-top: 20px;
+    }
+
+    &_companynamesection {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin: 20px 0px 30px;
+
+        &_name {
+            font-weight: 500;
+        }
+        &_postdate {
+            color: #727272;
+            font-size: 0.9rem;
+        }
+    }
+}
 .header {
     display: flex;
     align-items: center;
@@ -44,7 +66,6 @@
     .sharebutton {
         padding: 10px 16px;
         border: 1px solid #dadfe7;
-        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
         border-radius: 6px;
         font-weight: 500;
         font-size: 0.9rem;
@@ -66,49 +87,7 @@
     }
 }
 
-.company_name {
-    font-weight: 500;
-}
-
-.job_title {
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-top: 20px;
-}
-
-.companyname_section {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin: 20px 0px 30px;
-
-    .companyname {
-        font-weight: 500;
-    }
-    .posteddate {
-        color: #727272;
-        font-size: 0.9rem;
-    }
-}
-
-.detailssection {
-    background-color: #f9f9fb;
-    padding: 16px 40px;
-    border-radius: 6px;
-    margin: 16px 0px 40px;
-
-    @media (max-width: 768px) {
-        padding: 12px 24px;
-    }
-
-    p {
-        margin: 12px 0px;
-        color: #0069ff;
-        font-weight: 500;
-    }
-}
-.detailssectionnew{
-    // background-color: #f9f9fb;
+.detailssectionnew {
     background-color: #f4faff;
     padding: 24px 40px;
     border-radius: 6px;
@@ -120,26 +99,28 @@
     flex-wrap: wrap;
     font-size: 1rem;
 
-    .chipIcon{
-        height: 10px;
-        // color: #0050ff;
-
+    @media (max-width: 768px) {
+        padding: 26px 30px;
+        row-gap: 22px;
     }
 
-    div{
-        span{
+    .chipIcon {
+        height: 10px;
+        width: 10px;
+    }
+
+    div {
+        span {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-top: 8px;
 
-            p{
-                // color: #0050ff;
+            p {
                 font-weight: 500;
             }
         }
     }
-
 }
 
 .jobinfo {
@@ -183,7 +164,6 @@
     padding: 14px;
     border: 0.9px solid #0069ff;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-    // background-color: #f4faff;
 
     color: #0069ff;
     font-weight: 500;
@@ -192,7 +172,15 @@
     border-radius: 6px;
     margin: 40px 0px 0px;
 
-    &:hover{
+    &:hover {
         background-color: #f4faff;
     }
+
+    @media (max-width: 768px) {
+        font-size: 0.9rem;
+    }
+}
+
+.bannercontainer{
+    margin-top: 20px;
 }

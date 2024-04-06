@@ -11,6 +11,7 @@ import Footer from "@/components/common/Footer/Footer";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
+import ScrolltoTop from "@/components/common/ScrolltoTop";
 
 import Sidebar from "@/components/Sidebar";
 const interFont = Inter({
@@ -40,11 +41,12 @@ const JobdetailsPage = ({ data }) => {
                         <div className={interFont.className}>
                             <Jobdetails jobdata={data} />
                         </div>
-                        <div>
+                        <div className="desktopview">
                             <Sidebar/>
                         </div>
                     </div>
                     <Footer />
+                    <ScrolltoTop/>
                 </div>
             )}
         </div>

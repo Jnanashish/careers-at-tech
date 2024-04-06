@@ -1,108 +1,108 @@
 export const jobsbylocation = [
     {
         title: "Remote Jobs",
-        redirection_url: "?location=remote",
+        redirection_url: "/jobs?location=remote",
     },
     {
         title: "Hybrid Jobs",
-        redirection_url: "?location=hybrid",
+        redirection_url: "/jobs?location=hybrid",
     },
     {
         title: "Jobs in Bengaluru",
-        redirection_url: "?location=bengaluru",
+        redirection_url: "/jobs?location=bengaluru",
     },
     {
         title: "Jobs in Noida",
-        redirection_url: "?location=noida",
+        redirection_url: "/jobs?location=noida",
     },
     {
         title: "Jobs in Gurgaon",
-        redirection_url: "?location=gurgaon",
+        redirection_url: "/jobs?location=gurgaon",
     },
     {
         title: "Jobs in Delhi",
-        redirection_url: "?location=delhi",
+        redirection_url: "/jobs?location=delhi",
     },
     {
         title: "Jobs in Pune",
-        redirection_url: "?location=pune",
+        redirection_url: "/jobs?location=pune",
     },
     {
         title: "Jobs in Mumbai",
-        redirection_url: "?location=mumbai",
+        redirection_url: "/jobs?location=mumbai",
     },
     {
         title: "Jobs in Hyderabad",
-        redirection_url: "?location=hyderabad",
+        redirection_url: "/jobs?location=hyderabad",
     },
 ];
 
 export const jobsbycategories = [
     {
         title: "Jobs in Frontend development",
-        redirection_url: "?query=frontend",
+        redirection_url: "/jobs?query=frontend",
     },
     {
         title: "Jobs in Backend development",
-        redirection_url: "?query=backend",
+        redirection_url: "/jobs?query=backend",
     },
     {
         title: "Jobs in App development",
-        redirection_url: "?query=app",
+        redirection_url: "/jobs?query=app",
     },
     {
         title: "Jobs in Data analytics",
-        redirection_url: "?query=data",
+        redirection_url: "/jobs?query=data",
     },
     {
         title: "Jobs in Fullstack development",
-        redirection_url: "?query=fullstack",
+        redirection_url: "/jobs?query=fullstack",
     },
     {
         title: "Jobs in Web development",
-        redirection_url: "?query=web",
+        redirection_url: "/jobs?query=web",
     },
     {
         title: "Jobs in Quality analyst (QA)",
-        redirection_url: "?query=qa",
+        redirection_url: "/jobs?query=qa",
     },
 ];
 
 export const jobsbytypes = [
     {
         title: "Full time jobs",
-        redirection_url: "?jobtype=full",
+        redirection_url: "/jobs?jobtype=full",
     },
     {
         title: "Internships",
-        redirection_url: "?jobtype=internship",
+        redirection_url: "/jobs?jobtype=internship",
     },
 ];
 
 export const jobsbybatch = [
     {
         title: "Jobs for 2020 batch",
-        redirection_url: "?batch=2020",
+        redirection_url: "/jobs?batch=2020",
     },
     {
         title: "Jobs for 2021 batch",
-        redirection_url: "?batch=2021",
+        redirection_url: "/jobs?batch=2021",
     },
     {
         title: "Jobs for 2022 batch",
-        redirection_url: "?batch=2022",
+        redirection_url: "/jobs?batch=2022",
     },
     {
         title: "Jobs for 2023 batch",
-        redirection_url: "?batch=2023",
+        redirection_url: "/jobs?batch=2023",
     },
     {
         title: "Jobs for 2024 batch",
-        redirection_url: "?batch=2024",
+        redirection_url: "/jobs?batch=2024",
     },
     {
         title: "Jobs for 2025 batch",
-        redirection_url: "?batch=2025",
+        redirection_url: "/jobs?batch=2025",
     },
     // {
     //     title: "Jobs for 2026 batch",

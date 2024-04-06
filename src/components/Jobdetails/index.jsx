@@ -5,13 +5,13 @@ import Router from "next/router";
 
 import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faCaretLeft, faLocationDot, faClock, faGraduationCap, faCalendar, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
+
 import { countClickinJd } from "@/core/apis/jobapicall";
 import Similarjob from "../Similarjob/Similarjob";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import { shareJobDetails } from "@/Helpers/socialmediahandler";
-
-import { faLocationDot, faEye, faClock, faGraduationCap, faCalendar, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
+import WhatAppBanner from "../Banners/WhatsappBanner";
 
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
@@ -44,7 +44,7 @@ const Jobdetails = (jobdata) => {
                 </span>
 
                 {/* header section, share icon, logo, title */}
-                <>
+                <div className={styles.jobinfo}>
                     <div className={styles.header}>
                         <span>{data.imagePath !== "none" && <Image className={styles.companyLogo} height={42} width={42} src={data.imagePath} alt={data.companyName + "logo"} />}</span>
                         <span onClick={() => shareJobDetails(data)} className={styles.sharebutton}>
@@ -53,21 +53,13 @@ const Jobdetails = (jobdata) => {
                         </span>
                     </div>
 
-                    <h1 className={styles.job_title}>{data.role}</h1>
-                    <span className={styles.companyname_section}>
-                        <p className={styles.companyname}>{data.companyName}</p>
-                        <p className={styles.posteddate}> • Posted 1 day ago</p>
+                    <h1 className={styles.jobinfo_title}>{data.role}</h1>
+                    <span className={styles.jobinfo_companynamesection}>
+                        <p className={styles.jobinfo_companynamesection_name}>{data.companyName}</p>
+                        <p className={styles.jobinfo_companynamesection_postdate}> • Posted 1 day ago</p>
                     </span>
-                </>
+                </div>
 
-                {/* job details section in a box  */}
-                {/* <div className={styles.detailssection}>
-                    {data.experience !== "N" && <p>Experience : {data.experience}</p>}
-                    {data.degree !== "N" && <p>Degree : {data.degree}</p>}
-                    {data.batch !== "N" && <p>Batch : {data.batch}</p>}
-                    {data.location !== "N" && <p>Location : {data.location}</p>}
-                    {data.salary !== "N" && <p>Salary : {data.salary}</p>}
-                </div> */}
                 <div className={styles.detailssectionnew}>
                     {data.experience && (
                         <div>
@@ -87,21 +79,21 @@ const Jobdetails = (jobdata) => {
                             </span>
                         </div>
                     )}
-                    {data.batch && (
-                        <div>
-                            <p>Batch</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
-                                <p>{data.batch}</p>
-                            </span>
-                        </div>
-                    )}
                     {data.location && (
                         <div>
                             <p>Location</p>
                             <span>
                                 <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
                                 <p>{data.location}</p>
+                            </span>
+                        </div>
+                    )}
+                    {data.batch && (
+                        <div>
+                            <p>Batch</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
+                                <p>{data.batch}</p>
                             </span>
                         </div>
                     )}
@@ -121,6 +113,10 @@ const Jobdetails = (jobdata) => {
                         <p>{parse(data.jobdesc)}</p>
                     </div>
                 )}
+
+                <span className={`${styles.bannercontainer} mobileview`}>
+                    <WhatAppBanner isModal={false} />
+                </span>
 
                 {data.responsibility !== "N" && data.responsibility !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
@@ -149,6 +145,10 @@ const Jobdetails = (jobdata) => {
                         <p>{parse(data.aboutCompany)}</p>
                     </div>
                 )}
+
+                <span className={`${styles.bannercontainer} mobileview`}>
+                    <WhatAppBanner isModal={false} />
+                </span>
 
                 <a onClick={applyButtonClicked} href={data.link} rel="noreferrer" target="_blank">
                     <div className={styles.appply_button}>Apply now</div>

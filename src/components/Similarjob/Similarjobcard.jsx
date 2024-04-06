@@ -19,13 +19,15 @@ const Similarjobcard = (props) => {
 
     return (
         <div onClick={() => redirectToJobdetailPage()} className={styles.similarjob}>
-                <Image className={styles.similarjob_logo} src={imagePath} height={40} width={40} alt="company logo"></Image>
-                <div>
-                    <h4 className={styles.similarjob_title}>{title}</h4>
-                    <div className={styles.similarjob_details}>
-                        <p>{jobtype} • {experience} • {location}</p>
-                    </div>
-                    </div>
+            <Image className={styles.similarjob_logo} src={imagePath} height={40} width={40} alt="company logo"></Image>
+            <div>
+                <h4 className={styles.similarjob_title}>{title}</h4>
+                <div className={styles.similarjob_details}>
+                    <p>
+                        {jobtype} • {experience} • {location}
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };
