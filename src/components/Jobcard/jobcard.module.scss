@@ -190,10 +190,18 @@
     margin-right: 10px;
     font-weight: 500;
     border-radius: 6px;
+    white-space: nowrap;
 
     display: flex;
     align-items: center;
     color: #697586;
+
+    @media (max-width: 768px) {
+    font-size: 0.8rem;
+
+        margin-right: 10px;
+
+    }
 
 }
 .chipIcon {

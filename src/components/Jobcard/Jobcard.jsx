@@ -133,7 +133,7 @@ const Jobcard = (props) => {
                                             {jobtype}
                                         </span>
                                     )}
-                                    {location !== "N" && (
+                                    {location !== "N" && location.length < 12 && (
                                         <span
                                             // style={{
                                             //     backgroundColor: "#def7ec",

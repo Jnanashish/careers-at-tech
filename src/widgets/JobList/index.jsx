@@ -69,7 +69,8 @@ const JobList = () => {
     // call job listing data (send params as parameter)
     const getJoblistingData = async (params) => {
         setLoaderStatus(true);
-        const res = await getJobListing(params, pageno);
+        const size = !!params ? 199 : 10;
+        const res = await getJobListing(params, pageno, size);
         if (!!res && Array.isArray(res?.data)) {
             setLoaderStatus(false);
             setShowMoreClicked(false);
@@ -176,7 +177,7 @@ const JobList = () => {
                             })}
 
                         {/* show more button */}
-                        {jobdata.length !== 0 && (
+                        {jobdata.length !== 0 && !params && (
                             <div onClick={showMoreButtonClicked} className={styles.showmoresection}>
                                 {!showMoreClicked && (
                                     <span className={styles.showmoresection_button}>
