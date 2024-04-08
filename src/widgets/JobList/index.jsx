@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./joblist.module.scss";
-
+import Image from "next/image";
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
 import Notice from "@/components/common/Notice/notice";
@@ -14,6 +14,7 @@ import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
+import founditbanner from "../../static/Image/foundit-mini2.svg";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
@@ -168,11 +169,20 @@ const JobList = () => {
                     {/* main job card list section  */}
                     <div className={styles.joblistcontainer_jobcards}>
                         {!!jobdata &&
-                            jobdata.map((data) => {
+                            jobdata.map((data, index) => {
                                 return (
+                                    <>
+                                    {itemCount !== 0 && (itemCount ===1 || itemCount % 4 == 0) && (
+                                         <a href="bit.ly/foundit-careersattech">
+                                        <Image className={styles.banner} src={founditbanner} />
+                                        </a>
+                                    )}
+
+                                    
                                     <div cnt={itemCount++} key={data.id}>
                                         <Jobcard data={data} />
                                     </div>
+                                    </>
                                 );
                             })}
 
