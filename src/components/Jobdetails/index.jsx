@@ -150,9 +150,13 @@ const Jobdetails = (jobdata) => {
                     <WhatAppBanner isModal={false} />
                 </span>
 
+                <br/>
+                <a className={styles.promolink} href="bit.ly/foundit-careersattech">Get access to 5lakh+ freshers jobs. Register for free.</a>
                 <a onClick={applyButtonClicked} href={data.link} rel="noreferrer" target="_blank">
                     <div className={styles.appply_button}>Apply now</div>
                 </a>
+
+                
             </div>
             <Similarjob companytype={data.companytype} id={data._id} />
         </div>
