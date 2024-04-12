@@ -14,7 +14,7 @@ import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
-import founditbanner from "../../static/Image/foundit-mini2.svg";
+import founditbanner from "../../static/Image/foundit-mini3.svg";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
@@ -168,12 +168,14 @@ const JobList = () => {
                 <div className={styles.joblistcontainer}>
                     {/* main job card list section  */}
                     <div className={styles.joblistcontainer_jobcards}>
+                        <p className={styles.joblistcontainer_jobcards_alljobs}>All Jobs (300+)</p>
+
                         {!!jobdata &&
                             jobdata.map((data, index) => {
                                 return (
                                     <>
-                                    {itemCount !== 0 && (itemCount ===1 || itemCount % 4 == 0) && (
-                                         <a href="bit.ly/foundit-careersattech">
+                                    {itemCount !== 0 && (itemCount ===1 || itemCount % 9 == 0) && (
+                                         <a href="https://bit.ly/foundit-careersattech">
                                         <Image className={styles.banner} src={founditbanner} />
                                         </a>
                                     )}
