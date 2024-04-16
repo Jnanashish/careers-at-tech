@@ -14,7 +14,7 @@ import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
-import founditbanner from "../../static/Image/foundit-mini3.svg";
+import whatsapp from "../../static/Image/whatsapp.svg";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
@@ -174,9 +174,9 @@ const JobList = () => {
                             jobdata.map((data, index) => {
                                 return (
                                     <>
-                                    {itemCount !== 0 && (itemCount ===1 || itemCount % 9 == 0) && (
-                                         <a href="https://bit.ly/foundit-careersattech">
-                                        <Image className={styles.banner} src={founditbanner} />
+                                    {(itemCount === 0  || itemCount % 3 == 0) && (
+                                        <a href="https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y">
+                                        <Image className={styles.banner} src={whatsapp} />
                                         </a>
                                     )}
 
@@ -204,7 +204,7 @@ const JobList = () => {
                                 )}
                             </div>
                         )}
-                        <span className="mobileview"><WhatAppBanner isModal={true} /></span>
+                        {/* <span className="mobileview"><WhatAppBanner isModal={true} /></span> */}
                     </div>
 
                     {/* side bar  */}

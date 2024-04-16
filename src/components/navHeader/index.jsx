@@ -44,7 +44,7 @@ const NavHeader = (props) => {
             <div className={styles.navheader_filters}>
                 <h2>
                     Discover verified <br /> tech <span>Jobs</span> and <span>Internships</span>
-                    <br /> at tech companies.
+                    <br /> at top companies.
                 </h2>
 
                 <div className={styles.searchsection}>
