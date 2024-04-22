@@ -7,9 +7,9 @@ function Sidebar() {
     return (
         <div className={styles.sidebar}>
             <WhatAppBanner />
-            <a href="https://bit.ly/foundit-careersattech">
+            {/* <a href="https://bit.ly/foundit-careersattech">
                 <Image className={styles.sidebar_image} src={founditbanner} width={1200} height={750} />
-            </a>
+            </a> */}
         </div>
     );
 }

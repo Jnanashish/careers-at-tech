@@ -66,10 +66,9 @@ const NavHeader = (props) => {
                 </div>
 
                 <div className={styles.dropdown}>
-                
+                    <p>Filter : </p>
                     <Dropdown selectedValue={selecterParam?.jobtype} parameter="jobtype" handleFilterChange={props.handleFilterChange} placeholder="Job type" data={dropdownData.jobtype}/>
                     <Dropdown selectedValue={selecterParam?.batch} parameter="batch" handleFilterChange={props.handleFilterChange} placeholder="Batch" data={dropdownData.batch}/>
-                    {/* <Dropdown selectedValue={selecterParam?.query} parameter="query" handleFilterChange={props.handleFilterChange} placeholder="Job category" data={dropdownData.jobcategory}/> */}
                     <Dropdown selectedValue={selecterParam?.location} parameter="location" handleFilterChange={props.handleFilterChange} placeholder="Location" data={dropdownData.location}/>
                 </div>
             </div>
@@ -77,7 +76,6 @@ const NavHeader = (props) => {
             <div className={styles.navheader_image}>
                 <Image
                     src={bannerimage}
-                    // src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1678515591/3d-business-young-woman-sitting-with-laptop-and-stylus_fvym3e.png"
                     alt="girl with computer"
                     height={324}
                     width={256}

@@ -8,8 +8,6 @@ import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-s
 
 import { format } from "timeago.js";
 
-// import local components and methods
-// import Modal from "../../Temp/Modal/Modal";
 import { countClickinJd } from "@/core/apis/jobapicall";
 import styles from "./jobcard.module.scss";
 import { handleShareClick } from "../../core/shareJobs";

@@ -12,6 +12,7 @@ import Similarjob from "../Similarjob/Similarjob";
 import { firenbaseEventHandler } from "@/core/eventHandler";
 import { shareJobDetails } from "@/Helpers/socialmediahandler";
 import WhatAppBanner from "../Banners/WhatsappBanner";
+import { format } from "timeago.js";
 
 const Jobdetails = (jobdata) => {
     const data = jobdata.jobdata;
@@ -56,7 +57,7 @@ const Jobdetails = (jobdata) => {
                     <h1 className={styles.jobinfo_title}>{data.role}</h1>
                     <span className={styles.jobinfo_companynamesection}>
                         <p className={styles.jobinfo_companynamesection_name}>{data.companyName}</p>
-                        <p className={styles.jobinfo_companynamesection_postdate}> • Posted 1 day ago</p>
+                        <p className={styles.jobinfo_companynamesection_postdate}> • Posted {format(data?.createdAt)}</p>
                     </span>
                 </div>
 
@@ -97,7 +98,7 @@ const Jobdetails = (jobdata) => {
                             </span>
                         </div>
                     )}
-                    {data.salary && (
+                    {data.salary && data.salary !== "₹0LPA" && (
                         <div>
                             <p>Salary</p>
                             <span>
@@ -151,7 +152,6 @@ const Jobdetails = (jobdata) => {
                 </span>
 
                 <br/>
-                <a className={styles.promolink} href="bit.ly/foundit-careersattech">Get access to 5lakh+ freshers jobs. Register for free.</a>
                 <a onClick={applyButtonClicked} href={data.link} rel="noreferrer" target="_blank">
                     <div className={styles.appply_button}>Apply now</div>
                 </a>

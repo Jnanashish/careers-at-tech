@@ -5,24 +5,24 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./joblist.module.scss";
-import Image from "next/image";
+
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
 import Notice from "@/components/common/Notice/notice";
-import WhatAppBanner from "../../components/Banners/WhatsappBanner";
+import WhatAppBanner from "@/components/Banners/WhatsappBanner";
 import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
-import whatsapp from "../../static/Image/whatsapp.svg";
 
+// Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
 const JobList = () => {
     var itemCount = 0;
 
     const [pageno, setPageno] = useState(1);
-    const [params, setParams] = useState(null); // array of object
+    const [params, setParams] = useState(null);  // array of object
     const [jobdata, setJobdata] = useState([]);
     const [loaderStatus, setLoaderStatus] = useState(true);
 
@@ -33,7 +33,6 @@ const JobList = () => {
 
     // add new key value in params array state or update existing value
     const updateParam = (key, value) => {
-        console.log("VALYE", value);
         if (!value || value === "") {
             const tempParams = params.filter((param) => Object.keys(param)[0] !== key);
             setParams(tempParams);
@@ -60,6 +59,7 @@ const JobList = () => {
     };
 
     // when user clicked show more increment page no
+    // show loader in show more section
     const showMoreButtonClicked = () => {
         if (!showMoreClicked) {
             setShowMoreClicked(true);
@@ -168,23 +168,16 @@ const JobList = () => {
                 <div className={styles.joblistcontainer}>
                     {/* main job card list section  */}
                     <div className={styles.joblistcontainer_jobcards}>
-                        <p className={styles.joblistcontainer_jobcards_alljobs}>All Jobs (300+)</p>
+                        <p className={styles.joblistcontainer_jobcards_alljobs}>All Jobs (320+)</p>
 
                         {!!jobdata &&
                             jobdata.map((data, index) => {
                                 return (
-                                    <>
-                                    {(itemCount === 0  || itemCount % 3 == 0) && (
-                                        <a href="https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y">
-                                        <Image className={styles.banner} src={whatsapp} />
-                                        </a>
-                                    )}
 
                                     
                                     <div cnt={itemCount++} key={data.id}>
                                         <Jobcard data={data} />
                                     </div>
-                                    </>
                                 );
                             })}
 
@@ -204,7 +197,7 @@ const JobList = () => {
                                 )}
                             </div>
                         )}
-                        {/* <span className="mobileview"><WhatAppBanner isModal={true} /></span> */}
+                        <span className="mobileview"><WhatAppBanner isModal={true} /></span>
                     </div>
 
                     {/* side bar  */}
