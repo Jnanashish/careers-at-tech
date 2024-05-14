@@ -53,7 +53,7 @@ const Jobcard = (props) => {
             jd_page: jdpage,
             job_title: title,
         });
-        if (jobtype === "promo") {
+        if (jobtype === "promo" || true) {
             countClickinJd(id);
             window.open(link);
         } else {
