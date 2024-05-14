@@ -133,12 +133,12 @@ const Jobdetails = (jobdata) => {
                     </div>
                 )}
 
-                {data.skills !== "N" && data.skills !== "<p>N</p>" && (
+                {/* {data.skills !== "N" && data.skills !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
                         <h3>Prefered Skills : </h3>
                         <p>{parse(data.skills)}</p>
                     </div>
-                )}
+                )} */}
 
                 {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
