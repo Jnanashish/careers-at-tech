@@ -10,8 +10,9 @@
     // margin-bottom: 36px;
 
     @media (max-width: 768px) {
-        padding: 30px 16px 30px;
-        margin-bottom: 26px;
+        padding: 30px 16px 34px;
+        // margin-bottom: 26px;
+        border-bottom: 2px solid #FFF;
     }
 
     &_filters {

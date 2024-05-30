@@ -9,7 +9,7 @@ import JobList from "@/widgets/JobList";
 // Job listing page
 const Jobs = () => {
     return (
-        <div>
+        <>
             <Head>
                 <title>Careers at Tech</title>
                 <meta name="description" content="One place solution to get regular Internship and Job Updates." />
@@ -17,7 +17,7 @@ const Jobs = () => {
             <Header />
             <JobList />
             <Footer />
-        </div>
+        </>
     );
 };
 

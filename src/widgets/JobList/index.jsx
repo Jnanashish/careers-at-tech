@@ -14,6 +14,7 @@ import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
+import NojobFound from "@/components/NojobFound";
 
 // Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
@@ -22,8 +23,9 @@ const JobList = () => {
     var itemCount = 0;
 
     const [pageno, setPageno] = useState(1);
-    const [params, setParams] = useState(null);  // array of object
+    const [params, setParams] = useState(null); // array of object
     const [jobdata, setJobdata] = useState([]);
+    const [totalJobCount, setTotalJobCount] = useState(0);
     const [loaderStatus, setLoaderStatus] = useState(true);
 
     const router = useRouter();
@@ -72,7 +74,9 @@ const JobList = () => {
         setLoaderStatus(true);
         const size = !!params ? 199 : 10;
         const res = await getJobListing(params, pageno, size);
+        console.log("RES", res);
         if (!!res && Array.isArray(res?.data)) {
+            setTotalJobCount(res?.totalCount);
             setLoaderStatus(false);
             setShowMoreClicked(false);
             setJobdata((jobdata) => [...jobdata, ...res.data]);
@@ -151,30 +155,21 @@ const JobList = () => {
     }, []);
 
     return (
-        <div className={styles.joblist}>
+        <>
             <NavHeader params={params} handleFilterChange={handleFilterChange} />
 
             {/* No job found section when data is empty and page is not loading */}
-            {!loaderStatus && jobdata.length === 0 && (
-                <div className={styles.joblist_nojobsection}>
-                    <p>
-                        No jobs found 😔, Please try different filter <br />
-                        or <span onClick={() => Router.push("/contact")}>contact us</span> if the issue continue.
-                    </p>
-                </div>
-            )}
+            {!loaderStatus && jobdata.length === 0 && <NojobFound />}
 
             {(!loaderStatus || jobdata.length !== 0) && (
-                <div className={styles.joblistcontainer}>
+                <div className={styles.joblist}>
                     {/* main job card list section  */}
-                    <div className={styles.joblistcontainer_jobcards}>
-                        <p className={styles.joblistcontainer_jobcards_alljobs}>All Jobs (320+)</p>
+                    <div className={styles.joblist_jobcards}>
+                        {totalJobCount && <p className={styles.joblist_jobcards_alljobs}>All Jobs ({totalJobCount})</p>}
 
                         {!!jobdata &&
                             jobdata.map((data, index) => {
                                 return (
-
-                                    
                                     <div cnt={itemCount++} key={data.id}>
                                         <Jobcard data={data} />
                                     </div>
@@ -197,11 +192,13 @@ const JobList = () => {
                                 )}
                             </div>
                         )}
-                        <span className="mobileview"><WhatAppBanner isModal={true} /></span>
+                        <span className="mobileview">
+                            <WhatAppBanner isModal={true} />
+                        </span>
                     </div>
 
                     {/* side bar  */}
-                    <div className={styles.joblistcontainer_sidebar}>
+                    <div className={styles.joblist_sidebar}>
                         <Sidebar />
                     </div>
                 </div>
@@ -209,9 +206,9 @@ const JobList = () => {
 
             {/*  show loader  */}
             {!showMoreClicked && loaderStatus && <Loader />}
-            {!loaderStatus && jobdata.length !== 0 && <Notice />}
-            <ScrolltoTop/>
-        </div>
+            {/* {!loaderStatus && jobdata.length !== 0 && <Notice />} */}
+            <ScrolltoTop />
+        </>
     );
 };
 

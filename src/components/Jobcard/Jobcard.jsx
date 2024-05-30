@@ -1,191 +1,108 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
-import { useSelector } from "react-redux";
 
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faEye, faClock, faShareNodes } from "@fortawesome/free-solid-svg-icons";
-
+import { faLocationDot, faEye, faShareNodes, faBusinessTime } from "@fortawesome/free-solid-svg-icons";
 import { format } from "timeago.js";
 
 import { countClickinJd } from "@/core/apis/jobapicall";
+import { handleShareClick } from "@/core/shareJobs";
+import Loader from "@/components/common/Loader";
+
 import styles from "./jobcard.module.scss";
-import { handleShareClick } from "../../core/shareJobs";
-import { firenbaseEventHandler } from "@/core/eventHandler";
 
 const Jobcard = (props) => {
-    const { title, role, degree, batch, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt } = props.data;
-    const [showModal, setShowModal] = useState(false);
-    const [popType, setPopType] = useState("none");
+    const { title, role, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt } = props.data;
     const [jobcardClicked, setJobcardClicked] = useState(false);
-    const [daysAgo, setDaysAgo] = useState(null);
 
+    // TODO: [SEO] Make a global function for common job title
+    // TODO: [BUG] Make the title url friendly
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
-    const impression = totalclick * 3;
-
-    // set type of das popup when page load
-    const dasPoptype = useSelector((state) => state.das.dasPoptype);
-    useEffect(() => {
-        if (dasPoptype && dasPoptype[0]) {
-            setPopType(dasPoptype[0].adpoptype);
-        }
-    }, [dasPoptype]);
+    const impression = totalclick * 5;
 
     // redirect to job detail page when jdpage is true
     const redirectToJobdetailPage = () => {
         Router.push(`/${titleforShare}/${id}`);
     };
 
-    const toggleModalView = () => {
-        setShowModal(!showModal);
-        setJobcardClicked(false);
-    };
+    // when mouse hovered over a job card prefetch the job details
     const onMouseEnter = () => {
         if (jdpage === "true") {
             Router.prefetch(`/${titleforShare}/${id}`);
         }
     };
 
-    // handle job card and footer section click
+    // handle job card click
     const handleJobCardClick = () => {
-        firenbaseEventHandler("job_card_clicked", {
-            job_id: id,
-            jd_page: jdpage,
-            job_title: title,
-        });
-        if (jobtype === "promo") {
-            countClickinJd(id);
+        // if job description present open jd page
+        if (jdpage === "true") {
+            setJobcardClicked(true);
+            redirectToJobdetailPage();
+        }
+        // open job details in careers page in new tab
+        if (jdpage === "false" || jobtype === "promo") {
             window.open(link);
-        } else {
-            if (jdpage === "true") {
-                setJobcardClicked(true);
-                redirectToJobdetailPage();
-            }
-            if (jdpage === "false" && popType === "none") {
-                firenbaseEventHandler("apply_button_clicked", {
-                    job_id: id,
-                    job_title: title,
-                    is_jd_page: jdpage,
-                });
-                window.open(link);
-                // window.location.assign(link);
-                countClickinJd(id);
-            }
-            if (jdpage === "false" && popType !== "none") {
-                setShowModal(true);
-            }
+            countClickinJd(id);
         }
     };
 
     return (
-        <div className={styles.jobCardContainer}>
+        <div className={styles.jobcardcontainer}>
             {!jobcardClicked && (
-                <div
-                    onClick={() => {
-                        handleJobCardClick();
-                    }}
-                    onMouseEnter={() => onMouseEnter()}
-                    className={styles.mainSection}
-                >
-                    <div className={styles.companyLogoContainer}>
+                <div onClick={handleJobCardClick} onMouseEnter={onMouseEnter} className={styles.jobcard}>
+                    <div className={styles.jobcard_logocontainer}>
                         {imagePath === "none" ? (
-                            <div className={styles.logotext}>
+                            // TODO: [UI] need to add a default placeholder image
+                            <div className={styles.jobcard_logocontainer_text}>
                                 <p>{title[0]}</p>
                             </div>
                         ) : (
-                            <Image className={styles.companyLogo} src={imagePath} alt="Company logo" height={50} width={50} />
+                            <Image className={styles.jobcard_logocontainer_logo} src={imagePath} alt="Company logo" height={54} width={54} />
                         )}
                     </div>
 
-                    <div className={styles.jobTitleContainer}>
-                        <p className={styles.jobtitle}>{role !== "N" ? role : title}</p>
-                        {jobtype !== "promo" && <p className={styles.companyName}>{companyName}</p>}
+                    <div className={styles.jobcard_titlecontainer}>
+                        <p className={styles.jobcard_titlecontainer_title}>{role !== "N" ? role : title}</p>
+                        {jobtype !== "promo" && <p className={styles.jobcard_titlecontainer_companyname}>{companyName}</p>}
                     </div>
 
-                    {jobtype !== "promo" && (
-                        <div className={styles.jobdetails}>
-                            <div>
-                                {/* {degree !== "N" && (
-                                    <div className={styles.jobdetailsItem}>
-                                        <p className={styles.detailTitle}> Degree :</p>
-                                        <p>{degree}</p>
-                                    </div>
+                    <div className={styles.detailscontainer}>
+                        <div>
+                            <div className={styles.detailscontainer_jobdetails}>
+                                {jobtype !== "N" && <span className={styles.chip}>{jobtype}</span>}
+                                {location !== "N" && location.length < 12 && (
+                                    <span className={styles.chip}>
+                                        <FontAwesomeIcon className={`${styles.chip_icon} ${styles.chip_icon_location}`} icon={faLocationDot} />
+                                        <p>{location}</p>
+                                    </span>
                                 )}
-                                {batch !== "N" && (
-                                    <div className={styles.jobdetailsItem}>
-                                        <p className={styles.detailTitle}>Batch :</p>
-                                        <p>{batch}</p>
-                                    </div>
-                                )} */}
-
-                                {/* chip section  */}
-                                <div className={styles.chipContainer}>
-                                    {jobtype !== "N" && (
-                                        <span
-                                            // style={{
-                                            //     backgroundColor: "#e1ebff",
-                                            //     color: "#1d4ed8",
-                                            // }}
-                                            className={styles.chip}
-                                        >
-                                            {jobtype}
-                                        </span>
-                                    )}
-                                    {location !== "N" && location.length < 12 && (
-                                        <span
-                                            // style={{
-                                            //     backgroundColor: "#def7ec",
-                                            //     color: "#046C4E",
-                                            // }}
-                                            className={styles.chip}
-                                        >
-                                            <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
-                                            <p>{location}</p>
-                                        </span>
-                                    )}
-                                    {experience !== "N" && experience.length < 12 && (
-                                        <span
-                                            // style={{
-                                            //     backgroundColor: "#F0ECFF",
-                                            //     color: "#6B46C1",
-                                            // }}
-                                            className={styles.chip}
-                                        >
-                                            <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
-                                            {experience}
-                                        </span>
-                                    )}
-                                </div>
-                                <p className={styles.postedMsg}>Posted {format(createdAt)}</p>
+                                {experience !== "N" && experience.length < 12 && (
+                                    <span className={styles.chip}>
+                                        <FontAwesomeIcon className={styles.chip_icon} icon={faBusinessTime} />
+                                        {experience}
+                                    </span>
+                                )}
                             </div>
-                            <p className={styles.views}>
-                                <FontAwesomeIcon className={styles.viewIcon} style={{ marginRight: "3px" }} icon={faEye} />
-                                {impression + 300} views
-                            </p>
+                            <p className={styles.detailscontainer_postedtime}>Posted {format(createdAt)}</p>
                         </div>
-                    )}
+
+                        <p className={styles.viewscontainer}>
+                            <FontAwesomeIcon className={styles.viewscontainer_icon} style={{ marginRight: "3px" }} icon={faEye} />
+                            {impression + 300} views
+                        </p>
+                    </div>
                 </div>
             )}
-            {jobtype !== "promo" && jobcardClicked && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader} />
-                </div>
-            )}
+            {jobtype !== "promo" && jobcardClicked && <Loader loaderheight="40px" loadercontainerheright="138px" borderWidth="4px" />}
 
             {/* footer with view count and share for mobile only  */}
             {jobtype !== "promo" && (
-                <div onClick={() => handleShareClick(props.data)} className={styles.footerSection}>
-                    <p>
-                        {/*<FontAwesomeIcon*/}
-                        {/*    className={styles.footerIcon}*/}
-                        {/*    style={{ marginRight: "3px", height: "10px", width: "10px" }}*/}
-                        {/*    icon={faEye}*/}
-                        {/*/>*/}
-                        {impression + 300} views
-                    </p>
-                    <div className={styles.shareContainer}>
+                <div onClick={() => handleShareClick(props.data)} className={styles.footer}>
+                    <p>{impression + 300} views</p>
+                    <div className={styles.footer_share}>
                         <p>Share</p>
-                        <FontAwesomeIcon className={styles.footerIcon} icon={faShareNodes} />
+                        <FontAwesomeIcon className={styles.footer_share_icon} icon={faShareNodes} />
                     </div>
                 </div>
             )}

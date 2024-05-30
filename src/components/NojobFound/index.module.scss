@@ -1,0 +1,25 @@
+.nojobsection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    height: 30vh;
+    margin-bottom: 200px;
+
+    font-size: 1.2rem;
+    line-height: 2rem;
+
+    span {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        color: #0069ff;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 0.9rem;
+        margin-bottom: 100px;
+        height: 40vh;
+    }
+}
