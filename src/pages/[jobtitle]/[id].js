@@ -59,7 +59,7 @@ export async function getStaticProps(context) {
     const apiResponse = await getJobListing([{id : context?.params?.id}]);
     return {
         props: {
-            data: apiResponse,
+            data: apiResponse?.data,
         },
     };
 }
@@ -74,7 +74,7 @@ export async function getStaticPaths() {
     });
 
     return {
-        paths,
+        paths : [],
         fallback: "blocking",
     };
 }
