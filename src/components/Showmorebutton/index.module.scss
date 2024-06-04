@@ -1,0 +1,41 @@
+
+.showmoresection {
+    text-align: center;
+    margin: 50px auto;
+    width: 50%;
+    cursor: pointer;
+    padding: 26px;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 20px auto 0px;
+    }
+
+    p {
+        color: #121926;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    &_button,
+    &_loader {
+        background-color: #f4faff;
+        border-radius: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px;
+
+        .icon {
+            color: #121926;
+            height: 14px;
+            width: 14px;
+        }
+    }
+
+    &_loader {
+        padding: 8px !important;
+    }
+}

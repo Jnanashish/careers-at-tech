@@ -14,9 +14,8 @@ import { shareJobDetails } from "@/Helpers/socialmediahandler";
 import WhatAppBanner from "../Banners/WhatsappBanner";
 import { format } from "timeago.js";
 
-const Jobdetails = (jobdata) => {
-    const data = jobdata.jobdata;
-    console.log("jobdata.jobdata", jobdata.jobdata);
+const Jobdetails = (props) => {
+    const data = props?.jobdata;
 
     // when back button is clicked move to job listing page
     const handleBackButtonclick = () => {
@@ -36,7 +35,6 @@ const Jobdetails = (jobdata) => {
         });
         countClickinJd(data._id);
     };
-    console.log("data", data);
 
     return (
         <div>
@@ -49,7 +47,7 @@ const Jobdetails = (jobdata) => {
                 {/* header section, share icon, logo, title */}
                 <div className={styles.jobinfo}>
                     <div className={styles.header}>
-                        <span>{data.imagePath !== "none" && <Image className={styles.companyLogo} height={42} width={42} src={data.imagePath} alt={data.companyName + "logo"} />}</span>
+                        <span>{data?.imagePath !== "none" && <Image className={styles.companyLogo} height={42} width={42} src={data.imagePath} alt={data.companyName + "logo"} />}</span>
                         <span onClick={() => shareJobDetails(data)} className={styles.sharebutton}>
                             <span>Share job</span>
                             <FontAwesomeIcon className={styles.shareicon} icon={faShareNodes} />
@@ -111,7 +109,7 @@ const Jobdetails = (jobdata) => {
                     )}
                 </div>
 
-                {data.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (
+                {!!data?.jobdesc && data?.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
                         <p>{parse(data.jobdesc)}</p>
                     </div>
@@ -121,28 +119,28 @@ const Jobdetails = (jobdata) => {
                     <WhatAppBanner isModal={false} />
                 </span>
 
-                {data.responsibility !== "N" && data.responsibility !== "<p>N</p>" && (
+                {!!data?.responsibility && data?.responsibility !== "N" && data?.responsibility !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
                         <h3>Responsibility : </h3>
                         <p>{parse(data.responsibility)}</p>
                     </div>
                 )}
 
-                {data.eligibility !== "N" && data.eligibility !== "<p>N</p>" && (
+                {!!data?.eligibility && data?.eligibility !== "N" && data?.eligibility !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
                         <h3>Eligibility : </h3>
                         <p>{parse(data.eligibility)}</p>
                     </div>
                 )}
 
-                {data?.skills !== "N" && data?.skills !== "<p>N</p>" && typeof data?.skills === 'string' && (
+                {!!data?.skills && data?.skills !== "N" && data?.skills !== "<p>N</p>" && typeof data?.skills === 'string' && (
                     <div className={styles.jobinfo}>
                         <h3>Prefered Skills : </h3>
                         <p>{parse(data.skills)}</p>
                     </div>
                 )}
 
-                {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
+                {!!data?.aboutCompany && data?.aboutCompany !== "N" && data?.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
                         <h3>About Company : </h3>
                         <p>{parse(data.aboutCompany)}</p>

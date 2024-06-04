@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./joblist.module.scss";
+import ShowMoreButton from "@/components/Showmorebutton";
 
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
@@ -79,7 +78,7 @@ const JobList = () => {
             setTotalJobCount(res?.totalCount);
             setLoaderStatus(false);
             setShowMoreClicked(false);
-            setJobdata((jobdata) => [...jobdata, ...res.data]);
+            setJobdata((jobdata) => [...jobdata, ...res?.data]);
         }
     };
 
@@ -158,54 +157,43 @@ const JobList = () => {
         <>
             <NavHeader params={params} handleFilterChange={handleFilterChange} />
 
-            {/* No job found section when data is empty and page is not loading */}
-            {!loaderStatus && jobdata.length === 0 && <NojobFound />}
+            <div className={styles.joblist}>
+                <div className={styles.joblist_mainsection}>
+                    {/* No job found section when data is empty and page is not loading */}
+                    {!loaderStatus && jobdata.length === 0 && <NojobFound />}
 
-            {(!loaderStatus || jobdata.length !== 0) && (
-                <div className={styles.joblist}>
                     {/* main job card list section  */}
-                    <div className={styles.joblist_jobcards}>
-                        {totalJobCount && <p className={styles.joblist_jobcards_alljobs}>All Jobs ({totalJobCount})</p>}
+                    {(!loaderStatus || jobdata.length !== 0) && (
+                        <div className={styles.joblist_jobcards}>
+                            {totalJobCount && <p className={styles.joblist_jobcards_alljobs}>All Jobs ({totalJobCount})</p>}
 
-                        {!!jobdata &&
-                            jobdata.map((data, index) => {
-                                return (
-                                    <div cnt={itemCount++} key={data.id}>
-                                        <Jobcard data={data} />
-                                    </div>
-                                );
-                            })}
+                            {!!jobdata &&
+                                jobdata?.map((data, index) => {
+                                    return (
+                                        <div cnt={itemCount++} key={data.id}>
+                                            <Jobcard data={data} />
+                                        </div>
+                                    );
+                                })}
 
-                        {/* show more button */}
-                        {jobdata.length !== 0 && (
-                            <div onClick={showMoreButtonClicked} className={styles.showmoresection}>
-                                {!showMoreClicked && (
-                                    <span className={styles.showmoresection_button}>
-                                        <p>Show more jobs</p>
-                                        <FontAwesomeIcon className={styles.icon} icon={faChevronDown} />
-                                    </span>
-                                )}
-                                {showMoreClicked && (
-                                    <span className={styles.showmoresection_loader}>
-                                        <Loader loaderheight="30px" loadercontainerheright="30px" borderWidth="4px" />
-                                    </span>
-                                )}
-                            </div>
-                        )}
-                        <span className="mobileview">
-                            <WhatAppBanner isModal={true} />
-                        </span>
-                    </div>
+                            {/* show more button */}
+                            {jobdata.length !== 0 && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked = {showMoreClicked} />}
+                            <span className="mobileview">
+                                <WhatAppBanner isModal={true} />
+                            </span>
+                        </div>
+                    )}
 
-                    {/* side bar  */}
-                    <div className={styles.joblist_sidebar}>
-                        <Sidebar />
-                    </div>
+                    {/*  show loader  */}
+                    {!showMoreClicked && loaderStatus && <Loader />}
                 </div>
-            )}
 
-            {/*  show loader  */}
-            {!showMoreClicked && loaderStatus && <Loader />}
+                {/* side bar  */}
+                <div className={styles.joblist_sidebar}>
+                    <Sidebar />
+                </div>
+            </div>
+
             <ScrolltoTop />
         </>
     );
