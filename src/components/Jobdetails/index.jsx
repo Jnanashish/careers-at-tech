@@ -15,7 +15,8 @@ import WhatAppBanner from "../Banners/WhatsappBanner";
 import { format } from "timeago.js";
 
 const Jobdetails = (jobdata) => {
-    const data = jobdata.jobdata;
+    const data = jobdata.jobdata?.data;
+    console.log("jobdata.jobdata", jobdata.jobdata);
 
     // when back button is clicked move to job listing page
     const handleBackButtonclick = () => {
@@ -35,6 +36,7 @@ const Jobdetails = (jobdata) => {
         });
         countClickinJd(data._id);
     };
+    console.log("data", data);
 
     return (
         <div>
