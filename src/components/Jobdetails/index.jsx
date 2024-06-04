@@ -15,7 +15,7 @@ import WhatAppBanner from "../Banners/WhatsappBanner";
 import { format } from "timeago.js";
 
 const Jobdetails = (jobdata) => {
-    const data = jobdata.jobdata?.data;
+    const data = jobdata.jobdata;
     console.log("jobdata.jobdata", jobdata.jobdata);
 
     // when back button is clicked move to job listing page
