@@ -1,10 +1,10 @@
 .jobcardcontainer {
     font-family: "Inter", sans-serif;
     border-radius: 14px;
-    // border: 1px solid rgba(218, 223, 231, 1);
-    box-shadow: 0 2px 20px rgb(0 0 0 / 0.1);
+    border: 1px solid rgba(218, 223, 231, 1);
     margin-bottom: 24px;
     background-color: #fff;
+
 
     @media (max-width: 992px) {
         margin-bottom: 18px;
@@ -13,7 +13,7 @@
     &:hover {
         box-shadow: 0 2px 20px rgb(0 0 0 / 0.1);
         transition-duration: 0.8s;
-        border: 0.8px solid #0061ff;
+        border: 1px solid #0061ff;
     }
 }
 

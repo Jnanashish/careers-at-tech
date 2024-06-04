@@ -1,9 +1,7 @@
 .joblist {
     letter-spacing: 0.14px;
-
     display: flex;
     width: 100%;
-    background-color: #f4faff;
 
     &_jobcards {
         width: 68%;
@@ -41,15 +39,11 @@
 }
 
 .showmoresection {
-    // border-top: 1px solid #1b1b1b;
-    border-top: 1px solid rgba(218, 223, 231, 1);
-
     text-align: center;
     margin: 50px auto;
-    width: 30%;
+    width: 50%;
     cursor: pointer;
-    padding: 24px;
-    background-color: #f4faff;
+    padding: 26px;
 
     @media (max-width: 768px) {
         width: 100%;
@@ -64,7 +58,7 @@
 
     &_button,
     &_loader {
-        background-color: #fff;
+        background-color: #f4faff;
         border-radius: 50px;
 
         display: flex;

@@ -87,10 +87,10 @@
     }
 }
 
-.detailssectionnew {
+.detailscard {
     background-color: #f4faff;
     padding: 24px 40px;
-    border-radius: 6px;
+    border-radius: 10px;
     margin: 16px 0px 40px;
 
     display: flex;
@@ -189,4 +189,9 @@
     color: #6E00BE;
     font-weight: 500;
     text-decoration: underline;
+}
+
+.redirection_message{
+    font-size: 0.7rem;
+    margin-top: 10px;
 }

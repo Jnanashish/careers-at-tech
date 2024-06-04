@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Router from "next/router";
 import { useRouter } from "next/router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +7,6 @@ import styles from "./joblist.module.scss";
 
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
-import Notice from "@/components/common/Notice/notice";
 import WhatAppBanner from "@/components/Banners/WhatsappBanner";
 import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
@@ -27,14 +25,14 @@ const JobList = () => {
     const [jobdata, setJobdata] = useState([]);
     const [totalJobCount, setTotalJobCount] = useState(0);
     const [loaderStatus, setLoaderStatus] = useState(true);
+    const [showMoreClicked, setShowMoreClicked] = useState(false);
 
     const router = useRouter();
     const paramsToCheck = ["batch", "year", "companyname", "degree", "jobtype", "query", "location"];
 
-    const [showMoreClicked, setShowMoreClicked] = useState(false);
-
-    // add new key value in params array state or update existing value
+    // [PARAM] add new key value in params array state or update existing value
     const updateParam = (key, value) => {
+        // if value is empty then remove the param from list
         if (!value || value === "") {
             const tempParams = params.filter((param) => Object.keys(param)[0] !== key);
             setParams(tempParams);
@@ -42,6 +40,7 @@ const JobList = () => {
         }
         setParams((prevParam) => {
             if (prevParam !== null) {
+                // if param key already exist update the param value
                 const keyExists = prevParam.some((param) => Object.keys(param)[0] === key);
                 if (keyExists) {
                     const updatedParams = prevParam.map((param) => {
@@ -52,6 +51,7 @@ const JobList = () => {
                     });
                     return updatedParams;
                 } else {
+                    // add new param value with key
                     return [...prevParam, { [key]: value }];
                 }
             } else {
@@ -69,12 +69,12 @@ const JobList = () => {
         }
     };
 
-    // call job listing data (send params as parameter)
+    // [JOB DATA API] call job listing data (send params as parameter)
     const getJoblistingData = async (params) => {
         setLoaderStatus(true);
-        const size = !!params ? 199 : 10;
+        const size = 10;
         const res = await getJobListing(params, pageno, size);
-        console.log("RES", res);
+
         if (!!res && Array.isArray(res?.data)) {
             setTotalJobCount(res?.totalCount);
             setLoaderStatus(false);
@@ -83,7 +83,7 @@ const JobList = () => {
         }
     };
 
-    // update search param in url
+    // [URL] update search param in url
     const updateSearchparaminUrl = (params) => {
         window.history.replaceState({}, "", `${window.location.pathname}`);
         const searchParams = new URLSearchParams(window.location.search);
@@ -95,27 +95,13 @@ const JobList = () => {
         window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
     };
 
+    // when filter change reset to default state
     const handleFilterChange = (param, userQuery) => {
         setPageno(1);
         setJobdata([]);
         updateParam(param, userQuery);
     };
 
-    // when page number change call job list api with existing param
-    useEffect(() => {
-        pageno !== 1 && getJoblistingData(params);
-    }, [pageno]);
-
-    // if any paramter change then call job listing api
-    useEffect(() => {
-        console.log("params !== null", params !== null, params);
-        if (params !== null) {
-            getJoblistingData(params);
-            updateSearchparaminUrl(params);
-        }
-    }, [params]);
-
-    // --------------------------------------------------------
     // check if any query parameter present in url
     const checkParameterinUrl = () => {
         // clear existing data and params
@@ -138,6 +124,20 @@ const JobList = () => {
             getJoblistingData(params);
         }
     };
+
+    // --------------------------------------------------------
+    // when page number change call job list api with existing param
+    useEffect(() => {
+        pageno !== 1 && getJoblistingData(params);
+    }, [pageno]);
+
+    // if any paramter change then call job listing api
+    useEffect(() => {
+        if (params !== null) {
+            getJoblistingData(params);
+            updateSearchparaminUrl(params);
+        }
+    }, [params]);
 
     // detect any change in url and check if any query parama present in url
     useEffect(() => {
@@ -177,7 +177,7 @@ const JobList = () => {
                             })}
 
                         {/* show more button */}
-                        {jobdata.length !== 0 && !params && (
+                        {jobdata.length !== 0 && (
                             <div onClick={showMoreButtonClicked} className={styles.showmoresection}>
                                 {!showMoreClicked && (
                                     <span className={styles.showmoresection_button}>
@@ -206,7 +206,6 @@ const JobList = () => {
 
             {/*  show loader  */}
             {!showMoreClicked && loaderStatus && <Loader />}
-            {/* {!loaderStatus && jobdata.length !== 0 && <Notice />} */}
             <ScrolltoTop />
         </>
     );

@@ -61,8 +61,8 @@ const Jobdetails = (jobdata) => {
                     </span>
                 </div>
 
-                <div className={styles.detailssectionnew}>
-                    {data.experience && (
+                <div className={styles.detailscard}>
+                    {!!data?.experience && (
                         <div>
                             <p>Experience</p>
                             <span>
@@ -71,16 +71,7 @@ const Jobdetails = (jobdata) => {
                             </span>
                         </div>
                     )}
-                    {data.degree && (
-                        <div>
-                            <p>Degree</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faGraduationCap} />
-                                <p>{data.degree}</p>
-                            </span>
-                        </div>
-                    )}
-                    {data.location && (
+                    {!!data?.location && (
                         <div>
                             <p>Location</p>
                             <span>
@@ -89,21 +80,30 @@ const Jobdetails = (jobdata) => {
                             </span>
                         </div>
                     )}
-                    {data.batch && (
-                        <div>
-                            <p>Batch</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
-                                <p>{data.batch}</p>
-                            </span>
-                        </div>
-                    )}
-                    {data.salary && data.salary !== "₹0LPA" && (
+                    {!!data?.salary && data?.salary !== "₹0LPA" && (
                         <div>
                             <p>Salary</p>
                             <span>
                                 <FontAwesomeIcon className={styles.chipIcon} icon={faMoneyCheckDollar} />
                                 <p>{data.salary}</p>
+                            </span>
+                        </div>
+                    )}
+                    {!!data?.degree && (
+                        <div>
+                            <p>Degree</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faGraduationCap} />
+                                <p>{data.degree}</p>
+                            </span>
+                        </div>
+                    )}
+                    {!!data?.batch && (
+                        <div>
+                            <p>Batch</p>
+                            <span>
+                                <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
+                                <p>{data.batch}</p>
                             </span>
                         </div>
                     )}
@@ -133,12 +133,12 @@ const Jobdetails = (jobdata) => {
                     </div>
                 )}
 
-                {/* {data.skills !== "N" && data.skills !== "<p>N</p>" && (
+                {data?.skills !== "N" && data?.skills !== "<p>N</p>" && typeof data?.skills === 'string' && (
                     <div className={styles.jobinfo}>
                         <h3>Prefered Skills : </h3>
                         <p>{parse(data.skills)}</p>
                     </div>
-                )} */}
+                )}
 
                 {data.aboutCompany !== "N" && data.aboutCompany !== "<p>N</p>" && (
                     <div className={styles.jobinfo}>
@@ -147,16 +147,15 @@ const Jobdetails = (jobdata) => {
                     </div>
                 )}
 
-                <span className={`${styles.bannercontainer} mobileview`}>
+                {/* <span className={`${styles.bannercontainer} mobileview`}>
                     <WhatAppBanner isModal={false} />
-                </span>
+                </span> */}
 
-                <br/>
+                <br />
                 <a onClick={applyButtonClicked} href={data.link} rel="noreferrer" target="_blank">
                     <div className={styles.appply_button}>Apply now</div>
                 </a>
-
-                
+                <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>
             </div>
             <Similarjob companytype={data.companytype} id={data._id} />
         </div>
