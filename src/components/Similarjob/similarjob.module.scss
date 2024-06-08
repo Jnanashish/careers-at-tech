@@ -7,7 +7,7 @@
         font-weight: 600 !important;
         margin-bottom: 20px;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             font-size: 1.2rem;
             margin-bottom: 16px;
         }
@@ -15,7 +15,7 @@
     p {
         margin-bottom: 40px;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             margin-bottom: 30px;
         }
     }
@@ -36,7 +36,7 @@
     align-items: center;
     gap: 30px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         padding: 12px;
         gap: 16px;
     }

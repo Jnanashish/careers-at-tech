@@ -31,8 +31,18 @@ const Jobdetails = (props) => {
     // opne linkedin with network tab
     const askforReferral = () => {
         const linekdinUrl = `https://www.linkedin.com/search/results/people/?keywords=${data?.companyName}&network=%5B%22F%22%2C%22S%22%5D&sid=zDx`;
-        window.open(linekdinUrl, "_blank");
+        window.open(linekdinUrl);
     };
+    console.log("DARAR", data);
+
+
+    const companyLogo = () => {
+        const logo = data?.company?.smallLogo || data?.imagePath;
+        if(!logo || logo === "none"){
+            return false;
+        }
+        return logo;
+    }
 
     // [UI] component for job info card item
     const JobInfoItem = ({ title, jobinfo, icon }) => {
@@ -72,7 +82,7 @@ const Jobdetails = (props) => {
                 {/* header section, share icon, logo, title */}
                 <div className={styles.jobinfo}>
                     <div className={styles.header}>
-                        <span>{data?.imagePath !== "none" && <Image className={styles.companyLogo} height={44} width={44} src={data?.imagePath} alt={data?.companyName + "logo"} />}</span>
+                        <span>{!!companyLogo() && <Image className={styles.companyLogo} height={44} width={44} src={companyLogo()} alt={data?.companyName + "logo"} />}</span>
                         <span onClick={() => shareJobDetails(data)} className={styles.sharebutton}>
                             <span>Share job</span>
                             <FontAwesomeIcon className={styles.shareicon} icon={faShareNodes} />

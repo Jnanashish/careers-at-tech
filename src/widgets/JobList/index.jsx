@@ -6,7 +6,6 @@ import ShowMoreButton from "@/components/Showmorebutton";
 
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
-import WhatAppBanner from "@/components/Banners/WhatsappBanner";
 import NavHeader from "@/components/navHeader";
 import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
@@ -17,8 +16,6 @@ import NojobFound from "@/components/NojobFound";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
 const JobList = () => {
-    var itemCount = 0;
-
     const [pageno, setPageno] = useState(1);
     const [params, setParams] = useState(null); // array of object
     const [jobdata, setJobdata] = useState([]);
@@ -153,10 +150,6 @@ const JobList = () => {
         checkParameterinUrl();
     }, []);
 
-    useEffect(() => {
-        
-    }, [totalJobCount]);
-
     return (
         <>
             <NavHeader params={params} handleFilterChange={handleFilterChange} />
@@ -168,24 +161,22 @@ const JobList = () => {
 
                     {/* main job card list section  */}
                     {(!loaderStatus || jobdata.length !== 0) && (
-                        <div className={styles.joblist_jobcards}>
-                            {totalJobCount && <p className={styles.joblist_jobcards_alljobs}>All Jobs ({totalJobCount})</p>}
+                        <>
+                            {!!totalJobCount && <p className={styles.joblist_mainsection_alljobs}>All Jobs ({totalJobCount})</p>}
 
                             {!!jobdata &&
-                                jobdata?.map((data, index) => {
+                                Array.isArray(jobdata) &&
+                                jobdata?.map((data) => {
                                     return (
-                                        <div cnt={itemCount++} key={data.id}>
+                                        <div key={data?.id}>
                                             <Jobcard data={data} />
                                         </div>
                                     );
                                 })}
 
                             {/* show more button */}
-                            {jobdata.length !== 0 && pageno*10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked = {showMoreClicked} />}
-                            <span className="mobileview">
-                                <WhatAppBanner isModal={true} />
-                            </span>
-                        </div>
+                            {jobdata.length !== 0 && pageno * 10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked={showMoreClicked} />}
+                        </>
                     )}
 
                     {/*  show loader  */}

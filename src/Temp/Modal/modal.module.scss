@@ -4,7 +4,7 @@
     margin: 0px auto;
     outline: none;
     background-color: #fcfcfc;
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         width: 100%;
         padding: 20px 15px;
     }
@@ -14,7 +14,7 @@
 .modalItems {
     margin: 0px auto;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         margin-bottom: 50px;
     }
 }

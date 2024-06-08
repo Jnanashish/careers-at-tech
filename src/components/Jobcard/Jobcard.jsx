@@ -13,7 +13,7 @@ import Loader from "@/components/common/Loader";
 import styles from "./jobcard.module.scss";
 
 const Jobcard = (props) => {
-    const { title, role, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt } = props.data;
+    const { title, role, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt, company } = props.data;
     const [jobcardClicked, setJobcardClicked] = useState(false);
 
     // TODO: [SEO] Make a global function for common job title
@@ -32,6 +32,14 @@ const Jobcard = (props) => {
             Router.prefetch(`/${titleforShare}/${id}`);
         }
     };
+
+    const companyLogo = () => {
+        const logo = company?.smallLogo || imagePath;
+        if(!logo || logo === "none"){
+            return false;
+        }
+        return logo;
+    }
 
     // handle job card click
     const handleJobCardClick = () => {
@@ -52,13 +60,13 @@ const Jobcard = (props) => {
             {!jobcardClicked && (
                 <div onClick={handleJobCardClick} onMouseEnter={onMouseEnter} className={styles.jobcard}>
                     <div className={styles.jobcard_logocontainer}>
-                        {imagePath === "none" ? (
+                        {!companyLogo() ? (
                             // TODO: [UI] need to add a default placeholder image
                             <div className={styles.jobcard_logocontainer_text}>
                                 <p>{title[0]}</p>
                             </div>
                         ) : (
-                            <Image className={styles.jobcard_logocontainer_logo} src={imagePath} alt="Company logo" height={54} width={54} />
+                            <Image className={styles.jobcard_logocontainer_logo} src={companyLogo()} alt="Company logo" height={54} width={54} />
                         )}
                     </div>
 

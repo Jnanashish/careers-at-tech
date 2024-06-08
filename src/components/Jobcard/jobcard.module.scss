@@ -38,9 +38,9 @@
         grid-column: 1;
         grid-row: 1/3;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             grid-column: 1;
-            grid-row: 1;
+            grid-row: 1/3;
             justify-self: start;
             margin-left: 2px;
         }
@@ -61,7 +61,7 @@
                 font-weight: 700;
                 color: #0069ff;
             }
-            @media (max-width: 768px) {
+            @media (max-width: 991px) {
                 width: 42px;
                 height: 42px;
             }
@@ -70,7 +70,7 @@
         &_logo {
             border-radius: 50px;
             border: 0.4px solid rgba(218, 223, 231, 1);
-            @media (max-width: 768px) {
+            @media (max-width: 991px) {
                 width: 42px;
                 height: 42px;
             }
@@ -91,7 +91,7 @@
             justify-self: start;
             align-self: center;
 
-            @media (max-width: 768px) {
+            @media (max-width: 991px) {
                 font-size: 1rem;
                 font-weight: 500;
                 line-height: 1.4rem;
@@ -104,7 +104,7 @@
             font-weight: 500;
             margin-top: 6px;
 
-            @media (min-width: 768px) {
+            @media (min-width: 991px) {
                 font-size: 0.9px;
             }
         }
@@ -121,7 +121,7 @@
     justify-content: space-between;
     align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         margin-top: 6px;
         grid-column: 2/6;
         grid-row: 2;
@@ -145,7 +145,7 @@
         justify-content: center;
         color: #697586;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             font-size: 0.8rem;
             margin-right: 10px;
         }
@@ -168,7 +168,7 @@
         margin-top: 10px;
         color: #697586;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             margin-top: 4px;
         }
     }
@@ -182,7 +182,7 @@
     display: flex;
     align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         display: none;
     }
 
@@ -194,7 +194,7 @@
 
 // footer with share and view button for mobile
 .footer {
-    @media (min-width: 768px) {
+    @media (min-width: 991px) {
         display: none;
     }
 

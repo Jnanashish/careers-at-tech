@@ -9,7 +9,7 @@
     padding: 46px 5rem 30px;
     // margin-bottom: 36px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         padding: 30px 16px 34px;
         // margin-bottom: 26px;
         border-bottom: 2px solid #FFF;
@@ -30,7 +30,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             width: 100%;
             h2 {
                 font-size: 26px;
@@ -42,7 +42,7 @@
     &_image {
         width: 40%;
         text-align: center;
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             display: none;
         }
     }
@@ -89,7 +89,7 @@
 
     font-size: 1rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         grid-template-columns: 80% 7% 13%;
     }
 
@@ -98,7 +98,7 @@
         width: 18px;
         color: #111817;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             height: 14px;
             width: 14px;
         }
@@ -109,7 +109,7 @@
         border-radius: 8px 0px 0px 8px;
         border-right: none;
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             padding: 12px 0px 12px 12px !important;
         }
     }
@@ -154,7 +154,7 @@
         font-size: 0.9rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         overflow: scroll;
         overflow-y: none !important;
         gap: 5px;

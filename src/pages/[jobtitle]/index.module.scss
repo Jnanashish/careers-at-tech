@@ -5,8 +5,10 @@
     padding: 3rem 5rem;
     grid-gap: 3rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         grid-template-columns: 100%;
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
+        width: 100%;
+        margin: 0px auto;
     }
 }
