@@ -1,11 +1,6 @@
 .jobdetails {
     font-family: "Inter", sans-serif;
-    padding: 40px 40px 40px 52px;
     letter-spacing: 0.14px;
-
-    @media (max-width: 768px) {
-        padding: 20px;
-    }
 
     &_backbuttonsection {
         display: flex;
@@ -52,8 +47,8 @@
     margin: 10px 0px 30px;
 
     .companyLogo {
-        height: 70px;
-        width: 70px;
+        height: 75px;
+        width: 75px;
         border-radius: 50px;
         border: 0.6px solid rgba(218, 223, 231, 1);
 
@@ -160,38 +155,82 @@
     }
 }
 
-.appply_button {
-    padding: 14px;
-    border: 0.9px solid #0069ff;
-    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+.buttonsection {
+    display: flex;
+    gap: 20px;
 
-    color: #0069ff;
-    font-weight: 500;
-    font-size: 1rem;
-    text-align: center;
-    border-radius: 6px;
-    margin: 40px 0px 0px;
-
-    &:hover {
-        background-color: #f4faff;
+    @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
     }
 
-    @media (max-width: 768px) {
-        font-size: 0.9rem;
+    .icon {
+        margin-left: 10px;
+        height: 16px;
+        width: 16px;
+    }
+
+    span {
+        padding: 14px;
+        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+
+        font-weight: 500;
+        font-size: 1rem;
+        text-align: center;
+        border-radius: 6px;
+        margin: 40px 0px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0.9px solid #0069ff;
+
+        &:hover {
+            background-color: #f4faff;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 0.9rem;
+            width: 100%;
+            margin-top: 0px;
+        }
+    }
+
+    &_apply {
+        width: 65%;
+        color: #0069ff;
+        font-weight: 600 !important;
+        border: 1.1px solid #0069ff !important;
+
+
+        .icon {
+            rotate: 320deg;
+        }
+    }
+
+    &_referral {
+        width: 35%;
+        border: 0.9px solid #ddd;
+
+        .icon {
+            color: red !important;
+        }
     }
 }
 
-.bannercontainer{
+.bannercontainer {
     margin-top: 20px;
 }
 
-.promolink{
-    color: #6E00BE;
+.promolink {
+    color: #6e00be;
     font-weight: 500;
     text-decoration: underline;
 }
 
-.redirection_message{
+.redirection_message {
     font-size: 0.7rem;
     margin-top: 10px;
+    float: right;
 }

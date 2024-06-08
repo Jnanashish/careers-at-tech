@@ -3,6 +3,7 @@ import Head from "next/head";
 const Meta = ({ jobTitle, logo, description = "" }) => {
     return (
         <Head>
+            // TODO: Will add a common title for all
             <title>{jobTitle}</title>
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             <meta name="theme-color" content="#0069ff" />
@@ -18,7 +19,7 @@ const Meta = ({ jobTitle, logo, description = "" }) => {
             <meta property="og:description" content={description} />
             <meta property="og:url" content="https://careersat.tech/" />
             <meta property="og:site_name" content="Careers at Tech" />
-            {logo && <meta property="og:image" content={logo} />}
+            {!!logo && <meta property="og:image" content={logo} />}
             <meta property="og:image:type" content="image/jpeg" />
             <meta property="og:image:width" content="400" />
             <meta property="og:image:height" content="400" />

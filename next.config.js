@@ -10,6 +10,7 @@ const nextConfig = {
                 },
             },
         ],
+        appDir,
     },
     images: {
         domains: ["res.cloudinary.com"],

@@ -1,10 +1,12 @@
-.jobdetailContainer {
+.jobdetailpage {
     display: grid;
-    grid-template-columns: 68% 32%;
+    grid-template-columns: 2.2fr 1fr;
     border-top: 1px solid #ddd;
-
+    padding: 3rem 5rem;
+    grid-gap: 3rem;
 
     @media (max-width: 768px) {
         grid-template-columns: 100%;
+        padding: 1.5rem;
     }
 }

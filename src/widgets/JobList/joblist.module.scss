@@ -1,23 +1,30 @@
 .joblist {
     letter-spacing: 0.14px;
-    display: flex;
     width: 100%;
 
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    padding: 3rem 5rem;
+    grid-gap: 3rem;
+
+    @media (max-width: 768px) {
+        padding: 1rem 0.2rem;
+        grid-template-columns: 100%;
+    }
+
     &_mainsection{
-        width: 68%;
+        width: 100%;
         margin: 0px auto;
-        padding: 30px 40px 0px 50px;
 
         @media (max-width: 768px) {
             width: 93%;
-            padding: 0px;
+            padding: 0px !important;
             margin: 0px auto;
             padding-top: 30px;
         }
     }
 
     &_jobcards {
-
 
         .banner {
             width: 100%;
@@ -35,9 +42,9 @@
     }
 
     &_sidebar {
-        width: 32%;
+        // width: 32%;
         @media (max-width: 768px) {
-            display: none;
+            // display: none;
         }
     }
 }

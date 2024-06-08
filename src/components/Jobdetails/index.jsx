@@ -5,160 +5,122 @@ import Router from "next/router";
 
 import styles from "./jobdetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes, faCaretLeft, faLocationDot, faClock, faGraduationCap, faCalendar, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faCaretLeft, faLocationDot, faClock, faGraduationCap, faCalendar, faMoneyCheckDollar, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import { countClickinJd } from "@/core/apis/jobapicall";
 import Similarjob from "../Similarjob/Similarjob";
-import { firenbaseEventHandler } from "@/core/eventHandler";
 import { shareJobDetails } from "@/Helpers/socialmediahandler";
 import WhatAppBanner from "../Banners/WhatsappBanner";
 import { format } from "timeago.js";
+import linkedinIcon from "../../static/Image/linkedinIcon.svg";
 
 const Jobdetails = (props) => {
     const data = props?.jobdata;
 
     // when back button is clicked move to job listing page
     const handleBackButtonclick = () => {
-        firenbaseEventHandler("back_button_clicked", {
-            job_id: data._id,
-            job_title: data.title,
-        });
         Router.push("/jobs");
     };
 
     // when apply now button is clicked
-    const applyButtonClicked = () => {
-        firenbaseEventHandler("apply_button_clicked", {
-            job_id: data._id,
-            job_title: data.title,
-            is_jd_page: true,
-        });
+    const applyButtonClicked = (link) => {
         countClickinJd(data._id);
+        window.open(link, "_blank");
+    };
+
+    // opne linkedin with network tab
+    const askforReferral = () => {
+        const linekdinUrl = `https://www.linkedin.com/search/results/people/?keywords=${data?.companyName}&network=%5B%22F%22%2C%22S%22%5D&sid=zDx`;
+        window.open(linekdinUrl, "_blank");
+    };
+
+    // [UI] component for job info card item
+    const JobInfoItem = ({ title, jobinfo, icon }) => {
+        if (!!jobinfo && jobinfo != "₹0LPA") {
+            return (
+                <div>
+                    <p>{title}</p>
+                    <span>
+                        <FontAwesomeIcon className={styles.chipIcon} icon={icon} />
+                        <p>{jobinfo}</p>
+                    </span>
+                </div>
+            );
+        }
+    };
+
+    // [UI] compone for job details
+    const JobDetailItem = ({ data, header }) => {
+        if (!!data && data !== "N" && data !== "<p>N</p>") {
+            return (
+                <div className={styles.jobinfo}>
+                    {!!header && <h3>{header} : </h3>}
+                    <p>{parse(data)}</p>
+                </div>
+            );
+        }
     };
 
     return (
-        <div>
+        <>
             <div className={styles.jobdetails}>
                 <span onClick={handleBackButtonclick} className={styles.jobdetails_backbuttonsection}>
                     <FontAwesomeIcon className={styles.back_icon} icon={faCaretLeft} />
-                    <p>Back to all jobs</p>
+                    <p>Back to all Jobs</p>
                 </span>
 
                 {/* header section, share icon, logo, title */}
                 <div className={styles.jobinfo}>
                     <div className={styles.header}>
-                        <span>{data?.imagePath !== "none" && <Image className={styles.companyLogo} height={42} width={42} src={data.imagePath} alt={data.companyName + "logo"} />}</span>
+                        <span>{data?.imagePath !== "none" && <Image className={styles.companyLogo} height={44} width={44} src={data?.imagePath} alt={data?.companyName + "logo"} />}</span>
                         <span onClick={() => shareJobDetails(data)} className={styles.sharebutton}>
                             <span>Share job</span>
                             <FontAwesomeIcon className={styles.shareicon} icon={faShareNodes} />
                         </span>
                     </div>
 
-                    <h1 className={styles.jobinfo_title}>{data.role}</h1>
+                    <h1 className={styles.jobinfo_title}>{data?.role}</h1>
                     <span className={styles.jobinfo_companynamesection}>
-                        <p className={styles.jobinfo_companynamesection_name}>{data.companyName}</p>
+                        <p className={styles.jobinfo_companynamesection_name}>{data?.companyName}</p>
                         <p className={styles.jobinfo_companynamesection_postdate}> • Posted {format(data?.createdAt)}</p>
                     </span>
                 </div>
 
                 <div className={styles.detailscard}>
-                    {!!data?.experience && (
-                        <div>
-                            <p>Experience</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faCalendar} />
-                                <p>{data.experience}</p>
-                            </span>
-                        </div>
-                    )}
-                    {!!data?.location && (
-                        <div>
-                            <p>Location</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faLocationDot} />
-                                <p>{data.location}</p>
-                            </span>
-                        </div>
-                    )}
-                    {!!data?.salary && data?.salary !== "₹0LPA" && (
-                        <div>
-                            <p>Salary</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faMoneyCheckDollar} />
-                                <p>{data.salary}</p>
-                            </span>
-                        </div>
-                    )}
-                    {!!data?.degree && (
-                        <div>
-                            <p>Degree</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faGraduationCap} />
-                                <p>{data.degree}</p>
-                            </span>
-                        </div>
-                    )}
-                    {!!data?.batch && (
-                        <div>
-                            <p>Batch</p>
-                            <span>
-                                <FontAwesomeIcon className={styles.chipIcon} icon={faClock} />
-                                <p>{data.batch}</p>
-                            </span>
-                        </div>
-                    )}
+                    <JobInfoItem title="Experience" jobinfo={data?.experience} icon={faCalendar} />
+                    <JobInfoItem title="Location" jobinfo={data?.location} icon={faLocationDot} />
+                    <JobInfoItem title="Salary" jobinfo={data?.salary} icon={faMoneyCheckDollar} />
+                    <JobInfoItem title="Degree" jobinfo={data?.degree} icon={faGraduationCap} />
+                    <JobInfoItem title="Batch" jobinfo={data?.batch} icon={faClock} />
                 </div>
 
-                {!!data?.jobdesc && data?.jobdesc !== "N" && data.jobdesc !== "<p>N</p>" && (
-                    <div className={styles.jobinfo}>
-                        <p>{parse(data.jobdesc)}</p>
-                    </div>
-                )}
+                {/* job details section  */}
+                <div className={styles.details}>
+                    <JobDetailItem data={data?.jobdesc} />
+                    <span className={`${styles.bannercontainer} mobileview`}>
+                        <WhatAppBanner isModal={false} />
+                    </span>
+                    <JobDetailItem header="Responsibility" data={data?.responsibility} />
+                    <JobDetailItem header="Eligibility" data={data?.eligibility} />
+                    <JobDetailItem header="Prefered Skills" data={data?.skills} />
+                    <JobDetailItem header="Benifits" data={data?.benifits} />
+                    <JobDetailItem header="About Company" data={data?.aboutCompany} />
+                </div>
 
-                <span className={`${styles.bannercontainer} mobileview`}>
-                    <WhatAppBanner isModal={false} />
-                </span>
-
-                {!!data?.responsibility && data?.responsibility !== "N" && data?.responsibility !== "<p>N</p>" && (
-                    <div className={styles.jobinfo}>
-                        <h3>Responsibility : </h3>
-                        <p>{parse(data.responsibility)}</p>
-                    </div>
-                )}
-
-                {!!data?.eligibility && data?.eligibility !== "N" && data?.eligibility !== "<p>N</p>" && (
-                    <div className={styles.jobinfo}>
-                        <h3>Eligibility : </h3>
-                        <p>{parse(data.eligibility)}</p>
-                    </div>
-                )}
-
-                {!!data?.skills && data?.skills !== "N" && data?.skills !== "<p>N</p>" && typeof data?.skills === 'string' && (
-                    <div className={styles.jobinfo}>
-                        <h3>Prefered Skills : </h3>
-                        <p>{parse(data.skills)}</p>
-                    </div>
-                )}
-
-                {!!data?.aboutCompany && data?.aboutCompany !== "N" && data?.aboutCompany !== "<p>N</p>" && (
-                    <div className={styles.jobinfo}>
-                        <h3>About Company : </h3>
-                        <p>{parse(data.aboutCompany)}</p>
-                    </div>
-                )}
-
-                {/* <span className={`${styles.bannercontainer} mobileview`}>
-                    <WhatAppBanner isModal={false} />
-                </span> */}
-
-                <br />
-                <a onClick={applyButtonClicked} href={data.link} rel="noreferrer" target="_blank">
-                    <div className={styles.appply_button}>Apply now</div>
-                </a>
-                <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>
+                <div className={styles.buttonsection}>
+                    <span onClick={askforReferral} className={styles.buttonsection_referral}>
+                        <p>Ask for referrals on</p>
+                        <Image className={styles.icon} src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
+                    </span>
+                    <span className={styles.buttonsection_apply} onClick={() => applyButtonClicked(data?.link)}>
+                        <p>Apply now</p>
+                        <FontAwesomeIcon className={styles.icon} icon={faArrowRight} />
+                    </span>
+                </div>
+                {data?.platform !== "careerspage" && <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>}
             </div>
-            <Similarjob companytype={data.companytype} id={data._id} />
-        </div>
+            <Similarjob companytype={data?.companytype} id={data?._id} />
+        </>
     );
 };
 

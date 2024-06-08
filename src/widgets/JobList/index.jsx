@@ -153,6 +153,10 @@ const JobList = () => {
         checkParameterinUrl();
     }, []);
 
+    useEffect(() => {
+        
+    }, [totalJobCount]);
+
     return (
         <>
             <NavHeader params={params} handleFilterChange={handleFilterChange} />
@@ -177,7 +181,7 @@ const JobList = () => {
                                 })}
 
                             {/* show more button */}
-                            {jobdata.length !== 0 && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked = {showMoreClicked} />}
+                            {jobdata.length !== 0 && pageno*10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked = {showMoreClicked} />}
                             <span className="mobileview">
                                 <WhatAppBanner isModal={true} />
                             </span>
@@ -189,7 +193,7 @@ const JobList = () => {
                 </div>
 
                 {/* side bar  */}
-                <div className={styles.joblist_sidebar}>
+                <div className="desktopview">
                     <Sidebar />
                 </div>
             </div>
