@@ -3,7 +3,6 @@ import Head from "next/head";
 const Meta = ({ jobTitle, logo, description = "" }) => {
     return (
         <Head>
-            // TODO: Will add a common title for all
             <title>{jobTitle}</title>
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             <meta name="theme-color" content="#0069ff" />
