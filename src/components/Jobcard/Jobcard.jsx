@@ -19,7 +19,10 @@ const Jobcard = (props) => {
     // TODO: [SEO] Make a global function for common job title
     // TODO: [BUG] Make the title url friendly
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
-    const impression = totalclick * 5;
+    const impressionClick = () => {
+        const impression = totalclick * 6;
+        return impression + (totalclick === 0 ? Math.floor(Math.random() * (500 - 300 + 1)) + 300 : 300);
+    };
 
     // redirect to job detail page when jdpage is true
     const redirectToJobdetailPage = () => {
@@ -35,11 +38,11 @@ const Jobcard = (props) => {
 
     const companyLogo = () => {
         const logo = company?.smallLogo || imagePath;
-        if(!logo || logo === "none"){
+        if (!logo || logo === "none") {
             return false;
         }
         return logo;
-    }
+    };
 
     // handle job card click
     const handleJobCardClick = () => {
@@ -97,7 +100,7 @@ const Jobcard = (props) => {
 
                         <p className={styles.viewscontainer}>
                             <FontAwesomeIcon className={styles.viewscontainer_icon} style={{ marginRight: "3px" }} icon={faEye} />
-                            {impression + 300} views
+                            {impressionClick()} views
                         </p>
                     </div>
                 </div>
@@ -107,7 +110,7 @@ const Jobcard = (props) => {
             {/* footer with view count and share for mobile only  */}
             {jobtype !== "promo" && (
                 <div onClick={() => handleShareClick(props.data)} className={styles.footer}>
-                    <p>{impression + 300} views</p>
+                    <p>{impressionClick()} views</p>
                     <div className={styles.footer_share}>
                         <p>Share</p>
                         <FontAwesomeIcon className={styles.footer_share_icon} icon={faShareNodes} />

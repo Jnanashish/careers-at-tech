@@ -13,7 +13,7 @@ function Contact() {
 
     return (
         <div>
-            <Header />
+            <Header showBorder={true}/>
             <div className={styles.contactContainer}>
                 <Image
                     src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1677948702/3d-business-young-woman-talking-online_1_h69v40.png"
@@ -30,7 +30,7 @@ function Contact() {
                 <div onClick={() => openWhatsApp()} className={styles.whatsAppContainer}>
                     <p>
                         For instant answers for all your queries, Reach out to us on <br /> WhatsApp
-                        <b> @ +91 7743091193</b>
+                        <b> @ +91 9707040143</b>
                     </p>
                     <Image
                         src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1677949670/get-logo-whatsapp-png-pictures-1_cdq0bq.png"
