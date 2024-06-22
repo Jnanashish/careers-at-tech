@@ -33,7 +33,6 @@ const Jobdetails = (props) => {
         const linekdinUrl = `https://www.linkedin.com/search/results/people/?keywords=${data?.companyName}&network=%5B%22F%22%2C%22S%22%5D&sid=zDx`;
         window.open(linekdinUrl);
     };
-    console.log("DARAR", data);
 
 
     const companyLogo = () => {
