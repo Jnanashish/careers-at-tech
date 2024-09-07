@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "./index.module.scss";
 
 // import components
-import Header from "@/components/common/Header/header";
+import Header from "@/components/common/Header/Header";
 import Jobdetails from "@/components/Jobdetails";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import Sidebar from "@/components/Sidebar";

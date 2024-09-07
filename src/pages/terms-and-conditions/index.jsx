@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../privacy-policy/privacy.module.scss";
-import Header from "@/components/common/Header/header";
+import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 
 function Terms() {

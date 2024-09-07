@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "@/components/common/Header/header";
+import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 import CareerPages from "@/widgets/CareerePages";
 import companyData from "./companycareerspage.json";
