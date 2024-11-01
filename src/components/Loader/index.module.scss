@@ -1,0 +1,34 @@
+.jobloader{
+    border: 1px solid rgba(218, 223, 231, 1);
+    height: 138px;
+    border-radius: 14px;
+    padding: 22px 20px;
+    margin-bottom: 20px;
+
+    display: grid;
+    grid-template-columns: 14% 86%;
+
+    &_logoloader{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &_textloader{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    @media (max-width: 992px) {
+        grid-template-columns: 18% 82%;
+
+        &_logoloader{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            width: 56px;
+        }
+    }
+}
