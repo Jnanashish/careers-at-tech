@@ -21,6 +21,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        gap: 20px;
         justify-content: space-between;
         padding: 12px 16px;
         background: white;
@@ -46,6 +47,7 @@
         @media (max-width: 991px) {
             padding: 10px 14px;
             font-size: 0.9rem;
+            gap: 10px;
         }
     }
 

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import styles from "./joblist.module.scss";
-import ShowMoreButton from "@/components/Showmorebutton";
 
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
 import NavHeader from "@/components/navHeader";
-import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import NojobFound from "@/components/NojobFound";
+import JoblistLoader from "@/components/Loader/JoblistLoader";
+import ShowMoreButton from "@/components/Showmorebutton";
 
 // Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
@@ -145,7 +145,7 @@ const JobList = () => {
         return () => router.events.off("routeChangeComplete", handleRouteChange);
     }, [router.events]);
 
-    // on intial load check if any query parama present in url
+    // on intial load check if any query parama present in url to apply it as filter
     useEffect(() => {
         checkParameterinUrl();
     }, []);
@@ -179,12 +179,12 @@ const JobList = () => {
                         </>
                     )}
 
-                    {/*  show loader  */}
-                    {!showMoreClicked && loaderStatus && <Loader />}
+                    {/*  show job list loader  */}
+                    {!showMoreClicked && loaderStatus && <JoblistLoader/>}
                 </div>
 
                 {/* side bar  */}
-                <div className="desktopview">
+                <div className={`${styles.joblist_sidebar} desktopview`}>
                     <Sidebar />
                 </div>
             </div>

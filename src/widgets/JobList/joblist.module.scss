@@ -2,8 +2,9 @@
     letter-spacing: 0.14px;
     width: 100%;
 
-    display: grid;
-    grid-template-columns: 2.2fr 1fr;
+    // display: grid;
+    // grid-template-columns: 2.2fr 1fr;
+    display: flex;
     padding: 3rem 5rem;
     grid-gap: 3rem;
 
@@ -13,7 +14,7 @@
     }
 
     &_mainsection {
-        width: 100%;
+        width: 65%;
         margin: 0px auto;
 
         @media (max-width: 991px) {
@@ -27,5 +28,9 @@
             font-weight: 600;
             color: #121212;
         }
+    }
+
+    &_sidebar{
+        width: 35%;
     }
 }

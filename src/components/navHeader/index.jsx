@@ -52,7 +52,7 @@ const NavHeader = (props) => {
                         className={styles.searchsection_searchbar}
                         value={searchedquery}
                         event={(value) => setSearchedquery(value)}
-                        placeholder="Search with title or company name"
+                        placeholder="Search by title or company name"
                         onKeyDown={(e) => handleEnterClick(e)}
                     />
 

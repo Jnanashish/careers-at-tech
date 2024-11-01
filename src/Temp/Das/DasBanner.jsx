@@ -21,20 +21,20 @@ const DasBanner = () => {
     };
     return (
         <div>
-            {dasBanner && (
-                <a href={dasBanner.link} className={styles.dasBannerContainer}>
+            {true && (
+                // <a href={dasBanner.link} className={styles.dasBannerContainer}>
                     <Image
                         onClick={() => handleBannerClick(dasBanner._id)}
                         className={styles.dasBanner}
-                        src={dasBanner.imagePath}
+                        src="https://i.ibb.co/mSWQZvv/Copy-of-August-Influ-Creatives-Master-File-png.png"
                         alt="banner"
-                        height={150}
+                        height={400}
                         width={400}
                         priority={1}
                         quality={100}
                         loading="eager"
                     />
-                </a>
+                // </a>
             )}
         </div>
     );
