@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faXmark, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import CustomInput from "../Input/Custominput";
 import Dropdown from "@/components/Dropdown";
 import styles from "./navheader.module.scss";
-import { dropdownData } from "./Helpers";
+import { dropdownData } from "./staticData";
 import bannerimage from "../../static/Image/bannerimage.png"
 
 const NavHeader = (props) => {
@@ -52,7 +52,7 @@ const NavHeader = (props) => {
                         className={styles.searchsection_searchbar}
                         value={searchedquery}
                         event={(value) => setSearchedquery(value)}
-                        placeholder="Search with title or company name"
+                        placeholder="Search by title or company name"
                         onKeyDown={(e) => handleEnterClick(e)}
                     />
 
@@ -65,8 +65,9 @@ const NavHeader = (props) => {
                     </div>
                 </div>
 
+                {/* Filter section (by job type, batch, location) */}
                 <div className={styles.dropdown}>
-                    <p>Filter : </p>
+                    <p>Filter by : </p>
                     <Dropdown selectedValue={selecterParam?.jobtype} parameter="jobtype" handleFilterChange={props.handleFilterChange} placeholder="Job type" data={dropdownData.jobtype}/>
                     <Dropdown selectedValue={selecterParam?.batch} parameter="batch" handleFilterChange={props.handleFilterChange} placeholder="Batch" data={dropdownData.batch}/>
                     <Dropdown selectedValue={selecterParam?.location} parameter="location" handleFilterChange={props.handleFilterChange} placeholder="Location" data={dropdownData.location}/>
@@ -76,7 +77,7 @@ const NavHeader = (props) => {
             <div className={styles.navheader_image}>
                 <Image
                     src={bannerimage}
-                    alt="girl with computer"
+                    alt="girl with a computer"
                     height={324}
                     width={256}
                 />

@@ -96,7 +96,6 @@ const Dropdown = (props) => {
                                 );
                             })}
                     </div>
-                    {/* <div className={styles.dropdown_clearmessage}>Clear filter</div> */}
                 </div>
             </div>
 

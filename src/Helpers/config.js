@@ -1,0 +1,1 @@
+export const DEFAULT_COMPANY_LOGO = "https://res.cloudinary.com/dbmv2z9l9/image/upload/v1735377951/4974686-200_xwxue4.png"

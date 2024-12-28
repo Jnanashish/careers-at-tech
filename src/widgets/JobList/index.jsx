@@ -11,6 +11,7 @@ import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import NojobFound from "@/components/NojobFound";
+import JoblistLoader from "@/components/Loader/JoblistLoader";
 
 // Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
@@ -180,7 +181,7 @@ const JobList = () => {
                     )}
 
                     {/*  show loader  */}
-                    {!showMoreClicked && loaderStatus && <Loader />}
+                    {!showMoreClicked && loaderStatus && <JoblistLoader />}
                 </div>
 
                 {/* side bar  */}

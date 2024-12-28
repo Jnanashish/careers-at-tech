@@ -3,8 +3,7 @@
     border-radius: 14px;
     border: 1px solid rgba(218, 223, 231, 1);
     margin-bottom: 24px;
-    background-color: #fff;
-
+    background-color: $white;
 
     @media (max-width: 992px) {
         margin-bottom: 18px;
@@ -13,7 +12,7 @@
     &:hover {
         box-shadow: 0 2px 20px rgb(0 0 0 / 0.1);
         transition-duration: 0.8s;
-        border: 1px solid #0061ff;
+        border: 1px solid $primary-light;
     }
 }
 
@@ -45,28 +44,6 @@
             margin-left: 2px;
         }
 
-        &_text {
-            border: 0.6px solid rgba(218, 223, 231, 1);
-            width: 54px;
-            height: 54px;
-            margin: 0px auto;
-            border-radius: 50px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            p {
-                font-size: 2rem;
-                font-weight: 700;
-                color: #0069ff;
-            }
-            @media (max-width: 991px) {
-                width: 42px;
-                height: 42px;
-            }
-        }
-
         &_logo {
             border-radius: 50px;
             border: 0.4px solid rgba(218, 223, 231, 1);
@@ -83,17 +60,17 @@
         grid-row: 1;
 
         &_title {
-            font-size: 1.2rem;
-            color: #121212;
-            font-weight: 500;
+            font-size: $font-size-md;
+            color: $black-dark;
+            font-weight: $font-weight-medium;
             line-height: 24px;
 
             justify-self: start;
             align-self: center;
 
             @media (max-width: 991px) {
-                font-size: 1rem;
-                font-weight: 500;
+                font-size: $font-size-bs;
+                font-weight: $font-weight-medium;
                 line-height: 1.4rem;
             }
         }
@@ -135,7 +112,7 @@
 
     .chip {
         padding: 4px 0px;
-        font-size: 0.8rem;
+        font-size: $font-size-xxs;
         margin-right: 14px;
         font-weight: 400;
         white-space: nowrap;
@@ -143,10 +120,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #697586;
+        color: $gray-dark-medium;
 
         @media (max-width: 991px) {
-            font-size: 0.8rem;
             margin-right: 10px;
         }
 
@@ -164,9 +140,9 @@
     }
 
     &_postedtime {
-        font-size: 10px;
+        font-size: $font-size-xxss;
         margin-top: 10px;
-        color: #697586;
+        color: $gray-dark-medium;
 
         @media (max-width: 991px) {
             margin-top: 4px;
@@ -175,9 +151,9 @@
 }
 
 .viewscontainer {
-    color: #697586;
-    font-size: 10px;
-    font-weight: 500;
+    color: $gray-dark-medium;
+    font-size: $font-size-xxss;
+    font-weight: $font-weight-medium;
     align-self: flex-end;
     display: flex;
     align-items: center;
@@ -211,7 +187,7 @@
     p {
         font-size: 10px;
         color: #697586;
-        font-weight: 400;
+        font-weight: $font-weight-normal;
     }
 
     &_share {
@@ -219,14 +195,14 @@
         align-items: center;
 
         p {
-            font-size: 11px;
-            font-weight: 600;
+            font-size: $font-size-xxss;
+            font-weight: $font-weight-medium;
         }
 
         &_icon {
-            height: 11px;
-            width: 11px;
-            color: #0061FF;
+            height: 10px;
+            width: 10px;
+            color: $primary-light;
             margin-left: 4px;
             margin-top: 1px;
         }

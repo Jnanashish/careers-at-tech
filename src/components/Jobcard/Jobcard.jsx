@@ -12,17 +12,16 @@ import Loader from "@/components/common/Loader";
 
 import styles from "./jobcard.module.scss";
 
+import { generateSlugFromrole, generateRandomImpression } from "@/Helpers/jobdetailshelper";
+import { DEFAULT_COMPANY_LOGO } from "@/Helpers/config";
+
 const Jobcard = (props) => {
     const { title, role, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt, company } = props.data;
+
     const [jobcardClicked, setJobcardClicked] = useState(false);
 
-    // TODO: [SEO] Make a global function for common job title
-    // TODO: [BUG] Make the title url friendly
-    const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
-    const impressionClick = () => {
-        const impression = totalclick * 6;
-        return impression + (totalclick === 0 ? Math.floor(Math.random() * (500 - 300 + 1)) + 300 : 300);
-    };
+    const titleforShare = generateSlugFromrole(title);
+    const impressionClick = generateRandomImpression(totalclick)
 
     // redirect to job detail page when jdpage is true
     const redirectToJobdetailPage = () => {
@@ -36,10 +35,11 @@ const Jobcard = (props) => {
         }
     };
 
+    // return company logo or default placeholder
     const companyLogo = () => {
         const logo = company?.smallLogo || imagePath;
         if (!logo || logo === "none") {
-            return false;
+            return DEFAULT_COMPANY_LOGO;
         }
         return logo;
     };
@@ -63,14 +63,7 @@ const Jobcard = (props) => {
             {!jobcardClicked && (
                 <div onClick={handleJobCardClick} onMouseEnter={onMouseEnter} className={styles.jobcard}>
                     <div className={styles.jobcard_logocontainer}>
-                        {!companyLogo() ? (
-                            // TODO: [UI] need to add a default placeholder image
-                            <div className={styles.jobcard_logocontainer_text}>
-                                <p>{title[0]}</p>
-                            </div>
-                        ) : (
-                            <Image className={styles.jobcard_logocontainer_logo} src={companyLogo()} alt="Company logo" height={54} width={54} />
-                        )}
+                        <Image className={styles.jobcard_logocontainer_logo} src={companyLogo()} alt={`${companyName} logo`} height={54} width={54} />
                     </div>
 
                     <div className={styles.jobcard_titlecontainer}>
@@ -100,17 +93,19 @@ const Jobcard = (props) => {
 
                         <p className={styles.viewscontainer}>
                             <FontAwesomeIcon className={styles.viewscontainer_icon} style={{ marginRight: "3px" }} icon={faEye} />
-                            {impressionClick()} views
+                            {impressionClick} views
                         </p>
                     </div>
                 </div>
             )}
+
+            {/* show loader when job is clicked  */}
             {jobtype !== "promo" && jobcardClicked && <Loader loaderheight="40px" loadercontainerheright="138px" borderWidth="4px" />}
 
             {/* footer with view count and share for mobile only  */}
             {jobtype !== "promo" && (
                 <div onClick={() => handleShareClick(props.data)} className={styles.footer}>
-                    <p>{impressionClick()} views</p>
+                    <p>{impressionClick} views</p>
                     <div className={styles.footer_share}>
                         <p>Share</p>
                         <FontAwesomeIcon className={styles.footer_share_icon} icon={faShareNodes} />
