@@ -262,7 +262,7 @@
     },
     {
       "name": "Aryaka networks",
-      "url": "https://www.linkedin.com/company/aryaka-networks/jobs?originalSubdomain=in",
+      "url": "https://www.linkedin.com/company/aryaka-networks/jobs",
       "originalImage2": "https://career-pages.vercel.app/_next/image?url=%2Flogo-cache%2Fwww.linkedin.com.png&w=48&q=75",
       "logourl": "https://res.cloudinary.com/dvc6fw5as/image/upload/v1719030150/u3eeanhhcnx5cbijv4qr.png"
     },
@@ -544,7 +544,7 @@
     },
     {
       "name": "Cadence",
-      "url": "https://www.cadence.com/en_US/home/company/careers.html",
+      "url": "https://cadence.com/en_US/home/company/careers.html",
       "originalImage2": "https://career-pages.vercel.app/_next/image?url=%2Flogo-cache%2Fwww.cadence.com.png&w=48&q=75",
       "logourl": "https://res.cloudinary.com/dvc6fw5as/image/upload/v1719030150/done9rullqffpvoto6sl.png"
     },
@@ -916,12 +916,6 @@
       "url": "https://www.doximity.com/careers",
       "originalImage2": "https://career-pages.vercel.app/_next/image?url=%2Flogo-cache%2Fwww.doximity.com.png&w=48&q=75",
       "logourl": "https://res.cloudinary.com/dvc6fw5as/image/upload/v1719030150/atycrawudpz2zoggcmss.png"
-    },
-    {
-      "name": "DP World",
-      "url": "https://ehpv.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/requisitions",
-      "originalImage2": "https://career-pages.vercel.app/_next/image?url=%2Flogo-cache%2Fehpv.fa.em2.oraclecloud.com.png&w=48&q=75",
-      "logourl": "https://res.cloudinary.com/dvc6fw5as/image/upload/v1719030150/pf1yacnmmd8q7ytncejn.png"
     },
     {
       "name": "DRDO",
@@ -2503,7 +2497,7 @@
     },
     {
       "name": "Tencent",
-      "url": "https://careers.tencent.com/en-us/search.html?query=ot_40001001,ot_40001002,ot_40001003,ot_40001004,ot_40001005,ot_40001006",
+      "url": "https://careers.tencent.com/en-us/search.html",
       "originalImage2": "https://career-pages.vercel.app/_next/image?url=%2Flogo-cache%2Fcareers.tencent.com.png&w=48&q=75",
       "logourl": "https://res.cloudinary.com/dvc6fw5as/image/upload/v1719030153/rlzgc5poposmibptzhzp.png"
     },

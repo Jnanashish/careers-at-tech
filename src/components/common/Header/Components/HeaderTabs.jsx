@@ -59,9 +59,9 @@ function HeaderTabs() {
                 <Link href={"/career-pages"} className={styles.header_tabs_tab}>
                     Career pages
                 </Link>
-                <p className={styles.header_tabs_tab}>Resources</p>
-                <p className={styles.header_tabs_tab}>Post a Job</p>
-                <p className={styles.header_tabs_tab}>About us</p>
+                {/* <p className={styles.header_tabs_tab}>Resources</p> */}
+                {/* <p className={styles.header_tabs_tab}>Post a Job</p> */}
+                {/* <p className={styles.header_tabs_tab}>About us</p> */}
             </span>
         </div>
     );

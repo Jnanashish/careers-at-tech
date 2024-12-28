@@ -34,14 +34,13 @@ const Jobdetails = (props) => {
         window.open(linekdinUrl);
     };
 
-
     const companyLogo = () => {
         const logo = data?.company?.smallLogo || data?.imagePath;
-        if(!logo || logo === "none"){
+        if (!logo || logo === "none") {
             return false;
         }
         return logo;
-    }
+    };
 
     // [UI] component for job info card item
     const JobInfoItem = ({ title, jobinfo, icon }) => {
@@ -62,7 +61,7 @@ const Jobdetails = (props) => {
     const JobDetailItem = ({ data, header }) => {
         if (!!data && data !== "N" && data !== "<p>N</p>") {
             return (
-                <div className={styles.jobinfo}>
+                <div className={styles.jobdetails}>
                     {!!header && <h3>{header} : </h3>}
                     <p>{parse(data)}</p>
                 </div>
@@ -91,7 +90,7 @@ const Jobdetails = (props) => {
                     <h1 className={styles.jobinfo_title}>{data?.role}</h1>
                     <span className={styles.jobinfo_companynamesection}>
                         <p className={styles.jobinfo_companynamesection_name}>{data?.companyName}</p>
-                        <p className={styles.jobinfo_companynamesection_postdate}> • Posted {format(data?.createdAt)}</p>
+                        <p className={styles.jobinfo_companynamesection_postdate}> •  Posted {format(data?.createdAt)}</p>
                     </span>
                 </div>
 
@@ -118,8 +117,8 @@ const Jobdetails = (props) => {
 
                 <div className={styles.buttonsection}>
                     <span onClick={askforReferral} className={styles.buttonsection_referral}>
-                        <p>Ask for referrals on</p>
-                        <Image className={styles.icon} src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
+                        <p>Ask for referrals on LinkedIn</p>
+                        {/* <Image className={styles.icon} src={linkedinIcon} alt="Telegram icon" height={25} width={25} /> */}
                     </span>
                     <span className={styles.buttonsection_apply} onClick={() => applyButtonClicked(data?.link)}>
                         <p>Apply now</p>

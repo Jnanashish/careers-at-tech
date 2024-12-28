@@ -32,7 +32,7 @@ const Header = ({ showBorder = false }) => {
                 <Image onClick={() => handleRedirection()} src={logo} height={30} width={150} />
 
                 {/* tabs for desktop device  */}
-                {!isMobile() && <HeaderTabs />}
+                {/* {!isMobile() && <HeaderTabs />} */}
 
                 {/* drawer for mobile view only  */}
                 {isMobile() && (

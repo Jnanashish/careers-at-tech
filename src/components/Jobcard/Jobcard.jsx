@@ -20,7 +20,7 @@ const Jobcard = (props) => {
     // TODO: [BUG] Make the title url friendly
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
     const impressionClick = () => {
-        const impression = totalclick * 6;
+        const impression = totalclick * 13;
         return impression + (totalclick === 0 ? Math.floor(Math.random() * (500 - 300 + 1)) + 300 : 300);
     };
 
