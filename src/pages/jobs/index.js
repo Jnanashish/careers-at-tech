@@ -7,8 +7,23 @@ import Header from "@/components/common/Header/header";
 import JobList from "@/widgets/JobList";
 import WhatAppBanner from "@/components/Banners/WhatsappBanner";
 
+import { getJobListing } from "@/Helpers/jobdetailshelper";
+
+// call job details api on intial load
+export async function getStaticProps() {
+    const params = null;
+    const res = await getJobListing(params);    
+
+    return {
+        props: {
+            data: res,
+        },
+        revalidate: 600, // In seconds (10 min)
+    };
+}
+
 // Job listing page
-const Jobs = () => {
+const Jobs = ({data}) => {
     return (
         <>
             {/* TODO: new meta title and description for home page */}
@@ -17,7 +32,7 @@ const Jobs = () => {
                 <meta name="description" content="One place solution to get regular Internship and Job Updates." />
             </Head>
             <Header />
-            <JobList />
+            <JobList jobData={data}/>
             <span className="mobileview">
                 <WhatAppBanner isModal={true} />
             </span>

@@ -16,12 +16,12 @@ import JoblistLoader from "@/components/Loader/JoblistLoader";
 // Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
-const JobList = () => {
+const JobList = ({jobData}) => {
     const [pageno, setPageno] = useState(1);
     const [params, setParams] = useState(null); // array of object
     const [jobdata, setJobdata] = useState([]);
     const [totalJobCount, setTotalJobCount] = useState(0);
-    const [loaderStatus, setLoaderStatus] = useState(true);
+    const [loaderStatus, setLoaderStatus] = useState(false);
     const [showMoreClicked, setShowMoreClicked] = useState(false);
 
     const router = useRouter();
@@ -147,9 +147,16 @@ const JobList = () => {
     }, [router.events]);
 
     // on intial load check if any query parama present in url
+    // useEffect(() => {
+    //     checkParameterinUrl();
+    // }, []);
+
+    // on server populate the page with SSR call data
+    // intial load
     useEffect(() => {
-        checkParameterinUrl();
-    }, []);
+        setTotalJobCount(jobData?.totalCount);
+        setJobdata((jobdata) => [...jobdata, ...jobData?.data]);
+    }, [jobData])
 
     return (
         <>
