@@ -51,7 +51,7 @@ export async function getStaticProps(context) {
         props: {
             data: res?.data,
         },
-        revalidate: 500, // In seconds
+        revalidate: 600, // In seconds (10 min)
     };
 }
 
