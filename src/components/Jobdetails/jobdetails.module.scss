@@ -8,6 +8,12 @@
 
         cursor: pointer;
         margin-bottom: 32px;
+        margin-left: -4px !important;
+
+        p{
+            font-size: $font-size-xs;
+            font-weight: $font-weight-normal;
+        }
 
         .back_icon {
             height: 24px;
@@ -19,9 +25,13 @@
 
 .jobinfo {
     &_title {
-        font-size: 1.6rem;
-        font-weight: 600;
+        font-size: $h1-heading;
+        font-weight: $font-weight-semi-bold;
         margin-top: 20px;
+
+        @media (max-width: 991px) {
+            font-size: $font-size-lg;
+        }
     }
 
     &_companynamesection {
@@ -31,11 +41,12 @@
         margin: 20px 0px 30px;
 
         &_name {
-            font-weight: 500;
+            font-weight: $font-weight-medium;
+            font-size: $font-size-xs;
         }
         &_postdate {
-            color: #727272;
-            font-size: 0.9rem;
+            color: $gray-3;
+            font-size: $font-size-xs;
         }
     }
 }
@@ -59,11 +70,11 @@
     }
 
     .sharebutton {
-        padding: 10px 16px;
+        padding: 8px 16px;
         border: 1px solid #dadfe7;
-        border-radius: 6px;
+        border-radius: 8px;
         font-weight: 500;
-        font-size: 0.9rem;
+        font-size: $font-size-xxs;
         cursor: pointer;
 
         display: flex;
@@ -71,19 +82,19 @@
         gap: 10px;
 
         @media (max-width: 991px) {
-            padding: 10px 14px;
+            padding: 8px 16px;
         }
 
         .shareicon {
             height: 14px;
             width: 14px;
-            color: #0069ff;
+            color: $primary-light;
         }
     }
 }
 
 .detailscard {
-    background-color: #f4faff;
+    background-color: $blue-background;
     padding: 24px 40px;
     border-radius: 10px;
     margin: 16px 0px 40px;
@@ -92,7 +103,7 @@
     column-gap: 60px;
     row-gap: 40px;
     flex-wrap: wrap;
-    font-size: 1rem;
+    font-size: $font-size-xs;
 
     @media (max-width: 991px) {
         padding: 26px 30px;
@@ -112,35 +123,31 @@
             margin-top: 8px;
 
             p {
-                font-weight: 500;
+                font-weight: $font-weight-medium;
             }
         }
     }
 }
 
-.jobinfo {
+.jobsection {
     p {
-        font-size: 1rem;
-        line-height: 1.6rem;
+        font-size: $font-size-xs;
+        line-height: 1.5rem;
         letter-spacing: 0.14px;
-        color: #2b2b2b;
+        color: $grey-text;
 
         strong {
-            font-weight: 500;
+            font-weight: $font-weight-medium;
             margin: 5px 0px 0px 20px;
             @media (max-width: 991px) {
                 margin: 0px;
             }
         }
-
-        @media (max-width: 991px) {
-            font-size: 1rem;
-        }
     }
 
     h3 {
-        font-size: 1rem;
-        font-weight: 500;
+        font-size: $font-size-bs;
+        font-weight: $font-weight-medium;
         letter-spacing: 0.2px;
 
         margin: 30px 0px 20px;
@@ -176,22 +183,22 @@
         box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
 
         font-weight: 500;
-        font-size: 1rem;
+        font-size: $font-size-xs;
         text-align: center;
         border-radius: 6px;
         margin: 40px 0px 0px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 0.9px solid #0069ff;
+        border: 0.9px solid $primary-light;
 
         &:hover {
-            background-color: #f4faff;
+            background-color: $blue-background;
             cursor: pointer;
         }
 
         @media (max-width: 991px) {
-            font-size: 0.9rem;
+            font-size: $font-size-xs;
             width: 100%;
             margin-top: 0px;
         }
@@ -203,7 +210,6 @@
         font-weight: 600 !important;
         border: 1.1px solid #0069ff !important;
 
-
         .icon {
             rotate: 320deg;
         }
@@ -211,7 +217,7 @@
 
     &_referral {
         width: 35%;
-        border: 0.9px solid #ddd;
+        border: 0.9px solid #ddd !important;
 
         .icon {
             color: red !important;
@@ -230,7 +236,8 @@
 }
 
 .redirection_message {
-    font-size: 0.7rem;
+    font-size: $font-size-xxxs;
+    color: $gray-3;
     margin-top: 10px;
     float: right;
 }
