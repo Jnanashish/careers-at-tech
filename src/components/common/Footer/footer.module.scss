@@ -4,7 +4,7 @@
     letter-spacing: 0.14px;
 
     p {
-        font-size: 1rem;
+        font-size: $font-size-xs;
         font-weight: 500;
         margin-bottom: 10px;
 
@@ -43,8 +43,7 @@
     .companytabs {
         display: flex;
         justify-content: space-between;
-        gap: 40px;
-        width: 70%;
+        gap: 80px;
         margin-right: 20px;
 
         @media (max-width: 991px) {
@@ -65,7 +64,7 @@
                 margin: 16px 0px 0px;
                 color: #4b5565;
                 font-weight: 400;
-                font-size: 0.9rem;
+                font-size: $font-size-xs;
 
                 @media (max-width: 991px) {
                     margin: 14px 0px 0px;
@@ -75,12 +74,12 @@
 
         &_group {
             display: flex;
-            gap: 60px;
+            gap: 80px;
 
             @media (max-width: 991px) {
                 width: 100%;
-                justify-content: space-between;
-                gap: 0px;
+                justify-content: flex-start;
+                gap: 24px;
             }
         }
     }

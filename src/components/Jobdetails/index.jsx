@@ -62,7 +62,7 @@ const Jobdetails = (props) => {
     const JobDetailItem = ({ data, header }) => {
         if (!!data && data !== "N" && data !== "<p>N</p>") {
             return (
-                <div className={styles.jobinfo}>
+                <div className={styles.jobsection}>
                     {!!header && <h3>{header} : </h3>}
                     <p>{parse(data)}</p>
                 </div>
@@ -126,7 +126,7 @@ const Jobdetails = (props) => {
                         <FontAwesomeIcon className={styles.icon} icon={faArrowRight} />
                     </span>
                 </div>
-                {data?.platform !== "careerspage" && <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>}
+                {data?.platform === "careerspage" && <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>}
             </div>
             <Similarjob companytype={data?.companytype} id={data?._id} />
         </>
