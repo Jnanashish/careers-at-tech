@@ -1,5 +1,5 @@
 .whatsappbanner {
-    background-color: #f9f9fb;
+    background-color: $grey-lightest;
     width: 100%;
 
     outline: none;
@@ -7,11 +7,11 @@
     padding: 20px;
 
     font-family: "Inter", sans-serif;
-    font-size: 1rem;
+    font-size: $font-size-xs;
     line-height: 24px;
     letter-spacing: 0.2px;
 
-    border: 1px solid #25d366;
+    border: 1px solid $green-whatsapp;
 
     @media (max-width: 991px) {
         padding: 16px 16px 20px;
@@ -29,11 +29,17 @@
         background-color: #25d366;
 
         color: #121212;
-        font-weight: 500;
-        font-size: 1rem;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-xs;
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    &_members{
+        font-size: $font-size-xxxs;
+        color: $gray-dark;
+        margin-top: 10px;
     }
 }
 

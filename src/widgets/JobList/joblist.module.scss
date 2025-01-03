@@ -8,7 +8,7 @@
     grid-gap: 3rem;
 
     @media (max-width: 991px) {
-        padding: $font-size-bs;
+        padding: 1rem;
         grid-template-columns: 100%;
     }
 
@@ -23,9 +23,15 @@
         }
 
         &_alljobs {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-weight: $font-weight-medium;
+            font-size: $font-size-bs;
             color: $black-dark;
+
+            @media (max-width: 991px) {
+                font-size: $font-size-xs;
+                margin-top: 8px;
+            }
         }
     }
 }

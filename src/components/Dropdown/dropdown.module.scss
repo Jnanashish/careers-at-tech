@@ -1,6 +1,6 @@
 .dropdown {
     position: relative;
-    font-size: 0.9rem;
+    font-size: $font-size-xxs;
 
     &_header {
         display: flex;
@@ -47,7 +47,7 @@
 
         @media (max-width: 991px) {
             padding: 10px 14px;
-            font-size: 0.9rem;
+            font-size: $font-size-xxs;
         }
     }
 
@@ -74,7 +74,7 @@
     &_clearmessage {
         border-top: 0.6px solid #ddd;
         color: #3b3b3b;
-        font-size: 0.7rem;
+        font-size: $font-size-xxs;
         padding: 8px 12px !important;
         background-color: #f4faff;
     }
@@ -99,7 +99,7 @@
         }
 
         p {
-            font-size: 1rem !important;
+            font-size: $font-size-xxs !important;
         }
 
         &_clearbtn{
@@ -127,7 +127,7 @@
     &_clearmessage {
         border-top: 0.6px solid #ddd;
         color: #3b3b3b;
-        font-size: 0.9rem;
+        font-size: $font-size-xxs;
         padding: 16px 20px !important;
         background-color: #f4faff;
         position: absolute;
