@@ -13,6 +13,7 @@ import { shareJobDetails } from "@/Helpers/socialmediahandler";
 import WhatAppBanner from "../Banners/WhatsappBanner";
 import { format } from "timeago.js";
 import linkedinIcon from "../../static/Image/linkedinIcon.svg";
+import PromoBanner from "../Banners/PromoBanner";
 
 const Jobdetails = (props) => {
     const data = props?.jobdata;
@@ -115,6 +116,9 @@ const Jobdetails = (props) => {
                     <JobDetailItem header="Benifits" data={data?.benifits} />
                     <JobDetailItem header="About Company" data={data?.aboutCompany} />
                 </div>
+
+                <PromoBanner/>
+
 
                 <div className={styles.buttonsection}>
                     <span onClick={askforReferral} className={styles.buttonsection_referral}>
