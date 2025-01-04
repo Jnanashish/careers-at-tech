@@ -19,8 +19,8 @@ import { getJobListing } from "@/Helpers/jobdetailshelper";
 const JobList = ({ jobData }) => {
     const [pageno, setPageno] = useState(1);
     const [params, setParams] = useState(null); // array of object
-    const [jobdata, setJobdata] = useState([]);
-    const [totalJobCount, setTotalJobCount] = useState(0);
+    const [jobdata, setJobdata] = useState(jobData?.data);
+    const [totalJobCount, setTotalJobCount] = useState(jobData?.totalCount);
     const [loaderStatus, setLoaderStatus] = useState(false);
     const [showMoreClicked, setShowMoreClicked] = useState(false);
 
@@ -70,6 +70,10 @@ const JobList = ({ jobData }) => {
     const handlePaginationClick = () => {
         setPageno(pageno + 1);
         setLoaderStatus(true);
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
     }
 
     // [JOB DATA API] call job listing data (send params as parameter)
@@ -158,13 +162,6 @@ const JobList = ({ jobData }) => {
     //     checkParameterinUrl();
     // }, []);
 
-    // on server populate the page with SSR call data
-    // intial load
-    useEffect(() => {
-        setTotalJobCount(jobData?.totalCount);
-        setJobdata(jobData?.data);
-        // setJobdata((jobdata) => [...jobdata, ...jobData?.data]);
-    }, [jobData]);
 
     return (
         <>
@@ -199,7 +196,7 @@ const JobList = ({ jobData }) => {
                     {/*  show loader  */}
                     {!showMoreClicked && loaderStatus && <JoblistLoader />}
                     <div className={styles.paginationHolder}>
-                        <Pagination className="pagination-bar" currentPage={pageno} totalCount={totalJobCount} pageSize={10} onPageChange={(page) => setPageno(page)} />
+                        <Pagination className="pagination-bar" currentPage={pageno} totalCount={totalJobCount} pageSize={10} onPageChange={handlePaginationClick} />
                     </div>
                 </div>
 

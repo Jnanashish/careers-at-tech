@@ -117,7 +117,10 @@ const Jobdetails = (props) => {
                     <JobDetailItem header="About Company" data={data?.aboutCompany} />
                 </div>
 
-                <PromoBanner/>
+                <span className={`${styles.bannercontainer} mobileview`}>
+                    <PromoBanner/>
+                </span>
+                
 
 
                 <div className={styles.buttonsection}>
