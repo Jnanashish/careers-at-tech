@@ -5,6 +5,8 @@
   .selected {
     // background-color: rgba(0, 0, 0, 0.08);
     background-color: #f4faff;
+    color: $primary-light !important;
+    font-weight: $font-weight-medium !important;
   }
 
   .paginationItem {
@@ -25,6 +27,13 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
       cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 10px;
+      margin: auto 2px;
     }
   }
   dots:hover {
@@ -57,11 +66,10 @@
       border-right: 0.12em solid rgba(0, 0, 0, 0.87);
       border-top: 0.12em solid rgba(0, 0, 0, 0.87);
     }
-
-
   }
   .left {
     transform: rotate(-135deg) translate(-50%);
+    margin-bottom: 4px;
   }
 
   .right {
