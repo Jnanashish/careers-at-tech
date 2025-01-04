@@ -1,11 +1,12 @@
 import React from "react";
-// import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
 import { Inter } from "@next/font/google";
 import "../styles/globals.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // set up inter font for the project
 const inter = Inter({
@@ -30,7 +31,8 @@ const App = (props) => {
             <Provider store={store}>
                 <main className={`${inter.className}`}>
                     <Component {...pageProps} />
-                    {/* <Analytics /> */}
+                    <SpeedInsights />
+                    <Analytics />
                 </main>
             </Provider>
         </>
