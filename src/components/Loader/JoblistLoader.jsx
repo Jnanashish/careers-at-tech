@@ -5,11 +5,10 @@ function JoblistLoader() {
         <>
             <br/>
             <br/>
-            <JobcardLoader />
-            <JobcardLoader />
-            <JobcardLoader />
-            <JobcardLoader />
-            <JobcardLoader />
+  
+            {[...Array(10)].map((_, index) => (
+                <JobcardLoader key={index} />
+            ))}
         </>
     );
 }
