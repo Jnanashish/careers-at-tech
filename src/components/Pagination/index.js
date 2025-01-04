@@ -29,13 +29,13 @@ const Pagination = (props) => {
             <li className={`${styles.paginationItem} ${currentPage === 1 ? styles.disabled : ""}`} onClick={onPrevious}>
                 <div className={`${styles.arrow} ${styles.left}`} />
             </li>
-            {paginationRange.map((pageNumber) => {
+            {paginationRange.map((pageNumber, index) => {
                 if (pageNumber === DOTS) {
-                    return <li className={`${styles.paginationItem} ${styles.dots}`}>&#8230;</li>;
+                    return <li key={`dots-${index}`} className={`${styles.paginationItem} ${styles.dots}`}>&#8230;</li>;
                 }
 
                 return (
-                    <li className={`${styles.paginationItem} ${pageNumber == currentPage ? styles.selected : ""}`} onClick={() => onPageChange(pageNumber)}>
+                    <li key={`page-${pageNumber}`} className={`${styles.paginationItem} ${pageNumber == currentPage ? styles.selected : ""}`} onClick={() => onPageChange(pageNumber)}>
                         {pageNumber}
                     </li>
                 );
