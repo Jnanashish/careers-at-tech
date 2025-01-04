@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 
 import styles from "./joblist.module.scss";
 import ShowMoreButton from "@/components/Showmorebutton";
+import Pagination from "@/components/Pagination";
 
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
 import NavHeader from "@/components/navHeader";
-import Loader from "@/components/common/Loader";
 import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import NojobFound from "@/components/NojobFound";
@@ -16,7 +16,7 @@ import JoblistLoader from "@/components/Loader/JoblistLoader";
 // Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
-const JobList = ({jobData}) => {
+const JobList = ({ jobData }) => {
     const [pageno, setPageno] = useState(1);
     const [params, setParams] = useState(null); // array of object
     const [jobdata, setJobdata] = useState([]);
@@ -66,6 +66,12 @@ const JobList = ({jobData}) => {
         }
     };
 
+    // handle pagination tab click
+    const handlePaginationClick = () => {
+        setPageno(pageno + 1);
+        setLoaderStatus(true);
+    }
+
     // [JOB DATA API] call job listing data (send params as parameter)
     const getJoblistingData = async (params) => {
         setLoaderStatus(true);
@@ -76,7 +82,8 @@ const JobList = ({jobData}) => {
             setTotalJobCount(res?.totalCount);
             setLoaderStatus(false);
             setShowMoreClicked(false);
-            setJobdata((jobdata) => [...jobdata, ...res?.data]);
+            setJobdata(res?.data);
+            // setJobdata((jobdata) => [...jobdata, ...res?.data]);
         }
     };
 
@@ -155,8 +162,9 @@ const JobList = ({jobData}) => {
     // intial load
     useEffect(() => {
         setTotalJobCount(jobData?.totalCount);
-        setJobdata((jobdata) => [...jobdata, ...jobData?.data]);
-    }, [jobData])
+        setJobdata(jobData?.data);
+        // setJobdata((jobdata) => [...jobdata, ...jobData?.data]);
+    }, [jobData]);
 
     return (
         <>
@@ -168,7 +176,7 @@ const JobList = ({jobData}) => {
                     {!loaderStatus && jobdata.length === 0 && <NojobFound />}
 
                     {/* main job card list section  */}
-                    {(!loaderStatus || jobdata.length !== 0) && (
+                    {(!loaderStatus) && (
                         <>
                             {!!totalJobCount && <p className={styles.joblist_mainsection_alljobs}>All Jobs ({totalJobCount})</p>}
 
@@ -183,12 +191,16 @@ const JobList = ({jobData}) => {
                                 })}
 
                             {/* show more button */}
-                            {jobdata.length !== 0 && pageno * 10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked={showMoreClicked} />}
+                            {/* {jobdata.length !== 0 && pageno * 10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked={showMoreClicked} />} */}
                         </>
                     )}
 
+
                     {/*  show loader  */}
                     {!showMoreClicked && loaderStatus && <JoblistLoader />}
+                    <div className={styles.paginationHolder}>
+                        <Pagination className="pagination-bar" currentPage={pageno} totalCount={totalJobCount} pageSize={10} onPageChange={(page) => setPageno(page)} />
+                    </div>
                 </div>
 
                 {/* side bar  */}
