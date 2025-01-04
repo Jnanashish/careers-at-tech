@@ -1,6 +1,7 @@
 import React from "react";
 import { PROMOBANNER, PROMOLINK } from "@/Helpers/config";
 import styles from "./index.module.scss";
+import Image from "next/image";
 
 function PromoBanner() {
     const handleRedirection = () => {
@@ -10,7 +11,7 @@ function PromoBanner() {
     };
     return (
         <div onClick={handleRedirection} className={styles.bannerContainer}>
-            <img src={PROMOBANNER} alt="banner" />
+            <Image src={PROMOBANNER} alt="banner" height={1080} width={1080}/>
         </div>
     );
 }
