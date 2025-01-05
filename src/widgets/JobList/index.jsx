@@ -67,8 +67,8 @@ const JobList = ({ jobData }) => {
     };
 
     // handle pagination tab click
-    const handlePaginationClick = () => {
-        setPageno(pageno + 1);
+    const handlePaginationClick = (pageVal) => {
+        setPageno(pageVal);
         setLoaderStatus(true);
         window.scrollTo({
             top: 0,

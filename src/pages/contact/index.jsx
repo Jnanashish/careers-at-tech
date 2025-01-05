@@ -6,7 +6,7 @@ import Footer from "@/components/common/Footer/Footer";
 
 function Contact() {
     const openWhatsApp = () => {
-        const phoneNumber = "917743091193";
+        const phoneNumber = "919707040143";
         const msg = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
         window.open(msg);
     };
