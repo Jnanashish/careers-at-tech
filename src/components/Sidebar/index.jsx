@@ -6,7 +6,7 @@ function Sidebar() {
     return (
         <div className={styles.sidebar}>
             <WhatAppBanner />
-            <PromoBanner/>
+            {/* <PromoBanner/> */}
         </div>
     );
 }
