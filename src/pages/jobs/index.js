@@ -7,7 +7,7 @@ import JobList from "@/widgets/JobList";
 import WhatAppBanner from "@/components/Banners/WhatsappBanner";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
-import Meta from "../../core/SEO/Meta.js";
+import Meta from "../../core/SEO/Meta.jsx";
 
 // call job details api on intial load
 export async function getStaticProps() {

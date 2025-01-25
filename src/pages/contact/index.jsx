@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./contact.module.scss";
 import Header from "@/components/common/Header/header";
 import Footer from "@/components/common/Footer/Footer";
-import Meta from "../../core/SEO/Meta.js";
+import Meta from "../../core/SEO/Meta.jsx";
 
 function Contact() {
     const openWhatsApp = () => {
