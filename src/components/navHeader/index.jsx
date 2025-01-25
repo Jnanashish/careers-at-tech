@@ -42,10 +42,10 @@ const NavHeader = (props) => {
     return (
         <div className={styles.navheader}>
             <div className={styles.navheader_filters}>
-                <h2>
+                <h1>
                     Discover verified <br /> tech <span>Jobs</span> and <span>Internships</span>
                     <br /> at top companies.
-                </h2>
+                </h1>
 
                 <div className={styles.searchsection}>
                     <CustomInput

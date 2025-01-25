@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 
 // import components
 import Footer from "@/components/common/Footer/Footer";
@@ -8,6 +7,7 @@ import JobList from "@/widgets/JobList";
 import WhatAppBanner from "@/components/Banners/WhatsappBanner";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
+import Meta from "@/core/SEO/Meta";
 
 // call job details api on intial load
 export async function getStaticProps() {
@@ -26,11 +26,7 @@ export async function getStaticProps() {
 const Jobs = ({data}) => {
     return (
         <>
-            {/* TODO: new meta title and description for home page */}
-            <Head>
-                <title>Careers at Tech</title>
-                <meta name="description" content="One place solution to get regular Internship and Job Updates." />
-            </Head>
+            <Meta/>
             <Header />
             <JobList jobData={data}/>
             <span className="mobileview">

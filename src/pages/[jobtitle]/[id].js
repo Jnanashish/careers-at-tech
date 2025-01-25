@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Head from "next/head";
 import styles from "./index.module.scss";
 
 // import components
@@ -9,9 +8,11 @@ import ScrolltoTop from "@/components/common/ScrolltoTop";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/common/Footer/Footer";
 
-import Meta from "@/core/SEO/meta";
+import JobDescriptionMeta from "@/core/SEO/JobDescriptionMeta";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
+
+import { generateSlugFromrole } from "@/Helpers/jobdetailshelper";
 
 export async function getStaticPaths() {
     // create static paths from with intial 30 pages
@@ -20,8 +21,7 @@ export async function getStaticPaths() {
     const jobdata = res?.data.filter((item) => item?.jdpage === "true");
 
     const staticPaths = jobdata?.map((item) => {
-        // TODO: Write a common function for page title
-        const titleforShare = item?.title?.replace(/[\s;]+/g, "-")?.toLowerCase();
+        const titleforShare = generateSlugFromrole(item?.title);
         return {
             params: {
                 jobtitle: titleforShare,
@@ -62,12 +62,9 @@ const JobdetailsPage = ({ data }) => {
 
     return (
         <div>
-            <Head>
-                <link rel="canonical" href="https://careersat.tech/" />
-            </Head>
             <>
                 <Header />
-                <Meta jobTitle={data?.title} description={data?.jobdesc} logo={data?.imagePath} />
+                <JobDescriptionMeta data={data} />
                 <div className={styles.jobdetailpage}>
                     <div>
                         <Jobdetails jobdata={data} />

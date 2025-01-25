@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./privacy.module.scss";
 import Header from "@/components/common/Header/header";
 import Footer from "@/components/common/Footer/Footer";
+import Meta from "@/core/SEO/Meta";
 
 function Privacy() {
     return (
         <>
+            <Meta />
             <Header showBorder={true} />
             <div className={styles.privacyContainer}>
                 <h1>Privacy Policy</h1>
@@ -40,14 +42,14 @@ function Privacy() {
                 <h2>Privacy Policies</h2>
                 <p>
                     Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on
-                    CareersAt.Tech, which are sent directly to users&apos; browsers. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of
-                    their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.
+                    CareersAt.Tech, which are sent directly to users&apos; browsers. They automatically receive your IP address when this occurs. These technologies are used to measure the
+                    effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.
                 </p>
                 <p>Note that CareersAt.Tech has no access to or control over these cookies that are used by third-party advertisers.</p>
 
                 <h2>Third Party Privacy Policies</h2>
                 <p>
-                    CareersAt.Tech  &aposs Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad
+                    CareersAt.Tech &aposs Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad
                     servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options. You may find a complete list of these Privacy
                     Policies and their links here: Privacy Policy Links.
                 </p>
@@ -56,7 +58,7 @@ function Privacy() {
                     the browsers&apos; respective websites. What Are Cookies?
                 </p>
 
-                <h2>Children  &aposs Information</h2>
+                <h2>Children &aposs Information</h2>
                 <p>
                     Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide
                     their online activity.

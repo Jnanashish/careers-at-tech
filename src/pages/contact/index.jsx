@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./contact.module.scss";
 import Header from "@/components/common/Header/header";
 import Footer from "@/components/common/Footer/Footer";
+import Meta from "@/core/SEO/Meta";
 
 function Contact() {
     const openWhatsApp = () => {
@@ -12,6 +13,8 @@ function Contact() {
     };
 
     return (
+        <>
+        <Meta/>
         <div>
             <Header showBorder={true}/>
             <div className={styles.contactContainer}>
@@ -43,6 +46,7 @@ function Contact() {
             </div>
             <Footer />
         </div>
+        </>
     );
 }
 
