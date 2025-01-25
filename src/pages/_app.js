@@ -1,5 +1,4 @@
 import React from "react";
-import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
 import { Provider } from "react-redux";
@@ -32,7 +31,6 @@ const App = (props) => {
                 <main className={`${inter.className}`}>
                     <Component {...pageProps} />
                     <SpeedInsights />
-                    <Analytics />
                 </main>
             </Provider>
         </>
