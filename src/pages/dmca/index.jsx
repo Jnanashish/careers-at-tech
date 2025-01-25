@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../privacy-policy/privacy.module.scss";
 import Header from "@/components/common/Header/header";
 import Footer from "@/components/common/Footer/Footer";
-import Meta from "../../core/SEO/Meta";
+import Meta from "../../.js";
 
 
 function Dmca() {
