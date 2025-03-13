@@ -83,10 +83,22 @@
             }
         }
     }
+
+    .contactus {
+        a{
+            color: #4b5565;
+            font-weight: $font-weight-medium;
+            font-size: $font-size-xs;
+            text-decoration: underline;
+        }
+        margin-bottom: 30px !important;
+    }
 }
 
+
+
 .bottom_nav {
-    border-top: 1px solid rgba(197, 205, 216, 1);
+    border-top: 1px solid rgb(234 237 241);
     padding: 32px 5rem;
     color: #4b5565;
     display: flex;

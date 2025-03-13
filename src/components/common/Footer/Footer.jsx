@@ -41,6 +41,7 @@ const Footer = () => {
                     <span>
                         <p>Careers at tech</p>
                         <span className={styles.companytabs_links}>
+                            <a className={styles.link} href="mailto:thecodergeek@gmail.com">Contact us</a>
                             {company.map((item, index) => (
                                 <Link key={index} className={styles.link} href={item.redirection_url}>
                                     {item.title}
@@ -50,7 +51,7 @@ const Footer = () => {
                     </span>
                 </div>
                 <div className={styles.companytabs}>
-                <span>
+                    <span>
                         <p>Jobs by types</p>
                         <span className={styles.companytabs_links}>
                             {jobsbytypes.map((item, index) => (
@@ -70,7 +71,6 @@ const Footer = () => {
                             ))}
                         </span>
                     </span>
-
 
                     <div className={styles.companytabs_group}>
                         <span>
@@ -94,7 +94,7 @@ const Footer = () => {
                             </span>
                         </span>
                     </div>
-                </div>
+            </div>
             </div>
 
             <div className={styles.bottom_nav}>
@@ -104,6 +104,7 @@ const Footer = () => {
                         @Jnanashish
                     </a>
                 </p>
+                <p>Copyright © 2025 CareersatTech. All rights reserved</p>
             </div>
         </div>
     );

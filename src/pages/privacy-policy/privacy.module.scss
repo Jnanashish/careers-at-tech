@@ -1,27 +1,35 @@
 .privacyContainer {
-    width: 80%;
-    margin: 0px auto;
-    padding: 20px 0px;
-    color: #121212;
+    width: 60%;
+    margin: 36px auto 56px;
 
     h1 {
-        font-size: 2rem;
-        margin: 14px 0px 10px;
-        color: #121926;
+        font-size: $font-size-lg;
+        margin: 16px 0 30px;
+        color: $grey-dark;
     }
-    h2, h3 {
-        font-size: 1.2rem;
+    h2,
+    h3 {
+        font-size: $font-size-xs;
         margin: 24px 0px 8px;
-        color: #121926;
+        color: $grey-dark;
+        font-weight: $font-weight-semi-bold;
     }
     p {
-        color: #4b5556;
+        color: $grey-light-text;
+        font-size: $font-size-xs;
+        line-height: $font-size-lg;
+    }
+    a {
+        color: $primary;
     }
     li {
         margin-left: 14px;
         margin-top: 5px;
     }
     @media screen and (max-width: 991px) {
-        width: 92%;
+        width: $mobile-width;
+    }
+    b {
+        font-weight: $font-weight-semi-bold;
     }
 }

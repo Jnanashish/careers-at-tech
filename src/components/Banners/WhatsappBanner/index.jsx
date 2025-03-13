@@ -71,7 +71,7 @@ function WhatAppBanner(props) {
                             <Image src={whatsappIcon} alt="Whatsapp icon" height={20} width={20} />
                         </div>
                     </a>
-                    <p className={styles.whatsappbanner_members}>80,000+ members have already joined!</p>
+                    <p className={styles.whatsappbanner_members}>25,000+ members have already joined!</p>
                 </div>
             )}
         </>
