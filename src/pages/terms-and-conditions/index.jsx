@@ -3,7 +3,7 @@ import styles from "../privacy-policy/privacy.module.scss";
 import Header from "@/components/common/Header/header";
 import Footer from "@/components/common/Footer/Footer";
 import Meta from "../../core/SEO/Meta.jsx";
-
+import Link from "next/link";
 function Terms() {
     return (
         <>
@@ -195,7 +195,7 @@ function Terms() {
                 </h3>
 
                 <p>
-                    Please read <a href="/privacy-policy">Privacy Policy</a>
+                    Please read <Link href="/privacy-policy">Privacy Policy</Link>
                 </p>
 
                 <h3>
