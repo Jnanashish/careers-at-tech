@@ -60,7 +60,7 @@ function Privacy() {
                     the browsers&apos; respective websites. What Are Cookies?
                 </p>
 
-                <h2>Children's Information</h2>
+                <h2>Children&apos;s Information</h2>
                 <p>
                     Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide
                     their online activity.

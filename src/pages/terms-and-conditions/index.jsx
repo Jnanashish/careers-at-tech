@@ -28,16 +28,16 @@ function Terms() {
                     The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements:
                     <ul>
                         <li>
-                            <b>"Website"</b> refers to CareersAt.Tech.
+                            <b>Website</b> refers to CareersAt.Tech.
                         </li>
                         <li>
-                            <b>"User"</b>, <b>"You"</b>, or <b>"Your"</b> refers to any person accessing the website.
+                            <b>User</b>, <b>You</b>, or <b>Your</b> refers to any person accessing the website.
                         </li>
                         <li>
-                            <b>"Company"</b>, <b>"We"</b>, <b>"Our"</b>, or <b>"Us"</b> refers to CareersAt.Tech.
+                            <b>Company</b>, <b>We</b>, <b>Our</b>, or <b>Us</b> refers to CareersAt.Tech.
                         </li>
                         <li>
-                            <b>"Services"</b> refer to the job listings, company profiles, and other resources provided on CareersAt.Tech.
+                            <b>Services</b> refer to the job listings, company profiles, and other resources provided on CareersAt.Tech.
                         </li>
                     </ul>
                 </p>
