@@ -15,7 +15,7 @@ function Terms() {
                 <p>Welcome to CareersAt.Tech!</p>
                 <br />
 
-                <p>These terms and conditions outline the rules and regulations for the use of CareersAt.Tech's Website, located at https://careersat.tech/.</p>
+                <p>These terms and conditions outline the rules and regulations for the use of CareersAt.Tech&apos;s Website, located at https://careersat.tech/.</p>
                 <br />
 
                 <p>
@@ -46,10 +46,10 @@ function Terms() {
                     <strong>Cookies</strong>
                 </h3>
 
-                <p>We employ the use of cookies. By accessing CareersAt.Tech, you agreed to use cookies in agreement with the CareersAt.Tech s Privacy Policy. </p>
+                <p>We employ the use of cookies. By accessing CareersAt.Tech, you agreed to use cookies in agreement with the CareersAt.Tech&apos;s Privacy Policy. </p>
 
                 <p>
-                    Most interactive websites use cookies to let us retrieve the user’s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it
+                    Most interactive websites use cookies to let us retrieve the user&apos;s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it
                     easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.
                 </p>
 
@@ -123,7 +123,7 @@ function Terms() {
 
                 <p>
                     These organizations may link to our home page, to publications or to other Website information so long as the link: (a) is not in any way deceptive; (b) does not falsely imply
-                    sponsorship, endorsement or approval of the linking party and its products and/or services; and (c) fits within the context of the linking party’s site.
+                    sponsorship, endorsement or approval of the linking party and its products and/or services; and (c) fits within the context of the linking party&apos;s site.
                 </p>
                 <br />
 
@@ -150,7 +150,7 @@ function Terms() {
 
                 <p>
                     These organizations may link to our home page so long as the link: (a) is not in any way deceptive; (b) does not falsely imply sponsorship, endorsement or approval of the linking
-                    party and its products or services; and (c) fits within the context of the linking party’s site.
+                    party and its products or services; and (c) fits within the context of the linking party&apos;s site.
                 </p>
                 <br />
 
@@ -166,12 +166,12 @@ function Terms() {
                     <ul>
                         <li>By use of our corporate name; or</li>
                         <li>By use of the uniform resource locator being linked to; or</li>
-                        <li>By use of any other description of our Website being linked to that makes sense within the context and format of content on the linking party’s site.</li>
+                        <li>By use of any other description of our Website being linked to that makes sense within the context and format of content on the linking party&apos;s site.</li>
                     </ul>
                 </p>
                 <br />
 
-                <p>No use of CareersAt.Tech s logo or other artwork will be allowed for linking absent a trademark license agreement.</p>
+                <p>No use of CareersAt.Tech&apos;s logo or other artwork will be allowed for linking absent a trademark license agreement.</p>
                 <br />
 
                 <h3>
@@ -204,7 +204,7 @@ function Terms() {
 
                 <p>
                     We reserve the right to request that you remove all links or any particular link to our Website. You approve to immediately remove all links to our Website upon request. We also
-                    reserve the right to amend these terms and conditions and it’s linking policy at any time. By continuously linking to our Website, you agree to be bound to and follow these linking
+                    reserve the right to amend these terms and conditions and it&apos;s linking policy at any time. By continuously linking to our Website, you agree to be bound to and follow these linking
                     terms and conditions.
                 </p>
 

@@ -50,7 +50,7 @@ function Privacy() {
 
                 <h2>Third Party Privacy Policies</h2>
                 <p>
-                    CareersAt.Tech's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad
+                    CareersAt.Tech&apos;s Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad
                     servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options. You may find a complete list of these Privacy
                     Policies and their links here: Privacy Policy Links.
                 </p>

@@ -15,7 +15,7 @@ function Dmca() {
                 <h1>Disclaimer for CareersAt.Tech</h1>
 
                 <p>
-                    If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at thecodergeek@gmail.com.
+                    If you require any more information or have any questions about our site&apos;s disclaimer, please feel free to contact us by email at thecodergeek@gmail.com.
                 </p>
 
                 <h2>Disclaimers for CareersAt.Tech</h2>
