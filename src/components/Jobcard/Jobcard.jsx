@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import Router from "next/router";
 
 import Image from "next/image";
@@ -20,32 +20,32 @@ const Jobcard = (props) => {
 
     const [jobcardClicked, setJobcardClicked] = useState(false);
 
-    const titleforShare = generateSlugFromrole(title);
-    const impressionClick = generateRandomImpression(totalclick)
+    // Memoize derived values to prevent recalculation on each render
+    const titleforShare = useMemo(() => generateSlugFromrole(title), [title]);
+    const impressionClick = useMemo(() => generateRandomImpression(totalclick), [totalclick]);
 
-    // redirect to job detail page when jdpage is true
-    const redirectToJobdetailPage = () => {
+    // Memoize event handlers with useCallback to prevent recreation on each render
+    const redirectToJobdetailPage = useCallback(() => {
         Router.push(`/${titleforShare}/${id}`);
-    };
+    }, [titleforShare, id]);
 
-    // when mouse hovered over a job card prefetch the job details
-    const onMouseEnter = () => {
+    const onMouseEnter = useCallback(() => {
         if (jdpage === "true") {
             Router.prefetch(`/${titleforShare}/${id}`);
         }
-    };
+    }, [jdpage, titleforShare, id]);
 
-    // return company logo or default placeholder
-    const companyLogo = () => {
+    // Memoize the company logo function
+    const companyLogo = useCallback(() => {
         const logo = company?.smallLogo || imagePath;
         if (!logo || logo === "none") {
             return DEFAULT_COMPANY_LOGO;
         }
         return logo;
-    };
+    }, [company, imagePath]);
 
-    // handle job card click
-    const handleJobCardClick = () => {
+    // Memoize the job card click handler
+    const handleJobCardClick = useCallback(() => {
         // if job description present open jd page
         if (jdpage === "true") {
             setJobcardClicked(true);
@@ -56,7 +56,7 @@ const Jobcard = (props) => {
             window.open(link);
             countClickinJd(id);
         }
-    };
+    }, [jdpage, jobtype, link, id, redirectToJobdetailPage]);
 
     return (
         <div className={styles.jobcardcontainer}>
@@ -116,4 +116,5 @@ const Jobcard = (props) => {
     );
 };
 
-export default Jobcard;
+// Wrap the component with React.memo to prevent unnecessary re-renders
+export default React.memo(Jobcard);

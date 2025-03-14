@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { usePagination, DOTS } from "./usePagination";
 import styles from "./pagination.module.scss";
+
 const Pagination = (props) => {
     const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize, className } = props;
 
@@ -15,15 +16,18 @@ const Pagination = (props) => {
         return null;
     }
 
-    const onNext = () => {
+    // Memoize event handlers with useCallback
+    const onNext = useCallback(() => {
         onPageChange(currentPage + 1);
-    };
+    }, [onPageChange, currentPage]);
 
-    const onPrevious = () => {
+    const onPrevious = useCallback(() => {
         onPageChange(currentPage - 1);
-    };
+    }, [onPageChange, currentPage]);
 
-    let lastPage = paginationRange[paginationRange.length - 1];
+    // Memoize the last page calculation
+    const lastPage = useMemo(() => paginationRange[paginationRange.length - 1], [paginationRange]);
+
     return (
         <ul className={`${styles.paginationContainer} ${className}`}>
             <li className={`${styles.paginationItem} ${currentPage === 1 ? styles.disabled : ""}`} onClick={onPrevious}>
@@ -47,4 +51,5 @@ const Pagination = (props) => {
     );
 };
 
-export default Pagination;
+// Wrap the component with React.memo to prevent unnecessary re-renders
+export default React.memo(Pagination);

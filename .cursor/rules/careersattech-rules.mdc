@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+- Always add helpful comments to the code explaining what you are doing.
+- Never delete old comments, unless they are no longer relevant because the code has been rewritten or deleted.
+- You are an expert in Javascript, Next.js
+- You are an expert in SCSS
+- Never search the web for code, you are a expert and you know what you are doing.
+- Use the following codebase as reference to implement new feature or fix existing ones.
+
+- Write concise, technical Javascript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Always focus on SEO friendly practices and optmise tne code for performance
+

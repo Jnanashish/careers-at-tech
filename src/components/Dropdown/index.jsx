@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./dropdown.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,24 +16,24 @@ const Dropdown = (props) => {
         value: placeholder,
     });
 
-    const toggleDrawer = () => {
+    // Memoize the toggleDrawer function to prevent recreation on each render
+    const toggleDrawer = useCallback(() => {
         setIsActive((prevState) => !prevState);
-    };
+    }, []);
 
     const dropdownRef = useRef(null);
 
-    // when value is selected from dropdown or drawer
-    const handleFiltervalueClick = (item) => {
+    // Memoize the handleFiltervalueClick function
+    const handleFiltervalueClick = useCallback((item) => {
         setSelected({
             display_text: item.display_text,
             value: item.value,
         });
 
-
         props?.handleFilterChange(parameter, item.value === placeholder ? "" : item.value);
 
-        setIsActive(!isActive);
-    };
+        setIsActive((prevIsActive) => !prevIsActive);
+    }, [parameter, placeholder, props]);
 
     // if clicked outside drodown modal then close the modal
     useEffect(() => {
@@ -61,7 +61,12 @@ const Dropdown = (props) => {
                 value: placeholder,
             });
         }
-    }, [selectedValue]);
+    }, [selectedValue, data, placeholder]);
+
+    // Memoize the clear filter handler
+    const handleClearFilter = useCallback(() => {
+        handleFiltervalueClick({ display_text: placeholder, value: placeholder });
+    }, [handleFiltervalueClick, placeholder]);
 
     return (
         <>
@@ -77,7 +82,7 @@ const Dropdown = (props) => {
                 <div className={styles.dropdown_content} style={{ display: isActive && !isMobile() ? "block" : "none" }}>
                     <div className={styles.dropdown_header}>
                         <p>Job type</p>
-                        <p onClick={()=>handleFiltervalueClick({ display_text: placeholder, value: placeholder })} className={styles.dropdown_header_clearbtn}>
+                        <p onClick={handleClearFilter} className={styles.dropdown_header_clearbtn}>
                             Clear
                         </p>
                     </div>
@@ -118,7 +123,7 @@ const Dropdown = (props) => {
                                     );
                                 })}
                         </div>
-                        <div onClick={()=>handleFiltervalueClick({ display_text: placeholder, value: placeholder })} className={styles.drawer_clearmessage}>Clear filter</div>
+                        <div onClick={handleClearFilter} className={styles.drawer_clearmessage}>Clear filter</div>
                     </div>
                 </Drawer>
             )}
@@ -126,4 +131,5 @@ const Dropdown = (props) => {
     );
 };
 
-export default Dropdown;
+// Wrap the component with React.memo to prevent unnecessary re-renders
+export default React.memo(Dropdown);
