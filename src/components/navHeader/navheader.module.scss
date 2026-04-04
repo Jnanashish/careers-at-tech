@@ -154,7 +154,7 @@
 
     @media (max-width: 991px) {
         overflow: scroll;
-        overflow-y: none !important;
+        overflow-y: hidden !important;
         gap: 6px;
     }
 }

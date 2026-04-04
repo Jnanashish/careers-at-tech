@@ -8,6 +8,6 @@ if (typeof window !== "undefined") {
     setUserId(analytics, userId);
 }
 
-export const firenbaseEventHandler = (eventName, eventAttributes) => {
+export const firebaseEventHandler = (eventName, eventAttributes) => {
     logEvent(analytics, eventName, eventAttributes);
 };

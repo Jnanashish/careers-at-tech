@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 const style = {
     whatsAppJoinBtn: {
@@ -28,7 +28,7 @@ const style = {
 };
 
 const handleWhatsAppJoinClick = () => {
-    firenbaseEventHandler("whatsapp_default_ad_clikced", true);
+    firebaseEventHandler("whatsapp_default_ad_clikced", true);
 };
 
 const WhatsAppJoin = () => {

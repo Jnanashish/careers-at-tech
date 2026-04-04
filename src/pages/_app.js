@@ -3,7 +3,8 @@ import Script from "next/script";
 
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
 import "../styles/globals.css";
 
 // set up inter font for the project
@@ -17,19 +18,16 @@ const App = (props) => {
     return (
         <>
             {/* ms clarity integration  */}
-            <Script
-                strategy="lazyOnload"
-                id="ms-clarity"
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                    __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "iibx8wd1xz");`,
-                }}
-            ></Script>
+            <Script strategy="lazyOnload" id="ms-clarity">
+                {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "iibx8wd1xz");`}
+            </Script>
 
             <Provider store={store}>
-                <main className={`${inter.className}`}>
-                    <Component {...pageProps} />
-                </main>
+                <ErrorBoundary>
+                    <main className={`${inter.className}`}>
+                        <Component {...pageProps} />
+                    </main>
+                </ErrorBoundary>
             </Provider>
         </>
     );

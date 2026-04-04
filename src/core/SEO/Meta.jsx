@@ -4,7 +4,7 @@ import Head from "next/head";
 function Meta(props) {
     const title = props?.title || "Discover freshers tech Jobs and Internships | Careers at tech";
     const desc = props?.description || "Find verified tech jobs and internships opportunity across India or remote location. Check out our job listings today to discover the right job for you and start your career at tech!";
-    const canonical = props?.canonical || "https://careersat.tech/jobs"
+    const canonical = props?.canonical || `${process.env.NEXT_PUBLIC_SITE_URL}/jobs`
 
     return (
         <Head>
@@ -32,6 +32,11 @@ function Meta(props) {
             <meta property="og:image:type" content="image/jpg" />
             <meta property="og:image:width" content="400" />
             <meta property="og:image:height" content="400" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={desc} />
+            <meta name="twitter:image" content="https://res.cloudinary.com/dvc6fw5as/image/upload/v1737812575/IMG_7793_vq6qwi.jpg" />
         </Head>
     );
 }

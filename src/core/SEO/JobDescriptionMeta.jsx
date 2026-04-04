@@ -26,7 +26,7 @@ const JobDescriptionMeta = ({ data }) => {
 
     const generateCanonicalUrl = () => {
         const titleforShare = generateSlugFromrole(data?.title);
-        return `https://careersat.tech/${titleforShare}/${data?._id}`;
+        return `${process.env.NEXT_PUBLIC_SITE_URL}/${titleforShare}/${data?._id}`;
     };
 
     return (
@@ -56,6 +56,11 @@ const JobDescriptionMeta = ({ data }) => {
             <meta property="og:image:type" content="image/jpeg" />
             <meta property="og:image:width" content="400" />
             <meta property="og:image:height" content="400" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={generateTitle()} />
+            <meta name="twitter:description" content={generateDescription()} />
+            {!!data?.imagePath && <meta name="twitter:image" content={data?.imagePath} />}
         </Head>
     );
 };

@@ -1,17 +1,16 @@
 import React from "react";
 import Router from "next/router";
 import Image from "next/image";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 import styles from "./similarjob.module.scss";
 import { DEFAULT_COMPANY_LOGO } from "@/Helpers/config";
 
 const Similarjobcard = (props) => {
-    console.log("props", props);
     const { title, imagePath, batch, degree, id, jobtype, location, experience, company } = props.data;
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
     const redirectToJobdetailPage = () => {
-        firenbaseEventHandler("similar_jobcard_clicked", {
+        firebaseEventHandler("similar_jobcard_clicked", {
             job_id: id,
             job_title: title,
         });

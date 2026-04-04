@@ -11,13 +11,13 @@ function CareerPages({ careerpageData }) {
             <div className={styles.careepages_alphabets}>
                 {alphabets &&
                     alphabets?.map((item, index) => {
-                        return <a key={index} href={`#${item}`}>{item}</a>;
+                        return <a key={item} href={`#${item}`}>{item}</a>;
                     })}
             </div>
             <div className={styles.companylist}>
                 {careerpageData?.map((item, index) => {
                     return (
-                        <div key={index}>
+                        <div key={item?.name || index}>
                             {!!item?.alphabet && <span id={item?.alphabet} className={styles.companylist_alphabet}>{item?.alphabet}</span>}
                             {!!item?.name && (
                                 <span className={styles.companylist_card}>

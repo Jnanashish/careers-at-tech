@@ -7,11 +7,11 @@ import whatsappIcon from "../../../static/Image/whatsappIcon.svg";
 import linkedinIcon from "../../../static/Image/linkedinIcon.svg";
 
 import { jobsbylocation, jobsbybatch, company, jobsbytypes, jobsbycategories } from "./Helpers/staticdata";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 const Footer = () => {
     const socialIconClicked = (name) => {
-        firenbaseEventHandler("social_icon_clicked", {
+        firebaseEventHandler("social_icon_clicked", {
             social_media_name: name,
             source: "Footer",
         });
@@ -42,8 +42,8 @@ const Footer = () => {
                         <p>Careers at tech</p>
                         <span className={styles.companytabs_links}>
                             <a className={styles.link} href="mailto:thecodergeek@gmail.com">Contact us</a>
-                            {company.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                            {company.map((item) => (
+                                <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                     {item.title}
                                 </Link>
                             ))}
@@ -54,8 +54,8 @@ const Footer = () => {
                     <span>
                         <p>Jobs by types</p>
                         <span className={styles.companytabs_links}>
-                            {jobsbytypes.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                            {jobsbytypes.map((item) => (
+                                <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                     {item.title}
                                 </Link>
                             ))}
@@ -64,8 +64,8 @@ const Footer = () => {
                     <span>
                         <p>Jobs by category</p>
                         <span className={styles.companytabs_links}>
-                            {jobsbycategories.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                            {jobsbycategories.map((item) => (
+                                <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                     {item.title}
                                 </Link>
                             ))}
@@ -76,8 +76,8 @@ const Footer = () => {
                         <span>
                             <p>Jobs by location</p>
                             <span className={styles.companytabs_links}>
-                                {jobsbylocation.map((item, index) => (
-                                    <Link key={index} className={styles.link} href={item.redirection_url}>
+                                {jobsbylocation.map((item) => (
+                                    <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                         {item.title}
                                     </Link>
                                 ))}
@@ -86,8 +86,8 @@ const Footer = () => {
                         <span>
                             <p>Jobs by batch</p>
                             <span className={styles.companytabs_links}>
-                                {jobsbybatch.map((item, index) => (
-                                    <Link key={index} className={styles.link} href={item.redirection_url}>
+                                {jobsbybatch.map((item) => (
+                                    <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                         {item.title}
                                     </Link>
                                 ))}

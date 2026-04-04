@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { handleRequestGET } from "@/core/apis/dasapicall";
 import { apiEndPoint } from "@/core/apis/apiEndpoints";
 import { storeDASLinkData, storeDASBannerData, storeDASPopUpType } from "@/Redux/actions";
+import { dispatch } from "@/Redux/store";
 
 const checklocalStorage = () => {
     const userId = localStorage.getItem("userId");
@@ -53,6 +54,3 @@ export const handleIntialPageLoad = () => {
 };
 
 
-export const getJobListing = (params) => {
-
-}

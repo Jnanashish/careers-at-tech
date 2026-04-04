@@ -6,22 +6,17 @@ const variables = path.resolve(__dirname, "src/scss/variables.scss").replace(/\\
 const sassPath = `@import "${colorVariable}"; @import "${fontVariable}"; @import "${variables}";`
 
 const nextConfig = {
-    reactStrictMode: false,
-    experimental: {
-        fontLoaders: [
-            {
-                loader: "@next/font/google",
-                options: {
-                    subsets: ["latin"],
-                },
-            },
-        ],
-    },
+    reactStrictMode: true,
     sassOptions: {
         additionalData: sassPath,
     },
     images: {
-        domains: ["res.cloudinary.com"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "res.cloudinary.com",
+            },
+        ],
     },
 };
 

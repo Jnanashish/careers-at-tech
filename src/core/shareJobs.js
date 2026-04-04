@@ -1,18 +1,18 @@
-import { firenbaseEventHandler } from "./eventHandler";
+import { firebaseEventHandler } from "./eventHandler";
 
 // handle share action of any job
 export const handleShareClick = (data) => {
     const { title, jdpage, id, link } = data;
     const titleforShare = title.replace(/[\s;]+/g, "-").toLowerCase();
 
-    firenbaseEventHandler("share_job_clicked", {
+    firebaseEventHandler("share_job_clicked", {
         job_id: id,
         job_title: title,
         source: "Job card",
     });
 
     if (jdpage === "true") {
-        const joblink = `https://careersat.tech/${titleforShare}/${id}`;
+        const joblink = `${process.env.NEXT_PUBLIC_SITE_URL}/${titleforShare}/${id}`;
         if (navigator.share) {
             navigator.share({
                 title: `${title} | ${title}`,
@@ -28,7 +28,7 @@ export const handleShareClick = (data) => {
             navigator.share({
                 title: `${title} | ${title}`,
                 text: `Hey 👋, Checkout this job : ${title} \n\nApply to this job from here ${link}. \n\nFor more job opportunity visit \n`,
-                url: "https://careersat.tech/jobs",
+                url: `${process.env.NEXT_PUBLIC_SITE_URL}/jobs`,
             });
         } else {
             const msg = `Hey 👋, Checkout this job opening.${title} \n\nApply to this job role from here : \n${link}\n\nFor more job opportunity visit \n$👉{url}`;

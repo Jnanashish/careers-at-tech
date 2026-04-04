@@ -8,14 +8,12 @@ import Loader from "@/components/common/Loader";
 const ShowMoreButton = (props) => {
 
     const showmoreButtonClick = () => {
-        console.log("CHILD");
-
         props?.buttonclickHandler();
     };
 
     return (
         <div>
-            <div onClick={showmoreButtonClick} className={styles.showmoresection}>
+            <button onClick={showmoreButtonClick} className={styles.showmoresection} style={{ background: "none", border: "none", cursor: "pointer", width: "100%", font: "inherit" }}>
                 {!props?.showMoreClicked && (
                     <span className={styles.showmoresection_button}>
                         <p>Show more jobs</p>
@@ -27,7 +25,7 @@ const ShowMoreButton = (props) => {
                         <Loader loaderheight="30px" loadercontainerheright="30px" borderWidth="4px" />
                     </span>
                 )}
-            </div>
+            </button>
         </div>
     );
 };

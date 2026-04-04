@@ -5,7 +5,7 @@ import styles from "./whatsappbanner.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import whatsappIcon from "@/static/Image/whatsappIcon.svg";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 function WhatAppBanner(props) {
     const { isModal = false } = props;
@@ -32,7 +32,7 @@ function WhatAppBanner(props) {
     };
 
     const handleCancelClicked = () => {
-        firenbaseEventHandler("whatsapp_modal_cancel_clicked", true);
+        firebaseEventHandler("whatsapp_modal_cancel_clicked", true);
         sessionStorage.setItem("whatsAppClickedSession", "true");
         setShowModal(false);
     };
@@ -45,12 +45,12 @@ function WhatAppBanner(props) {
             localStorage.setItem("whatsAppClickedLocal", "true");
         }
 
-        firenbaseEventHandler("whatsapp_modal_ad_clicked", true);
+        firebaseEventHandler("whatsapp_modal_ad_clicked", true);
     };
 
     useEffect(() => {
         !!isModal && handleInitialLoad();
-    }, []);
+    }, [isModal]);
 
     return (
         <>

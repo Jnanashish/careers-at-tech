@@ -31,12 +31,15 @@ const Modal = (props) => {
 
     useEffect(() => {
         if (showModal && timer > 0) {
-            setTimeout(() => setTimer(timer - 1), 1000);
+            const id = setTimeout(() => setTimer(timer - 1), 1000);
+            return () => clearTimeout(id);
         }
     }, [timer, showModal]);
-    setTimeout(() => {
-        setShowRedirectBtn(true);
-    }, "1000");
+
+    useEffect(() => {
+        const id = setTimeout(() => setShowRedirectBtn(true), 1000);
+        return () => clearTimeout(id);
+    }, []);
 
     const handleBannerClick = (id) => {
         handleRequestPATCH(`${apiEndPoint.countBannerClick}${id}`);

@@ -87,7 +87,6 @@ const JobList = ({ jobData }) => {
             setLoaderStatus(false);
             setShowMoreClicked(false);
             setJobdata(res?.data);
-            // setJobdata((jobdata) => [...jobdata, ...res?.data]);
         }
     };
 
@@ -157,12 +156,6 @@ const JobList = ({ jobData }) => {
         return () => router.events.off("routeChangeComplete", handleRouteChange);
     }, [router.events]);
 
-    // on intial load check if any query parama present in url
-    // useEffect(() => {
-    //     checkParameterinUrl();
-    // }, []);
-
-
     return (
         <>
             <NavHeader params={params} handleFilterChange={handleFilterChange} />
@@ -187,8 +180,6 @@ const JobList = ({ jobData }) => {
                                     );
                                 })}
 
-                            {/* show more button */}
-                            {/* {jobdata.length !== 0 && pageno * 10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked={showMoreClicked} />} */}
                         </>
                     )}
 
