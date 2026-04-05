@@ -16,3 +16,16 @@ export const getJobListing = async (params, page = 1, size = 10) => {
     const res = await getHelper(api_url);
     return res;
 }
+
+export const generateSlugFromrole = (title) => {
+    if (!title) return "";
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+};
+
+export const generateRandomImpression = (totalclick) => {
+    if (!totalclick) return Math.floor(Math.random() * 50) + 10;
+    return totalclick + Math.floor(Math.random() * 10);
+};
