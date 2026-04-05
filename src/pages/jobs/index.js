@@ -1,27 +1,33 @@
 import React from "react";
-import Head from "next/head";
 
-// import components
-import Footer from "@/components/common/Footer/Footer";
-import Header from "@/components/common/Header";
-import JobList from "@/widgets/JobList";
-import WhatAppBanner from "@/components/Banners/WhatsappBanner";
+import Navbar from "@/components/Redesign/Navbar";
+import FooterNew from "@/components/Redesign/FooterNew";
+import JobListRedesign from "@/widgets/JobListRedesign";
+import { MobileWhatsAppBanner } from "@/components/Redesign/SidebarNew";
 
-// Job listing page
-const Jobs = () => {
+import { getJobListing } from "@/Helpers/jobdetailshelper";
+import Meta from "../../core/SEO/Meta.jsx";
+
+export async function getStaticProps() {
+    const params = null;
+    const res = await getJobListing(params);
+
+    return {
+        props: {
+            data: res,
+        },
+        revalidate: 600,
+    };
+}
+
+const Jobs = ({ data }) => {
     return (
         <>
-            {/* TODO: new meta title and description for home page */}
-            <Head>
-                <title>Careers at Tech</title>
-                <meta name="description" content="One place solution to get regular Internship and Job Updates." />
-            </Head>
-            <Header />
-            <JobList />
-            <span className="mobileview">
-                <WhatAppBanner isModal={true} />
-            </span>
-            <Footer />
+            <Meta />
+            <Navbar />
+            <JobListRedesign jobData={data} />
+            <MobileWhatsAppBanner />
+            <FooterNew />
         </>
     );
 };

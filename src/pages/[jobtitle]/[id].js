@@ -1,17 +1,25 @@
 import React, { useEffect } from "react";
-import Head from "next/head";
-import styles from "./index.module.scss";
+import { useRouter } from "next/router";
 
-// import components
-import Header from "@/components/common/Header";
-import Jobdetails from "@/components/Jobdetails";
-import ScrolltoTop from "@/components/common/ScrolltoTop";
-import Sidebar from "@/components/Sidebar";
-import Footer from "@/components/common/Footer/Footer";
+import Navbar from "@/components/Redesign/Navbar";
+import FooterNew from "@/components/Redesign/FooterNew";
+import ScrollToTop from "@/components/Redesign/ScrollToTop";
+import JobDetailMeta from "@/core/SEO/JobDetailMeta";
+import Breadcrumb from "@/components/Redesign/JobDetail/Breadcrumb";
+import JobHeader from "@/components/Redesign/JobDetail/JobHeader";
+import ContentCard from "@/components/Redesign/JobDetail/ContentCard";
+import SkillTags from "@/components/Redesign/JobDetail/SkillTags";
+import StickyApplyCard from "@/components/Redesign/JobDetail/StickyApplyCard";
+import SimilarJobsMini from "@/components/Redesign/JobDetail/SimilarJobsMini";
+import MobileStickyBar from "@/components/Redesign/JobDetail/MobileStickyBar";
+import SafetyBanner from "@/components/Redesign/JobDetail/SafetyBanner";
+import JobDetailSkeleton from "@/components/Redesign/JobDetail/JobDetailSkeleton";
+import JobNotFound from "@/components/Redesign/JobDetail/JobNotFound";
+import { WhatsAppCTA } from "@/components/Redesign/SidebarNew";
 
-import Meta from "@/core/SEO/meta";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
+import { generateSlugFromrole } from "@/Helpers/jobdetailshelper";
 
 export async function getStaticPaths() {
     // create static paths from with intial 30 pages
@@ -20,8 +28,7 @@ export async function getStaticPaths() {
     const jobdata = res?.data.filter((item) => item?.jdpage === "true");
 
     const staticPaths = jobdata?.map((item) => {
-        // TODO: Write a common function for page title
-        const titleforShare = item?.title?.replace(/[\s;]+/g, "-")?.toLowerCase();
+        const titleforShare = generateSlugFromrole(item?.title);
         return {
             params: {
                 jobtitle: titleforShare,
@@ -32,15 +39,12 @@ export async function getStaticPaths() {
 
     return {
         paths: staticPaths,
-        fallback: true, // TODO: Need to show a loader during loading of jd
+        fallback: true,
     };
 }
 
-// fetch the job details based on the query param
 export async function getStaticProps(context) {
     const res = await getJobListing([{ id: context?.params?.id }]);
-    // if job not found show 404 page
-    // TODO: Built custom 404 page UI
     if (!res && !res?.data) {
         return {
             notFound: true,
@@ -51,35 +55,114 @@ export async function getStaticProps(context) {
         props: {
             data: res?.data,
         },
-        revalidate: 500, // In seconds
+        revalidate: 600,
     };
 }
 
 const JobdetailsPage = ({ data }) => {
+    const router = useRouter();
+
     useEffect(() => {
         handleIntialPageLoad();
     }, []);
 
-    return (
-        <div>
-            <Head>
-                <link rel="canonical" href="https://careersat.tech/" />
-            </Head>
+    if (router.isFallback) {
+        return (
             <>
-                <Header />
-                <Meta jobTitle={data?.title} description={data?.jobdesc} logo={data?.imagePath} />
-                <div className={styles.jobdetailpage}>
-                    <div>
-                        <Jobdetails jobdata={data} />
-                    </div>
-                    <div className="desktopview">
-                        <Sidebar />
+                <Navbar />
+                <JobDetailSkeleton />
+                <FooterNew />
+            </>
+        );
+    }
+
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+        return (
+            <>
+                <Navbar />
+                <JobNotFound />
+                <FooterNew />
+            </>
+        );
+    }
+
+    const job = Array.isArray(data) ? data[0] : data;
+    const displayTitle = job.role && job.role !== "N" ? job.role : job.title;
+
+    return (
+        <>
+            <Navbar />
+            <JobDetailMeta data={job} />
+
+            <main id="main-content" className="bg-page min-h-screen pt-20 pb-12 lg:pb-12">
+                <div className="max-w-content mx-auto px-4 lg:px-6 py-6">
+                    <Breadcrumb companyName={job.companyName} jobTitle={displayTitle} />
+                    <JobHeader data={job} />
+
+                    {/* Two-column layout */}
+                    <div className="flex flex-col lg:flex-row gap-8 mt-8">
+                        {/* Main content */}
+                        <article className="flex-1 flex flex-col gap-4 min-w-0">
+                            <ContentCard
+                                title="About This Role"
+                                icon="📋"
+                                html={job.jobdesc}
+                            />
+                            <ContentCard
+                                title="What You'll Do"
+                                icon="🎯"
+                                html={job.responsibility}
+                            />
+                            <ContentCard
+                                title="Who Should Apply"
+                                icon="✅"
+                                html={job.eligibility}
+                            />
+                            <SkillTags
+                                title="Nice to Have"
+                                icon="⭐"
+                                html={job.skills}
+                            />
+                            <ContentCard
+                                title={`About ${job.companyName || "the Company"}`}
+                                icon="🏢"
+                                html={job.aboutCompany}
+                                fallbackText
+                                companyName={job.companyName}
+                                applyUrl={job.link}
+                            />
+
+                            {/* Similar jobs on mobile (below content) */}
+                            <div className="lg:hidden">
+                                <WhatsAppCTA />
+                                <div className="mt-4">
+                                    <SimilarJobsMini
+                                        companytype={job.companytype}
+                                        currentJobId={job._id}
+                                    />
+                                </div>
+                            </div>
+                        </article>
+
+                        {/* Sidebar — desktop only */}
+                        <aside className="hidden lg:flex flex-col gap-4 w-[320px] flex-shrink-0">
+                            <StickyApplyCard data={job} />
+                            <WhatsAppCTA />
+                            <SimilarJobsMini
+                                companytype={job.companytype}
+                                currentJobId={job._id}
+                            />
+                        </aside>
                     </div>
                 </div>
-                <Footer />
-                <ScrolltoTop />
-            </>
-        </div>
+
+                <SafetyBanner jobTitle={displayTitle} companyName={job.companyName} />
+            </main>
+
+            <FooterNew />
+            <ScrollToTop />
+            <MobileStickyBar data={job} />
+        </>
     );
 };
 
