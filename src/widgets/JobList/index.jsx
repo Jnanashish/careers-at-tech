@@ -80,13 +80,18 @@ const JobList = ({ jobData }) => {
     const getJoblistingData = async (params) => {
         setLoaderStatus(true);
         const size = 10;
-        const res = await getJobListing(params, pageno, size);
+        try {
+            const res = await getJobListing(params, pageno, size);
 
-        if (!!res && Array.isArray(res?.data)) {
-            setTotalJobCount(res?.totalCount);
+            if (!!res && Array.isArray(res?.data)) {
+                setTotalJobCount(res?.totalCount);
+                setJobdata(res?.data);
+            }
+        } catch (error) {
+            console.error("Error fetching job listing:", error);
+        } finally {
             setLoaderStatus(false);
             setShowMoreClicked(false);
-            setJobdata(res?.data);
         }
     };
 

@@ -40,7 +40,7 @@ const Pagination = (props) => {
                     </li>
                 );
             })}
-            <li className={`${styles.paginationItem} ${currentPage === lastPage ? styles.disabled : ""}`} onClick={currentPage === lastPage ? null : onNext}>
+            <li className={`${styles.paginationItem} ${currentPage === lastPage ? styles.disabled : ""}`} onClick={currentPage === lastPage ? undefined : onNext}>
                 <div className={`${styles.arrow} ${styles.right}`} />
             </li>
         </ul>
