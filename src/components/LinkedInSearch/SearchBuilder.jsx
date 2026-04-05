@@ -25,6 +25,9 @@ import {
   CURRENCIES,
 } from "./lib/linkedin-params";
 
+const inputClasses =
+  "w-full px-3 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 placeholder:text-text-tertiary";
+
 const SearchBuilder = ({ filters, dispatch }) => {
   const [showMoreFilters, setShowMoreFilters] = useState(false);
   const [customLocation, setCustomLocation] = useState("");
@@ -59,7 +62,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
             dispatch({ type: "SET_FILTER", key: "keywords", value: e.target.value })
           }
           placeholder="e.g. React Developer, Data Analyst, SDE..."
-          className="w-full px-3 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none focus:ring-1 focus:ring-linkedin-accent/20 placeholder:text-linkedin-muted/60"
+          className={inputClasses}
           aria-label="Job keywords"
         />
       </FilterSection>
@@ -89,7 +92,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
             onChange={(e) => setCustomLocation(e.target.value)}
             onKeyDown={handleCustomLocation}
             placeholder="Or type a custom location and press Enter"
-            className="w-full px-3 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none focus:ring-1 focus:ring-linkedin-accent/20 placeholder:text-linkedin-muted/60"
+            className={inputClasses}
             aria-label="Custom location"
           />
         </div>
@@ -135,12 +138,12 @@ const SearchBuilder = ({ filters, dispatch }) => {
       <button
         type="button"
         onClick={() => setShowMoreFilters(!showMoreFilters)}
-        className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium text-linkedin-accent hover:text-linkedin-accent-hover transition-colors cursor-pointer"
+        className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors cursor-pointer"
       >
         <SlidersHorizontal size={14} />
         {showMoreFilters ? "Less filters" : "More filters"}
         {hasMoreFilters && !showMoreFilters && (
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-linkedin-accent text-white text-[10px] font-bold">
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[10px] font-bold">
             {[
               filters.workMode.length,
               filters.experienceLevel.length,
@@ -261,7 +264,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                       value: e.target.value,
                     })
                   }
-                  className="px-2 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none"
+                  className="px-2 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none"
                   aria-label="Salary currency"
                 >
                   {Object.keys(CURRENCIES).map((c) => (
@@ -281,7 +284,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                     })
                   }
                   placeholder="e.g. 500000"
-                  className="flex-1 px-3 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none focus:ring-1 focus:ring-linkedin-accent/20 placeholder:text-linkedin-muted/60"
+                  className={`flex-1 ${inputClasses}`}
                   aria-label="Minimum salary"
                 />
               </div>
