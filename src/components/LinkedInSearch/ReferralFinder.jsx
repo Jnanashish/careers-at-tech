@@ -12,6 +12,9 @@ import FilterSection from "./FilterSection";
 import FilterChip from "./FilterChip";
 import { CONNECTION_DEGREE } from "./lib/linkedin-params";
 
+const inputClasses =
+  "w-full px-3 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 placeholder:text-text-tertiary";
+
 const ReferralFinder = ({ filters, dispatch }) => {
   const [showHowItWorks, setShowHowItWorks] = useState(false);
 
@@ -25,7 +28,7 @@ const ReferralFinder = ({ filters, dispatch }) => {
             dispatch({ type: "SET_FILTER", key: "company", value: e.target.value })
           }
           placeholder="e.g. Google, Microsoft, Razorpay..."
-          className="w-full px-3 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none focus:ring-1 focus:ring-linkedin-accent/20 placeholder:text-linkedin-muted/60"
+          className={inputClasses}
           aria-label="Company name"
         />
       </FilterSection>
@@ -38,7 +41,7 @@ const ReferralFinder = ({ filters, dispatch }) => {
             dispatch({ type: "SET_FILTER", key: "role", value: e.target.value })
           }
           placeholder="e.g. Software Engineer, HR, Recruiter..."
-          className="w-full px-3 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none focus:ring-1 focus:ring-linkedin-accent/20 placeholder:text-linkedin-muted/60"
+          className={inputClasses}
           aria-label="Role or title"
         />
       </FilterSection>
@@ -66,13 +69,13 @@ const ReferralFinder = ({ filters, dispatch }) => {
             dispatch({ type: "SET_FILTER", key: "location", value: e.target.value })
           }
           placeholder="e.g. Bangalore, India..."
-          className="w-full px-3 py-2 text-sm font-dm rounded-input border border-linkedin-border focus:border-linkedin-accent focus:outline-none focus:ring-1 focus:ring-linkedin-accent/20 placeholder:text-linkedin-muted/60"
+          className={inputClasses}
           aria-label="Location"
         />
       </FilterSection>
 
       {/* How Referral Finder Works */}
-      <div className="bg-white rounded-lg shadow-linkedin-card overflow-hidden">
+      <div className="bg-card rounded-card shadow-card overflow-hidden">
         <button
           type="button"
           onClick={() => setShowHowItWorks(!showHowItWorks)}
@@ -80,8 +83,8 @@ const ReferralFinder = ({ filters, dispatch }) => {
           aria-expanded={showHowItWorks}
         >
           <div className="flex items-center gap-2">
-            <Info size={16} className="text-linkedin-accent" />
-            <span className="font-dm font-semibold text-sm text-linkedin-charcoal">
+            <Info size={16} className="text-primary" />
+            <span className="font-dm font-semibold text-sm text-text-primary">
               How Referral Finder Works
             </span>
           </div>
@@ -89,7 +92,7 @@ const ReferralFinder = ({ filters, dispatch }) => {
             animate={{ rotate: showHowItWorks ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ChevronDown size={16} className="text-linkedin-muted" />
+            <ChevronDown size={16} className="text-text-tertiary" />
           </motion.div>
         </button>
 
@@ -103,17 +106,17 @@ const ReferralFinder = ({ filters, dispatch }) => {
               className="overflow-hidden"
             >
               <div className="px-4 pb-4 space-y-2">
-                <p className="text-sm font-dm text-linkedin-muted leading-relaxed">
+                <p className="text-sm font-dm text-text-secondary leading-relaxed">
                   The Referral Finder builds a LinkedIn people search URL to help you find
                   employees at a specific company who could potentially refer you.
                 </p>
-                <ol className="list-decimal list-inside text-sm font-dm text-linkedin-muted space-y-1.5 leading-relaxed">
+                <ol className="list-decimal list-inside text-sm font-dm text-text-secondary space-y-1.5 leading-relaxed">
                   <li>Enter the company name and the role you want a referral for</li>
                   <li>Select connection degree (1st degree connections are best for referrals)</li>
                   <li>Open the generated URL in LinkedIn</li>
                   <li>Reach out to people with a personalized message mentioning the role</li>
                 </ol>
-                <p className="text-xs font-dm text-linkedin-muted/70 mt-2">
+                <p className="text-xs font-dm text-text-tertiary mt-2">
                   Tip: Filter by 1st connections first — they are most likely to help.
                   If none are found, try 2nd connections and ask mutual contacts for an introduction.
                 </p>

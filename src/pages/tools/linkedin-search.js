@@ -204,117 +204,127 @@ export default function LinkedInSearchPage() {
 
       <main
         id="main-content"
-        className="min-h-screen bg-linkedin-bg pt-20 pb-28 md:pb-12"
+        className="min-h-screen bg-page pt-24 sm:pt-28 pb-28 md:pb-12"
       >
-        <div className="max-w-2xl mx-auto px-4">
-          {/* Hero */}
-          <div className="text-center mb-8">
-            <h1 className="font-serif-display text-3xl md:text-4xl text-linkedin-charcoal mb-2">
+        {/* Hero */}
+        <div className="max-w-content mx-auto px-4 lg:px-6">
+          <div className="max-w-[680px] mx-auto text-center mb-8">
+            <p className="text-caption uppercase tracking-widest text-primary font-medium mb-4">
+              Smart Search Builder
+            </p>
+            <h1 className="text-hero text-text-primary mb-4">
               LinkedIn Search Builder
             </h1>
-            <p className="font-dm text-sm text-linkedin-muted max-w-md mx-auto">
+            <p className="text-lg text-text-secondary max-w-[520px] mx-auto mb-3 leading-relaxed">
               Build the perfect LinkedIn job search URL with smart filters.
               No sign-in required.
             </p>
-            <p className="font-dm text-xs text-linkedin-muted/60 mt-1">
-              <kbd className="px-1.5 py-0.5 rounded border border-linkedin-border text-[10px] font-mono">
+            <p className="text-xs text-text-tertiary">
+              <kbd className="px-1.5 py-0.5 rounded border border-border text-[10px] font-mono">
                 {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+K
               </kbd>{" "}
               to focus search &middot;{" "}
-              <kbd className="px-1.5 py-0.5 rounded border border-linkedin-border text-[10px] font-mono">
+              <kbd className="px-1.5 py-0.5 rounded border border-border text-[10px] font-mono">
                 {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+⇧+C
               </kbd>{" "}
               to copy URL
             </p>
           </div>
+        </div>
 
-          {/* Tabs */}
-          <div className="flex bg-white rounded-lg shadow-linkedin-card p-1 mb-4">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium rounded-md transition-colors cursor-pointer ${
-                  activeTab === tab.id
-                    ? "text-linkedin-accent"
-                    : "text-linkedin-muted hover:text-linkedin-charcoal"
-                }`}
-              >
-                <tab.icon size={16} />
-                {tab.label}
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="tab-indicator"
-                    className="absolute inset-0 bg-linkedin-accent-light rounded-md -z-10"
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+        {/* Two-column layout */}
+        <div className="max-w-content mx-auto px-4 lg:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
+            {/* Left Column: Filters */}
+            <div>
+              {/* Tabs */}
+              <div className="flex bg-card rounded-card shadow-card p-1 mb-4">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium rounded-button transition-colors cursor-pointer ${
+                      activeTab === tab.id
+                        ? "text-primary"
+                        : "text-text-tertiary hover:text-text-primary"
+                    }`}
+                  >
+                    <tab.icon size={16} />
+                    {tab.label}
+                    {activeTab === tab.id && (
+                      <motion.div
+                        layoutId="tab-indicator"
+                        className="absolute inset-0 bg-primary-light rounded-button -z-10"
+                        transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* Templates (job search only) */}
+              {activeTab === "search" && (
+                <div className="mb-4">
+                  <TemplateBar
+                    templates={allTemplates}
+                    onApply={handleApplyTemplate}
+                    onSave={handleSaveTemplate}
+                    onRemove={removeTemplate}
+                    hasActiveFilters={!isEmpty}
                   />
-                )}
-              </button>
-            ))}
-          </div>
+                </div>
+              )}
 
-          {/* Templates (job search only) */}
-          {activeTab === "search" && (
-            <div className="mb-4">
-              <TemplateBar
-                templates={allTemplates}
-                onApply={handleApplyTemplate}
-                onSave={handleSaveTemplate}
-                onRemove={removeTemplate}
-                hasActiveFilters={!isEmpty}
-              />
+              {/* Active Filters */}
+              {!isEmpty && (
+                <div className="mb-4">
+                  <ActiveFiltersBar
+                    filters={filters}
+                    tab={activeTab}
+                    onRemoveFilter={(key, value) =>
+                      dispatch({ type: "REMOVE_FILTER", key, value })
+                    }
+                    onClearAll={() => dispatch({ type: "CLEAR_ALL" })}
+                  />
+                </div>
+              )}
+
+              {/* Filter Content */}
+              {activeTab === "search" ? (
+                <SearchBuilder filters={jobFilters} dispatch={jobDispatch} />
+              ) : (
+                <ReferralFinder filters={referralFilters} dispatch={referralDispatch} />
+              )}
             </div>
-          )}
 
-          {/* Active Filters */}
-          {!isEmpty && (
-            <div className="mb-4">
-              <ActiveFiltersBar
-                filters={filters}
-                tab={activeTab}
-                onRemoveFilter={(key, value) =>
-                  dispatch({ type: "REMOVE_FILTER", key, value })
-                }
-                onClearAll={() => dispatch({ type: "CLEAR_ALL" })}
-              />
+            {/* Right Column: Sidebar (sticky) */}
+            <div className="lg:sticky lg:top-20 lg:self-start space-y-4">
+              {/* Summary */}
+              <HumanReadableSummary filters={filters} tab={activeTab} />
+
+              {/* URL Preview */}
+              <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
+
+              {/* Cross-link to CareersAt.Tech jobs */}
+              <div className="p-5 bg-card rounded-card shadow-card text-center">
+                <p className="text-sm text-text-secondary mb-2">
+                  Also check CareersAt.Tech for verified listings matching your search
+                </p>
+                <Link
+                  href="/jobs"
+                  className="inline-flex items-center gap-1.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors"
+                >
+                  Browse jobs on CareersAt.Tech <ArrowRight size={14} />
+                </Link>
+              </div>
+
+              {/* Disclaimer */}
+              <p className="text-center text-xs font-dm text-text-tertiary">
+                Not affiliated with LinkedIn Corporation. This tool generates URLs only — no data is collected or sent to any server.
+              </p>
             </div>
-          )}
-
-          {/* Filter Content */}
-          {activeTab === "search" ? (
-            <SearchBuilder filters={jobFilters} dispatch={jobDispatch} />
-          ) : (
-            <ReferralFinder filters={referralFilters} dispatch={referralDispatch} />
-          )}
-
-          {/* Summary */}
-          <div className="mt-4">
-            <HumanReadableSummary filters={filters} tab={activeTab} />
           </div>
-
-          {/* URL Preview */}
-          <div className="mt-4">
-            <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
-          </div>
-
-          {/* Cross-link to CareersAt.Tech jobs */}
-          <div className="mt-6 p-4 bg-white rounded-lg shadow-linkedin-card text-center">
-            <p className="font-dm text-sm text-linkedin-muted mb-2">
-              Also check CareersAt.Tech for verified listings matching your search
-            </p>
-            <Link
-              href="/jobs"
-              className="inline-flex items-center gap-1.5 text-sm font-dm font-medium text-linkedin-accent hover:text-linkedin-accent-hover transition-colors"
-            >
-              Browse jobs on CareersAt.Tech <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          {/* Disclaimer */}
-          <p className="mt-6 text-center text-xs font-dm text-linkedin-muted/50">
-            Not affiliated with LinkedIn Corporation. This tool generates URLs only — no data is collected or sent to any server.
-          </p>
         </div>
       </main>
 
@@ -322,4 +332,3 @@ export default function LinkedInSearchPage() {
     </>
   );
 }
-

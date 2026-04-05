@@ -10,7 +10,7 @@ const HumanReadableSummary = ({ filters, tab }) => {
   const rendered = parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="text-linkedin-charcoal font-semibold">
+        <strong key={i} className="text-text-primary font-semibold">
           {part.slice(2, -2)}
         </strong>
       );
@@ -19,8 +19,8 @@ const HumanReadableSummary = ({ filters, tab }) => {
   });
 
   return (
-    <div className="px-4 py-3 bg-linkedin-accent-light rounded-lg border border-linkedin-accent/10">
-      <p className="font-dm text-sm text-linkedin-muted leading-relaxed">
+    <div className="px-4 py-3 bg-primary-light rounded-card border border-primary/10">
+      <p className="font-dm text-sm text-text-secondary leading-relaxed">
         {rendered}
       </p>
     </div>

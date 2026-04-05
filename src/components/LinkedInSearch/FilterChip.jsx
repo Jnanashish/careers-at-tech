@@ -16,8 +16,8 @@ const FilterChip = ({ label, selected, onClick, size = "md" }) => {
         ${sizeClasses}
         ${
           selected
-            ? "bg-linkedin-accent text-white shadow-sm"
-            : "bg-white border border-linkedin-border text-linkedin-charcoal hover:border-linkedin-accent hover:text-linkedin-accent"
+            ? "bg-primary text-white shadow-sm"
+            : "bg-card border border-border text-text-primary hover:border-primary hover:text-primary"
         }
       `}
       aria-pressed={selected}

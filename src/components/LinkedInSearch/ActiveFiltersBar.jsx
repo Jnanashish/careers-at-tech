@@ -85,7 +85,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
 
   return (
     <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-      <span className="text-xs font-dm text-linkedin-muted whitespace-nowrap flex-shrink-0">
+      <span className="text-xs font-dm text-text-tertiary whitespace-nowrap flex-shrink-0">
         Active filters:
       </span>
       <AnimatePresence mode="popLayout">
@@ -97,13 +97,13 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.15 }}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-dm font-medium bg-linkedin-accent-light text-linkedin-accent whitespace-nowrap flex-shrink-0"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-dm font-medium bg-primary-light text-primary whitespace-nowrap flex-shrink-0"
           >
             {chip.label}
             <button
               type="button"
               onClick={() => onRemoveFilter(chip.key, chip.value)}
-              className="ml-0.5 hover:text-linkedin-accent-hover cursor-pointer"
+              className="ml-0.5 hover:text-primary-hover cursor-pointer"
               aria-label={`Remove ${chip.label} filter`}
             >
               <X size={12} />
@@ -114,7 +114,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
       <button
         type="button"
         onClick={onClearAll}
-        className="text-xs font-dm text-linkedin-muted hover:text-linkedin-accent whitespace-nowrap flex-shrink-0 cursor-pointer"
+        className="text-xs font-dm text-text-tertiary hover:text-primary whitespace-nowrap flex-shrink-0 cursor-pointer"
       >
         Clear all
       </button>
