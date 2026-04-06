@@ -25,8 +25,10 @@ import {
   CURRENCIES,
 } from "./lib/linkedin-params";
 
+// Design system section 8: Height 44px, Padding 12px 16px, Font 16px, Border 1px #E5E7EB
+// Focus: border-color #2563EB + ring 0 0 0 3px rgba(37,99,235,0.15)
 const inputClasses =
-  "w-full px-3 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 placeholder:text-text-tertiary";
+  "w-full h-11 px-4 py-3 text-base rounded-button border border-border bg-white text-text-primary focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15 placeholder:text-text-tertiary transition-all duration-200";
 
 const SearchBuilder = ({ filters, dispatch }) => {
   const [showMoreFilters, setShowMoreFilters] = useState(false);
@@ -51,7 +53,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
     filters.minSalary;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {/* Tier 1: Always visible */}
       <FilterSection title="Keywords" icon={Search} defaultOpen={true}>
         <input
@@ -68,8 +70,8 @@ const SearchBuilder = ({ filters, dispatch }) => {
       </FilterSection>
 
       <FilterSection title="Location" icon={MapPin} defaultOpen={true}>
-        <div className="space-y-2">
-          <div className="flex flex-wrap gap-1.5">
+        <div className="space-y-3">
+          <div className="flex flex-wrap gap-2">
             {INDIAN_LOCATIONS.map((loc) => (
               <FilterChip
                 key={loc}
@@ -99,7 +101,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
       </FilterSection>
 
       <FilterSection title="Time Posted" icon={Clock} defaultOpen={true}>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {Object.entries(TIME_POSTED).map(([label, value]) => (
             <FilterChip
               key={value}
@@ -119,7 +121,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
       </FilterSection>
 
       <FilterSection title="Job Type" icon={Briefcase} defaultOpen={true}>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {Object.entries(JOB_TYPE).map(([label, value]) => (
             <FilterChip
               key={value}
@@ -138,9 +140,9 @@ const SearchBuilder = ({ filters, dispatch }) => {
       <button
         type="button"
         onClick={() => setShowMoreFilters(!showMoreFilters)}
-        className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors cursor-pointer"
+        className="w-full flex items-center justify-center gap-2 h-11 text-sm font-medium text-primary hover:text-primary-hover transition-colors duration-150 cursor-pointer"
       >
-        <SlidersHorizontal size={14} />
+        <SlidersHorizontal size={16} />
         {showMoreFilters ? "Less filters" : "More filters"}
         {hasMoreFilters && !showMoreFilters && (
           <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[10px] font-bold">
@@ -162,10 +164,10 @@ const SearchBuilder = ({ filters, dispatch }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden space-y-3"
+            className="overflow-hidden space-y-4"
           >
             <FilterSection title="Work Mode" icon={Building2} tier={2} defaultOpen={true}>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {Object.entries(WORK_MODE).map(([label, value]) => (
                   <FilterChip
                     key={value}
@@ -181,8 +183,8 @@ const SearchBuilder = ({ filters, dispatch }) => {
             </FilterSection>
 
             <FilterSection title="Experience Level" icon={GraduationCap} tier={2} defaultOpen={true}>
-              <div className="space-y-2">
-                <div className="flex flex-wrap gap-1.5">
+              <div className="space-y-3">
+                <div className="flex flex-wrap gap-2">
                   {Object.entries(EXPERIENCE_LEVEL_PRIMARY).map(([label, value]) => (
                     <FilterChip
                       key={value}
@@ -199,7 +201,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                     />
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-1.5 opacity-70">
+                <div className="flex flex-wrap gap-2 opacity-70">
                   {Object.entries(EXPERIENCE_LEVEL_SECONDARY).map(([label, value]) => (
                     <FilterChip
                       key={value}
@@ -220,7 +222,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
             </FilterSection>
 
             <FilterSection title="Sort By" icon={ArrowUpDown} tier={2} defaultOpen={true}>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {Object.entries(SORT_BY).map(([label, value]) => (
                   <FilterChip
                     key={value}
@@ -254,7 +256,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
             </FilterSection>
 
             <FilterSection title="Minimum Salary" icon={IndianRupee} tier={2} defaultOpen={true}>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <select
                   value={filters.salaryCurrency}
                   onChange={(e) =>
@@ -264,7 +266,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                       value: e.target.value,
                     })
                   }
-                  className="px-2 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none"
+                  className="h-11 px-3 py-3 text-base rounded-button border border-border bg-white text-text-primary focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15 transition-all duration-200"
                   aria-label="Salary currency"
                 >
                   {Object.keys(CURRENCIES).map((c) => (

@@ -18,9 +18,10 @@ const HumanReadableSummary = ({ filters, tab }) => {
     return <span key={i}>{part}</span>;
   });
 
+  // Design system 9.2 CTA card variant: bg primary-light with subtle border
   return (
-    <div className="px-4 py-3 bg-primary-light rounded-card border border-primary/10">
-      <p className="font-dm text-sm text-text-secondary leading-relaxed">
+    <div className="px-6 py-4 bg-primary-light rounded-lg border border-primary/10">
+      <p className="text-sm text-text-secondary leading-relaxed">
         {rendered}
       </p>
     </div>

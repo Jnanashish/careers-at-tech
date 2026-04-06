@@ -202,20 +202,21 @@ export default function LinkedInSearchPage() {
 
       <Navbar />
 
+      {/* Design system: bg-page (#F9FAFB), pt-24/28 for navbar clearance */}
       <main
         id="main-content"
-        className="min-h-screen bg-page pt-24 sm:pt-28 pb-28 md:pb-12"
+        className="min-h-screen bg-page pt-24 sm:pt-28 pb-28 md:pb-16"
       >
-        {/* Hero */}
-        <div className="max-w-content mx-auto px-4 lg:px-6">
-          <div className="max-w-[680px] mx-auto text-center mb-8">
+        {/* Hero — Design system 17.1: headline + description, centered, max-w-680 */}
+        <section className="max-w-content mx-auto px-4 lg:px-6 mb-8 lg:mb-12">
+          <div className="max-w-[680px] mx-auto text-center">
             <p className="text-caption uppercase tracking-widest text-primary font-medium mb-4">
               Smart Search Builder
             </p>
             <h1 className="text-hero text-text-primary mb-4">
               LinkedIn Search Builder
             </h1>
-            <p className="text-lg text-text-secondary max-w-[520px] mx-auto mb-3 leading-relaxed">
+            <p className="text-lg text-text-secondary max-w-[520px] mx-auto mb-4 leading-relaxed">
               Build the perfect LinkedIn job search URL with smart filters.
               No sign-in required.
             </p>
@@ -230,21 +231,21 @@ export default function LinkedInSearchPage() {
               to copy URL
             </p>
           </div>
-        </div>
+        </section>
 
-        {/* Two-column layout */}
+        {/* Two-column layout — Design system 17.2: Main content (left) + Sticky sidebar (right) */}
         <div className="max-w-content mx-auto px-4 lg:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 lg:gap-8">
             {/* Left Column: Filters */}
             <div>
-              {/* Tabs */}
-              <div className="flex bg-card rounded-card shadow-card p-1 mb-4">
+              {/* Tabs — Design system: card surface, 12px radius, shadow */}
+              <div className="flex bg-white rounded-lg shadow-card p-1.5 mb-6">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium rounded-button transition-colors cursor-pointer ${
+                    className={`relative flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium rounded-button transition-all duration-200 cursor-pointer min-h-[44px] ${
                       activeTab === tab.id
                         ? "text-primary"
                         : "text-text-tertiary hover:text-text-primary"
@@ -265,7 +266,7 @@ export default function LinkedInSearchPage() {
 
               {/* Templates (job search only) */}
               {activeTab === "search" && (
-                <div className="mb-4">
+                <div className="mb-6">
                   <TemplateBar
                     templates={allTemplates}
                     onApply={handleApplyTemplate}
@@ -278,7 +279,7 @@ export default function LinkedInSearchPage() {
 
               {/* Active Filters */}
               {!isEmpty && (
-                <div className="mb-4">
+                <div className="mb-6">
                   <ActiveFiltersBar
                     filters={filters}
                     tab={activeTab}
@@ -298,32 +299,32 @@ export default function LinkedInSearchPage() {
               )}
             </div>
 
-            {/* Right Column: Sidebar (sticky) */}
-            <div className="lg:sticky lg:top-20 lg:self-start space-y-4">
+            {/* Right Column: Sticky sidebar — Design system 12: visible only on lg+ */}
+            <aside className="lg:sticky lg:top-20 lg:self-start space-y-6">
               {/* Summary */}
               <HumanReadableSummary filters={filters} tab={activeTab} />
 
               {/* URL Preview */}
               <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
 
-              {/* Cross-link to CareersAt.Tech jobs */}
-              <div className="p-5 bg-card rounded-card shadow-card text-center">
-                <p className="text-sm text-text-secondary mb-2">
+              {/* Cross-link CTA card — Design system 9.2 CTA card variant */}
+              <div className="p-6 bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-200 text-center">
+                <p className="text-sm text-text-secondary mb-3">
                   Also check CareersAt.Tech for verified listings matching your search
                 </p>
                 <Link
                   href="/jobs"
-                  className="inline-flex items-center gap-1.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-hover transition-colors duration-150"
                 >
                   Browse jobs on CareersAt.Tech <ArrowRight size={14} />
                 </Link>
               </div>
 
               {/* Disclaimer */}
-              <p className="text-center text-xs font-dm text-text-tertiary">
+              <p className="text-center text-xs text-text-tertiary leading-relaxed">
                 Not affiliated with LinkedIn Corporation. This tool generates URLs only — no data is collected or sent to any server.
               </p>
-            </div>
+            </aside>
           </div>
         </div>
       </main>

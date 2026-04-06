@@ -23,18 +23,18 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-dm font-medium text-text-tertiary uppercase tracking-wider">
+        <span className="text-caption uppercase tracking-widest text-text-tertiary font-medium">
           Quick Templates
         </span>
         {hasActiveFilters && !showSaveInput && (
           <button
             type="button"
             onClick={() => setShowSaveInput(true)}
-            className="inline-flex items-center gap-1 text-xs font-dm text-primary hover:text-primary-hover cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-hover cursor-pointer transition-colors duration-150"
           >
-            <Plus size={12} /> Save current
+            <Plus size={14} /> Save current
           </button>
         )}
       </div>
@@ -47,13 +47,13 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
             onChange={(e) => setTemplateName(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Template name..."
-            className="flex-1 px-3 py-1.5 text-sm font-dm rounded-button border border-border focus:border-primary focus:outline-none"
+            className="flex-1 h-11 px-4 py-3 text-base rounded-button border border-border bg-white text-text-primary focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15 placeholder:text-text-tertiary transition-all duration-200"
             autoFocus
           />
           <button
             type="button"
             onClick={handleSave}
-            className="p-1.5 rounded-button text-primary hover:bg-primary-light cursor-pointer"
+            className="p-2.5 rounded-button text-primary hover:bg-primary-light cursor-pointer transition-colors duration-150 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Save template"
           >
             <Check size={16} />
@@ -64,7 +64,7 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
               setShowSaveInput(false);
               setTemplateName("");
             }}
-            className="p-1.5 rounded-button text-text-tertiary hover:text-text-primary cursor-pointer"
+            className="p-2.5 rounded-button text-text-tertiary hover:text-text-primary cursor-pointer transition-colors duration-150 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Cancel"
           >
             <X size={16} />
@@ -77,11 +77,11 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
           <motion.button
             key={template.id}
             type="button"
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => onApply(template)}
-            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-card text-xs font-dm font-medium bg-card border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer"
+            className="relative group flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-white border border-border text-text-secondary hover:border-primary hover:text-primary shadow-sm hover:shadow-card transition-all duration-200 cursor-pointer min-h-[44px]"
           >
-            <Bookmark size={12} />
+            <Bookmark size={14} />
             {template.name}
             {!template.isBuiltIn && onRemove && (
               <span
@@ -100,7 +100,7 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
                 className="hidden group-hover:inline-flex ml-1 text-text-tertiary hover:text-red-500"
                 aria-label={`Delete ${template.name}`}
               >
-                <X size={12} />
+                <X size={14} />
               </span>
             )}
           </motion.button>

@@ -83,9 +83,10 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
 
   if (!chips.length) return null;
 
+  // Design system 10.1: Badges — 4px 12px padding, 12px/500 font, fully rounded, 8px gap
   return (
     <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-      <span className="text-xs font-dm text-text-tertiary whitespace-nowrap flex-shrink-0">
+      <span className="text-caption text-text-tertiary whitespace-nowrap flex-shrink-0">
         Active filters:
       </span>
       <AnimatePresence mode="popLayout">
@@ -97,7 +98,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.15 }}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-dm font-medium bg-primary-light text-primary whitespace-nowrap flex-shrink-0"
+            className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-caption font-medium bg-primary-light text-primary whitespace-nowrap flex-shrink-0"
           >
             {chip.label}
             <button
@@ -114,7 +115,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
       <button
         type="button"
         onClick={onClearAll}
-        className="text-xs font-dm text-text-tertiary hover:text-primary whitespace-nowrap flex-shrink-0 cursor-pointer"
+        className="text-caption text-text-tertiary hover:text-primary whitespace-nowrap flex-shrink-0 cursor-pointer transition-colors duration-150"
       >
         Clear all
       </button>

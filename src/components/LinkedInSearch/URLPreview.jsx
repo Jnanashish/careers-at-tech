@@ -67,9 +67,9 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
 
   if (isEmpty) {
     return (
-      <div className="bg-card rounded-card shadow-card p-6 text-center">
-        <Search size={32} className="mx-auto text-text-tertiary mb-3" />
-        <p className="font-dm text-sm text-text-secondary">
+      <div className="bg-white rounded-lg shadow-card p-8 text-center">
+        <Search size={48} className="mx-auto text-text-tertiary mb-4" />
+        <p className="text-sm text-text-secondary">
           Start by typing a job title or pick a template above
         </p>
       </div>
@@ -79,26 +79,27 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
   return (
     <>
       {/* Desktop URL preview */}
-      <div className="hidden md:block bg-card rounded-card shadow-card overflow-hidden">
-        <div className="px-4 py-3 border-b border-border">
-          <span className="text-xs font-dm font-medium text-text-tertiary uppercase tracking-wider">
+      <div className="hidden md:block bg-white rounded-lg shadow-card overflow-hidden">
+        <div className="px-6 py-4 border-b border-border">
+          <span className="text-caption uppercase tracking-widest text-text-tertiary font-medium">
             Generated URL
           </span>
         </div>
-        <div className="p-4">
+        <div className="p-6">
           <motion.div
             key={url}
             initial={{ opacity: 0.6 }}
             animate={{ opacity: 1 }}
-            className="font-mono text-xs leading-relaxed p-3 bg-page rounded-lg border border-border"
+            className="font-mono text-xs leading-relaxed p-4 bg-page rounded-lg border border-border"
           >
             {renderColoredURL(url)}
           </motion.div>
-          <div className="flex flex-wrap items-center gap-2 mt-3">
+          <div className="flex flex-wrap items-center gap-3 mt-4">
+            {/* Design system 7.1: Primary button — bg #2563EB, text white, 12px 20px padding, 14px/500 */}
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium bg-primary text-white hover:bg-primary-hover transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-button text-sm font-medium bg-primary text-white hover:bg-primary-hover shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer min-h-[44px]"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {copied ? (
@@ -107,9 +108,9 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="inline-flex items-center gap-1.5"
+                    className="inline-flex items-center gap-2"
                   >
-                    <Check size={14} /> Copied!
+                    <Check size={16} /> Copied!
                   </motion.span>
                 ) : (
                   <motion.span
@@ -117,27 +118,28 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="inline-flex items-center gap-1.5"
+                    className="inline-flex items-center gap-2"
                   >
-                    <Copy size={14} /> Copy URL
+                    <Copy size={16} /> Copy URL
                   </motion.span>
                 )}
               </AnimatePresence>
             </button>
+            {/* Design system 7.1: Ghost button — transparent bg, text #2563EB, border #2563EB */}
             <button
               type="button"
               onClick={handleOpen}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-button text-sm font-medium border border-primary text-primary hover:bg-primary-light transition-all duration-200 cursor-pointer min-h-[44px]"
             >
-              <ExternalLink size={14} /> Open in LinkedIn
+              <ExternalLink size={16} /> Open in LinkedIn
             </button>
             {onShare && (
               <button
                 type="button"
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-button text-sm font-medium border border-border text-text-secondary hover:border-primary hover:text-primary transition-all duration-200 cursor-pointer min-h-[44px]"
               >
-                <Share2 size={14} />
+                <Share2 size={16} />
                 {copiedShare ? "Link copied!" : "Share"}
               </button>
             )}
@@ -145,30 +147,30 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
         </div>
       </div>
 
-      {/* Mobile sticky bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-card border-t border-border p-3 z-40 shadow-lg">
-        <div className="flex gap-2">
+      {/* Mobile sticky bottom bar — Design system 10.6: height 72px, shadow-top, z-40 */}
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-border p-4 z-40" style={{ boxShadow: '0 -4px 12px rgba(0,0,0,0.08)' }}>
+        <div className="flex gap-3">
           <button
             type="button"
             onClick={handleCopy}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-button text-sm font-dm font-medium bg-primary text-white cursor-pointer"
+            className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-button text-sm font-medium bg-primary text-white min-h-[44px] cursor-pointer"
           >
             {copied ? (
               <>
-                <Check size={14} /> Copied!
+                <Check size={16} /> Copied!
               </>
             ) : (
               <>
-                <Copy size={14} /> Copy URL
+                <Copy size={16} /> Copy URL
               </>
             )}
           </button>
           <button
             type="button"
             onClick={handleOpen}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-button text-sm font-dm font-medium border border-border text-text-primary cursor-pointer"
+            className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-button text-sm font-medium border border-primary text-primary min-h-[44px] cursor-pointer"
           >
-            <ExternalLink size={14} /> Open
+            <ExternalLink size={16} /> Open
           </button>
         </div>
       </div>

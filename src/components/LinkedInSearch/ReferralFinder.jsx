@@ -12,14 +12,15 @@ import FilterSection from "./FilterSection";
 import FilterChip from "./FilterChip";
 import { CONNECTION_DEGREE } from "./lib/linkedin-params";
 
+// Design system section 8: Height 44px, Padding 12px 16px, Font 16px
 const inputClasses =
-  "w-full px-3 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 placeholder:text-text-tertiary";
+  "w-full h-11 px-4 py-3 text-base rounded-button border border-border bg-white text-text-primary focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15 placeholder:text-text-tertiary transition-all duration-200";
 
 const ReferralFinder = ({ filters, dispatch }) => {
   const [showHowItWorks, setShowHowItWorks] = useState(false);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <FilterSection title="Company" icon={Building2} defaultOpen={true}>
         <input
           type="text"
@@ -47,7 +48,7 @@ const ReferralFinder = ({ filters, dispatch }) => {
       </FilterSection>
 
       <FilterSection title="Connection Degree" icon={Users} defaultOpen={true}>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {Object.entries(CONNECTION_DEGREE).map(([label, value]) => (
             <FilterChip
               key={value}
@@ -75,16 +76,16 @@ const ReferralFinder = ({ filters, dispatch }) => {
       </FilterSection>
 
       {/* How Referral Finder Works */}
-      <div className="bg-card rounded-card shadow-card overflow-hidden">
+      <div className="bg-white rounded-lg shadow-card overflow-hidden">
         <button
           type="button"
           onClick={() => setShowHowItWorks(!showHowItWorks)}
-          className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer"
+          className="w-full flex items-center justify-between px-6 py-4 text-left cursor-pointer"
           aria-expanded={showHowItWorks}
         >
           <div className="flex items-center gap-2">
             <Info size={16} className="text-primary" />
-            <span className="font-dm font-semibold text-sm text-text-primary">
+            <span className="font-semibold text-sm text-text-primary">
               How Referral Finder Works
             </span>
           </div>
@@ -105,18 +106,18 @@ const ReferralFinder = ({ filters, dispatch }) => {
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <div className="px-4 pb-4 space-y-2">
-                <p className="text-sm font-dm text-text-secondary leading-relaxed">
+              <div className="px-6 pb-6 space-y-3">
+                <p className="text-sm text-text-secondary leading-relaxed">
                   The Referral Finder builds a LinkedIn people search URL to help you find
                   employees at a specific company who could potentially refer you.
                 </p>
-                <ol className="list-decimal list-inside text-sm font-dm text-text-secondary space-y-1.5 leading-relaxed">
+                <ol className="list-decimal list-inside text-sm text-text-secondary space-y-2 leading-relaxed">
                   <li>Enter the company name and the role you want a referral for</li>
                   <li>Select connection degree (1st degree connections are best for referrals)</li>
                   <li>Open the generated URL in LinkedIn</li>
                   <li>Reach out to people with a personalized message mentioning the role</li>
                 </ol>
-                <p className="text-xs font-dm text-text-tertiary mt-2">
+                <p className="text-xs text-text-tertiary mt-2">
                   Tip: Filter by 1st connections first — they are most likely to help.
                   If none are found, try 2nd connections and ask mutual contacts for an introduction.
                 </p>
