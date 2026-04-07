@@ -26,6 +26,13 @@ const JobList = ({ jobData }) => {
     const abortControllerRef = useRef(null);
 
     const router = useRouter();
+
+    // abort any in-flight request when component unmounts
+    useEffect(() => {
+        return () => {
+            abortControllerRef.current?.abort();
+        };
+    }, []);
     const paramsToCheck = ["batch", "year", "companyname", "degree", "jobtype", "query", "location"];
 
     // [PARAM] add new key value in params array state or update existing value
