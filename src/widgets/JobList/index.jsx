@@ -40,9 +40,9 @@ const JobList = ({ jobData }) => {
         // if value is empty then remove the param from list
         if (!value || value === "") {
             setParams((prevParams) => {
-                if (!prevParams) return null;
+                if (!prevParams) return [];
                 const filtered = prevParams.filter((param) => Object.keys(param)[0] !== key);
-                return filtered.length > 0 ? filtered : null;
+                return filtered;
             });
             return;
         }
@@ -168,13 +168,23 @@ const JobList = ({ jobData }) => {
     useEffect(() => {
         if (params !== null) {
             getJoblistingData(params);
-            updateSearchparaminUrl(params);
+            if (params.length > 0) {
+                updateSearchparaminUrl(params);
+            } else {
+                // clear query string when all filters are removed
+                window.history.replaceState({}, "", window.location.pathname);
+            }
         }
     }, [params]);
 
     // restore params from URL on initial page load (supports bookmarked/shared URLs)
+    // skip if no URL params exist to preserve SSR-hydrated data and avoid a redundant fetch
     useEffect(() => {
-        checkParameterinUrl();
+        const searchParams = new URLSearchParams(window.location.search);
+        const hasUrlParams = paramsToCheck.some((key) => searchParams.has(key));
+        if (hasUrlParams) {
+            checkParameterinUrl();
+        }
     }, []);
 
     // detect any change in url and check if any query parama present in url
