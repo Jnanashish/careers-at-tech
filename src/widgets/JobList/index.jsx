@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 
 import styles from "./joblist.module.scss";
@@ -23,16 +23,27 @@ const JobList = ({ jobData }) => {
     const [totalJobCount, setTotalJobCount] = useState(jobData?.totalCount);
     const [loaderStatus, setLoaderStatus] = useState(false);
     const [showMoreClicked, setShowMoreClicked] = useState(false);
+    const abortControllerRef = useRef(null);
 
     const router = useRouter();
+
+    // abort any in-flight request when component unmounts
+    useEffect(() => {
+        return () => {
+            abortControllerRef.current?.abort();
+        };
+    }, []);
     const paramsToCheck = ["batch", "year", "companyname", "degree", "jobtype", "query", "location"];
 
     // [PARAM] add new key value in params array state or update existing value
     const updateParam = (key, value) => {
         // if value is empty then remove the param from list
         if (!value || value === "") {
-            const tempParams = params.filter((param) => Object.keys(param)[0] !== key);
-            setParams(tempParams);
+            setParams((prevParams) => {
+                if (!prevParams) return [];
+                const filtered = prevParams.filter((param) => Object.keys(param)[0] !== key);
+                return filtered;
+            });
             return;
         }
         setParams((prevParam) => {
@@ -78,20 +89,30 @@ const JobList = ({ jobData }) => {
 
     // [JOB DATA API] call job listing data (send params as parameter)
     const getJoblistingData = async (params) => {
+        // abort any in-flight request to prevent stale data from overwriting newer results
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         setLoaderStatus(true);
         const size = 10;
         try {
-            const res = await getJobListing(params, pageno, size);
+            const res = await getJobListing(params, pageno, size, controller.signal);
 
             if (!!res && Array.isArray(res?.data)) {
                 setTotalJobCount(res?.totalCount);
                 setJobdata(res?.data);
             }
         } catch (error) {
+            if (error.name === "AbortError") return;
             console.error("Error fetching job listing:", error);
         } finally {
-            setLoaderStatus(false);
-            setShowMoreClicked(false);
+            if (!controller.signal.aborted) {
+                setLoaderStatus(false);
+                setShowMoreClicked(false);
+            }
         }
     };
 
@@ -147,9 +168,24 @@ const JobList = ({ jobData }) => {
     useEffect(() => {
         if (params !== null) {
             getJoblistingData(params);
-            updateSearchparaminUrl(params);
+            if (params.length > 0) {
+                updateSearchparaminUrl(params);
+            } else {
+                // clear query string when all filters are removed
+                window.history.replaceState({}, "", window.location.pathname);
+            }
         }
     }, [params]);
+
+    // restore params from URL on initial page load (supports bookmarked/shared URLs)
+    // skip if no URL params exist to preserve SSR-hydrated data and avoid a redundant fetch
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const hasUrlParams = paramsToCheck.some((key) => searchParams.has(key));
+        if (hasUrlParams) {
+            checkParameterinUrl();
+        }
+    }, []);
 
     // detect any change in url and check if any query parama present in url
     useEffect(() => {

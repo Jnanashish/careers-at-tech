@@ -14,10 +14,10 @@ const NavHeader = (props) => {
     const [searchedquery, setSearchedquery] = useState("");
     const [selecterParam, setSelectedParam] = useState(null)
 
-    // whern user pressed enter in search bar
+    // when user pressed enter in search bar
     const handleEnterClick = (e) => {
         if (e.key === "Enter") {
-            handleFilterChange("query", searchedquery);
+            handleFilterChange("query", searchedquery.trim());
         }
     };
 
@@ -56,11 +56,11 @@ const NavHeader = (props) => {
                         onKeyDown={(e) => handleEnterClick(e)}
                     />
 
-                    <div onClick={() => handleFilterChange("query", "")} className={styles.searchsection_cancelbutton}>
+                    <div onClick={() => { setSearchedquery(""); handleFilterChange("query", ""); }} className={styles.searchsection_cancelbutton}>
                         <FontAwesomeIcon style={searchedquery?.length === 0 ? { color: "#FFF" } : {}} className={styles.icon} icon={faXmark} />
                     </div>
 
-                    <div onClick={() => props?.handleFilterChange("query", searchedquery)} className={styles.searchsection_searchbutton}>
+                    <div onClick={() => props?.handleFilterChange("query", searchedquery.trim())} className={styles.searchsection_searchbutton}>
                         <FontAwesomeIcon className={styles.icon} icon={faSearch} />
                     </div>
                 </div>

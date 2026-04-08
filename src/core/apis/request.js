@@ -14,9 +14,10 @@ export const postHelper = async (url, formData) => {
 };
 
 // axios get call
-export const getHelper = async (url) => {
+export const getHelper = async (url, signal) => {
     const res = await fetch(`${API}${url}`, {
         method: "GET",
+        signal,
     });
 
     if (res.status === 201 || res.status === 200) {
