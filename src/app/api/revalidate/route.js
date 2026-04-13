@@ -6,7 +6,15 @@ export async function POST(request) {
     const body = await request.json();
     const { secret, slug } = body;
 
-    if (secret !== process.env.REVALIDATION_SECRET) {
+    const expectedSecret = process.env.REVALIDATION_SECRET;
+    if (!expectedSecret) {
+      return NextResponse.json(
+        { message: "Server misconfigured: REVALIDATION_SECRET not set" },
+        { status: 500 }
+      );
+    }
+
+    if (secret !== expectedSecret) {
       return NextResponse.json(
         { message: "Invalid secret" },
         { status: 401 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 const Breadcrumbs = ({ items }) => {
+  if (!items?.length) return null;
+
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
       <ol className="flex items-center flex-wrap gap-1 text-sm text-[#697586]">

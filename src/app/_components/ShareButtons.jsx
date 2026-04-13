@@ -21,14 +21,20 @@ const ShareButtons = ({ url, title }) => {
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback for older browsers
-      const input = document.createElement("input");
-      input.value = url;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand("copy");
-      document.body.removeChild(input);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        const input = document.createElement("input");
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        const success = document.execCommand("copy");
+        document.body.removeChild(input);
+        if (success) {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
+      } catch {
+        // Copy failed silently
+      }
     }
   };
 

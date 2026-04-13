@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,10 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 const BlogSearchBar = ({ initialQuery = "" }) => {
   const [query, setQuery] = useState(initialQuery);
   const router = useRouter();
+
+  useEffect(() => {
+    setQuery(initialQuery || "");
+  }, [initialQuery]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

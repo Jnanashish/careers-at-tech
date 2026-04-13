@@ -21,10 +21,10 @@ export async function GET() {
       (post) => `
     <item>
       <title>${escapeXml(post.title)}</title>
-      <link>${SITE_URL}/blog/${post.slug}</link>
-      <guid isPermaLink="true">${SITE_URL}/blog/${post.slug}</guid>
+      <link>${SITE_URL}/blog/${encodeURIComponent(post.slug)}</link>
+      <guid isPermaLink="true">${SITE_URL}/blog/${encodeURIComponent(post.slug)}</guid>
       <description>${escapeXml(post.excerpt)}</description>
-      <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>
+      <pubDate>${post.publishedAt ? new Date(post.publishedAt).toUTCString() : new Date().toUTCString()}</pubDate>
       ${post.category ? `<category>${escapeXml(post.category.name)}</category>` : ""}
       ${post.author ? `<dc:creator>${escapeXml(post.author.name)}</dc:creator>` : ""}
     </item>`

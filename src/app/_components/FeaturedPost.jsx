@@ -4,11 +4,14 @@ import Link from "next/link";
 const FeaturedPost = ({ post }) => {
   if (!post) return null;
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const date = new Date(post.publishedAt);
+  const formattedDate = !isNaN(date)
+    ? date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
 
   return (
     <Link href={`/blog/${post.slug}`} className="block group">
@@ -54,7 +57,7 @@ const FeaturedPost = ({ post }) => {
                 <span className="font-medium">{post.author.name}</span>
               </div>
             )}
-            <span>{formattedDate}</span>
+            {formattedDate && <span>{formattedDate}</span>}
             {post.readingTime && <span>{post.readingTime} min read</span>}
           </div>
         </div>

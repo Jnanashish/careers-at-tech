@@ -7,10 +7,15 @@ const TableOfContents = ({ headings }) => {
   const [isOpen, setIsOpen] = useState(false);
   const observerRef = useRef(null);
 
+  // Backend must emit id attributes on heading tags (h2/h3/h4) for TOC to work
   useEffect(() => {
+    if (!headings?.length) return;
+
     const elements = headings
       .map((h) => document.getElementById(h.id))
       .filter(Boolean);
+
+    if (!elements.length) return;
 
     observerRef.current = new IntersectionObserver(
       (entries) => {

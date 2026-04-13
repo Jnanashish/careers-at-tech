@@ -1,5 +1,11 @@
 const API = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+if (!API) {
+  console.warn(
+    "NEXT_PUBLIC_BACKEND_URL is not defined. Blog API calls will fail."
+  );
+}
+
 const blogFetch = async (path, options = {}) => {
   const url = `${API}${path}`;
   const res = await fetch(url, {

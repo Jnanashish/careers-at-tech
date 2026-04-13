@@ -1,16 +1,20 @@
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
 
+const safeJsonLd = (obj) => JSON.stringify(obj).replace(/</g, "\\u003c");
+
 const BlogPostingSchema = ({ post }) => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     image: post.coverImage?.url ? [post.coverImage.url] : [],
-    author: {
-      "@type": "Person",
-      name: post.author?.name,
-      ...(post.author?.avatar && { image: post.author.avatar }),
-    },
+    ...(post.author?.name && {
+      author: {
+        "@type": "Person",
+        name: post.author.name,
+        ...(post.author.avatar && { image: post.author.avatar }),
+      },
+    }),
     publisher: {
       "@type": "Organization",
       name: "CareersAt.Tech",
@@ -32,7 +36,7 @@ const BlogPostingSchema = ({ post }) => {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 };

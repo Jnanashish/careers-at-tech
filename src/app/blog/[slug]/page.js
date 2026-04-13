@@ -94,11 +94,14 @@ export default async function BlogPostPage({ params }) {
     { label: post.title },
   ];
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const date = new Date(post.publishedAt);
+  const formattedDate = post.publishedAt && !isNaN(date)
+    ? date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
 
   return (
     <>
@@ -137,7 +140,7 @@ export default async function BlogPostPage({ params }) {
                 <span className="font-medium">{post.author.name}</span>
               </div>
             )}
-            <span>{formattedDate}</span>
+            {formattedDate && <span>{formattedDate}</span>}
             {post.readingTime && <span>{post.readingTime} min read</span>}
             {post.viewCount != null && (
               <span>{post.viewCount.toLocaleString()} views</span>

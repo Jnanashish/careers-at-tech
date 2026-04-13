@@ -38,7 +38,7 @@ export async function GET() {
       (post) => `
   <url>
     <loc>${escapeXml(`${SITE_URL}/blog/${post.slug}`)}</loc>
-    <lastmod>${new Date(post.updatedAt).toISOString()}</lastmod>
+    <lastmod>${new Date(post.updatedAt || post.publishedAt || Date.now()).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>`

@@ -2,11 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 const BlogCard = ({ post }) => {
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  if (!post) return null;
+
+  const date = new Date(post.publishedAt);
+  const formattedDate = !isNaN(date)
+    ? date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "";
 
   return (
     <Link href={`/blog/${post.slug}`} className="block group">

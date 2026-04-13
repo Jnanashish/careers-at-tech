@@ -18,9 +18,11 @@ const PopularPosts = ({ posts }) => {
               <p className="text-sm font-medium text-grey-text group-hover:text-primary transition-colors leading-snug line-clamp-2">
                 {post.title}
               </p>
-              <p className="text-xs text-[#697586] mt-1">
-                {post.readingTime && `${post.readingTime} min read`}
-              </p>
+              {post.readingTime ? (
+                <p className="text-xs text-[#697586] mt-1">
+                  {post.readingTime} min read
+                </p>
+              ) : null}
             </Link>
           </li>
         ))}

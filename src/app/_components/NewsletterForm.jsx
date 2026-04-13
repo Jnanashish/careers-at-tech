@@ -9,7 +9,10 @@ const NewsletterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const trimmed = email.trim();
-    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return;
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setStatus("error");
+      return;
+    }
 
     setStatus("loading");
     try {
