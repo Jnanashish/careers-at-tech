@@ -111,6 +111,10 @@ export const jobsbybatch = [
 ];
 
 export const company = [
+    {
+        title: "Resume Toolkit",
+        redirection_url: "/toolkit",
+    },
     // {
     //     title: "Contact us",
     //     redirection_url: "/contact",

@@ -1,0 +1,79 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+
+    @media (max-width: 991px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.categoryCard {
+    background-color: $white;
+    border: 1px solid $grey-light;
+    border-radius: 10px;
+    padding: 24px;
+    cursor: pointer;
+    text-align: left;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    font-family: "Inter", sans-serif;
+
+    &:hover {
+        box-shadow: 0px 4px 12px rgba(16, 24, 40, 0.08);
+        border-color: $primary-light;
+
+        .arrowIcon {
+            transform: translateX(4px);
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid $primary-light;
+        outline-offset: 2px;
+    }
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.categoryLabel {
+    font-size: $font-size-bs;
+    font-weight: $font-weight-semi-bold;
+    color: $black-dark;
+    margin: 0;
+}
+
+.categoryDescription {
+    font-size: $font-size-xxs;
+    color: $grey-text;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.count {
+    font-size: $font-size-xxs;
+    color: $primary;
+    font-weight: $font-weight-medium;
+}
+
+.arrowIcon {
+    height: 12px;
+    width: 12px;
+    color: $primary;
+    transition: transform 0.2s ease;
+}

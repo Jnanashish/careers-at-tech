@@ -11,12 +11,14 @@ import { countClickinJd } from "@/core/apis/jobapicall";
 import Similarjob from "../Similarjob/Similarjob";
 import { shareJobDetails } from "@/Helpers/socialmediahandler";
 import WhatAppBanner from "../Banners/WhatsappBanner";
+import TailorButton from "../toolkit/TailorButton";
 import { format } from "timeago.js";
 import linkedinIcon from "../../static/Image/linkedinIcon.svg";
 import PromoBanner from "../Banners/PromoBanner";
 
 const Jobdetails = (props) => {
     const data = props?.jobdata;
+    const onTailorClick = props?.onTailorClick;
 
     // when back button is clicked move to job listing page
     const handleBackButtonclick = () => {
@@ -118,6 +120,13 @@ const Jobdetails = (props) => {
                 </div>
 
 
+                {onTailorClick && (
+                    <span className="mobileview">
+                        <div style={{ marginBottom: "16px" }}>
+                            <TailorButton jobData={data} onClick={onTailorClick} />
+                        </div>
+                    </span>
+                )}
                 <div className={styles.buttonsection}>
                     <span onClick={askforReferral} className={styles.buttonsection_referral}>
                         <p>Ask for referrals on</p>
