@@ -85,8 +85,8 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
 
   return (
     <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-      <span className="text-xs font-dm text-text-tertiary whitespace-nowrap flex-shrink-0">
-        Active filters:
+      <span className="text-[11px] font-dm font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap flex-shrink-0">
+        Active
       </span>
       <AnimatePresence mode="popLayout">
         {chips.map((chip) => (
@@ -97,7 +97,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.15 }}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-dm font-medium bg-primary-light text-primary whitespace-nowrap flex-shrink-0"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-dm font-medium bg-primary/10 text-primary whitespace-nowrap flex-shrink-0"
           >
             {chip.label}
             <button
@@ -114,7 +114,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
       <button
         type="button"
         onClick={onClearAll}
-        className="text-xs font-dm text-text-tertiary hover:text-primary whitespace-nowrap flex-shrink-0 cursor-pointer"
+        className="text-[11px] font-dm font-medium text-gray-400 hover:text-primary whitespace-nowrap flex-shrink-0 cursor-pointer uppercase tracking-wider"
       >
         Clear all
       </button>

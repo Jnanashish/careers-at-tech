@@ -5,12 +5,11 @@ const HumanReadableSummary = ({ filters, tab }) => {
 
   if (!summary) return null;
 
-  // Convert **text** to <strong> elements
   const parts = summary.split(/(\*\*[^*]+\*\*)/g);
   const rendered = parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="text-text-primary font-semibold">
+        <strong key={i} className="text-white font-semibold">
           {part.slice(2, -2)}
         </strong>
       );
@@ -19,8 +18,8 @@ const HumanReadableSummary = ({ filters, tab }) => {
   });
 
   return (
-    <div className="p-4 bg-card rounded-card shadow-card border border-border">
-      <p className="font-dm text-sm text-text-secondary leading-relaxed">
+    <div className="px-4 py-3 rounded-lg bg-white/[0.06] border border-white/10">
+      <p className="font-dm text-sm text-gray-300 leading-relaxed italic">
         {rendered}
       </p>
     </div>
