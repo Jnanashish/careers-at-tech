@@ -12,16 +12,16 @@ const FilterSection = ({
   const [open, setOpen] = useState(tier === 1 ? defaultOpen : false);
 
   return (
-    <div className="bg-card rounded-card shadow-card border border-transparent hover:shadow-card-hover transition-shadow duration-200">
+    <div className="py-4 first:pt-0 last:pb-0 border-b border-gray-100 last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer rounded-card focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        className="w-full flex items-center justify-between text-left cursor-pointer group focus:outline-none"
         aria-expanded={open}
       >
         <div className="flex items-center gap-2">
-          {Icon && <Icon size={16} className="text-text-tertiary" />}
-          <span className="font-dm font-semibold text-sm text-text-primary">
+          {Icon && <Icon size={15} className="text-gray-400 group-hover:text-primary transition-colors" />}
+          <span className="font-dm font-semibold text-[13px] uppercase tracking-wider text-gray-500 group-hover:text-gray-700 transition-colors">
             {title}
           </span>
         </div>
@@ -29,7 +29,7 @@ const FilterSection = ({
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <ChevronDown size={16} className="text-text-tertiary" />
+          <ChevronDown size={14} className="text-gray-400" />
         </motion.div>
       </button>
 
@@ -42,7 +42,7 @@ const FilterSection = ({
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4">{children}</div>
+            <div className="pt-3">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

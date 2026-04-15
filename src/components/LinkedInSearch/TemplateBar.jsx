@@ -23,18 +23,18 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2.5">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-dm font-medium text-text-tertiary uppercase tracking-wider">
-          Quick Templates
+        <span className="text-[11px] font-dm font-semibold text-gray-400 uppercase tracking-[0.08em]">
+          Quick Start
         </span>
         {hasActiveFilters && !showSaveInput && (
           <button
             type="button"
             onClick={() => setShowSaveInput(true)}
-            className="inline-flex items-center gap-1 text-xs font-dm text-primary hover:text-primary-hover cursor-pointer"
+            className="inline-flex items-center gap-1 text-[11px] font-dm font-medium text-primary hover:text-primary-hover cursor-pointer uppercase tracking-wider"
           >
-            <Plus size={12} /> Save current
+            <Plus size={11} /> Save current
           </button>
         )}
       </div>
@@ -47,13 +47,13 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
             onChange={(e) => setTemplateName(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Template name..."
-            className="flex-1 px-3 py-1.5 text-sm font-dm rounded-button border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
+            className="flex-1 px-3 py-1.5 text-sm font-dm rounded-full border border-gray-200 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 bg-white"
             autoFocus
           />
           <button
             type="button"
             onClick={handleSave}
-            className="p-1.5 rounded-button text-primary hover:bg-primary-light cursor-pointer"
+            className="p-1.5 rounded-full text-primary hover:bg-primary/5 cursor-pointer"
             aria-label="Save template"
           >
             <Check size={16} />
@@ -64,7 +64,7 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
               setShowSaveInput(false);
               setTemplateName("");
             }}
-            className="p-1.5 rounded-button text-text-tertiary hover:text-text-primary cursor-pointer"
+            className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 cursor-pointer"
             aria-label="Cancel"
           >
             <X size={16} />
@@ -72,16 +72,16 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
         </div>
       )}
 
-      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
         {templates.map((template) => (
           <motion.button
             key={template.id}
             type="button"
             whileTap={{ scale: 0.95 }}
             onClick={() => onApply(template)}
-            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-button text-xs font-dm font-medium bg-card border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-dm font-medium bg-gray-50 border border-gray-200 text-gray-600 hover:border-primary/30 hover:text-primary hover:bg-primary/5 transition-all duration-150 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
-            <Bookmark size={12} />
+            <Bookmark size={11} className="text-gray-400 group-hover:text-primary transition-colors" />
             {template.name}
             {!template.isBuiltIn && onRemove && (
               <span
@@ -97,10 +97,10 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
                     onRemove(template.id);
                   }
                 }}
-                className="hidden group-hover:inline-flex ml-1 text-text-tertiary hover:text-red-500"
+                className="hidden group-hover:inline-flex ml-0.5 text-gray-400 hover:text-red-500"
                 aria-label={`Delete ${template.name}`}
               >
-                <X size={12} />
+                <X size={11} />
               </span>
             )}
           </motion.button>

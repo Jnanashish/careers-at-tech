@@ -26,14 +26,13 @@ import {
 } from "./lib/linkedin-params";
 
 const inputClasses =
-  "w-full px-3 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 placeholder:text-text-tertiary";
+  "w-full px-3 py-2.5 text-sm font-dm rounded-lg border border-gray-200 bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 placeholder:text-gray-400 transition-all";
 
 const SearchBuilder = ({ filters, dispatch }) => {
   const [showMoreFilters, setShowMoreFilters] = useState(false);
   const [customLocation, setCustomLocation] = useState("");
   const keywordsRef = useRef(null);
 
-  // Expose ref for keyboard shortcut
   SearchBuilder.keywordsRef = keywordsRef;
 
   const handleCustomLocation = (e) => {
@@ -51,7 +50,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
     filters.minSalary;
 
   return (
-    <div className="space-y-3">
+    <div className="bg-white rounded-xl shadow-card p-5">
       {/* Tier 1: Always visible */}
       <FilterSection title="Keywords" icon={Search} defaultOpen={true}>
         <input
@@ -134,26 +133,28 @@ const SearchBuilder = ({ filters, dispatch }) => {
         </div>
       </FilterSection>
 
-      {/* Tier 2: More Filters */}
-      <button
-        type="button"
-        onClick={() => setShowMoreFilters(!showMoreFilters)}
-        className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors cursor-pointer rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-      >
-        <SlidersHorizontal size={14} />
-        {showMoreFilters ? "Less filters" : "More filters"}
-        {hasMoreFilters && !showMoreFilters && (
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[10px] font-bold">
-            {[
-              filters.workMode.length,
-              filters.experienceLevel.length,
-              filters.sortBy ? 1 : 0,
-              filters.easyApply ? 1 : 0,
-              filters.minSalary ? 1 : 0,
-            ].reduce((a, b) => a + b, 0)}
-          </span>
-        )}
-      </button>
+      {/* Tier 2: More Filters toggle */}
+      <div className="pt-4 border-t border-gray-100 mt-4">
+        <button
+          type="button"
+          onClick={() => setShowMoreFilters(!showMoreFilters)}
+          className="w-full flex items-center justify-center gap-2 py-2 text-[13px] font-dm font-semibold text-primary hover:text-primary-hover transition-colors cursor-pointer rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 uppercase tracking-wider"
+        >
+          <SlidersHorizontal size={13} />
+          {showMoreFilters ? "Less filters" : "More filters"}
+          {hasMoreFilters && !showMoreFilters && (
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[10px] font-bold">
+              {[
+                filters.workMode.length,
+                filters.experienceLevel.length,
+                filters.sortBy ? 1 : 0,
+                filters.easyApply ? 1 : 0,
+                filters.minSalary ? 1 : 0,
+              ].reduce((a, b) => a + b, 0)}
+            </span>
+          )}
+        </button>
+      </div>
 
       <AnimatePresence>
         {showMoreFilters && (
@@ -162,7 +163,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden space-y-3"
+            className="overflow-hidden"
           >
             <FilterSection title="Work Mode" icon={Building2} tier={2} defaultOpen={true}>
               <div className="flex flex-wrap gap-1.5">
@@ -199,7 +200,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                     />
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-1.5 opacity-70">
+                <div className="flex flex-wrap gap-1.5 opacity-60">
                   {Object.entries(EXPERIENCE_LEVEL_SECONDARY).map(([label, value]) => (
                     <FilterChip
                       key={value}
@@ -264,7 +265,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                       value: e.target.value,
                     })
                   }
-                  className="px-2 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
+                  className="px-2 py-2.5 text-sm font-dm rounded-lg border border-gray-200 bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10"
                   aria-label="Salary currency"
                 >
                   {Object.keys(CURRENCIES).map((c) => (
