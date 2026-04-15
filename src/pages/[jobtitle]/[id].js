@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import styles from "./index.module.scss";
 
 // import components
@@ -7,12 +9,15 @@ import Jobdetails from "@/components/Jobdetails";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/common/Footer/Footer";
+import TailorButton from "@/components/toolkit/TailorButton";
 
 import JobDescriptionMeta from "@/core/SEO/JobDescriptionMeta";
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
 import { generateSlugFromrole } from "@/Helpers/jobdetailshelper";
+
+const TailorModal = dynamic(() => import("@/components/toolkit/TailorModal"), { ssr: false });
 
 export async function getStaticPaths() {
     // create static paths from with intial 30 pages
@@ -56,9 +61,18 @@ export async function getStaticProps(context) {
 }
 
 const JobdetailsPage = ({ data }) => {
+    const router = useRouter();
+    const [tailorModalOpen, setTailorModalOpen] = useState(false);
+
     useEffect(() => {
         handleIntialPageLoad();
     }, []);
+
+    useEffect(() => {
+        if (router.query.tailor === "1") {
+            setTailorModalOpen(true);
+        }
+    }, [router.query]);
 
     return (
         <div>
@@ -67,12 +81,22 @@ const JobdetailsPage = ({ data }) => {
                 <JobDescriptionMeta data={data} />
                 <div className={styles.jobdetailpage}>
                     <div>
-                        <Jobdetails jobdata={data} />
+                        <Jobdetails jobdata={data} onTailorClick={() => setTailorModalOpen(true)} />
                     </div>
                     <div className="desktopview">
-                        <Sidebar />
+                        <div className={styles.sidebarContainer}>
+                            <TailorButton jobData={data} onClick={() => setTailorModalOpen(true)} />
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
+                {tailorModalOpen && (
+                    <TailorModal
+                        isOpen={tailorModalOpen}
+                        onClose={() => setTailorModalOpen(false)}
+                        jobData={data}
+                    />
+                )}
                 <Footer />
                 <ScrolltoTop />
             </>

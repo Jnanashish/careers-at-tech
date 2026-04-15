@@ -1,0 +1,119 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border: 1px solid $grey-light;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        box-shadow: 0px 4px 12px rgba(16, 24, 40, 0.08);
+        border-color: $primary-light;
+
+        .arrowIcon {
+            transform: translateX(4px);
+        }
+    }
+}
+
+.cardLink {
+    display: block;
+    padding: 24px 24px 0;
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+}
+
+.copyAction {
+    padding: 12px 24px 24px;
+}
+
+.categoryChip {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: $blue-background;
+    color: $primary;
+    font-size: $font-size-xxs;
+    font-weight: $font-weight-medium;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.title {
+    font-size: $font-size-bs;
+    font-weight: $font-weight-semi-bold;
+    line-height: 1.4;
+    color: $black-dark;
+    margin: 0;
+}
+
+.description {
+    font-size: $font-size-xxs;
+    color: $grey-text;
+    line-height: 1.5;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: $font-size-xxs;
+    color: $gray-3;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metaIcon {
+    height: 10px;
+    width: 10px;
+}
+
+.metaDivider {
+    color: $gray-light;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+    padding-bottom: 24px;
+}
+
+.readMore {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: $font-size-xxs;
+    font-weight: $font-weight-medium;
+    color: $primary;
+}
+
+.arrowIcon {
+    height: 10px;
+    width: 10px;
+    transition: transform 0.2s ease;
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .cardLink {
+        padding: 20px 20px 0;
+    }
+
+    .copyAction {
+        padding: 12px 20px 20px;
+    }
+}
