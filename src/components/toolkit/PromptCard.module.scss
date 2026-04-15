@@ -1,11 +1,9 @@
 .card {
-    display: block;
+    display: flex;
+    flex-direction: column;
     background-color: $white;
     border: 1px solid $grey-light;
     border-radius: 10px;
-    padding: 24px;
-    text-decoration: none;
-    color: inherit;
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
 
     &:hover {
@@ -18,11 +16,23 @@
     }
 }
 
+.cardLink {
+    display: block;
+    padding: 24px 24px 0;
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+}
+
 .cardContent {
     display: flex;
     flex-direction: column;
     gap: 12px;
     height: 100%;
+}
+
+.copyAction {
+    padding: 12px 24px 24px;
 }
 
 .categoryChip {
@@ -80,6 +90,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 4px;
+    padding-bottom: 24px;
 }
 
 .readMore {
@@ -98,7 +109,11 @@
 }
 
 @media (max-width: $breakpoint-mobile) {
-    .card {
-        padding: 20px;
+    .cardLink {
+        padding: 20px 20px 0;
+    }
+
+    .copyAction {
+        padding: 12px 20px 20px;
     }
 }

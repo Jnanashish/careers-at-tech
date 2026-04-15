@@ -22,7 +22,16 @@ export function getAllPromptSlugs() {
  * Returns { frontmatter, content } where content is the raw markdown body.
  */
 export function getPromptBySlug(slug) {
-    const fullPath = path.join(promptsDirectory, `${slug}.md`);
+    if (!/^[a-z0-9-]+$/i.test(slug)) {
+        throw new Error("Invalid prompt slug");
+    }
+
+    const baseDir = path.resolve(promptsDirectory);
+    const fullPath = path.resolve(baseDir, `${slug}.md`);
+    if (!fullPath.startsWith(`${baseDir}${path.sep}`)) {
+        throw new Error("Invalid prompt slug");
+    }
+
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     return {

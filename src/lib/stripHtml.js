@@ -16,9 +16,12 @@ export function stripHtml(html) {
         .trim();
 }
 
+const TRUNCATION_SUFFIX = "\n\n[JD truncated — full version on the job page]";
+const MAX_JD_TEXT_LENGTH = 8000;
+
 /**
  * Combines multiple HTML job description fields into a single plain-text block.
- * Truncates at 8000 characters as specified.
+ * Total output is guaranteed to be at most MAX_JD_TEXT_LENGTH characters.
  */
 export function buildJdText(jobData) {
     const sections = [
@@ -38,8 +41,9 @@ export function buildJdText(jobData) {
 
     const combined = parts.join("\n\n");
 
-    if (combined.length > 8000) {
-        return combined.slice(0, 8000) + "\n\n[JD truncated — full version on the job page]";
+    if (combined.length > MAX_JD_TEXT_LENGTH) {
+        const allowedLength = Math.max(0, MAX_JD_TEXT_LENGTH - TRUNCATION_SUFFIX.length);
+        return combined.slice(0, allowedLength) + TRUNCATION_SUFFIX;
     }
 
     return combined;
