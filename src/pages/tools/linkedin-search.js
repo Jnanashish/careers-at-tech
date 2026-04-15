@@ -22,6 +22,11 @@ import {
   decodeFiltersFromHash,
 } from "@/components/LinkedInSearch/lib/url-builder";
 
+const shouldAnimate =
+  typeof window !== "undefined"
+    ? !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : true;
+
 function jobFilterReducer(state, action) {
   switch (action.type) {
     case "SET_FILTER":
@@ -190,6 +195,10 @@ export default function LinkedInSearchPage() {
     { id: "referral", label: "Referral Finder", icon: Users },
   ];
 
+  const fadeUp = shouldAnimate
+    ? { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } }
+    : { initial: {}, animate: {} };
+
   return (
     <>
       <Head>
@@ -204,22 +213,38 @@ export default function LinkedInSearchPage() {
 
       <main
         id="main-content"
-        className="min-h-screen bg-page pt-24 sm:pt-28 pb-28 md:pb-12"
+        className="min-h-screen bg-page pt-24 sm:pt-28 pb-16 md:pb-12"
       >
         {/* Hero */}
         <div className="max-w-content mx-auto px-4 lg:px-6">
           <div className="max-w-[680px] mx-auto text-center mb-8">
-            <p className="text-caption uppercase tracking-widest text-primary font-medium mb-4">
+            <motion.p
+              {...fadeUp}
+              transition={{ duration: 0.3 }}
+              className="text-caption uppercase tracking-widest text-primary font-medium mb-4"
+            >
               Smart Search Builder
-            </p>
-            <h1 className="text-hero text-text-primary mb-4">
+            </motion.p>
+            <motion.h1
+              {...fadeUp}
+              transition={{ duration: 0.3, delay: 0.05 }}
+              className="text-hero text-text-primary mb-4"
+            >
               LinkedIn Search Builder
-            </h1>
-            <p className="text-lg text-text-secondary max-w-[520px] mx-auto mb-3 leading-relaxed">
+            </motion.h1>
+            <motion.p
+              {...fadeUp}
+              transition={{ duration: 0.3, delay: 0.15 }}
+              className="text-lg text-gray-500 max-w-[520px] mx-auto mb-3 leading-relaxed"
+            >
               Build the perfect LinkedIn job search URL with smart filters.
               No sign-in required.
-            </p>
-            <p className="text-xs text-text-tertiary">
+            </motion.p>
+            <motion.p
+              {...fadeUp}
+              transition={{ duration: 0.3, delay: 0.25 }}
+              className="text-xs text-text-tertiary"
+            >
               <kbd className="px-1.5 py-0.5 rounded border border-border text-[10px] font-mono">
                 {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+K
               </kbd>{" "}
@@ -228,23 +253,27 @@ export default function LinkedInSearchPage() {
                 {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+⇧+C
               </kbd>{" "}
               to copy URL
-            </p>
+            </motion.p>
           </div>
         </div>
 
         {/* Two-column layout */}
-        <div className="max-w-content mx-auto px-4 lg:px-6">
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.3, delay: 0.3 }}
+          className="max-w-content mx-auto px-4 lg:px-6"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
             {/* Left Column: Filters */}
             <div>
               {/* Tabs */}
-              <div className="flex bg-card rounded-card shadow-card p-1 mb-4">
+              <div className="flex bg-card rounded-card shadow-card border border-transparent p-1 mb-4">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium rounded-button transition-colors cursor-pointer ${
+                    className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium rounded-button transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                       activeTab === tab.id
                         ? "text-primary"
                         : "text-text-tertiary hover:text-text-primary"
@@ -307,7 +336,7 @@ export default function LinkedInSearchPage() {
               <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
 
               {/* Cross-link to CareersAt.Tech jobs */}
-              <div className="p-5 bg-card rounded-card shadow-card text-center">
+              <div className="p-5 bg-card rounded-card shadow-card border border-transparent text-center">
                 <p className="text-sm text-text-secondary mb-2">
                   Also check CareersAt.Tech for verified listings matching your search
                 </p>
@@ -325,7 +354,7 @@ export default function LinkedInSearchPage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </main>
 
       <FooterNew />

@@ -47,7 +47,7 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
             onChange={(e) => setTemplateName(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Template name..."
-            className="flex-1 px-3 py-1.5 text-sm font-dm rounded-button border border-border focus:border-primary focus:outline-none"
+            className="flex-1 px-3 py-1.5 text-sm font-dm rounded-button border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
             autoFocus
           />
           <button
@@ -72,14 +72,14 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
         </div>
       )}
 
-      <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
         {templates.map((template) => (
           <motion.button
             key={template.id}
             type="button"
             whileTap={{ scale: 0.95 }}
             onClick={() => onApply(template)}
-            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-card text-xs font-dm font-medium bg-card border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer"
+            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-button text-xs font-dm font-medium bg-card border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
             <Bookmark size={12} />
             {template.name}

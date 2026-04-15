@@ -84,7 +84,7 @@ const ActiveFiltersBar = ({ filters, tab, onRemoveFilter, onClearAll }) => {
   if (!chips.length) return null;
 
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+    <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
       <span className="text-xs font-dm text-text-tertiary whitespace-nowrap flex-shrink-0">
         Active filters:
       </span>
