@@ -131,7 +131,6 @@ export default function LinkedInSearchPage() {
     );
   }, [activeTab, jobFilters, referralFilters]);
 
-  // Load from URL hash on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
     const hash = window.location.hash.slice(1);
@@ -147,20 +146,16 @@ export default function LinkedInSearchPage() {
     } else {
       jobDispatch({ type: "APPLY_TEMPLATE", filters: { ...INITIAL_JOB_FILTERS, ...decoded.filters } });
     }
-    // Clean hash after loading
     window.history.replaceState(null, "", window.location.pathname);
   }, []);
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Cmd/Ctrl + K: focus keywords
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         const ref = SearchBuilder.keywordsRef;
         if (ref?.current) ref.current.focus();
       }
-      // Cmd/Ctrl + Shift + C: copy URL
       if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === "C") {
         e.preventDefault();
         if (!isEmpty) navigator.clipboard?.writeText(url);
@@ -213,43 +208,47 @@ export default function LinkedInSearchPage() {
 
       <main
         id="main-content"
-        className="min-h-screen bg-page pt-24 sm:pt-28 pb-16 md:pb-12"
+        className="min-h-screen pb-20 md:pb-12"
+        style={{ background: "radial-gradient(ellipse at 50% 0%, #EEF2FF 0%, #F9FAFB 70%)" }}
       >
         {/* Hero */}
-        <div className="max-w-content mx-auto px-4 lg:px-6">
-          <div className="max-w-[680px] mx-auto text-center mb-8">
+        <div className="max-w-content mx-auto px-4 lg:px-6 pt-24 sm:pt-28">
+          <div className="max-w-[680px] mx-auto text-center mb-10">
             <motion.p
               {...fadeUp}
               transition={{ duration: 0.3 }}
-              className="text-caption uppercase tracking-widest text-primary font-medium mb-4"
+              className="text-[11px] font-dm font-semibold uppercase tracking-[0.1em] text-primary mb-5"
             >
               Smart Search Builder
             </motion.p>
             <motion.h1
               {...fadeUp}
               transition={{ duration: 0.3, delay: 0.05 }}
-              className="text-hero text-text-primary mb-4"
+              className="font-serif-display font-normal text-text-primary mb-5"
+              style={{ fontSize: "clamp(2.25rem, 5vw, 3rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}
             >
-              LinkedIn Search Builder
+              Build your perfect
+              <br />
+              LinkedIn search.
             </motion.h1>
             <motion.p
               {...fadeUp}
               transition={{ duration: 0.3, delay: 0.15 }}
-              className="text-lg text-gray-500 max-w-[520px] mx-auto mb-3 leading-relaxed"
+              className="text-base font-dm text-gray-500 max-w-[480px] mx-auto mb-4 leading-relaxed"
             >
-              Build the perfect LinkedIn job search URL with smart filters.
+              Craft optimized search URLs with smart filters.
               No sign-in required.
             </motion.p>
             <motion.p
               {...fadeUp}
               transition={{ duration: 0.3, delay: 0.25 }}
-              className="text-xs text-text-tertiary"
+              className="text-xs font-dm text-gray-400"
             >
-              <kbd className="px-1.5 py-0.5 rounded border border-border text-[10px] font-mono">
+              <kbd className="px-1.5 py-0.5 rounded border border-gray-200 bg-white text-[10px] font-mono text-gray-500">
                 {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+K
               </kbd>{" "}
               to focus search &middot;{" "}
-              <kbd className="px-1.5 py-0.5 rounded border border-border text-[10px] font-mono">
+              <kbd className="px-1.5 py-0.5 rounded border border-gray-200 bg-white text-[10px] font-mono text-gray-500">
                 {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+⇧+C
               </kbd>{" "}
               to copy URL
@@ -257,34 +256,34 @@ export default function LinkedInSearchPage() {
           </div>
         </div>
 
-        {/* Two-column layout */}
+        {/* Two-column workspace */}
         <motion.div
           {...fadeUp}
           transition={{ duration: 0.3, delay: 0.3 }}
           className="max-w-content mx-auto px-4 lg:px-6"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
             {/* Left Column: Filters */}
             <div>
-              {/* Tabs */}
-              <div className="flex bg-card rounded-card shadow-card border border-transparent p-1 mb-4">
+              {/* Tabs — underline style */}
+              <div className="flex gap-0 border-b border-gray-200 mb-5">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium rounded-button transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                    className={`relative flex items-center gap-2 px-4 py-3 text-sm font-dm font-semibold transition-colors cursor-pointer focus:outline-none ${
                       activeTab === tab.id
                         ? "text-primary"
-                        : "text-text-tertiary hover:text-text-primary"
+                        : "text-gray-400 hover:text-gray-700"
                     }`}
                   >
-                    <tab.icon size={16} />
+                    <tab.icon size={15} />
                     {tab.label}
                     {activeTab === tab.id && (
                       <motion.div
-                        layoutId="tab-indicator"
-                        className="absolute inset-0 bg-primary-light rounded-button -z-10"
+                        layoutId="tab-underline"
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
                         transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
                       />
                     )}
@@ -327,8 +326,16 @@ export default function LinkedInSearchPage() {
               )}
             </div>
 
-            {/* Right Column: Sidebar (sticky) */}
-            <div className="lg:sticky lg:top-20 lg:self-start space-y-4">
+            {/* Right Column: Dark Preview Panel */}
+            <motion.div
+              {...(shouldAnimate
+                ? { initial: { opacity: 0, y: 20, scale: 0.98 }, animate: { opacity: 1, y: 0, scale: 1 } }
+                : { initial: {}, animate: {} }
+              )}
+              transition={{ duration: 0.35, delay: 0.35 }}
+              className="lg:sticky lg:top-20 lg:self-start rounded-2xl p-6 space-y-5"
+              style={{ background: "#1A1A2E" }}
+            >
               {/* Summary */}
               <HumanReadableSummary filters={filters} tab={activeTab} />
 
@@ -336,23 +343,23 @@ export default function LinkedInSearchPage() {
               <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
 
               {/* Cross-link to CareersAt.Tech jobs */}
-              <div className="p-5 bg-card rounded-card shadow-card border border-transparent text-center">
-                <p className="text-sm text-text-secondary mb-2">
-                  Also check CareersAt.Tech for verified listings matching your search
+              <div className="p-4 rounded-lg bg-white/[0.06] border border-white/10 text-center">
+                <p className="text-sm font-dm text-gray-400 mb-2">
+                  Also check CareersAt.Tech for verified listings
                 </p>
                 <Link
                   href="/jobs"
-                  className="inline-flex items-center gap-1.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-dm font-medium text-blue-400 hover:text-blue-300 transition-colors"
                 >
-                  Browse jobs on CareersAt.Tech <ArrowRight size={14} />
+                  Browse jobs <ArrowRight size={14} />
                 </Link>
               </div>
 
               {/* Disclaimer */}
-              <p className="text-center text-xs font-dm text-text-tertiary">
-                Not affiliated with LinkedIn Corporation. This tool generates URLs only — no data is collected or sent to any server.
+              <p className="text-center text-[11px] font-dm text-gray-600">
+                Not affiliated with LinkedIn Corporation. This tool generates URLs only — no data is collected.
               </p>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </main>
