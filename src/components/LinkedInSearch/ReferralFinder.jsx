@@ -75,11 +75,11 @@ const ReferralFinder = ({ filters, dispatch }) => {
       </FilterSection>
 
       {/* How Referral Finder Works */}
-      <div className="bg-card rounded-card shadow-card overflow-hidden">
+      <div className="bg-card rounded-card shadow-card border border-transparent overflow-hidden">
         <button
           type="button"
           onClick={() => setShowHowItWorks(!showHowItWorks)}
-          className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer"
+          className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer rounded-card focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           aria-expanded={showHowItWorks}
         >
           <div className="flex items-center gap-2">

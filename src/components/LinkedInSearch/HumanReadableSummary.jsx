@@ -19,7 +19,7 @@ const HumanReadableSummary = ({ filters, tab }) => {
   });
 
   return (
-    <div className="px-4 py-3 bg-primary-light rounded-card border border-primary/10">
+    <div className="p-4 bg-card rounded-card shadow-card border border-border">
       <p className="font-dm text-sm text-text-secondary leading-relaxed">
         {rendered}
       </p>

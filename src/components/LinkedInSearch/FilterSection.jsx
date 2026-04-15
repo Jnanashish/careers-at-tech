@@ -12,11 +12,11 @@ const FilterSection = ({
   const [open, setOpen] = useState(tier === 1 ? defaultOpen : false);
 
   return (
-    <div className="border-l-[3px] border-primary bg-card rounded-r-card shadow-card">
+    <div className="bg-card rounded-card shadow-card border border-transparent hover:shadow-card-hover transition-shadow duration-200">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer"
+        className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer rounded-card focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         aria-expanded={open}
       >
         <div className="flex items-center gap-2">

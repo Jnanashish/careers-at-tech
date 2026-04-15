@@ -98,7 +98,7 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium bg-primary text-white hover:bg-primary-hover transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium bg-primary text-white hover:bg-primary-hover transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {copied ? (
@@ -127,7 +127,7 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
             <button
               type="button"
               onClick={handleOpen}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium border border-border text-text-primary hover:border-primary hover:text-primary transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               <ExternalLink size={14} /> Open in LinkedIn
             </button>
@@ -135,7 +135,7 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
               <button
                 type="button"
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium border border-border text-text-primary hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-sm font-dm font-medium border border-border text-text-primary hover:border-primary hover:text-primary transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 <Share2 size={14} />
                 {copiedShare ? "Link copied!" : "Share"}
@@ -146,7 +146,7 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
       </div>
 
       {/* Mobile sticky bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-card border-t border-border p-3 z-40 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-card border-t border-border p-3 z-40 shadow-card">
         <div className="flex gap-2">
           <button
             type="button"

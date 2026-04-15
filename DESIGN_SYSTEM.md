@@ -634,6 +634,34 @@ Every page on CareersAt.Tech follows one of these structural templates:
 [Footer]
 ```
 
+### 17.4 Tool Page (`/tools/linkedin-search`)
+
+```
+[Navbar]
+[Hero — eyebrow + headline + description + keyboard shortcuts]
+[Two-column: Filter builder (left) + Sticky sidebar (right)]
+  Left column:
+    [Tab switcher — bg-card, rounded-card, shadow-card, p-1]
+    [Template bar — horizontal scroll, rounded-button pills]
+    [Active filters bar — removable chips, horizontal scroll]
+    [Filter sections — standard cards (bg-card, rounded-card, shadow-card)]
+  Right column (sticky):
+    [Human-readable summary — standard card]
+    [URL preview — standard card with color-coded URL]
+    [Cross-link CTA — standard card]
+    [Disclaimer text]
+[Mobile: Sticky bottom bar with copy + open buttons]
+[Footer]
+```
+
+**Tool page rules:**
+- Hero uses standard fadeUp animation pattern (motion.p, motion.h1 with staggered delays)
+- All cards use standard `bg-card rounded-card shadow-card` — no custom borders or accents
+- Filter chips follow design system section 10.2 pattern
+- Buttons follow section 7 variants (primary for main CTA, ghost for secondary)
+- All interactive elements have `focus:ring-2 focus:ring-primary focus:ring-offset-2`
+- Uses standard site colors — no page-specific color palettes
+
 ---
 
 ## 18. Tailwind Config Extensions
@@ -755,4 +783,5 @@ When updating this file:
 
 | Date       | Change                                     |
 |------------|---------------------------------------------|
+| Apr 2026   | Added Tool Page template (17.4) for LinkedIn Search Builder |
 | Apr 2026   | Initial design system created               |

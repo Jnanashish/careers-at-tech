@@ -138,7 +138,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
       <button
         type="button"
         onClick={() => setShowMoreFilters(!showMoreFilters)}
-        className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors cursor-pointer"
+        className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-dm font-medium text-primary hover:text-primary-hover transition-colors cursor-pointer rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
         <SlidersHorizontal size={14} />
         {showMoreFilters ? "Less filters" : "More filters"}
@@ -264,7 +264,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                       value: e.target.value,
                     })
                   }
-                  className="px-2 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none"
+                  className="px-2 py-2 text-sm font-dm rounded-input border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
                   aria-label="Salary currency"
                 >
                   {Object.keys(CURRENCIES).map((c) => (

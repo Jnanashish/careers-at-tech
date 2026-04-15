@@ -12,11 +12,12 @@ const FilterChip = ({ label, selected, onClick, size = "md" }) => {
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
       className={`
-        inline-flex items-center rounded-full font-dm font-medium transition-colors cursor-pointer select-none
+        inline-flex items-center rounded-full font-dm font-medium transition-all cursor-pointer select-none
+        focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
         ${sizeClasses}
         ${
           selected
-            ? "bg-primary text-white shadow-sm"
+            ? "bg-primary text-white shadow-sm border border-primary hover:bg-primary-hover"
             : "bg-card border border-border text-text-primary hover:border-primary hover:text-primary"
         }
       `}
