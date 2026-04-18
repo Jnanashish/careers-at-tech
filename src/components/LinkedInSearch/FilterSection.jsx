@@ -12,24 +12,28 @@ const FilterSection = ({
   const [open, setOpen] = useState(tier === 1 ? defaultOpen : false);
 
   return (
-    <div className="py-4 first:pt-0 last:pb-0 border-b border-gray-100 last:border-b-0">
+    <div className="py-4 first:pt-0 last:pb-0 border-b border-dashed border-linkedin-rule last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between text-left cursor-pointer group focus:outline-none"
+        className="w-full flex items-center justify-between text-left cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-accent focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-surface rounded-[4px]"
         aria-expanded={open}
       >
-        <div className="flex items-center gap-2">
-          {Icon && <Icon size={15} className="text-gray-400 group-hover:text-primary transition-colors" />}
-          <span className="font-dm font-semibold text-[13px] uppercase tracking-wider text-gray-500 group-hover:text-gray-700 transition-colors">
+        <div className="flex items-center gap-2.5">
+          {Icon && (
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-[4px] bg-linkedin-accent-light text-linkedin-accent transition-colors group-hover:bg-linkedin-accent group-hover:text-linkedin-surface">
+              <Icon size={13} strokeWidth={2.25} />
+            </span>
+          )}
+          <span className="font-mono-proof text-[10.5px] uppercase tracking-[0.18em] text-linkedin-ink-soft group-hover:text-linkedin-ink transition-colors">
             {title}
           </span>
         </div>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.22 }}
         >
-          <ChevronDown size={14} className="text-gray-400" />
+          <ChevronDown size={14} className="text-linkedin-muted" />
         </motion.div>
       </button>
 
@@ -39,7 +43,7 @@ const FilterSection = ({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            transition={{ duration: 0.22, ease: "easeInOut" }}
             className="overflow-hidden"
           >
             <div className="pt-3">{children}</div>

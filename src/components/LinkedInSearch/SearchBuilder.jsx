@@ -26,7 +26,7 @@ import {
 } from "./lib/linkedin-params";
 
 const inputClasses =
-  "w-full px-3 py-2.5 text-sm font-dm rounded-lg border border-gray-200 bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 placeholder:text-gray-400 transition-all";
+  "w-full px-3.5 py-2.5 text-[14px] font-sans-linkedin text-linkedin-ink rounded-[8px] border border-linkedin-rule bg-linkedin-surface focus:border-linkedin-accent focus:outline-none focus:ring-2 focus:ring-linkedin-accent/25 placeholder:text-linkedin-muted transition-colors";
 
 const SearchBuilder = ({ filters, dispatch }) => {
   const [showMoreFilters, setShowMoreFilters] = useState(false);
@@ -49,8 +49,31 @@ const SearchBuilder = ({ filters, dispatch }) => {
     filters.easyApply ||
     filters.minSalary;
 
+  const moreCount = [
+    filters.workMode.length,
+    filters.experienceLevel.length,
+    filters.sortBy ? 1 : 0,
+    filters.easyApply ? 1 : 0,
+    filters.minSalary ? 1 : 0,
+  ].reduce((a, b) => a + b, 0);
+
   return (
-    <div className="bg-white rounded-xl shadow-card p-5">
+    <div className="relative bg-linkedin-surface rounded-[14px] shadow-letterpress border border-linkedin-rule p-5 sm:p-6">
+      {/* Composing-stick header */}
+      <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-linkedin-rule">
+        <div className="flex items-baseline gap-2">
+          <span className="font-mono-proof text-[10px] uppercase tracking-[0.22em] text-linkedin-accent">
+            §
+          </span>
+          <span className="font-serif-display italic text-[18px] leading-none text-linkedin-ink">
+            Composing stick
+          </span>
+        </div>
+        <span className="font-mono-proof text-[10px] uppercase tracking-[0.2em] text-linkedin-muted">
+          Job Search
+        </span>
+      </div>
+
       {/* Tier 1: Always visible */}
       <FilterSection title="Keywords" icon={Search} defaultOpen={true}>
         <input
@@ -67,7 +90,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
       </FilterSection>
 
       <FilterSection title="Location" icon={MapPin} defaultOpen={true}>
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <div className="flex flex-wrap gap-1.5">
             {INDIAN_LOCATIONS.map((loc) => (
               <FilterChip
@@ -134,23 +157,17 @@ const SearchBuilder = ({ filters, dispatch }) => {
       </FilterSection>
 
       {/* Tier 2: More Filters toggle */}
-      <div className="pt-4 border-t border-gray-100 mt-4">
+      <div className="pt-4 border-t border-linkedin-rule mt-4">
         <button
           type="button"
           onClick={() => setShowMoreFilters(!showMoreFilters)}
-          className="w-full flex items-center justify-center gap-2 py-2 text-[13px] font-dm font-semibold text-primary hover:text-primary-hover transition-colors cursor-pointer rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 uppercase tracking-wider"
+          className="w-full flex items-center justify-center gap-2 py-2.5 font-mono-proof text-[11px] font-semibold uppercase tracking-[0.2em] text-linkedin-accent hover:text-linkedin-accent-hover transition-colors cursor-pointer rounded-[6px] focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-accent focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-surface"
         >
           <SlidersHorizontal size={13} />
-          {showMoreFilters ? "Less filters" : "More filters"}
+          {showMoreFilters ? "Fewer marks" : "Set additional marks"}
           {hasMoreFilters && !showMoreFilters && (
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[10px] font-bold">
-              {[
-                filters.workMode.length,
-                filters.experienceLevel.length,
-                filters.sortBy ? 1 : 0,
-                filters.easyApply ? 1 : 0,
-                filters.minSalary ? 1 : 0,
-              ].reduce((a, b) => a + b, 0)}
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-linkedin-highlight text-linkedin-ink text-[10px] font-bold">
+              {moreCount}
             </span>
           )}
         </button>
@@ -162,7 +179,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.28 }}
             className="overflow-hidden"
           >
             <FilterSection title="Work Mode" icon={Building2} tier={2} defaultOpen={true}>
@@ -265,7 +282,7 @@ const SearchBuilder = ({ filters, dispatch }) => {
                       value: e.target.value,
                     })
                   }
-                  className="px-2 py-2.5 text-sm font-dm rounded-lg border border-gray-200 bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10"
+                  className="px-2.5 py-2.5 text-[14px] font-mono-proof rounded-[8px] border border-linkedin-rule bg-linkedin-surface text-linkedin-ink focus:border-linkedin-accent focus:outline-none focus:ring-2 focus:ring-linkedin-accent/25"
                   aria-label="Salary currency"
                 >
                   {Object.keys(CURRENCIES).map((c) => (

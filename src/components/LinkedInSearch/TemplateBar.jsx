@@ -25,16 +25,21 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
   return (
     <div className="space-y-2.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-dm font-semibold text-gray-400 uppercase tracking-[0.08em]">
-          Quick Start
-        </span>
+        <div className="flex items-baseline gap-2">
+          <span className="font-mono-proof text-[10px] uppercase tracking-[0.22em] text-linkedin-accent">
+            ¶
+          </span>
+          <span className="font-mono-proof text-[10.5px] uppercase tracking-[0.22em] text-linkedin-ink-soft">
+            Standing type · quick plates
+          </span>
+        </div>
         {hasActiveFilters && !showSaveInput && (
           <button
             type="button"
             onClick={() => setShowSaveInput(true)}
-            className="inline-flex items-center gap-1 text-[11px] font-dm font-medium text-primary hover:text-primary-hover cursor-pointer uppercase tracking-wider"
+            className="inline-flex items-center gap-1 font-mono-proof text-[10.5px] font-semibold uppercase tracking-[0.18em] text-linkedin-accent hover:text-linkedin-accent-hover cursor-pointer"
           >
-            <Plus size={11} /> Save current
+            <Plus size={11} /> Save plate
           </button>
         )}
       </div>
@@ -46,14 +51,14 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Template name..."
-            className="flex-1 px-3 py-1.5 text-sm font-dm rounded-full border border-gray-200 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 bg-white"
+            placeholder="Name this plate…"
+            className="flex-1 px-3 py-1.5 text-[13.5px] font-sans-linkedin text-linkedin-ink rounded-full border border-linkedin-rule bg-linkedin-surface focus:border-linkedin-accent focus:outline-none focus:ring-2 focus:ring-linkedin-accent/20"
             autoFocus
           />
           <button
             type="button"
             onClick={handleSave}
-            className="p-1.5 rounded-full text-primary hover:bg-primary/5 cursor-pointer"
+            className="p-1.5 rounded-full text-linkedin-accent hover:bg-linkedin-accent-light cursor-pointer"
             aria-label="Save template"
           >
             <Check size={16} />
@@ -64,7 +69,7 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
               setShowSaveInput(false);
               setTemplateName("");
             }}
-            className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 cursor-pointer"
+            className="p-1.5 rounded-full text-linkedin-muted hover:text-linkedin-ink cursor-pointer"
             aria-label="Cancel"
           >
             <X size={16} />
@@ -72,16 +77,19 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
         </div>
       )}
 
-      <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
         {templates.map((template) => (
           <motion.button
             key={template.id}
             type="button"
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => onApply(template)}
-            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-dm font-medium bg-gray-50 border border-gray-200 text-gray-600 hover:border-primary/30 hover:text-primary hover:bg-primary/5 transition-all duration-150 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="relative group flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-sans-linkedin text-[12.5px] font-medium bg-linkedin-surface border border-linkedin-rule text-linkedin-ink-soft hover:border-linkedin-accent hover:text-linkedin-accent hover:-translate-y-[1px] transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-accent focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-bg"
           >
-            <Bookmark size={11} className="text-gray-400 group-hover:text-primary transition-colors" />
+            <Bookmark
+              size={11}
+              className="text-linkedin-muted group-hover:text-linkedin-accent transition-colors"
+            />
             {template.name}
             {!template.isBuiltIn && onRemove && (
               <span
@@ -97,7 +105,7 @@ const TemplateBar = ({ templates, onApply, onSave, onRemove, hasActiveFilters })
                     onRemove(template.id);
                   }
                 }}
-                className="hidden group-hover:inline-flex ml-0.5 text-gray-400 hover:text-red-500"
+                className="hidden group-hover:inline-flex ml-0.5 text-linkedin-muted hover:text-linkedin-accent"
                 aria-label={`Delete ${template.name}`}
               >
                 <X size={11} />

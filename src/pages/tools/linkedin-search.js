@@ -91,6 +91,13 @@ function referralFilterReducer(state, action) {
   }
 }
 
+const PAPER_GRID = {
+  backgroundImage:
+    "radial-gradient(rgba(61,51,46,0.14) 1px, transparent 1px), linear-gradient(rgba(217,207,191,0.35) 1px, transparent 1px)",
+  backgroundSize: "24px 24px, 100% 40px",
+  backgroundPosition: "0 0, 0 0",
+};
+
 export default function LinkedInSearchPage() {
   const [activeTab, setActiveTab] = useState("search");
   const [jobFilters, jobDispatch] = useReducer(jobFilterReducer, INITIAL_JOB_FILTERS);
@@ -186,13 +193,16 @@ export default function LinkedInSearchPage() {
   }, [filters, activeTab]);
 
   const tabs = [
-    { id: "search", label: "Job Search", icon: Briefcase },
-    { id: "referral", label: "Referral Finder", icon: Users },
+    { id: "search", label: "Job Search", icon: Briefcase, numeral: "01" },
+    { id: "referral", label: "Referral Finder", icon: Users, numeral: "02" },
   ];
 
   const fadeUp = shouldAnimate
-    ? { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } }
+    ? { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } }
     : { initial: {}, animate: {} };
+
+  const isMac =
+    typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent);
 
   return (
     <>
@@ -208,92 +218,158 @@ export default function LinkedInSearchPage() {
 
       <main
         id="main-content"
-        className="min-h-screen pb-20 md:pb-12"
-        style={{ background: "radial-gradient(ellipse at 50% 0%, #EEF2FF 0%, #F9FAFB 70%)" }}
+        className="relative min-h-screen pb-20 md:pb-12 bg-linkedin-bg text-linkedin-ink overflow-hidden"
       >
+        {/* Paper grain: dot-grid + faint horizontal rule */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-70"
+          style={PAPER_GRID}
+        />
+        {/* Top torn-paper edge decoration */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1200 14"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute top-0 left-0 w-full h-3 text-linkedin-rule"
+        >
+          <path
+            d="M0,0 L0,8 L40,4 L90,10 L140,5 L200,9 L260,3 L320,8 L390,5 L460,10 L530,4 L600,9 L670,5 L740,10 L820,4 L900,9 L970,5 L1050,10 L1120,4 L1200,8 L1200,0 Z"
+            fill="currentColor"
+            opacity="0.55"
+          />
+        </svg>
+        {/* Soft atmospheric vignette at top center */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[420px] opacity-60"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 0%, rgba(201,155,60,0.18) 0%, rgba(199,91,63,0.05) 40%, transparent 70%)",
+          }}
+        />
+
         {/* Hero */}
-        <div className="max-w-content mx-auto px-4 lg:px-6 pt-24 sm:pt-28">
-          <div className="max-w-[680px] mx-auto text-center mb-10">
-            <motion.p
+        <div className="relative max-w-content mx-auto px-4 lg:px-6 pt-24 sm:pt-28">
+          <div className="max-w-[720px] mx-auto text-center mb-12">
+            <motion.div
               {...fadeUp}
-              transition={{ duration: 0.3 }}
-              className="text-[11px] font-dm font-semibold uppercase tracking-[0.1em] text-primary mb-5"
+              transition={{ duration: 0.32 }}
+              className="inline-flex items-center gap-2 mb-6"
             >
-              Smart Search Builder
-            </motion.p>
+              <span
+                aria-hidden="true"
+                className="inline-flex h-5 w-5 items-center justify-center rounded-[3px] bg-linkedin-accent text-linkedin-surface font-mono-proof text-[10px] font-bold leading-none shadow-letterpress-inset"
+              >
+                ¶
+              </span>
+              <span className="text-[11px] font-mono-proof font-semibold uppercase tracking-[0.22em] text-linkedin-accent">
+                Press &amp; Proof &middot; Issue 04
+              </span>
+            </motion.div>
+
             <motion.h1
               {...fadeUp}
-              transition={{ duration: 0.3, delay: 0.05 }}
-              className="font-serif-display font-normal text-text-primary mb-5"
-              style={{ fontSize: "clamp(2.25rem, 5vw, 3rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}
+              transition={{ duration: 0.36, delay: 0.06 }}
+              className="font-serif-display font-normal text-linkedin-ink mb-5 tracking-tight"
+              style={{
+                fontSize: "clamp(2.5rem, 6vw, 4rem)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.025em",
+              }}
             >
-              Build your perfect
+              Typeset your <em className="text-linkedin-accent italic">perfect</em>
               <br />
-              LinkedIn search.
+              LinkedIn <em className="italic text-linkedin-ink-soft">search</em>,
+              <br />
+              one param at a time.
             </motion.h1>
+
             <motion.p
               {...fadeUp}
-              transition={{ duration: 0.3, delay: 0.15 }}
-              className="text-base font-dm text-gray-500 max-w-[480px] mx-auto mb-4 leading-relaxed"
+              transition={{ duration: 0.32, delay: 0.16 }}
+              className="font-sans-linkedin text-[1.0625rem] text-linkedin-ink-soft max-w-[520px] mx-auto mb-6 leading-relaxed"
             >
-              Craft optimized search URLs with smart filters.
-              No sign-in required.
+              A letterpress URL builder. Pick keywords, ink the filters, pull a clean
+              proof — then take it to LinkedIn. No sign-in. No tracking.
             </motion.p>
-            <motion.p
+
+            <motion.div
               {...fadeUp}
-              transition={{ duration: 0.3, delay: 0.25 }}
-              className="text-xs font-dm text-gray-400"
+              transition={{ duration: 0.32, delay: 0.24 }}
+              className="inline-flex items-center gap-3 font-mono-proof text-[11px] text-linkedin-ink-soft"
             >
-              <kbd className="px-1.5 py-0.5 rounded border border-gray-200 bg-white text-[10px] font-mono text-gray-500">
-                {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+K
-              </kbd>{" "}
-              to focus search &middot;{" "}
-              <kbd className="px-1.5 py-0.5 rounded border border-gray-200 bg-white text-[10px] font-mono text-gray-500">
-                {typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent) ? "⌘" : "Ctrl"}+⇧+C
-              </kbd>{" "}
-              to copy URL
-            </motion.p>
+              <span className="inline-flex items-center gap-1.5">
+                <kbd className="px-1.5 py-0.5 rounded-[4px] bg-linkedin-surface border border-linkedin-rule shadow-letterpress-inset text-linkedin-ink">
+                  {isMac ? "⌘" : "Ctrl"}
+                </kbd>
+                <kbd className="px-1.5 py-0.5 rounded-[4px] bg-linkedin-surface border border-linkedin-rule shadow-letterpress-inset text-linkedin-ink">
+                  K
+                </kbd>
+                <span className="text-linkedin-muted">focus keywords</span>
+              </span>
+              <span aria-hidden="true" className="text-linkedin-rule">
+                /
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <kbd className="px-1.5 py-0.5 rounded-[4px] bg-linkedin-surface border border-linkedin-rule shadow-letterpress-inset text-linkedin-ink">
+                  {isMac ? "⌘" : "Ctrl"}
+                </kbd>
+                <kbd className="px-1.5 py-0.5 rounded-[4px] bg-linkedin-surface border border-linkedin-rule shadow-letterpress-inset text-linkedin-ink">
+                  ⇧
+                </kbd>
+                <kbd className="px-1.5 py-0.5 rounded-[4px] bg-linkedin-surface border border-linkedin-rule shadow-letterpress-inset text-linkedin-ink">
+                  C
+                </kbd>
+                <span className="text-linkedin-muted">pull a proof</span>
+              </span>
+            </motion.div>
           </div>
         </div>
 
         {/* Two-column workspace */}
         <motion.div
           {...fadeUp}
-          transition={{ duration: 0.3, delay: 0.3 }}
-          className="max-w-content mx-auto px-4 lg:px-6"
+          transition={{ duration: 0.4, delay: 0.32 }}
+          className="relative max-w-content mx-auto px-4 lg:px-6"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
-            {/* Left Column: Filters */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6 lg:gap-8">
+            {/* Left Column: Composing stick */}
             <div>
-              {/* Tabs — underline style */}
-              <div className="flex gap-0 border-b border-gray-200 mb-5">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center gap-2 px-4 py-3 text-sm font-dm font-semibold transition-colors cursor-pointer focus:outline-none ${
-                      activeTab === tab.id
-                        ? "text-primary"
-                        : "text-gray-400 hover:text-gray-700"
-                    }`}
-                  >
-                    <tab.icon size={15} />
-                    {tab.label}
-                    {activeTab === tab.id && (
-                      <motion.div
-                        layoutId="tab-underline"
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
-                        transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-                      />
-                    )}
-                  </button>
-                ))}
+              {/* Tabs — typeset numerals + terracotta underline */}
+              <div className="relative mb-6">
+                <div className="flex gap-0 border-b border-linkedin-rule">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`relative flex items-end gap-2 px-4 sm:px-5 pb-3 pt-2 font-sans-linkedin font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-accent focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-bg ${
+                        activeTab === tab.id
+                          ? "text-linkedin-ink"
+                          : "text-linkedin-muted hover:text-linkedin-ink-soft"
+                      }`}
+                    >
+                      <span className="font-mono-proof text-[11px] tracking-[0.08em] opacity-70">
+                        {tab.numeral}
+                      </span>
+                      <tab.icon size={14} className="mb-[1px]" />
+                      <span className="text-[14px]">{tab.label}</span>
+                      {activeTab === tab.id && (
+                        <motion.div
+                          layoutId="tab-underline"
+                          className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-linkedin-accent"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.45 }}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Templates (job search only) */}
               {activeTab === "search" && (
-                <div className="mb-4">
+                <div className="mb-5">
                   <TemplateBar
                     templates={allTemplates}
                     onApply={handleApplyTemplate}
@@ -306,7 +382,7 @@ export default function LinkedInSearchPage() {
 
               {/* Active Filters */}
               {!isEmpty && (
-                <div className="mb-4">
+                <div className="mb-5">
                   <ActiveFiltersBar
                     filters={filters}
                     tab={activeTab}
@@ -326,40 +402,62 @@ export default function LinkedInSearchPage() {
               )}
             </div>
 
-            {/* Right Column: Dark Preview Panel */}
-            <motion.div
+            {/* Right Column: Proof press */}
+            <motion.aside
               {...(shouldAnimate
-                ? { initial: { opacity: 0, y: 20, scale: 0.98 }, animate: { opacity: 1, y: 0, scale: 1 } }
-                : { initial: {}, animate: {} }
-              )}
-              transition={{ duration: 0.35, delay: 0.35 }}
-              className="lg:sticky lg:top-20 lg:self-start rounded-2xl p-6 space-y-5"
-              style={{ background: "#1A1A2E" }}
+                ? {
+                    initial: { opacity: 0, y: 16 },
+                    animate: { opacity: 1, y: 0 },
+                  }
+                : { initial: {}, animate: {} })}
+              transition={{ duration: 0.42, delay: 0.4 }}
+              className="lg:sticky lg:top-20 lg:self-start"
             >
-              {/* Summary */}
-              <HumanReadableSummary filters={filters} tab={activeTab} />
+              <div className="relative rounded-[14px] bg-linkedin-proof-bg text-linkedin-bg shadow-proof-panel border border-linkedin-proof-rule overflow-hidden">
+                {/* Proof panel masthead */}
+                <div className="flex items-center justify-between px-5 py-3 border-b border-linkedin-proof-rule bg-gradient-to-b from-[#221B18] to-[#1A1614]">
+                  <div className="flex items-center gap-2">
+                    <span className="flex gap-1" aria-hidden="true">
+                      <span className="h-2 w-2 rounded-full bg-linkedin-accent/80" />
+                      <span className="h-2 w-2 rounded-full bg-linkedin-highlight/70" />
+                      <span className="h-2 w-2 rounded-full bg-linkedin-rule/40" />
+                    </span>
+                    <span className="font-mono-proof text-[10px] uppercase tracking-[0.22em] text-linkedin-rule/80">
+                      Proof Press
+                    </span>
+                  </div>
+                  <span className="font-mono-proof text-[10px] uppercase tracking-[0.22em] text-linkedin-muted">
+                    {activeTab === "search" ? "Plate · 01" : "Plate · 02"}
+                  </span>
+                </div>
 
-              {/* URL Preview */}
-              <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
+                <div className="p-5 space-y-5">
+                  <HumanReadableSummary filters={filters} tab={activeTab} />
+                  <URLPreview url={url} isEmpty={isEmpty} onShare={isEmpty ? null : handleShare} />
 
-              {/* Cross-link to CareersAt.Tech jobs */}
-              <div className="p-4 rounded-lg bg-white/[0.06] border border-white/10 text-center">
-                <p className="text-sm font-dm text-gray-400 mb-2">
-                  Also check CareersAt.Tech for verified listings
-                </p>
-                <Link
-                  href="/jobs"
-                  className="inline-flex items-center gap-1.5 text-sm font-dm font-medium text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  Browse jobs <ArrowRight size={14} />
-                </Link>
+                  {/* Cross-link */}
+                  <div className="px-4 py-3 rounded-[10px] bg-linkedin-proof-surface border border-linkedin-proof-rule text-center">
+                    <p className="font-sans-linkedin text-[13px] text-linkedin-muted mb-1.5">
+                      Also browse verified listings at CareersAt.Tech
+                    </p>
+                    <Link
+                      href="/jobs"
+                      className="inline-flex items-center gap-1.5 font-sans-linkedin text-[13px] font-medium text-linkedin-highlight hover:text-linkedin-bg transition-colors group"
+                    >
+                      Open the job board
+                      <ArrowRight
+                        size={13}
+                        className="transition-transform group-hover:translate-x-0.5"
+                      />
+                    </Link>
+                  </div>
+
+                  <p className="text-center font-mono-proof text-[10px] uppercase tracking-[0.22em] text-linkedin-muted">
+                    Not affiliated with LinkedIn · URL builder only · no data collected
+                  </p>
+                </div>
               </div>
-
-              {/* Disclaimer */}
-              <p className="text-center text-[11px] font-dm text-gray-600">
-                Not affiliated with LinkedIn Corporation. This tool generates URLs only — no data is collected.
-              </p>
-            </motion.div>
+            </motion.aside>
           </div>
         </motion.div>
       </main>

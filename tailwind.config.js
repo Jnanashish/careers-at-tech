@@ -36,20 +36,29 @@ module.exports = {
         },
         whatsapp: "#25D366",
         linkedin: {
-          bg: "#F7F4EF",
+          bg: "#F4EEE4",
+          surface: "#FCF8F1",
           accent: "#C75B3F",
           "accent-hover": "#B5492F",
           "accent-light": "#FFF5F2",
           charcoal: "#2C2C2C",
+          ink: "#1A1614",
+          "ink-soft": "#3D332E",
           border: "#E5E0D8",
-          surface: "#FFFFFF",
+          rule: "#D9CFBF",
           muted: "#8A8580",
+          highlight: "#C99B3C",
+          "proof-bg": "#1A1614",
+          "proof-surface": "#2A2320",
+          "proof-rule": "#3D332E",
         },
       },
       fontFamily: {
         sans: ["Inter", "Noto Sans", "system-ui", "-apple-system", "sans-serif"],
         "serif-display": ["var(--font-instrument-serif)", "Georgia", "serif"],
         dm: ["var(--font-dm-sans)", "Inter", "sans-serif"],
+        "sans-linkedin": ["var(--font-bricolage)", "system-ui", "sans-serif"],
+        "mono-proof": ["var(--font-jetbrains-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       fontSize: {
         hero: ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em", fontWeight: "700" }],
@@ -80,6 +89,14 @@ module.exports = {
         "search-focus": "0 0 0 3px rgba(37,99,235,0.1)",
         "linkedin-card": "0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
         "linkedin-card-hover": "0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
+        letterpress:
+          "0 1px 0 rgba(26,22,20,0.04), 0 8px 20px -12px rgba(26,22,20,0.12)",
+        "letterpress-hover":
+          "0 1px 0 rgba(26,22,20,0.06), 0 14px 28px -14px rgba(26,22,20,0.22)",
+        "letterpress-inset":
+          "inset 0 -1px 0 rgba(26,22,20,0.15), 0 1px 0 rgba(255,255,255,0.6)",
+        "proof-panel":
+          "0 30px 60px -30px rgba(26,22,20,0.45), 0 12px 24px -18px rgba(26,22,20,0.25)",
       },
       keyframes: {
         "fade-in-up": {
@@ -94,11 +111,28 @@ module.exports = {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "ink-in": {
+          "0%": { backgroundColor: "rgba(201,155,60,0.38)" },
+          "70%": { backgroundColor: "rgba(201,155,60,0.18)" },
+          "100%": { backgroundColor: "transparent" },
+        },
+        "press-reveal": {
+          "0%": { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "stamp-bloom": {
+          "0%": { transform: "scale(0.8)", opacity: "0" },
+          "60%": { transform: "scale(1.04)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 0.3s ease-out forwards",
         shimmer: "shimmer 1.5s ease-in-out infinite",
         marquee: "marquee 30s linear infinite",
+        "ink-in": "ink-in 520ms ease-out",
+        "press-reveal": "press-reveal 360ms ease-out forwards",
+        "stamp-bloom": "stamp-bloom 220ms ease-out",
       },
     },
   },
