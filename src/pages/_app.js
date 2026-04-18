@@ -3,7 +3,7 @@ import Script from "next/script";
 
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
-import { Inter, Instrument_Serif, DM_Sans } from "next/font/google";
+import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import "../styles/globals.css";
 
@@ -25,6 +25,20 @@ const dmSans = DM_Sans({
     variable: "--font-dm-sans",
 });
 
+const bricolage = Bricolage_Grotesque({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-bricolage",
+    display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-jetbrains-mono",
+    display: "swap",
+});
+
 const App = (props) => {
     const { Component, pageProps } = props;
     return (
@@ -36,7 +50,7 @@ const App = (props) => {
 
             <Provider store={store}>
                 <ErrorBoundary>
-                    <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable}`}>
+                    <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}>
                         <Component {...pageProps} />
                     </main>
                 </ErrorBoundary>

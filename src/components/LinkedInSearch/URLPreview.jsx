@@ -43,11 +43,18 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
       const urlObj = new URL(rawUrl);
       const base = urlObj.origin + urlObj.pathname;
       const params = Array.from(urlObj.searchParams.entries());
+
+      const lineNum = (n) => (
+        <span className="select-none text-linkedin-muted/60 w-6 text-right mr-3 flex-shrink-0 font-mono-proof">
+          {String(n).padStart(2, "0")}
+        </span>
+      );
+
       if (!params.length) {
         return (
           <div className="flex">
-            <span className="select-none text-gray-600 w-8 text-right mr-3 flex-shrink-0">1</span>
-            <span className="text-gray-400">{rawUrl}</span>
+            {lineNum(1)}
+            <span className="text-linkedin-rule/60">{rawUrl}</span>
           </div>
         );
       }
@@ -55,20 +62,32 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
       const lines = [];
       lines.push(
         <div key="base" className="flex">
-          <span className="select-none text-gray-600 w-8 text-right mr-3 flex-shrink-0">1</span>
-          <span className="text-gray-500">{base}?</span>
+          {lineNum(1)}
+          <span className="text-linkedin-rule">
+            {base}
+            <span className="text-linkedin-highlight">?</span>
+          </span>
         </div>
       );
 
       params.forEach(([key, value], i) => {
         lines.push(
-          <div key={key} className="flex">
-            <span className="select-none text-gray-600 w-8 text-right mr-3 flex-shrink-0">{i + 2}</span>
-            <span>
-              {i > 0 && <span className="text-gray-600">&amp;</span>}
-              <span className="text-blue-400 font-semibold">{key}</span>
-              <span className="text-gray-600">=</span>
-              <span className="text-amber-300">{decodeURIComponent(value)}</span>
+          <div key={`${key}-${value}`} className="flex items-baseline">
+            {lineNum(i + 2)}
+            <span className="break-all">
+              {i > 0 && (
+                <span className="text-linkedin-muted mr-0.5">&amp;</span>
+              )}
+              <span
+                className="text-linkedin-accent font-semibold px-0.5 rounded-[2px] animate-ink-in"
+                style={{ animationDuration: "520ms" }}
+              >
+                {key}
+              </span>
+              <span className="text-linkedin-muted">=</span>
+              <span className="text-linkedin-highlight/95">
+                {decodeURIComponent(value)}
+              </span>
             </span>
           </div>
         );
@@ -76,73 +95,85 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
 
       return <div className="space-y-0.5">{lines}</div>;
     } catch {
-      return <span className="text-gray-400 break-all">{rawUrl}</span>;
+      return <span className="text-linkedin-rule/60 break-all">{rawUrl}</span>;
     }
   };
 
   if (isEmpty) {
     return (
-      <>
-        <div className="flex flex-col items-center justify-center py-12">
-          <div className="w-12 h-12 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center mb-4">
-            <Search size={20} className="text-gray-500" />
+      <div className="relative">
+        <span
+          aria-hidden="true"
+          className="absolute -top-2 left-4 px-1.5 font-mono-proof text-[9.5px] uppercase tracking-[0.22em] text-linkedin-highlight bg-linkedin-proof-bg z-10"
+        >
+          Proof — blank
+        </span>
+        <div className="flex flex-col items-center justify-center py-14 rounded-[10px] bg-linkedin-proof-surface border border-dashed border-linkedin-proof-rule">
+          <div className="w-11 h-11 rounded-[8px] bg-linkedin-proof-bg border border-linkedin-proof-rule flex items-center justify-center mb-4">
+            <Search size={18} className="text-linkedin-muted" />
           </div>
-          <p className="font-dm text-sm text-gray-500 text-center max-w-[200px]">
-            Start by typing a job title or pick a template
+          <p className="font-serif-display italic text-[15px] text-linkedin-rule/80 text-center max-w-[240px] leading-snug">
+            Set a keyword or pick a template
+            <br />
+            to pull your first proof.
           </p>
         </div>
-      </>
+      </div>
     );
   }
 
+  const paramCount = Array.from(new URL(url).searchParams).length;
+
   return (
     <>
-      {/* Desktop URL preview */}
+      {/* Desktop proof */}
       <div className="hidden md:block">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[11px] font-dm font-semibold text-gray-500 uppercase tracking-[0.08em]">
-            Generated URL
+        <div className="relative">
+          <span
+            aria-hidden="true"
+            className="absolute -top-2 left-4 px-1.5 font-mono-proof text-[9.5px] uppercase tracking-[0.22em] text-linkedin-highlight bg-linkedin-proof-bg z-10"
+          >
+            Proof &middot; {paramCount}
+            {paramCount === 1 ? " mark" : " marks"}
           </span>
-          <span className="text-[11px] font-dm text-gray-600">
-            {Array.from(new URL(url).searchParams).length} params
-          </span>
-        </div>
 
-        <motion.div
-          key={url}
-          initial={{ opacity: 0.6 }}
-          animate={{ opacity: 1 }}
-          className="font-mono text-[13px] leading-relaxed p-4 bg-black/20 rounded-lg border border-white/10 overflow-x-auto no-scrollbar"
-        >
-          {renderColoredURL(url)}
-        </motion.div>
+          <motion.div
+            key={url}
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.28 }}
+            className="font-mono-proof text-[12.5px] leading-[1.75] p-4 pt-5 rounded-[10px] bg-linkedin-proof-surface border border-linkedin-proof-rule overflow-x-auto no-scrollbar"
+          >
+            {renderColoredURL(url)}
+          </motion.div>
+        </div>
 
         <div className="flex flex-wrap items-center gap-2 mt-4">
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-dm font-medium bg-blue-500 text-white hover:bg-blue-600 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#1A1A2E]"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-[8px] font-sans-linkedin text-[13.5px] font-semibold bg-linkedin-accent text-linkedin-surface hover:bg-linkedin-accent-hover transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-proof-bg"
           >
             <AnimatePresence mode="wait" initial={false}>
               {copied ? (
                 <motion.span
                   key="check"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.6, opacity: 0 }}
                   className="inline-flex items-center gap-1.5"
                 >
-                  <Check size={14} /> Copied!
+                  <Check size={14} /> Stamped!
                 </motion.span>
               ) : (
                 <motion.span
                   key="copy"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.6, opacity: 0 }}
                   className="inline-flex items-center gap-1.5"
                 >
-                  <Copy size={14} /> Copy URL
+                  <Copy size={14} /> Pull a proof
                 </motion.span>
               )}
             </AnimatePresence>
@@ -150,45 +181,45 @@ const URLPreview = ({ url, isEmpty, onShare }) => {
           <button
             type="button"
             onClick={handleOpen}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-dm font-medium border border-white/20 text-white/80 hover:border-white/40 hover:text-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-[#1A1A2E]"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-[8px] font-sans-linkedin text-[13.5px] font-medium border border-linkedin-proof-rule text-linkedin-bg/85 hover:border-linkedin-highlight hover:text-linkedin-highlight transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-proof-bg"
           >
-            <ExternalLink size={14} /> Open in LinkedIn
+            <ExternalLink size={14} /> Open on LinkedIn
           </button>
           {onShare && (
             <button
               type="button"
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-dm font-medium border border-white/20 text-white/80 hover:border-white/40 hover:text-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-[#1A1A2E]"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-[8px] font-sans-linkedin text-[13.5px] font-medium border border-linkedin-proof-rule text-linkedin-bg/85 hover:border-linkedin-highlight hover:text-linkedin-highlight transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-linkedin-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-linkedin-proof-bg"
             >
               <Share2 size={14} />
-              {copiedShare ? "Link copied!" : "Share"}
+              {copiedShare ? "Link stamped" : "Share"}
             </button>
           )}
         </div>
       </div>
 
       {/* Mobile sticky bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-[#1A1A2E] border-t border-white/10 p-3 z-40">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-linkedin-proof-bg border-t border-linkedin-proof-rule p-3 z-40">
         <div className="flex gap-2">
           <button
             type="button"
             onClick={handleCopy}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-dm font-medium bg-blue-500 text-white cursor-pointer"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] font-sans-linkedin text-[13.5px] font-semibold bg-linkedin-accent text-linkedin-surface cursor-pointer"
           >
             {copied ? (
               <>
-                <Check size={14} /> Copied!
+                <Check size={14} /> Stamped!
               </>
             ) : (
               <>
-                <Copy size={14} /> Copy URL
+                <Copy size={14} /> Pull proof
               </>
             )}
           </button>
           <button
             type="button"
             onClick={handleOpen}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-dm font-medium border border-white/20 text-white/80 cursor-pointer"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] font-sans-linkedin text-[13.5px] font-medium border border-linkedin-proof-rule text-linkedin-bg/85 cursor-pointer"
           >
             <ExternalLink size={14} /> Open
           </button>

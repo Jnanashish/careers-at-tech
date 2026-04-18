@@ -634,33 +634,115 @@ Every page on CareersAt.Tech follows one of these structural templates:
 [Footer]
 ```
 
-### 17.4 Tool Page (`/tools/linkedin-search`)
+### 17.4 Tool Page (`/tools/linkedin-search`) — "Press & Proof" sub-system
+
+This page is the **first named sub-system** in the design system. It overrides the standard palette, typography, and shadow set for `/tools/linkedin-search` only. All other tool pages continue to follow the main system (sections 2–16).
+
+**Aesthetic:** Typesetter's workbench. A URL builder whose output is typography — so the page renders like a letterpress proof pulled off a warm paper stock.
+
+#### 17.4.1 Page structure
 
 ```
 [Navbar]
-[Hero — eyebrow + headline + description + keyboard shortcuts]
-[Two-column: Filter builder (left) + Sticky sidebar (right)]
+[Atmosphere — torn-paper top edge + dot-grid + ellipse glow at top center]
+[Hero — stamp mark + issue number + serif display headline with italic accents + letterpress kbd shortcuts]
+[Two-column: Composing stick (left) + Proof press (right)]
   Left column:
-    [Tab switcher — bg-card, rounded-card, shadow-card, p-1]
-    [Template bar — horizontal scroll, rounded-button pills]
-    [Active filters bar — removable chips, horizontal scroll]
-    [Filter sections — standard cards (bg-card, rounded-card, shadow-card)]
+    [Tab switcher — numeral prefixes (01·02), terracotta underline via Framer layoutId]
+    [Standing-type bar — template plates, horizontal scroll]
+    [Set bar — active filter chips in mono-proof]
+    [Composing stick — letterpress card, dashed rule dividers between sections]
   Right column (sticky):
-    [Human-readable summary — standard card]
-    [URL preview — standard card with color-coded URL]
-    [Cross-link CTA — standard card]
-    [Disclaimer text]
-[Mobile: Sticky bottom bar with copy + open buttons]
+    [Proof press — deep ink panel with masthead + plate number]
+    [Reading proof — Instrument Serif italic summary with terracotta underlines]
+    [Proof — mono-proof URL with line numbers, colored params, ink-in highlight on change]
+    [Colophon CTA — cross-link to /jobs]
+    [Imprint disclaimer]
+[Mobile: Sticky bottom bar with Pull proof + Open buttons]
 [Footer]
 ```
 
-**Tool page rules:**
-- Hero uses standard fadeUp animation pattern (motion.p, motion.h1 with staggered delays)
-- All cards use standard `bg-card rounded-card shadow-card` — no custom borders or accents
-- Filter chips follow design system section 10.2 pattern
-- Buttons follow section 7 variants (primary for main CTA, ghost for secondary)
-- All interactive elements have `focus:ring-2 focus:ring-primary focus:ring-offset-2`
-- Uses standard site colors — no page-specific color palettes
+#### 17.4.2 Palette override
+
+| Token                        | Hex       | Tailwind Class              | Usage                                  |
+|------------------------------|-----------|-----------------------------|-----------------------------------------|
+| `linkedin.bg`                | `#F4EEE4` | `bg-linkedin-bg`            | Page background (warm cream paper)      |
+| `linkedin.surface`           | `#FCF8F1` | `bg-linkedin-surface`       | Card surfaces                           |
+| `linkedin.ink`               | `#1A1614` | `text-linkedin-ink`         | Primary text (warm near-black)          |
+| `linkedin.ink-soft`          | `#3D332E` | `text-linkedin-ink-soft`    | Secondary text                          |
+| `linkedin.accent`            | `#C75B3F` | `*-linkedin-accent`         | Terracotta — dominant accent            |
+| `linkedin.accent-hover`      | `#B5492F` | `*-linkedin-accent-hover`   | Accent hover                            |
+| `linkedin.accent-light`      | `#FFF5F2` | `bg-linkedin-accent-light`  | Selected-chip background                |
+| `linkedin.rule`              | `#D9CFBF` | `border-linkedin-rule`      | Hairline + dashed dividers              |
+| `linkedin.muted`             | `#8A8580` | `text-linkedin-muted`       | Captions, tertiary text                 |
+| `linkedin.highlight`         | `#C99B3C` | `*-linkedin-highlight`      | Aged gold — param values, stamps        |
+| `linkedin.proof-bg`          | `#1A1614` | `bg-linkedin-proof-bg`      | Dark proof panel                        |
+| `linkedin.proof-surface`     | `#2A2320` | `bg-linkedin-proof-surface` | Raised surface inside proof panel       |
+| `linkedin.proof-rule`        | `#3D332E` | `border-linkedin-proof-rule`| Dividers inside proof panel             |
+
+Primary blue (`#2563EB`) is **not used** on this page.
+
+#### 17.4.3 Typography override
+
+| Role                          | Font (Tailwind)               | Notes                                    |
+|-------------------------------|-------------------------------|-------------------------------------------|
+| Display headline              | `font-serif-display`          | Instrument Serif, italic on accent words  |
+| UI body, chips, inputs        | `font-sans-linkedin`          | Bricolage Grotesque                       |
+| URL preview, kbd, section labels, stamps | `font-mono-proof`  | JetBrains Mono, uppercase, wide tracking  |
+
+Inter and DM Sans are **not used** in this page's content area.
+
+#### 17.4.4 Shadow & radius
+
+- `shadow-letterpress` — standard card elevation (`0 1px 0 rgba(26,22,20,0.04), 0 8px 20px -12px rgba(26,22,20,0.12)`)
+- `shadow-letterpress-hover` — hover state for cards
+- `shadow-letterpress-inset` — keycaps and inked stamp marks
+- `shadow-proof-panel` — the dark sticky proof panel
+- Cards use `rounded-[14px]`; chips remain `rounded-full`; inputs use `rounded-[8px]`
+
+#### 17.4.5 Atmosphere
+
+- Page base: `bg-linkedin-bg`
+- Dot-grid + faint horizontal rule: `radial-gradient(rgba(61,51,46,0.14) 1px, transparent 1px)` at `24px 24px` layered with a `1px` horizontal rule gradient at `100% 40px`
+- Top torn-paper edge: inline `<svg>` with a jagged path, `aria-hidden`
+- Warm vignette: radial gradient `rgba(201,155,60,0.18) → rgba(199,91,63,0.05) → transparent` at top center
+- All decorative overlays use `pointer-events: none` and `aria-hidden="true"`
+
+#### 17.4.6 Motion
+
+- Entrance: staggered `press-reveal` (y:6 → 0, 360ms) on eyebrow → headline → description → shortcuts → workspace
+- Tab underline: keep Framer Motion `layoutId="tab-underline"` with terracotta fill
+- Chip selection: stamp bloom — pseudo dot scales 0.8 → 1.04 → 1 over 220ms
+- URL param updates: `animate-ink-in` keyframe (gold → transparent, 520ms) re-triggered via `key={paramValue}` on each param span
+- All honor `prefers-reduced-motion`; no animation exceeds 540ms
+
+#### 17.4.7 Voice overlay (UI copy)
+
+The page adopts a light typographic vocabulary for microcopy only (not for content):
+- "Composing stick" — filter panel
+- "Proof press" / "Proof" — URL preview area
+- "Reading proof" — human-readable summary
+- "Standing type" / "plates" — templates
+- "Set / Clear all" — active filters bar
+- "Pull a proof" — copy button
+- "Stamped!" — copied confirmation
+- "Colophon" — how-it-works section
+- "Imprint" — disclaimer
+
+This vocabulary is **scoped to this page only**. Do not introduce these terms elsewhere.
+
+#### 17.4.8 Rules for this page
+
+- Do not mix in standard `primary-blue` tokens on this page — use `linkedin-accent` for all interactive highlights
+- Dashed dividers (`border-dashed border-linkedin-rule`) separate filter sections; solid `border-linkedin-rule` separates cards from context
+- Keyboard shortcut kbd caps: `bg-linkedin-surface border border-linkedin-rule shadow-letterpress-inset`
+- Focus rings: `focus-visible:ring-2 focus-visible:ring-linkedin-accent focus-visible:ring-offset-2` (offset matches surrounding surface)
+- Minimum hit targets remain 44×44px (accessibility rule, section 13, still applies)
+- All other global rules (WCAG AA contrast, `prefers-reduced-motion`, next/image, semantic HTML) still apply
+
+#### 17.4.9 When to extend this sub-system
+
+Do **not** apply Press & Proof styling to other tool pages without an explicit decision recorded in this file. If a second tool earns its own named sub-system, add it here as §17.5, not by widening §17.4.
 
 ---
 
@@ -760,7 +842,7 @@ const config = {
 - Use shadows heavier than `shadow-lg`
 - Use font weight 300, 800, or 900
 - Use more than 2 trust badges on a single card
-- Introduce new colors without adding them to this file
+- Introduce new colors without adding them to this file (exception: a page may adopt a named sub-system in §17 with its own palette, typography, and shadow set — e.g. §17.4 Press & Proof for `/tools/linkedin-search`)
 - Place the WhatsApp CTA more than once per page
 - Use sidebar filters — horizontal chips only
 - Use banner/hero images — text-driven heroes only
@@ -783,5 +865,6 @@ When updating this file:
 
 | Date       | Change                                     |
 |------------|---------------------------------------------|
+| Apr 2026   | §17.4 rewritten as "Press & Proof" sub-system for `/tools/linkedin-search` (warm cream + terracotta palette, Bricolage Grotesque + JetBrains Mono + Instrument Serif, letterpress shadows, ink-in keyframe). §19 Don't amended to allow named sub-systems. |
 | Apr 2026   | Added Tool Page template (17.4) for LinkedIn Search Builder |
 | Apr 2026   | Initial design system created               |
