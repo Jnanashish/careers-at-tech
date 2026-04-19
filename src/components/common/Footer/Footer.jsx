@@ -98,12 +98,6 @@ const Footer = () => {
             </div>
 
             <div className={styles.bottom_nav}>
-                <p>
-                    Made with ❤️ in India by
-                    <a target="_blank" rel="noopener noreferrer" href="https://bit.ly/jsh_linkedin_footer">
-                        @Jnanashish
-                    </a>
-                </p>
                 <p>Copyright © 2025 CareersatTech. All rights reserved</p>
             </div>
         </div>
