@@ -16,23 +16,20 @@ import { generateSlugFromrole, generateRandomImpression } from "@/Helpers/jobdet
 import { DEFAULT_COMPANY_LOGO } from "@/Helpers/config";
 
 const Jobcard = (props) => {
-    const { title, role, imagePath, jobtype, location, experience, jdpage, totalclick, id, link, companyName, createdAt, company } = props.data;
+    const { title, role, imagePath, jobtype, location, experience, totalclick, id, link, companyName, createdAt, company } = props.data;
 
     const [jobcardClicked, setJobcardClicked] = useState(false);
 
     const titleforShare = generateSlugFromrole(title);
     const impressionClick = generateRandomImpression(totalclick)
 
-    // redirect to job detail page when jdpage is true
     const redirectToJobdetailPage = () => {
         Router.push(`/${titleforShare}/${id}`);
     };
 
     // when mouse hovered over a job card prefetch the job details
     const onMouseEnter = () => {
-        if (jdpage === "true") {
-            Router.prefetch(`/${titleforShare}/${id}`);
-        }
+        Router.prefetch(`/${titleforShare}/${id}`);
     };
 
     // return company logo or default placeholder
@@ -46,16 +43,15 @@ const Jobcard = (props) => {
 
     // handle job card click
     const handleJobCardClick = () => {
-        // if job description present open jd page
-        if (jdpage === "true") {
-            setJobcardClicked(true);
-            redirectToJobdetailPage();
-        }
-        // open job details in careers page in new tab
-        if (jdpage === "false" || jobtype === "promo") {
+        // open external link for promo jobs
+        if (jobtype === "promo") {
             window.open(link);
             countClickinJd(id);
+            return;
         }
+        // redirect to job detail page for all other jobs
+        setJobcardClicked(true);
+        redirectToJobdetailPage();
     };
 
     return (
