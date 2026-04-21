@@ -11,14 +11,11 @@ import { countClickinJd } from "@/core/apis/jobapicall";
 import Similarjob from "../Similarjob/Similarjob";
 import { shareJobDetails } from "@/Helpers/socialmediahandler";
 import WhatAppBanner from "../Banners/WhatsappBanner";
-import TailorButton from "../toolkit/TailorButton";
 import { format } from "timeago.js";
 import linkedinIcon from "../../static/Image/linkedinIcon.svg";
-import PromoBanner from "../Banners/PromoBanner";
 
 const Jobdetails = (props) => {
     const data = props?.jobdata;
-    const onTailorClick = props?.onTailorClick;
 
     // when back button is clicked move to job listing page
     const handleBackButtonclick = () => {
@@ -37,14 +34,13 @@ const Jobdetails = (props) => {
         window.open(linekdinUrl);
     };
 
-
     const companyLogo = () => {
         const logo = data?.company?.smallLogo || data?.imagePath;
-        if(!logo || logo === "none"){
+        if (!logo || logo === "none") {
             return false;
         }
         return logo;
-    }
+    };
 
     // [UI] component for job info card item
     const JobInfoItem = ({ title, jobinfo, icon }) => {
@@ -65,7 +61,7 @@ const Jobdetails = (props) => {
     const JobDetailItem = ({ data, header }) => {
         if (!!data && data !== "N" && data !== "<p>N</p>") {
             return (
-                <div className={styles.jobsection}>
+                <div className={styles.jobdetails}>
                     {!!header && <h3>{header} : </h3>}
                     <p>{parse(data)}</p>
                 </div>
@@ -94,7 +90,7 @@ const Jobdetails = (props) => {
                     <h1 className={styles.jobinfo_title}>{data?.role}</h1>
                     <span className={styles.jobinfo_companynamesection}>
                         <p className={styles.jobinfo_companynamesection_name}>{data?.companyName}</p>
-                        <p className={styles.jobinfo_companynamesection_postdate}> • Posted {format(data?.createdAt)}</p>
+                        <p className={styles.jobinfo_companynamesection_postdate}> •  Posted {format(data?.createdAt)}</p>
                     </span>
                 </div>
 
@@ -119,25 +115,17 @@ const Jobdetails = (props) => {
                     <JobDetailItem header="About Company" data={data?.aboutCompany} />
                 </div>
 
-
-                {onTailorClick && (
-                    <span className="mobileview">
-                        <div style={{ marginBottom: "16px" }}>
-                            <TailorButton jobData={data} onClick={onTailorClick} />
-                        </div>
-                    </span>
-                )}
                 <div className={styles.buttonsection}>
                     <span onClick={askforReferral} className={styles.buttonsection_referral}>
-                        <p>Ask for referrals on</p>
-                        <Image className={styles.icon} src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
+                        <p>Ask for referrals on LinkedIn</p>
+                        {/* <Image className={styles.icon} src={linkedinIcon} alt="Telegram icon" height={25} width={25} /> */}
                     </span>
                     <span className={styles.buttonsection_apply} onClick={() => applyButtonClicked(data?.link)}>
                         <p>Apply now</p>
                         <FontAwesomeIcon className={styles.icon} icon={faArrowRight} />
                     </span>
                 </div>
-                {data?.platform === "careerspage" && <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>}
+                {data?.platform !== "careerspage" && <p className={styles.redirection_message}>* You will be redirected to the official company careers page.</p>}
             </div>
             <Similarjob companytype={data?.companytype} id={data?._id} />
         </>

@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
 
-import Header from "@/components/common/Header/header";
-import Footer from "@/components/common/Footer/Footer";
-import ScrolltoTop from "@/components/common/ScrolltoTop";
+import Navbar from "@/components/Redesign/Navbar";
+import FooterNew from "@/components/Redesign/FooterNew";
+import ScrollToTop from "@/components/Redesign/ScrollToTop";
 import PromptPageLayout from "@/components/toolkit/PromptPageLayout";
 import JsonLd from "@/core/SEO/JsonLd";
 
@@ -104,10 +104,10 @@ const ToolkitPromptPage = ({ prompt, relatedPrompts }) => {
             </Head>
             <JsonLd data={howToSchema} />
             <JsonLd data={breadcrumbSchema} />
-            <Header />
+            <Navbar />
             <PromptPageLayout prompt={prompt} relatedPrompts={relatedPrompts} />
-            <Footer />
-            <ScrolltoTop />
+            <FooterNew />
+            <ScrollToTop />
         </div>
     );
 };

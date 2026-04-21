@@ -1,22 +1,18 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
-const fontVariable = path.resolve(__dirname, "src/scss/font-variables.scss").replace(/\\/g, '/').replace(/ /g, "\\ ");
-const colorVariable = path.resolve(__dirname, "src/scss/color-variables.scss").replace(/\\/g, '/').replace(/ /g, "\\ ");
-const variables = path.resolve(__dirname, "src/scss/variables.scss").replace(/\\/g, '/').replace(/ /g, "\\ ");
-const sassPath = `@import "${colorVariable}"; @import "${fontVariable}"; @import "${variables}";`
-
 const nextConfig = {
-    reactStrictMode: true,
-    sassOptions: {
-        additionalData: sassPath,
-    },
-    images: {
-        remotePatterns: [
+    reactStrictMode: false,
+    experimental: {
+        fontLoaders: [
             {
-                protocol: "https",
-                hostname: "res.cloudinary.com",
+                loader: "@next/font/google",
+                options: {
+                    subsets: ["latin"],
+                },
             },
         ],
+    },
+    images: {
+        domains: ["res.cloudinary.com", "i.ibb.co"],
     },
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./contact.module.scss";
-import Header from "@/components/common/Header/header";
+import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
 import Meta from "../../core/SEO/Meta.jsx";
 

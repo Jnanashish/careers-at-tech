@@ -3,6 +3,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./index.module.scss";
 import { isMobile } from "@/Helpers/utils";
+
 function JobcardLoader() {
     const mobile = isMobile();
     return (
@@ -19,4 +20,5 @@ function JobcardLoader() {
         </div>
     );
 }
+
 export default JobcardLoader;

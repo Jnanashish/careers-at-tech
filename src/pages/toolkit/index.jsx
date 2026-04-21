@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./toolkit.module.scss";
-import Header from "@/components/common/Header/header";
-import Footer from "@/components/common/Footer/Footer";
-import ScrolltoTop from "@/components/common/ScrolltoTop";
+import Navbar from "@/components/Redesign/Navbar";
+import FooterNew from "@/components/Redesign/FooterNew";
+import ScrollToTop from "@/components/Redesign/ScrollToTop";
 import CategoryGrid from "@/components/toolkit/CategoryGrid";
 import PromptCard from "@/components/toolkit/PromptCard";
-import WhatAppBanner from "@/components/Banners/WhatsappBanner";
+import { WhatsAppCTA } from "@/components/Redesign/SidebarNew";
 import JsonLd from "@/core/SEO/JsonLd";
 
 import { CATEGORIES } from "@/lib/categories";
@@ -139,7 +139,7 @@ const ToolkitHubPage = ({ allPrompts, promptsByCategory, featuredPrompts, trendi
             </Head>
             <JsonLd data={faqSchema} />
             <JsonLd data={collectionSchema} />
-            <Header />
+            <Navbar />
 
             <main className={styles.toolkit}>
                 {/* Hero */}
@@ -268,12 +268,12 @@ const ToolkitHubPage = ({ allPrompts, promptsByCategory, featuredPrompts, trendi
 
                 {/* WhatsApp CTA */}
                 <section className={styles.section}>
-                    <WhatAppBanner isModal={false} />
+                    <WhatsAppCTA />
                 </section>
             </main>
 
-            <Footer />
-            <ScrolltoTop />
+            <FooterNew />
+            <ScrollToTop />
         </div>
     );
 };

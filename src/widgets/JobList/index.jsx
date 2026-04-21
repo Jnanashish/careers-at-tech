@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import styles from "./joblist.module.scss";
-import ShowMoreButton from "@/components/Showmorebutton";
-import Pagination from "@/components/Pagination";
 
 // import components
 import Jobcard from "@/components/Jobcard/Jobcard";
@@ -12,38 +10,28 @@ import Sidebar from "@/components/Sidebar";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import NojobFound from "@/components/NojobFound";
 import JoblistLoader from "@/components/Loader/JoblistLoader";
+import ShowMoreButton from "@/components/Showmorebutton";
 
 // Helper functions
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 
-const JobList = ({ jobData }) => {
+const JobList = () => {
     const [pageno, setPageno] = useState(1);
     const [params, setParams] = useState(null); // array of object
-    const [jobdata, setJobdata] = useState(jobData?.data);
-    const [totalJobCount, setTotalJobCount] = useState(jobData?.totalCount);
-    const [loaderStatus, setLoaderStatus] = useState(false);
+    const [jobdata, setJobdata] = useState([]);
+    const [totalJobCount, setTotalJobCount] = useState(0);
+    const [loaderStatus, setLoaderStatus] = useState(true);
     const [showMoreClicked, setShowMoreClicked] = useState(false);
-    const abortControllerRef = useRef(null);
 
     const router = useRouter();
-
-    // abort any in-flight request when component unmounts
-    useEffect(() => {
-        return () => {
-            abortControllerRef.current?.abort();
-        };
-    }, []);
     const paramsToCheck = ["batch", "year", "companyname", "degree", "jobtype", "query", "location"];
 
     // [PARAM] add new key value in params array state or update existing value
     const updateParam = (key, value) => {
         // if value is empty then remove the param from list
         if (!value || value === "") {
-            setParams((prevParams) => {
-                if (!prevParams) return [];
-                const filtered = prevParams.filter((param) => Object.keys(param)[0] !== key);
-                return filtered;
-            });
+            const tempParams = params.filter((param) => Object.keys(param)[0] !== key);
+            setParams(tempParams);
             return;
         }
         setParams((prevParam) => {
@@ -77,42 +65,17 @@ const JobList = ({ jobData }) => {
         }
     };
 
-    // handle pagination tab click
-    const handlePaginationClick = (pageVal) => {
-        setPageno(pageVal);
-        setLoaderStatus(true);
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    }
-
     // [JOB DATA API] call job listing data (send params as parameter)
     const getJoblistingData = async (params) => {
-        // abort any in-flight request to prevent stale data from overwriting newer results
-        if (abortControllerRef.current) {
-            abortControllerRef.current.abort();
-        }
-        const controller = new AbortController();
-        abortControllerRef.current = controller;
-
         setLoaderStatus(true);
         const size = 10;
-        try {
-            const res = await getJobListing(params, pageno, size, controller.signal);
+        const res = await getJobListing(params, pageno, size);
 
-            if (!!res && Array.isArray(res?.data)) {
-                setTotalJobCount(res?.totalCount);
-                setJobdata(res?.data);
-            }
-        } catch (error) {
-            if (error.name === "AbortError") return;
-            console.error("Error fetching job listing:", error);
-        } finally {
-            if (!controller.signal.aborted) {
-                setLoaderStatus(false);
-                setShowMoreClicked(false);
-            }
+        if (!!res && Array.isArray(res?.data)) {
+            setTotalJobCount(res?.totalCount);
+            setLoaderStatus(false);
+            setShowMoreClicked(false);
+            setJobdata((jobdata) => [...jobdata, ...res?.data]);
         }
     };
 
@@ -168,24 +131,9 @@ const JobList = ({ jobData }) => {
     useEffect(() => {
         if (params !== null) {
             getJoblistingData(params);
-            if (params.length > 0) {
-                updateSearchparaminUrl(params);
-            } else {
-                // clear query string when all filters are removed
-                window.history.replaceState({}, "", window.location.pathname);
-            }
+            updateSearchparaminUrl(params);
         }
     }, [params]);
-
-    // restore params from URL on initial page load (supports bookmarked/shared URLs)
-    // skip if no URL params exist to preserve SSR-hydrated data and avoid a redundant fetch
-    useEffect(() => {
-        const searchParams = new URLSearchParams(window.location.search);
-        const hasUrlParams = paramsToCheck.some((key) => searchParams.has(key));
-        if (hasUrlParams) {
-            checkParameterinUrl();
-        }
-    }, []);
 
     // detect any change in url and check if any query parama present in url
     useEffect(() => {
@@ -197,6 +145,11 @@ const JobList = ({ jobData }) => {
         return () => router.events.off("routeChangeComplete", handleRouteChange);
     }, [router.events]);
 
+    // on intial load check if any query parama present in url to apply it as filter
+    useEffect(() => {
+        checkParameterinUrl();
+    }, []);
+
     return (
         <>
             <NavHeader params={params} handleFilterChange={handleFilterChange} />
@@ -207,7 +160,7 @@ const JobList = ({ jobData }) => {
                     {!loaderStatus && jobdata.length === 0 && <NojobFound />}
 
                     {/* main job card list section  */}
-                    {(!loaderStatus) && (
+                    {(!loaderStatus || jobdata.length !== 0) && (
                         <>
                             {!!totalJobCount && <p className={styles.joblist_mainsection_alljobs}>All Jobs ({totalJobCount})</p>}
 
@@ -221,19 +174,17 @@ const JobList = ({ jobData }) => {
                                     );
                                 })}
 
+                            {/* show more button */}
+                            {jobdata.length !== 0 && pageno * 10 < totalJobCount && <ShowMoreButton buttonclickHandler={showMoreButtonClicked} showMoreClicked={showMoreClicked} />}
                         </>
                     )}
 
-
-                    {/*  show loader  */}
-                    {!showMoreClicked && loaderStatus && <JoblistLoader />}
-                    <div className={styles.paginationHolder}>
-                        <Pagination className="pagination-bar" currentPage={pageno} totalCount={totalJobCount} pageSize={10} onPageChange={handlePaginationClick} />
-                    </div>
+                    {/*  show job list loader  */}
+                    {!showMoreClicked && loaderStatus && <JoblistLoader/>}
                 </div>
 
                 {/* side bar  */}
-                <div className="desktopview">
+                <div className={`${styles.joblist_sidebar} desktopview`}>
                     <Sidebar />
                 </div>
             </div>

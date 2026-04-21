@@ -3,7 +3,7 @@ import Script from "next/script";
 
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import "../styles/globals.css";
 
@@ -11,6 +11,32 @@ import "../styles/globals.css";
 const inter = Inter({
     weight: ["300", "400", "500", "600", "700", "800"],
     subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+    weight: ["400"],
+    subsets: ["latin"],
+    variable: "--font-instrument-serif",
+});
+
+const dmSans = DM_Sans({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-dm-sans",
+});
+
+const bricolage = Bricolage_Grotesque({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-bricolage",
+    display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-jetbrains-mono",
+    display: "swap",
 });
 
 const App = (props) => {
@@ -24,7 +50,7 @@ const App = (props) => {
 
             <Provider store={store}>
                 <ErrorBoundary>
-                    <main className={`${inter.className}`}>
+                    <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}>
                         <Component {...pageProps} />
                     </main>
                 </ErrorBoundary>

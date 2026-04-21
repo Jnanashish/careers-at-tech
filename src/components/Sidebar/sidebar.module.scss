@@ -1,11 +1,5 @@
 .sidebar {
     width: 100%;
-
-    &_image{
-        width: 100%;
-        height: auto;
-        margin-top: 36px;
-        border: 1px solid #6E00BE;
-        border-radius: 8px;
-    }
+    position: sticky;
+    top: 3rem;
 }

@@ -23,9 +23,10 @@ function CareerPages({ careerpageData }) {
                                 <span className={styles.companylist_card}>
                                     {!!item?.logourl && <Image height={40} width={40} src={item?.logourl} />}
                                     <h4>{item?.name}</h4>
-                                    <a href={item?.url}>{item?.url}</a>
+                                    <a className="desktopview" href={item?.url} target="_blank" rel="noopener noreferrer">{item?.url}</a>
                                 </span>
                             )}
+                            <a href={item?.url} target="_blank" rel="noopener noreferrer">{item?.url}</a>
                         </div>
                     );
                 })}
