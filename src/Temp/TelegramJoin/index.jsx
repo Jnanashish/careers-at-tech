@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 const style = {
     whatsAppJoinBtn: {
@@ -32,7 +32,7 @@ const style = {
 };
 
 const handleWhatsAppJoinClick = () => {
-    firenbaseEventHandler("telegram_default_ad_clikced", true);
+    firebaseEventHandler("telegram_default_ad_clikced", true);
 };
 
 const TelegramJoin = () => {

@@ -1,4 +1,4 @@
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 
 // share current job detail page on whatsapp
@@ -11,7 +11,7 @@ const shareonWhatsApp = (companyName) => {
 
 
 export const shareJobDetails = (data) => {
-    firenbaseEventHandler("share_job_clicked", {
+    firebaseEventHandler("share_job_clicked", {
         job_id: data._id,
         job_title: data.title,
         source: "Jd page",

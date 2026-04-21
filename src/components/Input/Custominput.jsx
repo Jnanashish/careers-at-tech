@@ -4,7 +4,8 @@ const CustomInput = (props) => {
     const { type, value, placeholder, className, name, checked } = props;
 
     return (
-        <>
+        <>  
+            {/* fot input type of radio  */}
             {type === "radio" && (
                 <input
                     type="radio"
@@ -16,6 +17,7 @@ const CustomInput = (props) => {
                     checked={checked}
                 />
             )}
+            {/* for normal inputs  */}
             {type !== "radio" && (
                 <input
                     type={!!type ? type : "text"}

@@ -96,7 +96,6 @@ const Dropdown = (props) => {
                                 );
                             })}
                     </div>
-                    {/* <div className={styles.dropdown_clearmessage}>Clear filter</div> */}
                 </div>
             </div>
 
@@ -113,9 +112,9 @@ const Dropdown = (props) => {
                             {!!data &&
                                 data.map((item) => {
                                     return (
-                                        <div key={item.display_text} onClick={() => handleFiltervalueClick(item)} className={styles.item} style={item.value === selected.value ? { backgroundColor: "#f1f1f1" } : {}}>
+                                        <p key={item.display_text} onClick={() => handleFiltervalueClick(item)} className={styles.item} style={item.value === selected.value ? { backgroundColor: "#f1f1f1" } : {}}>
                                             {item.display_text}
-                                        </div>
+                                        </p>
                                     );
                                 })}
                         </div>

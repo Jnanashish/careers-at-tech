@@ -1,0 +1,65 @@
+@import "src/scss/color-variables.scss";
+@import "src/scss/font-variables.scss";
+@import "src/scss/variables.scss";
+.copyButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: "Inter", sans-serif;
+
+    &:focus-visible {
+        outline: 2px solid $primary-light;
+        outline-offset: 2px;
+    }
+
+    .icon {
+        height: 14px;
+        width: 14px;
+    }
+}
+
+.primary {
+    background-color: $primary;
+    color: $white;
+    border: 1px solid $primary;
+
+    &:hover {
+        background-color: $primary-light;
+    }
+
+    &.copied {
+        background-color: #16a34a;
+        border-color: #16a34a;
+    }
+}
+
+.secondary {
+    background-color: $white;
+    color: $primary;
+    border: 1px solid $grey-light;
+
+    &:hover {
+        background-color: $blue-background;
+        border-color: $primary-light;
+    }
+
+    &.copied {
+        color: #16a34a;
+        border-color: #16a34a;
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .copyButton {
+        width: 100%;
+        padding: 12px 20px;
+    }
+}

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 import Navbar from "@/components/Redesign/Navbar";
 import FooterNew from "@/components/Redesign/FooterNew";
@@ -16,10 +17,13 @@ import SafetyBanner from "@/components/Redesign/JobDetail/SafetyBanner";
 import JobDetailSkeleton from "@/components/Redesign/JobDetail/JobDetailSkeleton";
 import JobNotFound from "@/components/Redesign/JobDetail/JobNotFound";
 import { WhatsAppCTA } from "@/components/Redesign/SidebarNew";
+import TailorButton from "@/components/toolkit/TailorButton";
 
 import { handleIntialPageLoad } from "@/core/handleInitialPageLoad";
 import { getJobListing } from "@/Helpers/jobdetailshelper";
 import { generateSlugFromrole } from "@/Helpers/jobdetailshelper";
+
+const TailorModal = dynamic(() => import("@/components/toolkit/TailorModal"), { ssr: false });
 
 export async function getStaticPaths() {
     // create static paths from with intial 30 pages
@@ -61,10 +65,17 @@ export async function getStaticProps(context) {
 
 const JobdetailsPage = ({ data }) => {
     const router = useRouter();
+    const [tailorModalOpen, setTailorModalOpen] = useState(false);
 
     useEffect(() => {
         handleIntialPageLoad();
     }, []);
+
+    useEffect(() => {
+        if (router.query.tailor === "1") {
+            setTailorModalOpen(true);
+        }
+    }, [router.query]);
 
     if (router.isFallback) {
         return (
@@ -132,6 +143,11 @@ const JobdetailsPage = ({ data }) => {
                                 applyUrl={job.link}
                             />
 
+                            {/* Tailor button on mobile */}
+                            <div className="lg:hidden">
+                                <TailorButton jobData={job} onClick={() => setTailorModalOpen(true)} />
+                            </div>
+
                             {/* Similar jobs on mobile (below content) */}
                             <div className="lg:hidden">
                                 <WhatsAppCTA />
@@ -146,6 +162,7 @@ const JobdetailsPage = ({ data }) => {
 
                         {/* Sidebar — desktop only */}
                         <aside className="hidden lg:flex flex-col gap-4 w-[320px] flex-shrink-0">
+                            <TailorButton jobData={job} onClick={() => setTailorModalOpen(true)} />
                             <StickyApplyCard data={job} />
                             <WhatsAppCTA />
                             <SimilarJobsMini
@@ -162,6 +179,14 @@ const JobdetailsPage = ({ data }) => {
             <FooterNew />
             <ScrollToTop />
             <MobileStickyBar data={job} />
+
+            {tailorModalOpen && (
+                <TailorModal
+                    isOpen={tailorModalOpen}
+                    onClose={() => setTailorModalOpen(false)}
+                    jobData={job}
+                />
+            )}
         </>
     );
 };

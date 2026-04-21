@@ -3,15 +3,18 @@ import Image from "next/image";
 import styles from "./contact.module.scss";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
+import Meta from "../../core/SEO/Meta.jsx";
 
 function Contact() {
     const openWhatsApp = () => {
-        const phoneNumber = "917743091193";
+        const phoneNumber = "919707040143";
         const msg = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
         window.open(msg);
     };
 
     return (
+        <>
+        <Meta/>
         <div>
             <Header showBorder={true}/>
             <div className={styles.contactContainer}>
@@ -43,6 +46,7 @@ function Contact() {
             </div>
             <Footer />
         </div>
+        </>
     );
 }
 

@@ -10,6 +10,7 @@ const footerLinks = {
     { label: "Internships", href: "/jobs?jobtype=internship" },
     { label: "Full-time Jobs", href: "/jobs?jobtype=full" },
     { label: "Remote Jobs", href: "/jobs?location=remote" },
+    { label: "Resume Toolkit", href: "/toolkit" },
     { label: "Companies", href: "/jobs?query=companies" },
     { label: "Job Alerts", href: "#" },
   ],

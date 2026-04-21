@@ -6,7 +6,7 @@ import JobListRedesign from "@/widgets/JobListRedesign";
 import { MobileWhatsAppBanner } from "@/components/Redesign/SidebarNew";
 
 import { getJobListing } from "@/Helpers/jobdetailshelper";
-import Meta from "../../core/SEO/meta";
+import Meta from "../../core/SEO/Meta";
 
 export async function getStaticProps() {
     const params = null;

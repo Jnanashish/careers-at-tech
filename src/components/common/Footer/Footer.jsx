@@ -7,11 +7,11 @@ import whatsappIcon from "../../../static/Image/whatsappIcon.svg";
 import linkedinIcon from "../../../static/Image/linkedinIcon.svg";
 
 import { jobsbylocation, jobsbybatch, company, jobsbytypes, jobsbycategories } from "./Helpers/staticdata";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 const Footer = () => {
     const socialIconClicked = (name) => {
-        firenbaseEventHandler("social_icon_clicked", {
+        firebaseEventHandler("social_icon_clicked", {
             social_media_name: name,
             source: "Footer",
         });
@@ -41,8 +41,9 @@ const Footer = () => {
                     <span>
                         <p>Careers at tech</p>
                         <span className={styles.companytabs_links}>
-                            {company.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                            <a className={styles.link} href="mailto:thecodergeek@gmail.com">Contact us</a>
+                            {company.map((item) => (
+                                <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                     {item.title}
                                 </Link>
                             ))}
@@ -50,11 +51,11 @@ const Footer = () => {
                     </span>
                 </div>
                 <div className={styles.companytabs}>
-                <span>
+                    <span>
                         <p>Jobs by types</p>
                         <span className={styles.companytabs_links}>
-                            {jobsbytypes.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                            {jobsbytypes.map((item) => (
+                                <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                     {item.title}
                                 </Link>
                             ))}
@@ -63,21 +64,20 @@ const Footer = () => {
                     <span>
                         <p>Jobs by category</p>
                         <span className={styles.companytabs_links}>
-                            {jobsbycategories.map((item, index) => (
-                                <Link key={index} className={styles.link} href={item.redirection_url}>
+                            {jobsbycategories.map((item) => (
+                                <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                     {item.title}
                                 </Link>
                             ))}
                         </span>
                     </span>
 
-
                     <div className={styles.companytabs_group}>
                         <span>
                             <p>Jobs by location</p>
                             <span className={styles.companytabs_links}>
-                                {jobsbylocation.map((item, index) => (
-                                    <Link key={index} className={styles.link} href={item.redirection_url}>
+                                {jobsbylocation.map((item) => (
+                                    <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                         {item.title}
                                     </Link>
                                 ))}
@@ -86,15 +86,15 @@ const Footer = () => {
                         <span>
                             <p>Jobs by batch</p>
                             <span className={styles.companytabs_links}>
-                                {jobsbybatch.map((item, index) => (
-                                    <Link key={index} className={styles.link} href={item.redirection_url}>
+                                {jobsbybatch.map((item) => (
+                                    <Link key={item.redirection_url} className={styles.link} href={item.redirection_url}>
                                         {item.title}
                                     </Link>
                                 ))}
                             </span>
                         </span>
                     </div>
-                </div>
+            </div>
             </div>
 
             <div className={styles.bottom_nav}>
@@ -104,6 +104,7 @@ const Footer = () => {
                         @Jnanashish
                     </a>
                 </p>
+                <p>Copyright © 2025 CareersatTech. All rights reserved</p>
             </div>
         </div>
     );

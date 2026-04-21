@@ -5,7 +5,7 @@ import styles from "./whatsappbanner.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import whatsappIcon from "@/static/Image/whatsappIcon.svg";
-import { firenbaseEventHandler } from "@/core/eventHandler";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 function WhatAppBanner(props) {
     const { isModal = false } = props;
@@ -32,7 +32,7 @@ function WhatAppBanner(props) {
     };
 
     const handleCancelClicked = () => {
-        firenbaseEventHandler("whatsapp_modal_cancel_clicked", true);
+        firebaseEventHandler("whatsapp_modal_cancel_clicked", true);
         sessionStorage.setItem("whatsAppClickedSession", "true");
         setShowModal(false);
     };
@@ -45,12 +45,12 @@ function WhatAppBanner(props) {
             localStorage.setItem("whatsAppClickedLocal", "true");
         }
 
-        firenbaseEventHandler("whatsapp_modal_ad_clicked", true);
+        firebaseEventHandler("whatsapp_modal_ad_clicked", true);
     };
 
     useEffect(() => {
         !!isModal && handleInitialLoad();
-    }, []);
+    }, [isModal]);
 
     return (
         <>
@@ -63,8 +63,7 @@ function WhatAppBanner(props) {
                     )}
 
                     <p>
-                        Join WhastApp Channel to get latest <b>Internship</b> and
-                        <b> Job</b> updates.
+                        Join our WhatsApp Channel to get the latest <b>internship</b> and <b>job</b> updates.
                     </p>
                     <a onClick={() => handleWhatsAppJoinClick()} href="https://bit.ly/jobs-whatsappchannel">
                         <div className={styles.whatsappbanner_joinbutton}>
@@ -72,6 +71,7 @@ function WhatAppBanner(props) {
                             <Image src={whatsappIcon} alt="Whatsapp icon" height={20} width={20} />
                         </div>
                     </a>
+                    <p className={styles.whatsappbanner_members}>25,000+ members have already joined!</p>
                 </div>
             )}
         </>

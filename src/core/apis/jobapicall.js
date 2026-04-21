@@ -6,7 +6,7 @@ export const getJobListData = (pagenum, dataPerPage = 10) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 export const getAlljdData = (id) => {
@@ -14,7 +14,7 @@ export const getAlljdData = (id) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 // get job dara based on batch
@@ -25,7 +25,7 @@ export const getcompanynamedata = (companyname) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 // get job data based on batch
@@ -34,7 +34,7 @@ export const getjdBatchData = (year) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 // get job data based on Degree
@@ -43,7 +43,7 @@ export const getjdDegreeData = (deg) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 // get job data based on Role
@@ -52,7 +52,7 @@ export const getjdJobtypeData = (role) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 // get type of ad need to show
@@ -61,7 +61,7 @@ export const gettypeofad = (role) => {
         .then((res) => {
             return res.json();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 };
 
 export const countClickinJd = (id) => {
