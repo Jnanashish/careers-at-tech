@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import Router from "next/router";
-import Meta from "../core/SEO/Meta.jsx";
+// Homepage redirects to /jobs. Server-side 308 (permanent) so the redirect
+// is followed before the JS bundle ships, which avoids a flash and gives
+// crawlers a clean signal.
 
-const Home = () => {
-    // for now all routes are redirected to job listing page
-    useEffect(() => {
-        Router.push("/jobs");
-    }, []);
+export async function getServerSideProps() {
+    return {
+        redirect: {
+            destination: "/jobs",
+            permanent: true,
+        },
+    };
+}
 
-    return (
-        <>
-            <Meta/>
-        </>
-    );
-};
-export default Home;
+export default function Home() {
+    return null;
+}

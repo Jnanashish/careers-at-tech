@@ -14,8 +14,7 @@ import { WhatsAppCTA } from "@/components/Redesign/SidebarNew";
 import JsonLd from "@/core/SEO/JsonLd";
 
 import { CATEGORIES } from "@/lib/categories";
-import { getJobListing } from "@/Helpers/jobdetailshelper";
-import { generateSlugFromrole } from "@/Helpers/jobdetailshelper";
+import { listJobsV2 } from "@/core/apis/v2/client";
 import { firebaseEventHandler } from "@/core/eventHandler";
 
 export async function getStaticProps() {
@@ -26,8 +25,8 @@ export async function getStaticProps() {
 
     let trendingJobs = [];
     try {
-        const res = await getJobListing(null, 1, 6);
-        trendingJobs = res?.data?.filter((j) => j?.jdpage === "true").slice(0, 6) || [];
+        const res = await listJobsV2({ limit: 6, page: 1, sort: "datePosted:desc" });
+        trendingJobs = res?.data?.slice(0, 6) || [];
     } catch (e) {
         trendingJobs = [];
     }
@@ -223,23 +222,20 @@ const ToolkitHubPage = ({ allPrompts, promptsByCategory, featuredPrompts, trendi
                         <h2 className={styles.sectionTitle}>Tailor on a live job</h2>
                         <p className={styles.sectionSub}>Pick a job and get a prompt pre-filled with the real JD.</p>
                         <div className={styles.jobsScroll}>
-                            {trendingJobs.map((job) => {
-                                const slug = generateSlugFromrole(job?.title);
-                                return (
-                                    <Link
-                                        key={job._id || job.id}
-                                        href={`/${slug}/${job.id}?tailor=1`}
-                                        className={styles.jobCard}
-                                    >
-                                        <p className={styles.jobTitle}>{job.role}</p>
-                                        <p className={styles.jobCompany}>{job.companyName}</p>
-                                        <span className={styles.jobLink}>
-                                            Get prompt
-                                            <FontAwesomeIcon className={styles.jobArrow} icon={faArrowRight} />
-                                        </span>
-                                    </Link>
-                                );
-                            })}
+                            {trendingJobs.map((job) => (
+                                <Link
+                                    key={job.slug || job._id}
+                                    href={`/jobs/${job.slug}?tailor=1`}
+                                    className={styles.jobCard}
+                                >
+                                    <p className={styles.jobTitle}>{job.title}</p>
+                                    <p className={styles.jobCompany}>{job.companyName}</p>
+                                    <span className={styles.jobLink}>
+                                        Get prompt
+                                        <FontAwesomeIcon className={styles.jobArrow} icon={faArrowRight} />
+                                    </span>
+                                </Link>
+                            ))}
                         </div>
                     </section>
                 )}

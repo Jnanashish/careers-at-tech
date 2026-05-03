@@ -15,6 +15,12 @@ module.exports = {
         },
         secondary: "#0D9488",
         page: "#F9FAFB",
+        cream: "#F7F4EF",
+        terracotta: {
+          DEFAULT: "#C75B3F",
+          hover: "#B5492F",
+          light: "#FFF5F2",
+        },
         card: "#FFFFFF",
         "text-primary": "#111827",
         "text-secondary": "#4B5563",
@@ -136,5 +142,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
