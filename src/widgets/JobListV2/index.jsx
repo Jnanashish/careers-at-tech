@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import Hero from "@/components/Redesign/Hero";
 import LogoWall from "@/components/Redesign/LogoWall";
 import FilterBarV2 from "@/components/Redesign/FilterBarV2";
-import JobCardV2 from "@/components/Redesign/JobCardV2";
+import SimpleJobCard from "@/components/Redesign/SimpleJobCard";
 import SidebarNew from "@/components/Redesign/SidebarNew";
 import SkeletonList from "@/components/Redesign/SkeletonCard";
 import ScrollToTop from "@/components/Redesign/ScrollToTop";
@@ -132,8 +132,8 @@ const JobListV2 = ({ initialJobs }) => {
                             {!loading && jobs.length > 0 && (
                                 <>
                                     <div className="flex flex-col gap-4">
-                                        {jobs.map((job, index) => (
-                                            <JobCardV2 key={job.slug || job._id} job={job} index={index} />
+                                        {jobs.map((job) => (
+                                            <SimpleJobCard key={job.slug || job._id} job={job} />
                                         ))}
                                     </div>
 
