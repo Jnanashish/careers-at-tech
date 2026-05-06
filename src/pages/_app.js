@@ -1,8 +1,6 @@
 import React from "react";
 import Script from "next/script";
 
-import { Provider } from "react-redux";
-import { store } from "../Redux/store";
 import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import "../styles/globals.css";
@@ -48,13 +46,11 @@ const App = (props) => {
                 {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "iibx8wd1xz");`}
             </Script>
 
-            <Provider store={store}>
-                <ErrorBoundary>
-                    <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}>
-                        <Component {...pageProps} />
-                    </main>
-                </ErrorBoundary>
-            </Provider>
+            <ErrorBoundary>
+                <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}>
+                    <Component {...pageProps} />
+                </main>
+            </ErrorBoundary>
         </>
     );
 };
