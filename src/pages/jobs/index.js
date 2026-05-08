@@ -1,9 +1,6 @@
 import React from "react";
 
-import Navbar from "@/components/Redesign/Navbar";
-import FooterNew from "@/components/Redesign/FooterNew";
-import JobListV2 from "@/widgets/JobListV2";
-import { MobileWhatsAppBanner } from "@/components/Redesign/SidebarNew";
+import JobList from "@/widgets/JobList";
 
 import { listJobsV2 } from "@/core/apis/v2/client";
 import Meta from "@/core/SEO/Meta";
@@ -30,10 +27,7 @@ const JobsPage = ({ initialJobs }) => (
             description="Browse verified tech jobs and internships from top companies hiring freshers in India. Filter by role, work mode, batch, and skills. Always free."
             canonical={`${SITE_URL}/jobs`}
         />
-        <Navbar />
-        <JobListV2 initialJobs={initialJobs} />
-        <MobileWhatsAppBanner />
-        <FooterNew />
+        <JobList initialJobs={initialJobs} />
     </>
 );
 

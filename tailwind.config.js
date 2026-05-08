@@ -41,6 +41,26 @@ module.exports = {
           "fulltime-text": "#15803D",
         },
         whatsapp: "#25D366",
+        v3: {
+          ink: "var(--v3-ink)",
+          "ink-2": "var(--v3-ink-2)",
+          "ink-3": "var(--v3-ink-3)",
+          paper: "var(--v3-paper)",
+          "paper-2": "var(--v3-paper-2)",
+          "paper-3": "var(--v3-paper-3)",
+          line: "var(--v3-line)",
+          "line-soft": "var(--v3-line-soft)",
+          mute: "var(--v3-mute)",
+          "mute-2": "var(--v3-mute-2)",
+          accent: "var(--v3-accent)",
+          "accent-2": "var(--v3-accent-2)",
+          "accent-soft": "var(--v3-accent-soft)",
+          "accent-deep": "var(--v3-accent-deep)",
+          acid: "var(--v3-acid)",
+          rose: "var(--v3-rose)",
+          green: "var(--v3-green-pulse)",
+          warn: "var(--v3-warn-orange)",
+        },
         linkedin: {
           bg: "#F4EEE4",
           surface: "#FCF8F1",
@@ -65,6 +85,9 @@ module.exports = {
         dm: ["var(--font-dm-sans)", "Inter", "sans-serif"],
         "sans-linkedin": ["var(--font-bricolage)", "system-ui", "sans-serif"],
         "mono-proof": ["var(--font-jetbrains-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+        "v3-serif": ["var(--font-instrument-serif)", "Times New Roman", "serif"],
+        "v3-sans": ["var(--font-geist)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        "v3-mono": ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
         hero: ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em", fontWeight: "700" }],
@@ -103,6 +126,14 @@ module.exports = {
           "inset 0 -1px 0 rgba(26,22,20,0.15), 0 1px 0 rgba(255,255,255,0.6)",
         "proof-panel":
           "0 30px 60px -30px rgba(26,22,20,0.45), 0 12px 24px -18px rgba(26,22,20,0.25)",
+        "v3-card-hover": "0 8px 24px rgba(10,14,26,0.06)",
+        "v3-dropdown": "0 10px 30px rgba(10,14,26,0.10)",
+      },
+      backgroundImage: {
+        "v3-dot-grid":
+          "radial-gradient(circle at 1px 1px, rgba(10,14,26,0.08) 1px, transparent 0)",
+        "v3-whatsapp": "linear-gradient(135deg, #128C7E 0%, #25D366 100%)",
+        "v3-rail-fade": "linear-gradient(180deg, var(--v3-paper) 0%, var(--v3-paper-2) 100%)",
       },
       keyframes: {
         "fade-in-up": {
@@ -131,6 +162,14 @@ module.exports = {
           "60%": { transform: "scale(1.04)", opacity: "1" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
+        "v3-pulse-ring": {
+          "0%, 100%": { boxShadow: "0 0 0 4px rgba(0,184,107,0.18)" },
+          "50%":      { boxShadow: "0 0 0 8px rgba(0,184,107,0.06)" },
+        },
+        "v3-sheet-up": {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 0.3s ease-out forwards",
@@ -139,6 +178,8 @@ module.exports = {
         "ink-in": "ink-in 520ms ease-out",
         "press-reveal": "press-reveal 360ms ease-out forwards",
         "stamp-bloom": "stamp-bloom 220ms ease-out",
+        "v3-pulse-ring": "v3-pulse-ring 2s ease-in-out infinite",
+        "v3-sheet-up": "v3-sheet-up 240ms cubic-bezier(0.2,0.8,0.2,1) forwards",
       },
     },
   },

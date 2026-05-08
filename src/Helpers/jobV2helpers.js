@@ -122,3 +122,32 @@ export function jobMetaTitle(job) {
     if (job.seo?.metaTitle) return job.seo.metaTitle;
     return `${job.title} at ${job.companyName} — CareersAt.Tech`;
 }
+
+// TODO(api): replace with job.stats.views once backend exposes counts.
+export function pseudoViewCount(slug) {
+    if (!slug) return 0;
+    let h = 0;
+    for (let i = 0; i < slug.length; i += 1) {
+        h = (h * 31 + slug.charCodeAt(i)) | 0;
+    }
+    const n = Math.abs(h) % 3800;
+    return 200 + n;
+}
+
+export function formatPostedAgo(dateStr) {
+    if (!dateStr) return null;
+    const t = new Date(dateStr).getTime();
+    if (Number.isNaN(t)) return null;
+    const diffSec = Math.max(0, Math.floor((Date.now() - t) / 1000));
+    if (diffSec < 60) return "just now";
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin}m`;
+    const diffHr = Math.floor(diffMin / 60);
+    if (diffHr < 24) return `${diffHr}h`;
+    const diffDay = Math.floor(diffHr / 24);
+    if (diffDay < 7) return `${diffDay}d`;
+    const diffWk = Math.floor(diffDay / 7);
+    if (diffWk < 5) return `${diffWk}w`;
+    const diffMo = Math.floor(diffDay / 30);
+    return `${diffMo}mo`;
+}
