@@ -124,9 +124,6 @@ const FooterNew = () => {
                 />
               </div>
             )}
-            <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              Verified tech jobs for freshers. India&apos;s most trusted fresher job board.
-            </p>
             <h4 className="text-caption uppercase tracking-widest text-white font-semibold mb-3">
               Careers at tech
             </h4>
@@ -146,7 +143,7 @@ const FooterNew = () => {
           </div>
 
           {/* Desktop link columns */}
-          <div className="hidden md:grid grid-cols-4 gap-8 flex-1">
+          <div className="hidden md:grid grid-cols-4 gap-8 flex-1 ml-auto justify-items-end">
             {footerColumns.filter(({ title }) => title !== "Jobs by types" || FLAGS.FOOTER_JOBS_BY_TYPE).map(({ title, links }) => (
               <div key={title}>
                 <h4 className="text-caption uppercase tracking-widest text-white font-semibold mb-4">

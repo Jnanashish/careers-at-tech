@@ -142,9 +142,8 @@ const JDEHero = ({ job, daysLeft, isUrgent, expired }) => {
                     {/* Left: logo + company + H1 */}
                     <div>
                         <div className="flex items-center gap-3 mb-3">
-                            {/* 84px logo */}
                             <div
-                                className="flex-shrink-0 w-[80px] h-[80px] rounded-[18px] flex items-center justify-center overflow-hidden"
+                                className="flex-shrink-0 w-[74px] h-[74px] rounded-[18px] flex items-center justify-center overflow-hidden"
                                 style={{
                                     backgroundColor: logoBg,
                                     boxShadow: "0 6px 20px rgba(16,24,40,.12)",
@@ -154,8 +153,8 @@ const JDEHero = ({ job, daysLeft, isUrgent, expired }) => {
                                     <Image
                                         src={logoSrc}
                                         alt={job.company?.logo?.iconAlt || `${job.companyName} logo`}
-                                        width={80}
-                                        height={80}
+                                        width={74}
+                                        height={74}
                                         className="object-contain w-full h-full"
                                     />
                                 ) : (
