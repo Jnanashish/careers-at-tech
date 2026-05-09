@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "@/components/ui/Logo";
 import Pill from "@/components/ui/Pill";
+import { FLAGS } from "@/Helpers/featureFlags";
 
 const Dot = () => (
     <span
@@ -16,14 +17,18 @@ const Dot = () => (
 );
 
 const JobCard = ({ job, saved, onSave, onClick }) => {
-    const railW = 184;
+    const railW = FLAGS.CARD_SAVE ? 184 : 160;
     const pad = 20;
+    const hasPills = job.featured || (FLAGS.CARD_MATCH_SCORE && job.matchScore) || (FLAGS.CARD_CLOSING_DEADLINE && job.urgency > 0.7 && job.deadline);
+    const [hovered, setHovered] = useState(false);
 
     return (
         <article
             className="v3-card-hov cursor-pointer"
             role="link"
             tabIndex={0}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
             onClick={onClick}
             onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -47,21 +52,25 @@ const JobCard = ({ job, saved, onSave, onClick }) => {
                 <Logo company={job.company} logoUrl={job.logoUrl} logoBg={job.logoBg} size={52} rounded={12} />
                 <div className="flex-1 flex flex-col gap-2.5 min-w-0">
                     <div>
-                        <div className="flex items-center gap-2 mb-2 flex-wrap">
-                            {job.featured && (
-                                <Pill sm tone="acid">
-                                    ★ Featured
-                                </Pill>
-                            )}
-                            <Pill sm tone={job.matchScore >= 80 ? "success" : "ghost"}>
-                                {job.matchScore}% match
-                            </Pill>
-                            {job.urgency > 0.7 && job.deadline && (
-                                <Pill sm tone="warn">
-                                    ⏱ Closes {job.deadline}
-                                </Pill>
-                            )}
-                        </div>
+                        {hasPills && (
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                {job.featured && (
+                                    <Pill sm tone="acid">
+                                        ★ Featured
+                                    </Pill>
+                                )}
+                                {FLAGS.CARD_MATCH_SCORE && (
+                                    <Pill sm tone={job.matchScore >= 80 ? "success" : "ghost"}>
+                                        {job.matchScore}% match
+                                    </Pill>
+                                )}
+                                {FLAGS.CARD_CLOSING_DEADLINE && job.urgency > 0.7 && job.deadline && (
+                                    <Pill sm tone="warn">
+                                        ⏱ Closes {job.deadline}
+                                    </Pill>
+                                )}
+                            </div>
+                        )}
                         <h3
                             className="font-v3-serif"
                             style={{
@@ -112,7 +121,7 @@ const JobCard = ({ job, saved, onSave, onClick }) => {
                                 posted {job.posted} ago
                             </span>
                         )}
-                        {job.applicants > 0 && (
+                        {FLAGS.CARD_APPLICANTS && job.applicants > 0 && (
                             <span className="inline-flex items-center gap-1">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -126,59 +135,57 @@ const JobCard = ({ job, saved, onSave, onClick }) => {
             </div>
 
             <div
-                className="flex flex-col justify-between gap-3"
+                className={`flex flex-col gap-3 ${FLAGS.CARD_SAVE ? "justify-between" : "justify-center"}`}
                 style={{
                     padding: pad,
                     borderLeft: "1px solid var(--v3-line-soft)",
                     background: "linear-gradient(180deg, var(--v3-paper) 0%, var(--v3-paper-2) 100%)",
                 }}
             >
-                <div className="flex justify-end items-start">
-                    <button
-                        type="button"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onSave?.(job.id);
-                        }}
-                        aria-label={saved ? "Unsave role" : "Save role"}
-                        aria-pressed={saved}
-                        className="grid place-items-center cursor-pointer v3-focus-ring"
-                        style={{
-                            width: 32,
-                            height: 32,
-                            borderRadius: "50%",
-                            border: "1px solid var(--v3-line)",
-                            background: saved ? "var(--v3-ink)" : "var(--v3-paper)",
-                            color: saved ? "var(--v3-paper)" : "var(--v3-ink-3)",
-                        }}
-                    >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                        </svg>
-                    </button>
-                </div>
+                {FLAGS.CARD_SAVE && (
+                    <div className="flex justify-end items-start">
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onSave?.(job.id);
+                            }}
+                            aria-label={saved ? "Unsave role" : "Save role"}
+                            aria-pressed={saved}
+                            className="grid place-items-center cursor-pointer v3-focus-ring"
+                            style={{
+                                width: 32,
+                                height: 32,
+                                borderRadius: "50%",
+                                border: "1px solid var(--v3-line)",
+                                background: saved ? "var(--v3-ink)" : "var(--v3-paper)",
+                                color: saved ? "var(--v3-paper)" : "var(--v3-ink-3)",
+                            }}
+                        >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
                 <button
                     type="button"
                     onClick={(e) => {
                         e.stopPropagation();
-                        if (job.applyUrl) {
-                            window.open(job.applyUrl, "_blank", "noopener,noreferrer");
-                        } else {
-                            onClick?.();
-                        }
+                        onClick?.();
                     }}
                     className="rounded-full inline-flex items-center justify-center gap-1.5 cursor-pointer v3-focus-ring"
                     style={{
-                        background: "var(--v3-ink)",
-                        color: "var(--v3-paper)",
-                        border: "none",
+                        background: "transparent",
+                        color: "var(--v3-ink-3)",
+                        border: "1px solid var(--v3-line)",
                         width: "100%",
-                        padding: "10px 14px",
+                        padding: "9px 14px",
                         fontSize: 12.5,
                         fontWeight: 500,
                     }}
                 >
-                    Apply now <span>→</span>
+                    View job <span aria-hidden="true" style={{ display: "inline-block", transition: "transform 0.2s ease", transform: hovered ? "rotate(-45deg)" : "rotate(0deg)" }}>→</span>
                 </button>
             </div>
         </article>

@@ -1,7 +1,7 @@
 import React from "react";
 import Script from "next/script";
 
-import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono, Fraunces } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import "../styles/globals.css";
 
@@ -37,6 +37,14 @@ const jetbrainsMono = JetBrains_Mono({
     display: "swap",
 });
 
+const fraunces = Fraunces({
+    weight: ["400", "500"],
+    style: ["normal", "italic"],
+    subsets: ["latin"],
+    variable: "--font-fraunces",
+    display: "swap",
+});
+
 const App = (props) => {
     const { Component, pageProps } = props;
     return (
@@ -47,7 +55,7 @@ const App = (props) => {
             </Script>
 
             <ErrorBoundary>
-                <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}>
+                <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
                     <Component {...pageProps} />
                 </main>
             </ErrorBoundary>

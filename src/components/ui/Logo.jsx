@@ -20,7 +20,7 @@ const Logo = ({ company = "", logoUrl = null, logoBg = "#0A0E1A", size = 52, rou
                 className="relative overflow-hidden bg-white flex-shrink-0"
                 style={{ ...sizeStyle, boxShadow: "inset 0 0 0 1px rgba(10,14,26,0.06)" }}
             >
-                <Image src={logoUrl} alt={`${company} logo`} fill sizes={`${px}px`} className="object-contain p-1" />
+                <Image src={logoUrl} alt={`${company} logo`} fill sizes={`${px}px`} className="object-contain" />
             </div>
         );
     }

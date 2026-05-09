@@ -32,6 +32,12 @@
     --v3-rose: #FF4D7E;
     --v3-green-pulse: #00B86B;
     --v3-warn-orange: #FF8A00;
+
+    --v3-header-h: 74px;
+}
+
+@media (max-width: 767px) {
+    :root { --v3-header-h: 66px; }
 }
 
 @keyframes v3-pulse-ring {
@@ -110,7 +116,7 @@
 html,
 body {
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 a {
@@ -150,4 +156,64 @@ a {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* ─── JD-E Variant ─────────────────────────────────────── */
+
+/* Themable brand vars — override on .jde-page to change accent hue */
+.jde-page {
+    --jde-brand: #2563EB;
+    --jde-brand-soft: #EFF6FF;
+    --jde-brand-soft-b: #BFDBFE;
+    --jde-brand-ink: #1D4ED8;
+}
+
+/* JD body HTML section-rewrite styles */
+.jde-body .jde-section {
+    padding: 22px 0;
+    border-top: 1px solid #E5E7EB;
+}
+.jde-body .jde-section:first-child {
+    border-top: none;
+}
+.jde-body h3 {
+    font-family: var(--font-fraunces), serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    color: #111827;
+}
+.jde-body ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.jde-body li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #1F2937;
+}
+.jde-body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 10px;
+    height: 1.5px;
+    background: var(--jde-brand, #2563EB);
+}
+.jde-body p {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #1F2937;
+    margin-bottom: 10px;
+}
+.jde-body p:last-child {
+    margin-bottom: 0;
 }

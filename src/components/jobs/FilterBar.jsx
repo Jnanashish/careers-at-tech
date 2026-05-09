@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import SelectChip from "@/components/ui/SelectChip";
+import { FLAGS } from "@/Helpers/featureFlags";
 import {
     QUICK_FILTERS,
     TYPE_OPTS,
@@ -23,6 +24,7 @@ const FilterBar = forwardRef(function FilterBar(
         batch,
         setBatch,
         onMobileFiltersOpen,
+        compact = false,
     },
     searchRef
 ) {
@@ -41,12 +43,14 @@ const FilterBar = forwardRef(function FilterBar(
 
     return (
         <div
-            className="sticky top-0 z-20 v3-filterbar"
+            className="sticky z-20 v3-filterbar"
             style={{
-                background: "rgba(250,250,247,0.78)",
-                backdropFilter: "blur(14px)",
-                WebkitBackdropFilter: "blur(14px)",
+                top: "var(--v3-header-h, 74px)",
+                background: "rgba(250,250,247,0.72)",
+                backdropFilter: "saturate(180%) blur(18px)",
+                WebkitBackdropFilter: "saturate(180%) blur(18px)",
                 borderBottom: "1px solid var(--v3-line-soft)",
+                boxShadow: "0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 24px -16px rgba(15,23,42,0.08)",
             }}
         >
             {/* Row 1 */}
@@ -159,43 +163,55 @@ const FilterBar = forwardRef(function FilterBar(
 
                 <span className="hidden md:block flex-1" />
 
-                <div
-                    className="sort-seg inline-flex items-center"
-                    style={{
-                        background: "var(--v3-paper-2)",
-                        borderRadius: 999,
-                        padding: 3,
-                        border: "1px solid var(--v3-line-soft)",
-                        height: 42,
-                    }}
-                >
-                    {SORT_OPTS.map((s) => {
-                        const on = sort === s;
-                        return (
-                            <button
-                                key={s}
-                                type="button"
-                                onClick={() => setSort(s)}
-                                className="rounded-full v3-focus-ring cursor-pointer"
-                                style={{
-                                    padding: "6px 14px",
-                                    border: "none",
-                                    background: on ? "var(--v3-ink)" : "transparent",
-                                    color: on ? "var(--v3-paper)" : "var(--v3-ink-3)",
-                                    fontSize: 12.5,
-                                    fontWeight: 500,
-                                }}
-                                aria-pressed={on}
-                            >
-                                {s}
-                            </button>
-                        );
-                    })}
-                </div>
+                {FLAGS.FILTER_SORT && (
+                    <div
+                        className="sort-seg inline-flex items-center"
+                        style={{
+                            background: "var(--v3-paper-2)",
+                            borderRadius: 999,
+                            padding: 3,
+                            border: "1px solid var(--v3-line-soft)",
+                            height: 42,
+                        }}
+                    >
+                        {SORT_OPTS.map((s) => {
+                            const on = sort === s;
+                            return (
+                                <button
+                                    key={s}
+                                    type="button"
+                                    onClick={() => setSort(s)}
+                                    className="rounded-full v3-focus-ring cursor-pointer"
+                                    style={{
+                                        padding: "6px 14px",
+                                        border: "none",
+                                        background: on ? "var(--v3-ink)" : "transparent",
+                                        color: on ? "var(--v3-paper)" : "var(--v3-ink-3)",
+                                        fontSize: 12.5,
+                                        fontWeight: 500,
+                                    }}
+                                    aria-pressed={on}
+                                >
+                                    {s}
+                                </button>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
 
             {/* Row 2: Quick filters */}
-            <div className="row2 mt-3 flex items-center gap-2.5 v3-quick-strip">
+            <div
+                className="row2 flex items-center gap-2.5 v3-quick-strip"
+                style={{
+                    maxHeight: compact ? 0 : 60,
+                    marginTop: compact ? 0 : 12,
+                    opacity: compact ? 0 : 1,
+                    overflow: "hidden",
+                    transition: "max-height 0.25s ease, margin-top 0.25s ease, opacity 0.2s ease",
+                    pointerEvents: compact ? "none" : "auto",
+                }}
+            >
                 <span
                     className="font-v3-mono hidden md:inline"
                     style={{

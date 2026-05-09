@@ -1,4 +1,5 @@
 import React from "react";
+import { FLAGS } from "@/Helpers/featureFlags";
 
 const Stat = ({ label, value, tiny, invert }) => (
     <div>
@@ -84,30 +85,12 @@ const Hero = ({ stats }) => {
                 backgroundSize: "24px 24px",
             }}
         >
-            <div className="hero-grid" style={{ display: "grid", alignItems: "end", gap: 48 }}>
+            <div
+                className="hero-grid"
+                data-stats={FLAGS.HERO_STATS ? "on" : "off"}
+                style={{ display: "grid", alignItems: "start", gap: 48 }}
+            >
                 <div>
-                    <div className="hidden md:flex items-center gap-3.5 mb-7">
-                        <span
-                            className="font-v3-mono"
-                            style={{
-                                fontSize: 11,
-                                letterSpacing: "0.14em",
-                                textTransform: "uppercase",
-                                color: "var(--v3-mute)",
-                                fontWeight: 500,
-                            }}
-                        >
-                            Issue №148 · Week 17, 2026
-                        </span>
-                        <span style={{ flex: 1, height: 1, background: "var(--v3-line)" }} />
-                        <span
-                            className="font-v3-mono inline-flex items-center gap-1.5"
-                            style={{ fontSize: 11.5, color: "var(--v3-mute)" }}
-                        >
-                            <span className="v3-glow-dot" /> LIVE · UPDATED 2 MIN AGO
-                        </span>
-                    </div>
-
                     <h1
                         className="font-v3-serif hero-title"
                         style={{
@@ -120,7 +103,7 @@ const Hero = ({ stats }) => {
                     >
                         The <span style={{ color: "var(--v3-accent)" }}>freshers&rsquo;</span> job board,
                         <br />
-                        <em>curated</em> by hand.
+                        <em className="mr-3">curated </em> by hand.
                     </h1>
 
                     <p
@@ -139,62 +122,64 @@ const Hero = ({ stats }) => {
                     </p>
                 </div>
 
-                <div className="flex flex-col gap-5">
-                    <div
-                        className="relative overflow-hidden"
-                        style={{
-                            border: "1px solid var(--v3-line)",
-                            borderRadius: 16,
-                            padding: "24px 26px",
-                            background: "var(--v3-ink)",
-                            color: "var(--v3-paper)",
-                        }}
-                    >
-                        <div className="flex justify-between items-baseline">
-                            <span
-                                className="font-v3-mono"
-                                style={{
-                                    fontSize: 11,
-                                    letterSpacing: "0.14em",
-                                    textTransform: "uppercase",
-                                    color: "rgba(250,250,247,0.6)",
-                                    fontWeight: 500,
-                                }}
-                            >
-                                Open right now
-                            </span>
-                            <span
-                                className="font-v3-mono"
-                                style={{ fontSize: 11, color: "var(--v3-acid)" }}
-                            >
-                                {todayDelta}
-                            </span>
-                        </div>
+                {FLAGS.HERO_STATS && (
+                    <div className="flex flex-col gap-5">
                         <div
-                            className="v3-num font-v3-serif"
-                            style={{ fontSize: 96, lineHeight: 1, marginTop: 8 }}
-                        >
-                            {open}
-                        </div>
-                        <div
-                            className="flex gap-5"
+                            className="relative overflow-hidden"
                             style={{
-                                marginTop: 14,
-                                paddingTop: 14,
-                                borderTop: "1px solid rgba(255,255,255,0.12)",
+                                border: "1px solid var(--v3-line)",
+                                borderRadius: 16,
+                                padding: "24px 26px",
+                                background: "var(--v3-ink)",
+                                color: "var(--v3-paper)",
                             }}
                         >
-                            <Stat label="Internships" value={internships} tiny invert />
-                            <Stat label="Remote" value={remote} tiny invert />
-                            <Stat label="New grad" value={newGrad} tiny invert />
+                            <div className="flex justify-between items-baseline">
+                                <span
+                                    className="font-v3-mono"
+                                    style={{
+                                        fontSize: 11,
+                                        letterSpacing: "0.14em",
+                                        textTransform: "uppercase",
+                                        color: "rgba(250,250,247,0.6)",
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Open right now
+                                </span>
+                                <span
+                                    className="font-v3-mono"
+                                    style={{ fontSize: 11, color: "var(--v3-acid)" }}
+                                >
+                                    {todayDelta}
+                                </span>
+                            </div>
+                            <div
+                                className="v3-num font-v3-serif"
+                                style={{ fontSize: 96, lineHeight: 1, marginTop: 8 }}
+                            >
+                                {open}
+                            </div>
+                            <div
+                                className="flex gap-5"
+                                style={{
+                                    marginTop: 14,
+                                    paddingTop: 14,
+                                    borderTop: "1px solid rgba(255,255,255,0.12)",
+                                }}
+                            >
+                                <Stat label="Internships" value={internships} tiny invert />
+                                <Stat label="Remote" value={remote} tiny invert />
+                                <Stat label="New grad" value={newGrad} tiny invert />
+                            </div>
+                        </div>
+
+                        <div className="grid gap-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                            <MicroStat label="Avg time-to-offer" value="9d" sub="−2d w/w" />
+                            <MicroStat label="Companies hiring" value="62" sub="14 verified" accent />
                         </div>
                     </div>
-
-                    <div className="grid gap-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                        <MicroStat label="Avg time-to-offer" value="9d" sub="−2d w/w" />
-                        <MicroStat label="Companies hiring" value="62" sub="14 verified" accent />
-                    </div>
-                </div>
+                )}
             </div>
 
             <style jsx>{`
@@ -202,15 +187,15 @@ const Hero = ({ stats }) => {
                     grid-template-columns: 1fr;
                 }
                 .hero-title {
-                    font-size: 38px;
+                    font-size: 34px;
                     line-height: 0.95;
                 }
                 @media (min-width: 1024px) {
-                    .hero-grid {
+                    .hero-grid[data-stats="on"] {
                         grid-template-columns: 1.6fr 1fr;
                     }
                     .hero-title {
-                        font-size: 132px;
+                        font-size: 100px;
                         line-height: 0.92;
                     }
                 }

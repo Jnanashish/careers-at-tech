@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CareersAt.Tech — Component Flow</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+    background: #0b0d10;
+    color: #e6e9ef;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    padding: 14px 22px;
+    border-bottom: 1px solid #1f2329;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #0f1216;
+  }
+  header h1 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  header .sub { font-size: 12px; color: #7a828e; }
+  header .tools { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  #search {
+    background: #15191f;
+    border: 1px solid #232830;
+    color: #e6e9ef;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    width: 240px;
+    outline: none;
+  }
+  #search:focus { border-color: #4a90e2; }
+  .legend { display: flex; gap: 10px; font-size: 11px; }
+  .legend span { display: flex; align-items: center; gap: 5px; color: #aab1bc; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot.page { background: #f59e0b; }
+  .dot.widget { background: #a855f7; }
+  .dot.component { background: #3b82f6; }
+  .dot.sub { background: #10b981; }
+  .dot.helper { background: #64748b; }
+
+  main { display: flex; flex: 1; overflow: hidden; }
+  #tree {
+    flex: 1;
+    overflow: auto;
+    padding: 18px 22px;
+    border-right: 1px solid #1f2329;
+  }
+  #panel {
+    width: 380px;
+    padding: 22px;
+    overflow: auto;
+    background: #0f1216;
+  }
+
+  .node {
+    display: block;
+    margin: 2px 0;
+    user-select: none;
+  }
+  .node-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.12s;
+  }
+  .node-row:hover { background: #1a1e25; }
+  .node-row.active { background: #1f3554; color: #fff; }
+  .node-row.match { background: #3a2f0a; }
+  .toggle {
+    width: 14px;
+    text-align: center;
+    color: #6a7280;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .toggle.empty { visibility: hidden; }
+  .label { flex: 1; }
+  .label .nm { font-weight: 500; }
+  .label .desc { color: #7a828e; font-size: 11px; margin-left: 6px; }
+  .badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .badge.page { background: #f59e0b22; color: #f59e0b; }
+  .badge.widget { background: #a855f722; color: #c084fc; }
+  .badge.component { background: #3b82f622; color: #60a5fa; }
+  .badge.sub { background: #10b98122; color: #34d399; }
+  .badge.helper { background: #64748b22; color: #94a3b8; }
+  .badge.root { background: #ef444422; color: #f87171; }
+  .children {
+    margin-left: 20px;
+    border-left: 1px dashed #232830;
+    padding-left: 8px;
+  }
+  .children.collapsed { display: none; }
+
+  #panel h2 { font-size: 15px; margin-bottom: 4px; }
+  #panel .ptype { font-size: 11px; color: #7a828e; margin-bottom: 14px; }
+  #panel .ppath {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    background: #15191f;
+    padding: 6px 8px;
+    border-radius: 4px;
+    color: #aab1bc;
+    margin-bottom: 14px;
+    word-break: break-all;
+  }
+  #panel .pdesc { font-size: 13px; line-height: 1.55; color: #cdd3dc; margin-bottom: 16px; }
+  #panel .psection { font-size: 11px; text-transform: uppercase; color: #7a828e; letter-spacing: 0.06em; margin-bottom: 6px; }
+  #panel .plist li {
+    list-style: none;
+    font-size: 12px;
+    padding: 3px 0;
+    color: #aab1bc;
+  }
+  #panel .plist li::before { content: "→ "; color: #4a90e2; }
+  #panel .pempty { font-size: 12px; color: #6a7280; font-style: italic; }
+
+  .controls { display: flex; gap: 6px; }
+  .btn {
+    background: #15191f;
+    border: 1px solid #232830;
+    color: #cdd3dc;
+    padding: 6px 10px;
+    font-size: 11px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .btn:hover { background: #1f242c; }
+
+  footer {
+    padding: 8px 22px;
+    border-top: 1px solid #1f2329;
+    font-size: 11px;
+    color: #6a7280;
+    background: #0f1216;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>CareersAt.Tech — Component Flow</h1>
+    <div class="sub">Click node to expand. Click name for details. Search to filter.</div>
+  </div>
+  <div class="tools">
+    <div class="legend">
+      <span><i class="dot page"></i>page</span>
+      <span><i class="dot widget"></i>widget</span>
+      <span><i class="dot component"></i>component</span>
+      <span><i class="dot sub"></i>sub</span>
+      <span><i class="dot helper"></i>helper</span>
+    </div>
+    <input id="search" placeholder="Search component…" />
+    <div class="controls">
+      <button class="btn" id="expandAll">Expand all</button>
+      <button class="btn" id="collapseAll">Collapse top</button>
+    </div>
+  </div>
+</header>
+<main>
+  <div id="tree"></div>
+  <aside id="panel">
+    <div class="pempty">Click any component to see details.</div>
+  </aside>
+</main>
+<footer>120 source files indexed · Next.js 14 Pages Router · branch: staging</footer>
+
+<script>
+// ============================================================
+// Component tree — manually curated from import analysis
+// ============================================================
+const TREE = {
+  id: "app",
+  name: "_app.js",
+  type: "root",
+  path: "src/pages/_app.js",
+  desc: "Root wrapper. Mounts Redux Provider, loads Inter / DM Sans / Instrument Serif fonts, wraps every page in ErrorBoundary, fires Firebase analytics on route change.",
+  children: [
+    {
+      id: "doc",
+      name: "_document.js",
+      type: "helper",
+      path: "src/pages/_document.js",
+      desc: "Custom HTML shell. Injects GA, Microsoft Clarity, preconnect tags, JSON-LD organization markup.",
+      children: []
+    },
+    {
+      id: "jobs",
+      name: "pages/jobs/index.js",
+      type: "page",
+      path: "src/pages/jobs/index.js",
+      desc: "Job listing entry. SSG + ISR (revalidate 600). Delegates the entire UI to the JobList widget.",
+      children: [
+        {
+          id: "joblist",
+          name: "widgets/JobList",
+          type: "widget",
+          path: "src/widgets/JobList/index.jsx",
+          desc: "Main job listing controller. Owns filter state, pagination, fetches from v2 API, lays out hero + filters + carousel + grid + sidebar.",
+          children: [
+            { id: "navbar", name: "Navbar", type: "component", path: "src/components/Redesign/Navbar.jsx", desc: "Top navigation bar with logo, primary links, mobile menu toggle." },
+            { id: "footer", name: "FooterNew", type: "component", path: "src/components/Redesign/FooterNew.jsx", desc: "Site footer with social links, sitemap columns, legal links." },
+            { id: "hero", name: "jobs/Hero", type: "component", path: "src/components/jobs/Hero.jsx", desc: "Landing hero with headline + stat tiles (total jobs, companies, fresh today).",
+              children: [
+                { id: "hero-stat", name: "Stat (inline)", type: "sub", path: "src/components/jobs/Hero.jsx", desc: "Big metric tile inside hero." },
+                { id: "hero-micro", name: "MicroStat (inline)", type: "sub", path: "src/components/jobs/Hero.jsx", desc: "Compact metric pill below the hero headline." }
+              ]
+            },
+            { id: "filter", name: "FilterBar", type: "component", path: "src/components/jobs/FilterBar.jsx", desc: "Desktop sticky filter bar — search, type, location, experience, sort. Uses forwardRef for sticky behavior.",
+              children: [
+                { id: "sc1", name: "SelectChip", type: "sub", path: "src/components/ui/SelectChip.jsx", desc: "Dropdown chip — single-select pill with menu." }
+              ]
+            },
+            { id: "mfs", name: "MobileFilterSheet", type: "component", path: "src/components/jobs/MobileFilterSheet.jsx", desc: "Bottom-sheet filter drawer for mobile. Uses ChipRow per filter group.",
+              children: [
+                { id: "chiprow", name: "ChipRow (inline)", type: "sub", path: "src/components/jobs/MobileFilterSheet.jsx", desc: "Horizontal scrollable chip group — one filter dimension." }
+              ]
+            },
+            { id: "fc", name: "FeaturedCarousel", type: "component", path: "src/components/jobs/FeaturedCarousel.jsx", desc: "Auto-scrolling carousel of featured / sponsored jobs.",
+              children: [
+                { id: "fcard", name: "FeaturedCard", type: "sub", path: "src/components/jobs/FeaturedCard.jsx", desc: "Single featured job tile with company logo + role + CTA." }
+              ]
+            },
+            { id: "rh", name: "ResultsHeader", type: "component", path: "src/components/jobs/ResultsHeader.jsx", desc: "Result count + active filter chips + clear-all button above the grid." },
+            { id: "jcd", name: "JobCard (desktop)", type: "component", path: "src/components/jobs/JobCard.jsx", desc: "Desktop job card. Logo, role, company, location, type, salary, posted-at, save button.",
+              children: [
+                { id: "logo", name: "Logo", type: "sub", path: "src/components/ui/Logo.jsx", desc: "Company logo with fallback initials avatar." },
+                { id: "pill", name: "Pill", type: "sub", path: "src/components/ui/Pill.jsx", desc: "Small rounded badge — job type, remote tag, salary." }
+              ]
+            },
+            { id: "jcm", name: "JobCardMobile", type: "component", path: "src/components/jobs/JobCardMobile.jsx", desc: "Compact mobile job card variant — same data, denser layout." },
+            { id: "page", name: "Pagination", type: "component", path: "src/components/jobs/Pagination.jsx", desc: "Numbered pagination with prev/next, ellipsis collapse." },
+            { id: "tband", name: "TrendingBand", type: "component", path: "src/components/jobs/TrendingBand.jsx", desc: "Trending search-term ribbon — clickable chips that prefill filter." },
+            { id: "sb", name: "Sidebar widgets", type: "component", path: "src/components/jobs/sidebar/", desc: "Right-rail composite — profile match, WhatsApp drops, trending, saved, resources.",
+              children: [
+                { id: "pm", name: "ProfileMatch", type: "sub", path: "src/components/jobs/sidebar/ProfileMatch.jsx", desc: "Donut score — how well current filters match a saved profile." },
+                { id: "wa", name: "WhatsAppDrops", type: "sub", path: "src/components/jobs/sidebar/WhatsAppDrops.jsx", desc: "CTA card — join WhatsApp channel for daily job drops." },
+                { id: "tn", name: "TrendingNow", type: "sub", path: "src/components/jobs/sidebar/TrendingNow.jsx", desc: "List of currently-hot roles + click-through." },
+                { id: "sj", name: "SavedJobs", type: "sub", path: "src/components/jobs/sidebar/SavedJobs.jsx", desc: "User's bookmarked jobs (Redux-persisted)." },
+                { id: "res", name: "Resources", type: "sub", path: "src/components/jobs/sidebar/Resources.jsx", desc: "Static links — resume tools, interview prep, referral finder." },
+                { id: "donut", name: "Donut", type: "sub", path: "src/components/ui/Donut.jsx", desc: "SVG donut chart used by ProfileMatch." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "jobdetail",
+      name: "pages/jobs/[slug].js",
+      type: "page",
+      path: "src/pages/jobs/[slug].js",
+      desc: "Job detail page. SSG + ISR with fallback:true. Generates JobPosting JSON-LD for Google for Jobs.",
+      children: [
+        { id: "navbar2", name: "Navbar", type: "component", path: "src/components/Redesign/Navbar.jsx", desc: "Same global nav." },
+        { id: "footer2", name: "FooterNew", type: "component", path: "src/components/Redesign/FooterNew.jsx", desc: "Same global footer." },
+        { id: "stt", name: "ScrollToTop", type: "component", path: "src/components/Redesign/ScrollToTop.jsx", desc: "Floating button that appears on scroll, returns to top." },
+        { id: "bc", name: "Breadcrumb", type: "component", path: "src/components/Redesign/JobDetail/Breadcrumb.jsx", desc: "Home › Jobs › Company › Role — also emits BreadcrumbList JSON-LD." },
+        { id: "jnf", name: "JobNotFound", type: "component", path: "src/components/Redesign/JobDetail/JobNotFound.jsx", desc: "404-style empty state when slug doesn't resolve." },
+        { id: "jds", name: "JobDetailSkeleton", type: "component", path: "src/components/Redesign/JobDetail/JobDetailSkeleton.jsx", desc: "Skeleton loader while ISR fallback resolves." },
+        { id: "sbn", name: "SafetyBanner", type: "component", path: "src/components/Redesign/JobDetail/SafetyBanner.jsx", desc: 'Anti-scam warning — "never pay to apply" banner.' }
+      ]
+    },
+    {
+      id: "legacyredirect",
+      name: "pages/[jobtitle]/[id].js",
+      type: "page",
+      path: "src/pages/[jobtitle]/[id].js",
+      desc: "Legacy URL handler. 301-redirects old `/role-name/<id>` URLs to the new `/jobs/<slug>` route. No UI.",
+      children: []
+    },
+    {
+      id: "companies",
+      name: "pages/companies/index.js",
+      type: "page",
+      path: "src/pages/companies/index.js",
+      desc: "Company directory. SSG + ISR. Lists all companies with active job counts.",
+      children: [
+        { id: "navbar3", name: "Navbar", type: "component", path: "src/components/Redesign/Navbar.jsx", desc: "Global nav." },
+        { id: "footer3", name: "FooterNew", type: "component", path: "src/components/Redesign/FooterNew.jsx", desc: "Global footer." },
+        { id: "stt2", name: "ScrollToTop", type: "component", path: "src/components/Redesign/ScrollToTop.jsx", desc: "Scroll-to-top floater." }
+      ]
+    },
+    {
+      id: "companydetail",
+      name: "pages/companies/[slug].js",
+      type: "page",
+      path: "src/pages/companies/[slug].js",
+      desc: "Company profile page. Lists every active job at one company. SSG + ISR.",
+      children: [
+        { id: "navbar4", name: "Navbar", type: "component", path: "src/components/Redesign/Navbar.jsx", desc: "Global nav." },
+        { id: "footer4", name: "FooterNew", type: "component", path: "src/components/Redesign/FooterNew.jsx", desc: "Global footer." },
+        { id: "stt3", name: "ScrollToTop", type: "component", path: "src/components/Redesign/ScrollToTop.jsx", desc: "Scroll-to-top floater." }
+      ]
+    },
+    {
+      id: "tools",
+      name: "pages/tools/index.js",
+      type: "page",
+      path: "src/pages/tools/index.js",
+      desc: "Tools hub. Curated list of dev / career tools with affiliate disclosure.",
+      children: [
+        { id: "th", name: "ToolsHero", type: "component", path: "src/components/Redesign/Tools/ToolsHero.jsx", desc: "Tools page hero — title, subtitle, search input." },
+        { id: "tcb", name: "ToolsCategoryBar", type: "component", path: "src/components/Redesign/Tools/ToolsCategoryBar.jsx", desc: "Horizontal category filter pills." },
+        { id: "ft", name: "FeaturedTools", type: "component", path: "src/components/Redesign/Tools/FeaturedTools.jsx", desc: "Highlighted top tools row." },
+        { id: "tg", name: "ToolsGrid", type: "component", path: "src/components/Redesign/Tools/ToolsGrid.jsx", desc: "Responsive grid of all tools.",
+          children: [
+            { id: "tc", name: "ToolCard", type: "sub", path: "src/components/Redesign/Tools/ToolCard.jsx", desc: "Single tool tile — logo, name, tag, link." }
+          ]
+        },
+        { id: "es", name: "EmptyState", type: "component", path: "src/components/Redesign/Tools/EmptyState.jsx", desc: "Empty state when filter yields zero tools." },
+        { id: "ad", name: "AffiliateDisclosure", type: "component", path: "src/components/Redesign/Tools/AffiliateDisclosure.jsx", desc: "FTC-style affiliate disclosure banner." },
+        { id: "stcta", name: "SuggestToolCTA", type: "component", path: "src/components/Redesign/Tools/SuggestToolCTA.jsx", desc: "CTA — submit a tool suggestion." }
+      ]
+    },
+    {
+      id: "linkedin",
+      name: "pages/tools/linkedin-search.js",
+      type: "page",
+      path: "src/pages/tools/linkedin-search.js",
+      desc: "LinkedIn boolean-search builder. Visual filter UI that compiles into a LinkedIn URL.",
+      children: [
+        { id: "sbuild", name: "SearchBuilder", type: "component", path: "src/components/LinkedInSearch/SearchBuilder.jsx", desc: "Main builder shell. Owns filter state, lays out filter sections.",
+          children: [
+            { id: "fs", name: "FilterSection", type: "sub", path: "src/components/LinkedInSearch/FilterSection.jsx", desc: "Collapsible group — keywords, location, title, etc." },
+            { id: "fc2", name: "FilterChip", type: "sub", path: "src/components/LinkedInSearch/FilterChip.jsx", desc: "Toggleable filter pill." }
+          ]
+        },
+        { id: "rf", name: "ReferralFinder", type: "component", path: "src/components/LinkedInSearch/ReferralFinder.jsx", desc: "Helper to surface ex-employees / 2nd-degree connections at target companies." },
+        { id: "afb", name: "ActiveFiltersBar", type: "component", path: "src/components/LinkedInSearch/ActiveFiltersBar.jsx", desc: "Shows currently applied filters as removable chips." },
+        { id: "up", name: "URLPreview", type: "component", path: "src/components/LinkedInSearch/URLPreview.jsx", desc: "Live-preview of compiled LinkedIn URL with copy button." },
+        { id: "tb", name: "TemplateBar", type: "component", path: "src/components/LinkedInSearch/TemplateBar.jsx", desc: "Quick-apply template presets — SDE intern, off-campus, remote, etc." },
+        { id: "hrs", name: "HumanReadableSummary", type: "component", path: "src/components/LinkedInSearch/HumanReadableSummary.jsx", desc: 'Plain-English version of the search ("SDE interns in Bangalore at FAANG companies").' },
+        { id: "ut", name: "useTemplates / useLinkedInURL hooks", type: "helper", path: "src/components/LinkedInSearch/hooks/", desc: "Custom hooks — load templates, build URL from filter state." },
+        { id: "ulib", name: "url-builder + linkedin-params lib", type: "helper", path: "src/components/LinkedInSearch/lib/", desc: "Pure functions — encode filter state into LinkedIn query params." }
+      ]
+    },
+    {
+      id: "toolkit",
+      name: "pages/toolkit/index.jsx",
+      type: "page",
+      path: "src/pages/toolkit/index.jsx",
+      desc: "Resume toolkit hub. AI prompts grouped by category — for freshers building resumes / cover letters.",
+      children: [
+        { id: "cg", name: "CategoryGrid", type: "component", path: "src/components/toolkit/CategoryGrid.jsx", desc: "Grid of prompt categories (resume, cover letter, LinkedIn, interview)." },
+        { id: "pc", name: "PromptCard", type: "component", path: "src/components/toolkit/PromptCard.jsx", desc: "Single prompt tile — title, preview, tailor + copy buttons." },
+        { id: "jl", name: "JsonLd", type: "helper", path: "src/core/SEO/JsonLd.jsx", desc: "Renders JSON-LD structured data into <Head>." }
+      ]
+    },
+    {
+      id: "toolkitslug",
+      name: "pages/toolkit/[slug].jsx",
+      type: "page",
+      path: "src/pages/toolkit/[slug].jsx",
+      desc: "Single AI prompt page. Full prompt body, copy, tailor-to-your-resume modal.",
+      children: [
+        { id: "ppl", name: "PromptPageLayout", type: "component", path: "src/components/toolkit/PromptPageLayout.jsx", desc: "Layout shell — header + markdown body + sidebar + actions.",
+          children: [
+            { id: "cb", name: "CopyButton", type: "sub", path: "src/components/toolkit/CopyButton.jsx", desc: "One-click copy with success toast." },
+            { id: "tbtn", name: "TailorButton", type: "sub", path: "src/components/toolkit/TailorButton.jsx", desc: "Opens TailorModal." },
+            { id: "tm", name: "TailorModal", type: "sub", path: "src/components/toolkit/TailorModal.jsx", desc: "Modal — paste resume, get tailored prompt back." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "contact",
+      name: "pages/contact/index.jsx",
+      type: "page",
+      path: "src/pages/contact/index.jsx",
+      desc: "Contact form. Uses LEGACY Header / Footer (not the redesigned ones).",
+      children: [
+        { id: "h-old", name: "Header (legacy)", type: "component", path: "src/components/common/Header/index.jsx", desc: "Older header — predates Navbar redesign. Still used on a few static pages.",
+          children: [
+            { id: "md", name: "MobileDrawer", type: "sub", path: "src/components/common/Header/Components/MobileDrawer.jsx", desc: "Slide-in mobile menu." },
+            { id: "ht", name: "HeaderTabs", type: "sub", path: "src/components/common/Header/Components/HeaderTabs.jsx", desc: "Top-row tab navigation." }
+          ]
+        },
+        { id: "f-old", name: "Footer (legacy)", type: "component", path: "src/components/common/Footer/Footer.jsx", desc: "Older footer — paired with legacy Header." },
+        { id: "meta", name: "Meta", type: "helper", path: "src/core/SEO/Meta.jsx", desc: "Generic <Head> wrapper — title, description, OG tags." }
+      ]
+    },
+    {
+      id: "career",
+      name: "pages/career-pages/index.jsx",
+      type: "page",
+      path: "src/pages/career-pages/index.jsx",
+      desc: "Curated company career-page directory.",
+      children: [
+        { id: "cp", name: "widgets/CareerePages", type: "widget", path: "src/widgets/CareerePages/index.jsx", desc: "Renders the grid of company career-page cards." },
+        { id: "stt4", name: "ScrolltoTop (legacy)", type: "component", path: "src/components/common/ScrolltoTop.jsx", desc: "Older scroll-to-top — used on legacy pages." }
+      ]
+    },
+    {
+      id: "static",
+      name: "Static legal pages",
+      type: "page",
+      path: "src/pages/{privacy-policy,terms-and-conditions,dmca}/index.jsx",
+      desc: "Static legal pages. Each uses legacy Header / Footer + Meta. Minimal content — bodies are mostly markdown-style copy.",
+      children: []
+    },
+    {
+      id: "sitemap",
+      name: "pages/sitemap.xml.js",
+      type: "helper",
+      path: "src/pages/sitemap.xml.js",
+      desc: "Server-rendered sitemap. Pulls all jobs + companies from v2 API, emits XML for crawlers.",
+      children: []
+    },
+    {
+      id: "global",
+      name: "Global / cross-cutting",
+      type: "helper",
+      path: "src/",
+      desc: "Pieces wired in globally — Redux store, error boundary, analytics, SEO helpers.",
+      children: [
+        { id: "eb", name: "ErrorBoundary", type: "component", path: "src/components/common/ErrorBoundary.jsx", desc: "Catches render errors anywhere in the tree, shows fallback UI." },
+        { id: "redux", name: "Redux store", type: "helper", path: "src/Redux/store.js", desc: "RTK configureStore + redux-persist (localStorage). Holds saved jobs, filter prefs, user state." },
+        { id: "api", name: "v2 API client", type: "helper", path: "src/core/apis/v2/client.js", desc: "Native fetch wrapper used by SSG getStaticProps + client-side filter calls." },
+        { id: "seo", name: "SEO helpers", type: "helper", path: "src/core/SEO/", desc: "Meta, JsonLd, breadcrumbJsonLd, jobPostingJsonLd, organizationJsonLd — Google for Jobs structured data." },
+        { id: "ev", name: "eventHandler", type: "helper", path: "src/core/eventHandler.js", desc: "Firebase Analytics + Microsoft Clarity event helpers." },
+        { id: "v2h", name: "jobV2helpers", type: "helper", path: "src/Helpers/jobV2helpers.js", desc: "Shared transforms — slug builders, salary formatting, filter normalisation." }
+      ]
+    }
+  ]
+};
+
+// ============================================================
+// Render
+// ============================================================
+const treeEl = document.getElementById("tree");
+const panel = document.getElementById("panel");
+const search = document.getElementById("search");
+
+let activeRow = null;
+
+function render(node, parentEl, depth = 0) {
+  const wrap = document.createElement("div");
+  wrap.className = "node";
+  wrap.dataset.name = node.name.toLowerCase();
+  wrap.dataset.desc = (node.desc || "").toLowerCase();
+
+  const row = document.createElement("div");
+  row.className = "node-row";
+  row.dataset.id = node.id;
+
+  const toggle = document.createElement("span");
+  toggle.className = "toggle" + (node.children && node.children.length ? "" : " empty");
+  toggle.textContent = node.children && node.children.length ? "▶" : "•";
+  row.appendChild(toggle);
+
+  const badge = document.createElement("span");
+  badge.className = "badge " + node.type;
+  badge.textContent = node.type;
+  row.appendChild(badge);
+
+  const label = document.createElement("span");
+  label.className = "label";
+  label.innerHTML = `<span class="nm">${escapeHtml(node.name)}</span><span class="desc">${escapeHtml(truncate(node.desc, 80))}</span>`;
+  row.appendChild(label);
+
+  wrap.appendChild(row);
+
+  let childrenWrap = null;
+  if (node.children && node.children.length) {
+    childrenWrap = document.createElement("div");
+    childrenWrap.className = "children" + (depth >= 1 ? " collapsed" : "");
+    node.children.forEach(c => render(c, childrenWrap, depth + 1));
+    wrap.appendChild(childrenWrap);
+    toggle.textContent = childrenWrap.classList.contains("collapsed") ? "▶" : "▼";
+  }
+
+  row.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (childrenWrap) {
+      childrenWrap.classList.toggle("collapsed");
+      toggle.textContent = childrenWrap.classList.contains("collapsed") ? "▶" : "▼";
+    }
+    showDetails(node);
+    if (activeRow) activeRow.classList.remove("active");
+    row.classList.add("active");
+    activeRow = row;
+  });
+
+  parentEl.appendChild(wrap);
+}
+
+function showDetails(node) {
+  const childList = (node.children || []).map(c =>
+    `<li><strong>${escapeHtml(c.name)}</strong> — ${escapeHtml(c.desc || "")}</li>`
+  ).join("");
+  panel.innerHTML = `
+    <h2>${escapeHtml(node.name)}</h2>
+    <div class="ptype">${node.type.toUpperCase()}</div>
+    <div class="ppath">${escapeHtml(node.path || "")}</div>
+    <div class="pdesc">${escapeHtml(node.desc || "")}</div>
+    ${childList ? `<div class="psection">Children (${(node.children || []).length})</div><ul class="plist">${childList}</ul>` : `<div class="pempty">Leaf node — no children.</div>`}
+  `;
+}
+
+function escapeHtml(s) {
+  return String(s || "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function truncate(s, n) { s = s || ""; return s.length > n ? s.slice(0, n - 1) + "…" : s; }
+
+render(TREE, treeEl);
+
+// ============================================================
+// Search
+// ============================================================
+search.addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll(".node").forEach(n => {
+    const hit = !q || n.dataset.name.includes(q) || n.dataset.desc.includes(q);
+    n.style.display = "";
+    n.querySelector(".node-row").classList.toggle("match", q && hit);
+    if (q && hit) {
+      let p = n.parentElement;
+      while (p && p.id !== "tree") {
+        if (p.classList.contains("children")) p.classList.remove("collapsed");
+        p = p.parentElement;
+      }
+    }
+  });
+  if (q) {
+    document.querySelectorAll(".node").forEach(n => {
+      if (!n.dataset.name.includes(q) && !n.dataset.desc.includes(q)) {
+        const hasMatchInside = n.querySelector(".node-row.match");
+        if (!hasMatchInside) n.style.display = "none";
+      }
+    });
+  }
+});
+
+document.getElementById("expandAll").addEventListener("click", () => {
+  document.querySelectorAll(".children").forEach(c => c.classList.remove("collapsed"));
+  document.querySelectorAll(".toggle").forEach(t => { if (!t.classList.contains("empty")) t.textContent = "▼"; });
+});
+document.getElementById("collapseAll").addEventListener("click", () => {
+  document.querySelectorAll("#tree > .node > .children").forEach(c => c.classList.add("collapsed"));
+  document.querySelectorAll("#tree > .node > .node-row .toggle").forEach(t => { if (!t.classList.contains("empty")) t.textContent = "▶"; });
+});
+
+showDetails(TREE);
+</script>
+</body>
+</html>

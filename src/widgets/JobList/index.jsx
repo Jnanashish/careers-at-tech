@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useRouter } from "next/router";
 
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import FooterNew from "@/components/Redesign/FooterNew";
 
 import Hero from "@/components/jobs/Hero";
 import FilterBar from "@/components/jobs/FilterBar";
@@ -33,6 +33,7 @@ import {
 
 import { listJobsV2 } from "@/core/apis/v2/client";
 import { firebaseEventHandler } from "@/core/eventHandler";
+import { FLAGS } from "@/Helpers/featureFlags";
 
 const PAGE_SIZE = 12;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -52,6 +53,7 @@ const JobList = ({ initialJobs }) => {
     const [sheetOpen, setSheetOpen] = useState(false);
     const [savedIds, setSavedIds] = useState(() => new Set());
     const [hydrated, setHydrated] = useState(false);
+    const [compact, setCompact] = useState(false);
 
     const initialMappedJobs = useMemo(
         () => (initialJobs?.data || []).map(mapJob).filter(Boolean),
@@ -148,6 +150,21 @@ const JobList = ({ initialJobs }) => {
     }, [hydrated, search, type, location, batch, quick, sort, page]);
 
     useEffect(() => {
+        let ticking = false;
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                setCompact(window.scrollY > 120);
+                ticking = false;
+            });
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    useEffect(() => {
         const onKey = (e) => {
             const k = e.key.toLowerCase();
             if ((e.metaKey || e.ctrlKey) && k === "k") {
@@ -207,15 +224,17 @@ const JobList = ({ initialJobs }) => {
                 background: "var(--v3-paper)",
                 color: "var(--v3-ink)",
                 letterSpacing: "-0.01em",
+                "--v3-header-h": compact ? "0px" : "74px",
             }}
         >
             <span ref={announceRef} aria-live="polite" className="sr-only" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }} />
 
-            <Header onMobileMenu={() => setSheetOpen(true)} />
+            <Header compact={compact} onMobileMenu={() => setSheetOpen(true)} />
             <Hero stats={heroStats} />
 
             <FilterBar
                 ref={searchInputRef}
+                compact={compact}
                 query={searchInput}
                 setQuery={setSearchInput}
                 sort={sort}
@@ -298,16 +317,16 @@ const JobList = ({ initialJobs }) => {
                 </div>
 
                 <aside className="v3-main-aside flex flex-col gap-4">
-                    <ProfileMatch />
+                    {FLAGS.SIDEBAR_PROFILE_MATCH && <ProfileMatch />}
                     <WhatsAppDrops />
-                    <TrendingNow onSelect={(t) => setSearchInput(t)} />
-                    <SavedJobs savedIds={savedIds} jobs={jobs} onSelect={goToJob} />
-                    <Resources />
+                    {FLAGS.SIDEBAR_TRENDING && <TrendingNow onSelect={(t) => setSearchInput(t)} />}
+                    {FLAGS.SIDEBAR_SAVED && <SavedJobs savedIds={savedIds} jobs={jobs} onSelect={goToJob} />}
+                    {FLAGS.SIDEBAR_RESOURCES && <Resources />}
                 </aside>
             </div>
 
-            <TrendingBand onSelect={(t) => setSearchInput(t)} />
-            <Footer />
+            {FLAGS.TRENDING_BAND && <TrendingBand onSelect={(t) => setSearchInput(t)} />}
+            <FooterNew />
 
             <MobileFilterSheet
                 open={sheetOpen}

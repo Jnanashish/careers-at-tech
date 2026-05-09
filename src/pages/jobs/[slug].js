@@ -29,6 +29,8 @@ import Breadcrumb from "@/components/Redesign/JobDetail/Breadcrumb";
 import JobNotFound from "@/components/Redesign/JobDetail/JobNotFound";
 import JobDetailSkeleton from "@/components/Redesign/JobDetail/JobDetailSkeleton";
 import SafetyBanner from "@/components/Redesign/JobDetail/SafetyBanner";
+import JDEVariant from "@/components/Redesign/JobDetail/JDE";
+import { FLAGS } from "@/Helpers/featureFlags";
 
 import {
     fetchAllPublishedJobSlugs,
@@ -308,6 +310,53 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                 <Navbar />
                 <JobNotFound />
                 <FooterNew />
+            </>
+        );
+    }
+
+    // JD-E variant — feature-flagged; flip FLAGS.JD_E_VARIANT to enable
+    if (FLAGS.JD_E_VARIANT) {
+        return (
+            <>
+                <Head>
+                    <title>{jobMetaTitle(job)}</title>
+                    <meta name="description" content={jobMetaDescription(job)} />
+                    <meta name="robots" content="index, follow" />
+                    <link rel="canonical" href={`${SITE_URL}/jobs/${job.slug}`} />
+                    <meta property="og:type" content="website" />
+                    <meta property="og:title" content={jobMetaTitle(job)} />
+                    <meta property="og:description" content={jobMetaDescription(job)} />
+                    <meta property="og:url" content={`${SITE_URL}/jobs/${job.slug}`} />
+                    <meta property="og:site_name" content="CareersAt.Tech" />
+                    <meta property="og:locale" content="en_IN" />
+                    {(job.seo?.ogImage || resolveCompanyLogo(job)) && (
+                        <meta property="og:image" content={job.seo?.ogImage || resolveCompanyLogo(job)} />
+                    )}
+                    <meta name="twitter:card" content="summary" />
+                    <meta name="twitter:title" content={jobMetaTitle(job)} />
+                    <meta name="twitter:description" content={jobMetaDescription(job)} />
+                    {buildJobPostingJsonLd(job) && (
+                        <script
+                            type="application/ld+json"
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJobPostingJsonLd(job)) }}
+                        />
+                    )}
+                    {buildBreadcrumbJsonLd([
+                        { name: "Jobs", url: `${SITE_URL}/jobs` },
+                        { name: job.companyName, url: `${SITE_URL}/jobs` },
+                        { name: job.title, url: `${SITE_URL}/jobs/${job.slug}` },
+                    ]) && (
+                        <script
+                            type="application/ld+json"
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBreadcrumbJsonLd([
+                                { name: "Jobs", url: `${SITE_URL}/jobs` },
+                                { name: job.companyName, url: `${SITE_URL}/jobs` },
+                                { name: job.title, url: `${SITE_URL}/jobs/${job.slug}` },
+                            ])) }}
+                        />
+                    )}
+                </Head>
+                <JDEVariant job={job} similarJobs={similarJobs} />
             </>
         );
     }

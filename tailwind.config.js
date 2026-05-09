@@ -88,6 +88,8 @@ module.exports = {
         "v3-serif": ["var(--font-instrument-serif)", "Times New Roman", "serif"],
         "v3-sans": ["var(--font-geist)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         "v3-mono": ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        fraunces: ["var(--font-fraunces)", "Georgia", "serif"],
+        jetbrains: ["var(--font-jetbrains-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       fontSize: {
         hero: ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em", fontWeight: "700" }],
