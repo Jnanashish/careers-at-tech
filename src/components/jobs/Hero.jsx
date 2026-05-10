@@ -117,8 +117,7 @@ const Hero = ({ stats }) => {
                             fontWeight: 400,
                         }}
                     >
-                        142 verified roles from companies that actually ship. Fresher-friendly, no recruiter spam,
-                        and a single human reads every posting before it goes live.
+                        Only verified roles from companies that actually ship — fresher-friendly, no recruiter spam.
                     </p>
                 </div>
 

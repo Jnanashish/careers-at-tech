@@ -259,7 +259,7 @@ const JobList = ({ initialJobs }) => {
                         onSelect={goToJob}
                     />
 
-                    <ResultsHeader count={jobs.length} sort={sort} />
+                    <ResultsHeader count={total} sort={sort} />
 
                     <div className="hidden md:flex flex-col gap-3">
                         {jobs.map((j) => (

@@ -23,11 +23,9 @@ export const MOCK_RESOURCES = [
 
 export const QUICK_FILTERS = [
     "New this week",
-    "Closing soon",
     "Fresher-friendly",
     "≤ 1 yr exp",
     "Remote only",
-    "$$$ High",
 ];
 
 export const TYPE_OPTS = ["All", "Full-time", "Internship", "Contract"];

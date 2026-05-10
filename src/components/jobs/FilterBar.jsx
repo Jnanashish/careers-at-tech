@@ -91,39 +91,32 @@ const FilterBar = forwardRef(function FilterBar(
                         }}
                         aria-label="Search jobs"
                     />
-                    <span
-                        className="font-v3-mono kbd"
-                        style={{
-                            fontSize: 10.5,
-                            padding: "3px 7px",
-                            border: "1px solid var(--v3-line)",
-                            borderRadius: 5,
-                            color: "var(--v3-mute)",
-                        }}
-                    >
-                        ⌘K
-                    </span>
+                    {query && (
+                        <button
+                            type="button"
+                            onClick={() => setQuery("")}
+                            aria-label="Clear search"
+                            className="grid place-items-center cursor-pointer v3-focus-ring rounded-full"
+                            style={{
+                                width: 22,
+                                height: 22,
+                                border: "none",
+                                background: "var(--v3-paper-2)",
+                                color: "var(--v3-ink-3)",
+                                padding: 0,
+                            }}
+                        >
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
+                                <path d="M6 6l12 12M18 6l-12 12" />
+                            </svg>
+                        </button>
+                    )}
                 </div>
 
                 <div className="hidden md:flex items-center gap-3 flex-wrap">
                     <SelectChip label="Type" value={type} onChange={setType} opts={TYPE_OPTS} />
                     <SelectChip label="Where" value={location} onChange={setLocation} opts={LOCATION_OPTS} />
                     <SelectChip label="Batch" value={batch} onChange={setBatch} opts={BATCH_OPTS} />
-                    <button
-                        type="button"
-                        className="rounded-full v3-focus-ring inline-flex items-center gap-2 cursor-pointer"
-                        style={{
-                            height: 42,
-                            padding: "0 14px",
-                            border: "1px dashed var(--v3-ink-3)",
-                            background: "transparent",
-                            fontSize: 12.5,
-                            fontWeight: 500,
-                            color: "var(--v3-ink-2)",
-                        }}
-                    >
-                        + More filters
-                    </button>
                 </div>
 
                 <button

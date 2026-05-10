@@ -143,7 +143,7 @@ const FooterNew = () => {
           </div>
 
           {/* Desktop link columns */}
-          <div className="hidden md:grid grid-cols-4 gap-8 flex-1 ml-auto justify-items-end">
+          <div className="hidden md:flex gap-8 ml-auto">
             {footerColumns.filter(({ title }) => title !== "Jobs by types" || FLAGS.FOOTER_JOBS_BY_TYPE).map(({ title, links }) => (
               <div key={title}>
                 <h4 className="text-caption uppercase tracking-widest text-white font-semibold mb-4">

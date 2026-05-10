@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { ExternalLink, Bookmark, Share2 } from "lucide-react";
+import React, { useState } from "react";
+import { ExternalLink, Share2 } from "lucide-react";
 import { formatBaseSalary, formatWorkMode, formatJobLocations, resolveApplyUrl } from "@/Helpers/jobV2helpers";
 import { trackJobApplyClick } from "@/core/apis/v2/client";
-
-const SAVED_KEY = (slug) => `jde-saved-${slug}`;
 
 const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
     const sparse = !job.baseSalary?.min;
@@ -12,25 +10,7 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
     const locations = formatJobLocations(job.jobLocation);
     const applyUrl = resolveApplyUrl(job);
 
-    const [saved, setSaved] = useState(false);
     const [copied, setCopied] = useState(false);
-
-    useEffect(() => {
-        try {
-            setSaved(!!localStorage.getItem(SAVED_KEY(job.slug)));
-        } catch { /* ignore */ }
-    }, [job.slug]);
-
-    const handleSave = () => {
-        try {
-            if (saved) {
-                localStorage.removeItem(SAVED_KEY(job.slug));
-            } else {
-                localStorage.setItem(SAVED_KEY(job.slug), "1");
-            }
-            setSaved(!saved);
-        } catch { /* ignore */ }
-    };
 
     const handleShare = async () => {
         const shareData = {
@@ -120,52 +100,41 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
                 ).join(" / "), locations, mode].filter(Boolean).join(" · ")}
             </p>
 
-            {/* Apply / See similar button */}
-            {expired ? (
-                <a
-                    href="#similar"
-                    className="flex items-center justify-center w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                    See similar roles ↓
-                </a>
-            ) : (
-                <button
-                    onClick={handleApply}
-                    disabled={!applyUrl}
-                    className="flex items-center justify-center gap-2 w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-                    style={{
-                        background: "var(--jde-brand)",
-                        boxShadow: "inset 0 0 0 1px var(--jde-brand-ink)",
-                    }}
-                >
-                    Apply on {job.companyName}
-                    <ExternalLink size={15} aria-hidden="true" />
-                </button>
-            )}
-
-            {/* Save + Share */}
-            <div className="flex gap-1.5 mt-2">
-                <button
-                    onClick={handleSave}
-                    aria-label={saved ? "Unsave job" : "Save job"}
-                    className="flex items-center justify-center gap-1.5 flex-1 rounded-[10px] border border-gray-300 text-[13px] font-semibold text-gray-700 py-2.5 hover:bg-gray-50 transition-colors"
-                >
-                    <Bookmark
-                        size={14}
-                        aria-hidden="true"
-                        className={saved ? "fill-current" : ""}
-                    />
-                    {saved ? "Saved" : "Save"}
-                </button>
+            {/* Apply / See similar + Share */}
+            <div className="flex items-stretch gap-1.5">
+                {expired ? (
+                    <a
+                        href="#similar"
+                        className="flex items-center justify-center flex-1 rounded-[10px] px-4 py-2.5 text-[14px] font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                        See similar roles ↓
+                    </a>
+                ) : (
+                    <button
+                        onClick={handleApply}
+                        disabled={!applyUrl}
+                        className="flex items-center justify-center gap-1.5 flex-1 rounded-[10px] px-4 py-2.5 text-[14px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                        style={{
+                            background: "var(--jde-brand)",
+                            boxShadow: "inset 0 0 0 1px var(--jde-brand-ink)",
+                        }}
+                    >
+                        Apply on {job.companyName}
+                        <ExternalLink size={14} aria-hidden="true" />
+                    </button>
+                )}
                 <button
                     onClick={handleShare}
                     aria-label="Share job"
-                    className="flex items-center justify-center gap-1.5 flex-1 rounded-[10px] border border-gray-300 text-[13px] font-semibold text-gray-700 py-2.5 hover:bg-gray-50 transition-colors"
+                    title={copied ? "Copied!" : "Share"}
+                    className="flex items-center justify-center w-11 rounded-[10px] border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors flex-shrink-0"
                 >
-                    <Share2 size={14} aria-hidden="true" />
-                    {copied ? "Copied!" : "Share"}
+                    <Share2 size={15} aria-hidden="true" />
                 </button>
             </div>
+            {copied && (
+                <p className="mt-1.5 text-[12px] text-gray-500 text-right">Link copied</p>
+            )}
 
             {/* HIDDEN_FOR_API_INTEGRATION: Footer stats (avg response + applicants) — see HIDDEN_FEATURES.md
             <div className="mt-4 pt-3.5 border-t border-dashed border-gray-200 flex justify-between text-[12.5px] text-gray-500">
