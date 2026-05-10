@@ -27,6 +27,5 @@ yarn-error.log*
 .firebaseerc
 .env
 /.firebase
-package-lock.json
 .next
 .gstack/
