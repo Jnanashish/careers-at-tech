@@ -19,7 +19,7 @@ import {
     Building2,
     Sparkles,
 } from "lucide-react";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 import parse from "html-react-parser";
 
 import Navbar from "@/components/Redesign/Navbar";
@@ -91,10 +91,14 @@ export async function getStaticProps({ params }) {
     if (job.jobDescription?.html) {
         job.jobDescription = {
             ...job.jobDescription,
-            html: DOMPurify.sanitize(job.jobDescription.html, {
-                USE_PROFILES: { html: true },
-                FORBID_TAGS: ["script", "style", "iframe", "object", "embed", "form"],
-                FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover", "style"],
+            html: sanitizeHtml(job.jobDescription.html, {
+                allowedTags: sanitizeHtml.defaults.allowedTags.concat(["h1", "h2", "img"]),
+                allowedAttributes: {
+                    ...sanitizeHtml.defaults.allowedAttributes,
+                    "*": ["class", "id"],
+                },
+                disallowedTagsMode: "discard",
+                allowedSchemes: ["http", "https", "mailto"],
             }),
         };
     }
