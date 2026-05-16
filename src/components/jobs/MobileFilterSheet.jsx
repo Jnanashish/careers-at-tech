@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { TYPE_OPTS, LOCATION_OPTS, BATCH_OPTS, QUICK_FILTERS } from "./data";
+import { TYPE_OPTS, LOCATION_OPTS, BATCH_OPTS } from "./data";
 
 const ChipRow = ({ label, opts, value, onChange }) => (
     <div className="mb-5">
@@ -140,44 +140,6 @@ const MobileFilterSheet = ({
                     <ChipRow label="Type" opts={TYPE_OPTS} value={type} onChange={setType} />
                     <ChipRow label="Where" opts={LOCATION_OPTS} value={location} onChange={setLocation} />
                     <ChipRow label="Batch" opts={BATCH_OPTS} value={batch} onChange={setBatch} />
-                    <div className="mb-5">
-                        <div
-                            className="font-v3-mono mb-2"
-                            style={{
-                                fontSize: 11,
-                                letterSpacing: "0.14em",
-                                textTransform: "uppercase",
-                                color: "var(--v3-mute)",
-                                fontWeight: 500,
-                            }}
-                        >
-                            Quick
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            {QUICK_FILTERS.map((q) => {
-                                const on = quick === q;
-                                return (
-                                    <button
-                                        key={q}
-                                        type="button"
-                                        onClick={() => setQuick(on ? null : q)}
-                                        className="rounded-full cursor-pointer v3-focus-ring"
-                                        style={{
-                                            padding: "6px 12px",
-                                            border: on ? "1px solid var(--v3-accent)" : "1px dashed var(--v3-line)",
-                                            background: on ? "var(--v3-accent-soft)" : "transparent",
-                                            color: on ? "var(--v3-accent-deep)" : "var(--v3-ink-3)",
-                                            fontSize: 12,
-                                            fontWeight: 500,
-                                        }}
-                                        aria-pressed={on}
-                                    >
-                                        {q}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
                 </div>
 
                 <div

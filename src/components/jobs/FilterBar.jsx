@@ -2,7 +2,6 @@ import React, { forwardRef } from "react";
 import SelectChip from "@/components/ui/SelectChip";
 import { FLAGS } from "@/Helpers/featureFlags";
 import {
-    QUICK_FILTERS,
     TYPE_OPTS,
     LOCATION_OPTS,
     BATCH_OPTS,
@@ -191,58 +190,6 @@ const FilterBar = forwardRef(function FilterBar(
                         })}
                     </div>
                 )}
-            </div>
-
-            {/* Row 2: Quick filters */}
-            <div
-                className="row2 flex items-center gap-2.5 v3-quick-strip"
-                style={{
-                    maxHeight: compact ? 0 : 60,
-                    marginTop: compact ? 0 : 12,
-                    opacity: compact ? 0 : 1,
-                    overflow: "hidden",
-                    transition: "max-height 0.25s ease, margin-top 0.25s ease, opacity 0.2s ease",
-                    pointerEvents: compact ? "none" : "auto",
-                }}
-            >
-                <span
-                    className="font-v3-mono hidden md:inline"
-                    style={{
-                        fontSize: 11,
-                        letterSpacing: "0.14em",
-                        textTransform: "uppercase",
-                        color: "var(--v3-mute)",
-                        fontWeight: 500,
-                        marginRight: 4,
-                    }}
-                >
-                    Quick
-                </span>
-                <div className="quick-row">
-                    {QUICK_FILTERS.map((q) => {
-                        const on = quick === q;
-                        return (
-                            <button
-                                key={q}
-                                type="button"
-                                onClick={() => setQuick(on ? null : q)}
-                                className="rounded-full v3-focus-ring cursor-pointer"
-                                style={{
-                                    padding: "6px 12px",
-                                    border: on ? "1px solid var(--v3-accent)" : "1px dashed var(--v3-line)",
-                                    background: on ? "var(--v3-accent-soft)" : "transparent",
-                                    color: on ? "var(--v3-accent-deep)" : "var(--v3-ink-3)",
-                                    fontSize: 12,
-                                    fontWeight: 500,
-                                    whiteSpace: "nowrap",
-                                }}
-                                aria-pressed={on}
-                            >
-                                {q}
-                            </button>
-                        );
-                    })}
-                </div>
             </div>
 
             {/* Row 3: active chips */}
