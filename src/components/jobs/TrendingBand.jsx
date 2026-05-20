@@ -1,7 +1,7 @@
 import React from "react";
 import { MOCK_TRENDING } from "./data";
 
-const WHATSAPP_LINK = "https://chat.whatsapp.com/H2NYOSbdwqd6JVV8ABEHjE";
+const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y";
 
 const TrendingBand = ({ items = MOCK_TRENDING, onSelect }) => (
     <section
@@ -123,7 +123,7 @@ const TrendingBand = ({ items = MOCK_TRENDING, onSelect }) => (
                     className="font-v3-sans"
                     style={{ fontSize: 13.5, marginTop: 10, opacity: 0.9, maxWidth: 320 }}
                 >
-                    24,000 builders. One curated list of new roles every Monday at 7AM IST.
+                    40,000 builders. One curated list of new roles every Monday at 7AM IST.
                 </div>
                 <a
                     href={WHATSAPP_LINK}

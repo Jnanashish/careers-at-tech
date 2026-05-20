@@ -33,7 +33,7 @@ const Footer = () => {
                             <a onClick={() => socialIconClicked("linkedin")} href="https://openinapp.co/m04iq" className={styles.social_container_icons}>
                                 <Image src={linkedinIcon} alt="Telegram icon" height={25} width={25} />
                             </a>
-                            <a onClick={() => socialIconClicked("whatsApp")} href="https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc" className={styles.social_container_icons}>
+                            <a onClick={() => socialIconClicked("whatsApp")} href="https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y" className={styles.social_container_icons}>
                                 <Image src={whatsappIcon} alt="Telegram icon" height={25} width={25} />
                             </a>
                         </div>

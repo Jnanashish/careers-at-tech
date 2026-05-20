@@ -5,7 +5,7 @@ import { firebaseEventHandler } from "@/core/eventHandler";
 const WhatsAppCTA = () => {
   const handleClick = () => {
     firebaseEventHandler("whatsapp_cta_clicked", { source: "sidebar" });
-    window.open("https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc", "_blank");
+    window.open("https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y", "_blank");
   };
 
   return (
@@ -19,7 +19,7 @@ const WhatsAppCTA = () => {
         </div>
       </div>
       <p className="text-sm text-text-secondary mb-4 leading-relaxed">
-        Daily verified job alerts. 25,000+ freshers already in.
+        Daily verified job alerts. 40,000+ freshers already in.
       </p>
       <button
         onClick={handleClick}
@@ -86,7 +86,7 @@ const MobileWhatsAppBanner = () => {
 
   const handleClick = () => {
     firebaseEventHandler("whatsapp_cta_clicked", { source: "mobile_banner" });
-    window.open("https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc", "_blank");
+    window.open("https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y", "_blank");
   };
 
   return (

@@ -65,13 +65,13 @@ function WhatAppBanner(props) {
                     <p>
                         Join our WhatsApp Channel to get the latest <b>internship</b> and <b>job</b> updates.
                     </p>
-                    <a onClick={() => handleWhatsAppJoinClick()} href="https://bit.ly/jobs-whatsappchannel">
+                    <a onClick={() => handleWhatsAppJoinClick()} href="https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y">
                         <div className={styles.whatsappbanner_joinbutton}>
                             <p>Join us on WhatsApp Channel</p>
                             <Image src={whatsappIcon} alt="Whatsapp icon" height={20} width={20} />
                         </div>
                     </a>
-                    <p className={styles.whatsappbanner_members}>25,000+ members have already joined!</p>
+                    <p className={styles.whatsappbanner_members}>40,000+ members have already joined!</p>
                 </div>
             )}
         </>

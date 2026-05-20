@@ -88,7 +88,7 @@ const MobileDrawer = ({openDrawer, setOpenDrawer}) => {
                     <Link onClick={closeDrawer} href={"/"} className={styles.drawer_tabs}>Post a Job </Link>
                     <Link onClick={closeDrawer} href={"/"} className={styles.drawer_tabs}>About us </Link>
 
-                    <a onClick={closeDrawer} className={styles.whatsAppButton} href="https://bit.ly/jobs-whatsappchannel">
+                    <a onClick={closeDrawer} className={styles.whatsAppButton} href="https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y">
                         <p>Join WhatsApp Channel</p>
                         <Image src={whatsappIcon} alt="Whatsapp icon" height={22} width={22} />
                     </a>

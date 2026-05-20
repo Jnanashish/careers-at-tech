@@ -1,6 +1,6 @@
 import React from "react";
 
-const WHATSAPP_LINK = "https://chat.whatsapp.com/H2NYOSbdwqd6JVV8ABEHjE";
+const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y";
 
 const WhatsAppDrops = () => (
     <div
@@ -38,7 +38,7 @@ const WhatsAppDrops = () => (
             WhatsApp drops
         </div>
         <div className="font-v3-serif" style={{ fontSize: 26, lineHeight: 1.05, marginBottom: 6 }}>
-            24,000 members
+            40,000 members
         </div>
         <div className="font-v3-sans" style={{ fontSize: 12.5, opacity: 0.9, marginBottom: 16, position: "relative" }}>
             Every Mon 7AM · curated drop of new roles before they hit the board.

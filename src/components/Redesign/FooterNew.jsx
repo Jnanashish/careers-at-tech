@@ -64,7 +64,7 @@ const socialLinks = [
   { icon: Camera, href: "https://www.instagram.com/careersattech/", label: "Instagram", hoverColor: "hover:text-pink-500" },
   { icon: Briefcase, href: "https://openinapp.co/m04iq", label: "LinkedIn", hoverColor: "hover:text-blue-500" },
   { icon: Send, href: "https://t.openinapp.co/careersattech-3", label: "Telegram", hoverColor: "hover:text-blue-400" },
-  { icon: MessageCircle, href: "https://chat.whatsapp.com/EQNivQSL7aQFKUqC3YXpgc", label: "WhatsApp", hoverColor: "hover:text-green-400" },
+  { icon: MessageCircle, href: "https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y", label: "WhatsApp", hoverColor: "hover:text-green-400" },
 ];
 
 const FooterAccordion = ({ title, links }) => {
