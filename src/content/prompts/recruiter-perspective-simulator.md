@@ -29,6 +29,9 @@ Answer these specific questions:
 
 Be honest. Don't soften the answer.
 
+Output rules: plain text only. Numbered answers (1. 2. 3.) on separate lines.
+No markdown headings, no bold (**text**), no tables.
+
 Here is my resume:
 [PASTE RESUME HERE]
 ```

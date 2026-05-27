@@ -17,6 +17,10 @@ featured: false
 Act as an ATS keyword analyzer. I'll paste a job description and my resume.
 Your only job is to produce a gap report — do not rewrite anything yet.
 
+Output rules: plain text only. No markdown headings, no bold (**text**), no
+tables. Section labels in ALL CAPS on their own line, then a blank line, then
+the list as plain dash bullets.
+
 Output exactly this structure:
 
 TOP 15 KEYWORDS FROM THE JD

@@ -9,7 +9,7 @@ import CopyButton from "./CopyButton";
 const PromptCard = ({ prompt, promptText }) => {
     return (
         <article className={styles.card}>
-            <Link href={`/toolkit/${prompt.slug}`} className={styles.cardLink}>
+            <Link href={`/resume-prompts/${prompt.slug}`} className={styles.cardLink}>
                 <div className={styles.cardContent}>
                     <span className={styles.categoryChip}>{prompt.categoryLabel}</span>
                     <h3 className={styles.title}>{prompt.title}</h3>

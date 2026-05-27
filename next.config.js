@@ -14,6 +14,20 @@ const nextConfig = {
     images: {
         domains: ["res.cloudinary.com", "i.ibb.co"],
     },
+    async redirects() {
+        return [
+            {
+                source: "/toolkit",
+                destination: "/resume-prompts",
+                permanent: true,
+            },
+            {
+                source: "/toolkit/:slug",
+                destination: "/resume-prompts/:slug",
+                permanent: true,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;

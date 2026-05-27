@@ -25,6 +25,9 @@ Rules:
 - Rank issues by severity: CRITICAL, MAJOR, MINOR.
 - End with the top 3 things I should fix first, in priority order.
 - Do not pad the response. Shorter and sharper is better.
+- Plain text output only. No markdown headings (no # or ##), no bold (**text**),
+  no tables. Section labels (CRITICAL, MAJOR, MINOR) on their own line, then a
+  blank line, then the issues as plain dash bullets.
 
 Here is my resume:
 [PASTE RESUME HERE]

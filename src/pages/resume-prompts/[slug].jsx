@@ -30,7 +30,7 @@ export async function getStaticProps({ params }) {
 
 const ToolkitPromptPage = ({ prompt, relatedPrompts }) => {
     const { frontmatter } = prompt;
-    const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/toolkit/${frontmatter.slug}`;
+    const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/resume-prompts/${frontmatter.slug}`;
 
     const howToSchema = {
         "@context": "https://schema.org",
@@ -70,8 +70,8 @@ const ToolkitPromptPage = ({ prompt, relatedPrompts }) => {
             {
                 "@type": "ListItem",
                 position: 2,
-                name: "Toolkit",
-                item: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/toolkit`,
+                name: "Resume Prompts",
+                item: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/resume-prompts`,
             },
             {
                 "@type": "ListItem",

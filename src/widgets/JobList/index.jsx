@@ -8,6 +8,7 @@ import Hero from "@/components/jobs/Hero";
 import FilterBar from "@/components/jobs/FilterBar";
 import MobileFilterSheet from "@/components/jobs/MobileFilterSheet";
 import FeaturedCarousel from "@/components/jobs/FeaturedCarousel";
+import ResumePromptsBanner from "@/components/jobs/ResumePromptsBanner";
 import ResultsHeader from "@/components/jobs/ResultsHeader";
 import JobCard from "@/components/jobs/JobCard";
 import JobCardMobile from "@/components/jobs/JobCardMobile";
@@ -252,6 +253,7 @@ const JobList = ({ initialJobs }) => {
 
             <div className="v3-main-grid">
                 <div className="v3-main-left min-h-[600px]">
+                    <ResumePromptsBanner />
                     <FeaturedCarousel
                         jobs={featuredJobs}
                         saved={savedIds}

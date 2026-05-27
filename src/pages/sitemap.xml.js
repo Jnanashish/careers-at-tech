@@ -1,5 +1,5 @@
 // Dynamic sitemap. Served at /sitemap.xml. Includes:
-//   - static landing pages (/, /jobs, /companies, /toolkit, /career-pages, legal)
+//   - static landing pages (/, /jobs, /companies, /resume-prompts, /career-pages, legal)
 //   - all published v2 job slugs (lastmod = datePosted)
 //   - all active v2 company slugs
 //   - all toolkit prompt slugs from src/content/prompts/
@@ -17,7 +17,7 @@ const STATIC_PAGES = [
     { path: "/", priority: 1.0, changefreq: "daily" },
     { path: "/jobs", priority: 0.9, changefreq: "daily" },
     { path: "/companies", priority: 0.8, changefreq: "weekly" },
-    { path: "/toolkit", priority: 0.7, changefreq: "weekly" },
+    { path: "/resume-prompts", priority: 0.9, changefreq: "weekly" },
     { path: "/career-pages", priority: 0.6, changefreq: "monthly" },
     { path: "/contact", priority: 0.4, changefreq: "yearly" },
     { path: "/privacy-policy", priority: 0.3, changefreq: "yearly" },
@@ -101,9 +101,9 @@ function buildToolkitUrls() {
         return [];
     }
     return entries.map((e) => ({
-        loc: `${SITE_URL}/toolkit/${e.params.slug}`,
+        loc: `${SITE_URL}/resume-prompts/${e.params.slug}`,
         changefreq: "monthly",
-        priority: 0.5,
+        priority: 0.7,
     }));
 }
 

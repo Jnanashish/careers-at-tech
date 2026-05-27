@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Find Jobs", href: "/jobs" },
-    { label: "Resume Toolkit", href: "/toolkit" },
+    { label: "Resume Prompts", href: "/resume-prompts" },
     { label: "Tools", href: "/tools" },
   ];
 

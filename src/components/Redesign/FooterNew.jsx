@@ -7,7 +7,7 @@ import { FLAGS } from "@/Helpers/featureFlags";
 
 const companyLinks = [
   { label: "Contact us", href: "/contact" },
-  { label: "Resume Toolkit", href: "/toolkit" },
+  { label: "Resume Prompts", href: "/resume-prompts" },
   { label: "Privacy policy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms-and-conditions" },
   { label: "DMCA", href: "/dmca" },
@@ -129,7 +129,7 @@ const FooterNew = () => {
             </h4>
             <div className="flex flex-col gap-2">
               {companyLinks
-                .filter((link) => link.label !== "Resume Toolkit" || FLAGS.FOOTER_RESUME_TOOLKIT)
+                .filter((link) => link.label !== "Resume Prompts" || FLAGS.FOOTER_RESUME_TOOLKIT)
                 .map((link) => (
                   <Link
                     key={link.label}

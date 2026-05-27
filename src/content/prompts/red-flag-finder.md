@@ -27,11 +27,15 @@ Look for:
 7. Contact info issues (unprofessional email, missing LinkedIn).
 8. Anything that sounds inflated or invented.
 
+Output rules: plain text only. No markdown headings (no # or ##), no bold
+(**text**), no tables. Section labels (RED FLAGS FOUND, NONE FOUND, FIX
+PRIORITY) on their own line in ALL CAPS, then a blank line, then content.
+
 Output:
-RED FLAGS FOUND: [numbered list, each with the exact line from my resume
-and why it's a red flag]
-NONE FOUND: [list of sections that passed inspection]
-FIX PRIORITY: [top 3 to address first]
+RED FLAGS FOUND: numbered list, each with the exact line from my resume
+and why it's a red flag.
+NONE FOUND: list of sections that passed inspection.
+FIX PRIORITY: top 3 to address first.
 
 Here is my resume:
 [PASTE RESUME HERE]

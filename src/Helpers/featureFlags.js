@@ -22,7 +22,7 @@ export const FLAGS = {
     FOOTER_JOBS_BY_TYPE: false,   // "Jobs by types" link column in footer
     RESULTS_SORT_LABEL: false,    // "· sorted by latest" text in results header
     RESULTS_VIEW_TOGGLE: false,   // List / Grid view toggle buttons in results header
-    FOOTER_RESUME_TOOLKIT: false, // "Resume Toolkit" link in footer company links
+    FOOTER_RESUME_TOOLKIT: true,  // "Resume Prompts" link in footer company links
     FOOTER_LOGO: false,           // Footer logo image
     FOOTER_SOCIAL_ICONS: false,   // Social icons (Instagram, LinkedIn, Telegram, WhatsApp)
     FOOTER_MADE_WITH: false,      // "Made with ❤️ in India by @Jnanashish" text

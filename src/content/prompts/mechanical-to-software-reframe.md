@@ -26,7 +26,10 @@ Rules:
 - If the project had a physical hardware component, mention it briefly but
   don't let it dominate.
 - Output: 1 project title line + 3 bullets.
-- Do not invent tools or outcomes.
+- Plain text only. No markdown, no asterisks, no bold (**text**), no headings.
+- Do not invent tools, metrics, baselines, or outcomes. If a number was not in
+  the input, do not produce one — use scope words instead ("first version",
+  "demo build", "across a class of N").
 
 Here is the project:
 [DESCRIBE what you built, which tools you used, what you programmed or
@@ -59,9 +62,9 @@ If you are a non-CS student applying to software roles at companies like Zoho, H
 **After using this prompt:**
 
 Automated Pick-and-Place Robotic System
-- Engineered motor control and sensor input processing algorithms in Arduino IDE for a 4-axis robotic arm, achieving 90% task accuracy.
-- Implemented real-time serial communication protocol between Arduino Mega and 3 sensor modules for coordinated movement decisions.
-- Developed calibration routines to optimize grip timing and placement precision, reducing error rate from initial 30% to final 10%.
+- Built motor control and sensor input processing in Arduino C for a 4-axis pick-and-place robotic arm (final-year project, 4-person team).
+- Wrote serial communication code between Arduino Mega and 3 sensor modules so the arm could coordinate grip + placement timing.
+- Tuned calibration loop iteratively across testing rounds until the arm hit 90% accuracy on the standard pick-and-place demo set.
 
 Notice how every bullet leads with software: algorithms, serial communication, calibration routines. The robotic arm is mentioned as context, but the focus is on what was programmed. A software recruiter can now see Arduino, real-time processing, algorithms, and optimization — all from what was originally described as a hardware project.
 

@@ -23,6 +23,8 @@ Rules:
 - Standard section headings in this order: Summary, Skills, Experience,
   Projects, Education, Certifications (skip any I don't have).
 - Bullet points using a simple dash character, not fancy symbols.
+- No markdown formatting. No asterisks, no bold (**text**), no underscores, no
+  pound-sign headings (# or ##). Section names on their own line in plain text.
 - Keep every fact, date, skill, and number I provided. Do not drop content.
 - Do not invent new content.
 - Output as plain text ready to paste into Word.

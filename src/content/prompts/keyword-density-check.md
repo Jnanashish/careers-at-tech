@@ -23,10 +23,11 @@ Analyze:
   dumped (listed as a word without context).
 - Whether the same keyword appears so many times it sounds unnatural.
 
-Output:
-KEYWORD USAGE TABLE (keyword | count | contextual or dumped)
-VERDICT: under-using, balanced, or stuffed
-TOP 2 EDITS TO MAKE
+Output rules:
+- Plain text only. No markdown, no pipe-character tables, no bold, no headings.
+- One keyword per line in the format: keyword — count — contextual / dumped / mixed
+- After the keyword list, blank line, then "VERDICT:" on its own line followed by under-using, balanced, or stuffed
+- Then "TOP 2 EDITS:" on its own line followed by two numbered edits, each one line.
 
 Here is the JD:
 [PASTE JD HERE]
@@ -57,11 +58,10 @@ It is most useful during placement season when you are sending out multiple appl
 
 **Before:** A student applies for a React developer role. They tailored their resume and used the word "React" seven times. Their keyword density check returns:
 
-| Keyword | Count | Type |
-| React | 7 | 4 contextual, 3 dumped |
-| TypeScript | 0 | - |
-| REST API | 1 | contextual |
-| Redux | 3 | 2 contextual, 1 dumped |
+React — 7 — mixed (4 contextual, 3 dumped)
+TypeScript — 0 — missing
+REST API — 1 — contextual
+Redux — 3 — mixed (2 contextual, 1 dumped)
 
 VERDICT: Stuffed for "React," under-using "TypeScript."
 

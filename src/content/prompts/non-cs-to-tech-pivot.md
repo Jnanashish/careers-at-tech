@@ -68,11 +68,11 @@ Companies like Zoho, Freshworks, and even Google India hire non-CS graduates reg
 
 **After using this prompt:**
 
-Summary: Final-year engineering graduate with hands-on experience in Python, Django, and PostgreSQL, backed by two full-stack projects including a campus event management system deployed for 200 users. Strong foundation in systems-level thinking from a mechanical engineering background. Seeking a backend developer role.
+Summary: Final-year mechanical engineering student with hands-on Python and Django built across two full-stack projects, including a campus event management tool I demoed to a class of 60 students at end-of-semester review. Looking for a backend developer role at a product company.
 
 Key Skills: Python, Django, PostgreSQL, REST APIs, Git, Docker, HTML/CSS, JavaScript
 
-Framing suggestion: "Background in mechanical engineering provides a systems-level perspective on architecture design and performance optimization that complements software development."
+Framing suggestion: "Comfort working with physical systems and constraints translates well to thinking about real-world failure modes and edge cases in software."
 
 The summary leads with software skills, mentions a real project with a real number, and positions the engineering background as an advantage rather than a liability. No apologies. No "transitioning." Just a clear statement of capability.
 

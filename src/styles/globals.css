@@ -34,10 +34,78 @@
     --v3-warn-orange: #FF8A00;
 
     --v3-header-h: 74px;
+
+    /* ───── Resume Toolkit v3 design tokens (cat-* namespace) ───── */
+    --cat-primary: #0050ff;
+    --cat-primary-light: #0061ff;
+    --cat-primary-hover: #0069ff;
+    --cat-blue-bg: #f4faff;
+    --cat-ink: #121212;
+    --cat-ink-2: #121926;
+    --cat-fg: #2B2B2B;
+    --cat-fg-muted: #4B5556;
+    --cat-fg-soft: #4b5565;
+    --cat-fg-dim: #697586;
+    --cat-fg-hint: #979797;
+    --cat-border: #DADFE7;
+    --cat-border-soft: #e1ebff;
+    --cat-divider: #eaedf1;
+    --cat-surface-soft: #F9F9FB;
+    --cat-success: #25D366;
+    --cat-warm-bg: #FFF4EC;
+    --cat-warm-ink: #9A4B12;
+    --cat-green-bg: #E9F8EE;
+    --cat-green-ink: #0E7C3A;
+    --cat-green-border: #C9EBD4;
+    --cat-yellow-mark: #FFF4C2;
+    --cat-shadow-card: 0px 1px 2px rgba(16, 24, 40, .04);
+    --cat-shadow-card-hover: 0 2px 20px rgba(0, 0, 0, .08);
+    --cat-shadow-prompt-hover: 0px 4px 12px rgba(16, 24, 40, .08);
+    --cat-shadow-live-demo: 0 8px 32px rgba(16, 24, 40, .08), 0 2px 8px rgba(16, 24, 40, .04);
+    --cat-shadow-dropdown: 0 0 10px 6px rgba(0, 0, 0, .07);
+
+    /* Section accents — reserved palette so primary blue stays for CTAs only */
+    --cat-accent-warm: #C75B3F;        /* terracotta — sequential / emotional */
+    --cat-accent-warm-hover: #B5492F;
+    --cat-accent-warm-bg: #FFF5F2;
+    --cat-accent-teal: #0D9488;        /* teal — discovery / result surfaces */
+    --cat-accent-teal-hover: #0B7A70;
+    --cat-accent-teal-bg: #ECFDF5;
+    --cat-accent-plum: #7C3AED;        /* plum — job rail */
+    --cat-accent-plum-hover: #6D28D9;
+    --cat-accent-plum-bg: #F5F0FF;
 }
 
 @media (max-width: 767px) {
     :root { --v3-header-h: 66px; }
+}
+
+/* ───── Resume Toolkit v3 helpers ───── */
+@keyframes cat-spin { to { transform: rotate(360deg); } }
+@keyframes cat-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cat-rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cat-pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(37, 211, 102, .18); }
+    50% { box-shadow: 0 0 0 6px rgba(37, 211, 102, .06); }
+}
+@keyframes cat-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.cat-spin { animation: cat-spin 0.8s linear infinite; }
+.cat-fade-in { animation: cat-fade-in 0.4s ease-out both; }
+.cat-rise-in { animation: cat-rise-in 0.5s ease-out both; }
+.cat-pulse-dot { animation: cat-pulse-dot 2s ease-in-out infinite; }
+
+.cat-no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.cat-no-scrollbar::-webkit-scrollbar { display: none; }
+
+.cat-snap-x { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.cat-snap-start { scroll-snap-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+    .cat-spin, .cat-fade-in, .cat-rise-in, .cat-pulse-dot { animation: none !important; }
 }
 
 @keyframes v3-pulse-ring {
@@ -117,6 +185,15 @@ html,
 body {
     max-width: 100vw;
     overflow-x: clip;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
 }
 
 a {

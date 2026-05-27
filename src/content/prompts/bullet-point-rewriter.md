@@ -19,7 +19,8 @@ Rewrite the bullet in 3 different ways, each aligned to the JD.
 
 Rules for each rewrite:
 - Start with a strong action verb (Built, Shipped, Engineered, Implemented,
-  Designed, Automated, Optimized, Shipped).
+  Designed, Automated, Optimized, Refactored).
+- Output plain text only. No markdown, no asterisks, no bold (**text**), no headings.
 - Include at least one keyword from the JD — but only if it is truthful.
 - Preserve any number I used. If I didn't use a number, suggest one realistic
   metric I could measure myself (and mark it as "[verify this number]").

@@ -67,42 +67,56 @@ const Header = ({ onMobileMenu, compact = false }) => {
                 </nav>
             )}
 
-            {(FLAGS.HEADER_AUTH || FLAGS.HEADER_POST_JOB) && (
-                <div className="hidden md:flex items-center gap-3.5">
-                    {FLAGS.HEADER_AUTH && (
-                        <Link
-                            href="#"
-                            className="v3-focus-ring rounded"
-                            style={{
-                                fontFamily: "var(--font-geist), sans-serif",
-                                fontSize: 13.5,
-                                fontWeight: 500,
-                                color: "var(--v3-mute)",
-                            }}
-                        >
-                            Sign in
-                        </Link>
-                    )}
-                    {FLAGS.HEADER_POST_JOB && (
-                        <button
-                            type="button"
-                            className="v3-focus-ring inline-flex items-center gap-2 rounded-full"
-                            style={{
-                                background: "var(--v3-ink)",
-                                color: "var(--v3-paper)",
-                                border: "none",
-                                padding: "10px 16px",
-                                fontSize: 13,
-                                fontWeight: 500,
-                                cursor: "pointer",
-                            }}
-                        >
-                            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--v3-acid)" }} />
-                            Post a role · ₹4,800
-                        </button>
-                    )}
-                </div>
-            )}
+            <div className="hidden md:flex items-center gap-3.5">
+                <Link
+                    href="/resume-prompts"
+                    className="v3-focus-ring inline-flex items-center gap-2 rounded-full"
+                    style={{
+                        background: "var(--v3-ink)",
+                        color: "var(--v3-paper)",
+                        textDecoration: "none",
+                        padding: "10px 16px",
+                        fontSize: 13,
+                        fontWeight: 500,
+                        fontFamily: "var(--font-geist), sans-serif",
+                    }}
+                >
+                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--v3-acid)" }} />
+                    Resume Prompts · free
+                </Link>
+                {FLAGS.HEADER_AUTH && (
+                    <Link
+                        href="#"
+                        className="v3-focus-ring rounded"
+                        style={{
+                            fontFamily: "var(--font-geist), sans-serif",
+                            fontSize: 13.5,
+                            fontWeight: 500,
+                            color: "var(--v3-mute)",
+                        }}
+                    >
+                        Sign in
+                    </Link>
+                )}
+                {FLAGS.HEADER_POST_JOB && (
+                    <button
+                        type="button"
+                        className="v3-focus-ring inline-flex items-center gap-2 rounded-full"
+                        style={{
+                            background: "var(--v3-ink)",
+                            color: "var(--v3-paper)",
+                            border: "none",
+                            padding: "10px 16px",
+                            fontSize: 13,
+                            fontWeight: 500,
+                            cursor: "pointer",
+                        }}
+                    >
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--v3-acid)" }} />
+                        Post a role · ₹4,800
+                    </button>
+                )}
+            </div>
 
             {/* Mobile */}
             <div className="md:hidden flex items-center justify-between w-full gap-3">
@@ -124,6 +138,21 @@ const Header = ({ onMobileMenu, compact = false }) => {
                     </span>
                 </Link>
                 <div className="flex items-center gap-2">
+                    <Link
+                        href="/resume-prompts"
+                        className="rounded-full font-v3-sans inline-flex items-center gap-1.5"
+                        style={{
+                            background: "var(--v3-ink)",
+                            color: "var(--v3-paper)",
+                            textDecoration: "none",
+                            padding: "8px 14px",
+                            fontSize: 12,
+                            fontWeight: 500,
+                        }}
+                    >
+                        <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--v3-acid)" }} />
+                        Resume Prompts
+                    </Link>
                     {FLAGS.HEADER_POST_JOB && (
                         <button
                             type="button"
