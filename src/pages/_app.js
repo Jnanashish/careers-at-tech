@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Script from "next/script";
+import { useRouter } from "next/router";
 
 import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono, Fraunces } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { trackPageView } from "@/core/eventHandler";
 import "../styles/globals.css";
 
 // set up inter font for the project
@@ -47,6 +49,16 @@ const fraunces = Fraunces({
 
 const App = (props) => {
     const { Component, pageProps } = props;
+    const router = useRouter();
+
+    // Track SPA navigations as GA4 page_view events. The initial hard load is
+    // auto-collected by Firebase; this covers client-side route changes only.
+    useEffect(() => {
+        const handleRouteChange = (url) => trackPageView(url);
+        router.events.on("routeChangeComplete", handleRouteChange);
+        return () => router.events.off("routeChangeComplete", handleRouteChange);
+    }, [router.events]);
+
     return (
         <>
             {/* ms clarity integration  */}
