@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { ExternalLink, Share2 } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, Share2, Wand2 } from "lucide-react";
 import { formatBaseSalary, formatWorkMode, formatJobLocations, resolveApplyUrl } from "@/Helpers/jobV2helpers";
 import { trackJobApplyClick } from "@/core/apis/v2/client";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
     const sparse = !job.baseSalary?.min;
@@ -19,8 +21,10 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
         };
         try {
             if (navigator.share) {
+                firebaseEventHandler("job_share_clicked", { slug: job.slug, company: job.companyName, method: "native" });
                 await navigator.share(shareData);
             } else {
+                firebaseEventHandler("job_share_clicked", { slug: job.slug, company: job.companyName, method: "clipboard" });
                 await navigator.clipboard.writeText(shareData.url);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
@@ -30,8 +34,17 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
 
     const handleApply = () => {
         if (!applyUrl) return;
+        firebaseEventHandler("job_apply_clicked", { slug: job.slug, company: job.companyName, jobTitle: job.title, source: "apply_card" });
         try { trackJobApplyClick(job.slug); } catch { /* ignore */ }
         window.open(applyUrl, "_blank", "noopener,noreferrer");
+    };
+
+    const handleSeeSimilar = () => {
+        firebaseEventHandler("job_see_similar_clicked", { slug: job.slug, source: "apply_card_expired" });
+    };
+
+    const handleTailor = () => {
+        firebaseEventHandler("job_tailor_clicked", { slug: job.slug, source: "apply_card" });
     };
 
     // Status pill — "Accepting" fallback HIDDEN_FOR_API_INTEGRATION (see HIDDEN_FEATURES.md)
@@ -105,6 +118,7 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
                 {expired ? (
                     <a
                         href="#similar"
+                        onClick={handleSeeSimilar}
                         className="flex items-center justify-center flex-1 rounded-[10px] px-4 py-2.5 text-[14px] font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                     >
                         See similar roles ↓
@@ -135,6 +149,27 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
             {copied && (
                 <p className="mt-1.5 text-[12px] text-gray-500 text-right">Link copied</p>
             )}
+
+            {/* Secondary CTA — tailor resume to this JD. Distinct (tinted outline) from the solid Apply action. */}
+            <div className="mt-4 pt-4 border-t border-dashed border-gray-200">
+                <Link
+                    href={{ pathname: "/jobs/[slug]", query: { slug: job.slug, tailor: "1" } }}
+                    scroll={false}
+                    onClick={handleTailor}
+                    className="flex items-center justify-center gap-2 w-full rounded-[10px] px-4 py-2.5 text-[14px] font-semibold transition-opacity hover:opacity-90"
+                    style={{
+                        background: "var(--jde-brand-soft)",
+                        color: "var(--jde-brand-ink)",
+                        border: "1px solid var(--jde-brand-soft-b)",
+                    }}
+                >
+                    <Wand2 size={14} aria-hidden="true" />
+                    Tailor my resume to this JD
+                </Link>
+                <p className="mt-2 text-center text-[12px] text-gray-500">
+                    Free AI prompt · built for this exact role
+                </p>
+            </div>
 
             {/* HIDDEN_FOR_API_INTEGRATION: Footer stats (avg response + applicants) — see HIDDEN_FEATURES.md
             <div className="mt-4 pt-3.5 border-t border-dashed border-gray-200 flex justify-between text-[12.5px] text-gray-500">

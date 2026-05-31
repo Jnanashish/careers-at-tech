@@ -74,6 +74,12 @@
     color: $gray-3;
     border-radius: 4px;
 
+    // Constrain the FontAwesome SVG — no app-wide FA core CSS to size it.
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+
     &:hover {
         background-color: $grey-lightest;
     }
@@ -129,6 +135,13 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
     margin-bottom: 16px;
+
+    // FontAwesome core CSS isn't loaded app-wide, so the SVG has no intrinsic
+    // size — constrain it explicitly or it renders huge.
+    svg {
+        width: 14px;
+        height: 14px;
+    }
 
     &:hover {
         background-color: $primary-light;

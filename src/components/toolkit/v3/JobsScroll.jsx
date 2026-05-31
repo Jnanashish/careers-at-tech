@@ -12,7 +12,7 @@ const JobCard = ({ job }) => {
     const initial = getInitial(job.companyName);
     return (
         <Link
-            href={`/jobs/${job.slug}`}
+            href={`/jobs/${job.slug}?tailor=1`}
             className="cat-snap-start group flex-shrink-0 w-[300px] bg-white border border-cat-border rounded-[14px] p-5 transition-all duration-300 hover:border-cat-accent-teal hover:shadow-[var(--cat-shadow-card-hover)] hover:-translate-y-0.5 shadow-[var(--cat-shadow-card)] flex flex-col gap-4 no-underline text-inherit"
         >
             <div className="flex items-center gap-3">

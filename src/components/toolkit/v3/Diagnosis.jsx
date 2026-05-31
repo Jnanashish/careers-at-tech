@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, Copy, ArrowDown, TrendingUp, ExternalLink } from "lucide-react";
+import { ArrowRight, Check, ArrowDown, TrendingUp, ExternalLink } from "lucide-react";
 import SectionHead from "./SectionHead";
 import Badge from "./Badge";
-import { firebaseEventHandler } from "@/core/eventHandler";
 
 export const DIAGNOSIS = [
     {
@@ -98,19 +97,6 @@ const DiagCard = ({ d, open, onOpen }) => (
 );
 
 const DiagDetail = ({ d }) => {
-    const [copied, setCopied] = useState(false);
-    const copy = useCallback(() => {
-        try {
-            navigator.clipboard.writeText(d.prompt_title);
-        } catch (_) {}
-        setCopied(true);
-        firebaseEventHandler("toolkit_diagnosis_copy", {
-            diagnosis_id: d.id,
-            prompt_slug: d.promptSlug,
-        });
-        setTimeout(() => setCopied(false), 1400);
-    }, [d]);
-
     return (
         <div className="cat-rise-in relative mt-4 bg-white border border-cat-accent-teal rounded-[14px] p-6 md:p-8 shadow-[0_12px_40px_rgba(13,148,136,0.10)]">
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-cat-accent-teal rotate-45" />
@@ -126,18 +112,9 @@ const DiagDetail = ({ d }) => {
                     </p>
 
                     <div className="flex flex-wrap gap-2.5">
-                        <button
-                            onClick={copy}
-                            className={`inline-flex items-center gap-2 min-h-[44px] px-[18px] py-3 rounded-[8px] text-[14px] font-semibold tracking-[0.14px] text-white border-0 cursor-pointer transition-colors ${
-                                copied ? "bg-cat-green-ink" : "bg-cat-primary hover:bg-cat-primary-light"
-                            }`}
-                        >
-                            {copied ? <Check size={13} /> : <Copy size={13} />}
-                            {copied ? "Copied to clipboard" : "Copy the prompt"}
-                        </button>
                         <Link
                             href={`/resume-prompts/${d.promptSlug}`}
-                            className="inline-flex items-center gap-2 min-h-[44px] px-[18px] py-3 rounded-[8px] text-[14px] font-medium text-cat-ink bg-white border border-cat-border tracking-[0.14px] hover:bg-cat-accent-teal-bg hover:border-cat-accent-teal transition-colors"
+                            className="inline-flex items-center gap-2 min-h-[44px] px-[18px] py-3 rounded-[8px] text-[14px] font-semibold tracking-[0.14px] text-white border-0 bg-cat-primary hover:bg-cat-primary-light transition-colors"
                         >
                             Read full prompt <ExternalLink size={12} />
                         </Link>
@@ -201,7 +178,7 @@ const Diagnosis = () => {
                     eyebrow="Where does yours get stuck?"
                     eyebrowColor="teal"
                     title="Tell us what's wrong. We'll hand you the exact prompt."
-                    sub="Pick the one that sounds most like you. The right prompt opens below — copy it, paste it in your AI, done."
+                    sub="Pick the one that sounds most like you. The right prompt opens below — open it, paste it in your AI, done."
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-[14px] mt-11">

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Script from "next/script";
 import { useRouter } from "next/router";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono, Fraunces } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
@@ -71,6 +72,8 @@ const App = (props) => {
                     <Component {...pageProps} />
                 </main>
             </ErrorBoundary>
+
+            <SpeedInsights />
         </>
     );
 };

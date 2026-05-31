@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SectionCard from "./primitives/SectionCard";
+import { firebaseEventHandler } from "@/core/eventHandler";
 import { deterministicHueBg } from "@/widgets/JobList/utils";
 import {
     formatBaseSalary,
@@ -22,6 +23,7 @@ const SimilarCard = ({ job }) => {
         <Link
             href={`/jobs/${job.slug}`}
             prefetch={false}
+            onClick={() => firebaseEventHandler("similar_job_clicked", { slug: job.slug, company: job.companyName })}
             className="flex flex-col gap-2.5 p-4 rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-1"
             style={{ background: "#FAFBFC" }}
         >

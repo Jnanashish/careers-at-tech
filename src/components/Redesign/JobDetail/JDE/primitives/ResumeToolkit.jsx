@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { firebaseEventHandler } from "@/core/eventHandler";
 
 const ResumeToolkit = ({ jobTitle }) => (
     <div
@@ -20,7 +21,8 @@ const ResumeToolkit = ({ jobTitle }) => (
             Get AI-powered prompts to highlight the skills and experience this role asks for.
         </p>
         <Link
-            href="/tools/resume-toolkit"
+            href={{ query: { tailor: "1" } }}
+            onClick={() => firebaseEventHandler("job_tailor_clicked", { jobTitle, source: "resume_toolkit" })}
             className="flex items-center justify-center w-full rounded-xl px-4 py-3 text-[13.5px] font-semibold text-white transition-opacity hover:opacity-90"
             style={{
                 background: "var(--jde-brand)",

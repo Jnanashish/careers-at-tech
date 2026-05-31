@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -30,6 +30,7 @@ import JobNotFound from "@/components/Redesign/JobDetail/JobNotFound";
 import JobDetailSkeleton from "@/components/Redesign/JobDetail/JobDetailSkeleton";
 import SafetyBanner from "@/components/Redesign/JobDetail/SafetyBanner";
 import JDEVariant from "@/components/Redesign/JobDetail/JDE";
+import TailorModal from "@/components/toolkit/TailorModal";
 import { FLAGS } from "@/Helpers/featureFlags";
 
 import {
@@ -62,6 +63,26 @@ const shouldAnimate =
     typeof window !== "undefined"
         ? !window.matchMedia("(prefers-reduced-motion: reduce)").matches
         : true;
+
+// Adapts a v2 job object to the field shape TailorModal/buildJdText expect (legacy v1 names).
+const buildTailorJobData = (job) => {
+    if (!job) return null;
+    return {
+        _id: job._id || job.slug,
+        role: job.title,
+        companyName: job.companyName,
+        jobdesc: job.jobDescription?.html || "",
+        responsibility: "",
+        eligibility: [
+            Array.isArray(job.degree) ? job.degree.join(", ") : "",
+            formatBatch(job.batch),
+            formatExperience(job.experience),
+        ]
+            .filter(Boolean)
+            .join(" · "),
+        skills: [...(job.requiredSkills || []), ...(job.preferredSkills || [])].join(", "),
+    };
+};
 
 export async function getStaticPaths() {
     let slugs = [];
@@ -292,11 +313,27 @@ const StickyApplySidebar = ({ job }) => {
 
 const JobV2DetailPage = ({ job, similarJobs = [] }) => {
     const router = useRouter();
+    const [tailorOpen, setTailorOpen] = useState(false);
 
     useEffect(() => {
         if (!job?.slug) return;
         try { trackJobView(job.slug); } catch { /* ignore */ }
     }, [job?.slug]);
+
+    // Open the resume-tailoring modal when arriving via ?tailor=1 (e.g. "Get prompt for this job").
+    useEffect(() => {
+        if (router.query?.tailor) setTailorOpen(true);
+    }, [router.query?.tailor]);
+
+    const closeTailor = () => {
+        setTailorOpen(false);
+        if (router.query?.tailor) {
+            const { tailor, ...rest } = router.query;
+            router.replace({ pathname: router.pathname, query: rest }, undefined, { shallow: true });
+        }
+    };
+
+    const tailorJobData = buildTailorJobData(job);
 
     if (router.isFallback) {
         return (
@@ -361,6 +398,7 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                     )}
                 </Head>
                 <JDEVariant job={job} similarJobs={similarJobs} />
+                <TailorModal isOpen={tailorOpen} onClose={closeTailor} jobData={tailorJobData} />
             </>
         );
     }
@@ -611,6 +649,8 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                     <ApplyCta job={job} source="mobile" />
                 </div>
             </div>
+
+            <TailorModal isOpen={tailorOpen} onClose={closeTailor} jobData={tailorJobData} />
         </>
     );
 };

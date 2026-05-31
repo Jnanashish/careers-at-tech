@@ -31,6 +31,28 @@ Important: I'm a fresher with limited experience. Don't make up metrics or
 invent skills. Keep the tone confident but honest. Output plain text only —
 no tables, no markdown formatting, no emojis.`;
 
+const AI_BASE_URLS = {
+    chatgpt: "https://chatgpt.com/",
+    claude: "https://claude.ai/new",
+    gemini: "https://gemini.google.com/app",
+};
+
+// Tools we attempt to pre-fill via a ?q= URL param. Best-effort: if the app ignores
+// the param it simply opens blank (same as before — no regression). ChatGPT is left
+// out intentionally.
+const PREFILL_TOOLS = new Set(["claude", "gemini"]);
+
+// Cap the total URL so long JDs don't produce a URL browsers/apps reject; over the
+// cap we open the app blank and the user pastes via the Copy button.
+const MAX_PREFILL_URL_LENGTH = 6000;
+
+const buildAiUrl = (platform, prompt) => {
+    const base = AI_BASE_URLS[platform];
+    if (!PREFILL_TOOLS.has(platform)) return base;
+    const candidate = `${base}?q=${encodeURIComponent(prompt)}`;
+    return candidate.length <= MAX_PREFILL_URL_LENGTH ? candidate : base;
+};
+
 const TailorModal = ({ isOpen, onClose, jobData }) => {
     const [copied, setCopied] = useState(false);
 
@@ -66,10 +88,12 @@ const TailorModal = ({ isOpen, onClose, jobData }) => {
         }
     }, [generatedPrompt, jobData?._id]);
 
-    const handleAiClick = (platform, url) => {
+    const handleAiClick = (platform) => {
+        const url = buildAiUrl(platform, generatedPrompt);
         firebaseEventHandler(`open_in_${platform}_clicked`, {
             source: "tailor_modal",
             job_id: jobData?._id || "",
+            prefilled: url !== AI_BASE_URLS[platform],
         });
         window.open(url, "_blank", "noopener,noreferrer");
     };
@@ -132,21 +156,21 @@ const TailorModal = ({ isOpen, onClose, jobData }) => {
                 <div className={styles.aiLinks}>
                     <button
                         className={styles.aiButton}
-                        onClick={() => handleAiClick("chatgpt", "https://chatgpt.com/")}
+                        onClick={() => handleAiClick("chatgpt")}
                         aria-label="Open ChatGPT"
                     >
                         Open ChatGPT
                     </button>
                     <button
                         className={styles.aiButton}
-                        onClick={() => handleAiClick("claude", "https://claude.ai/new")}
+                        onClick={() => handleAiClick("claude")}
                         aria-label="Open Claude"
                     >
                         Open Claude
                     </button>
                     <button
                         className={styles.aiButton}
-                        onClick={() => handleAiClick("gemini", "https://gemini.google.com/app")}
+                        onClick={() => handleAiClick("gemini")}
                         aria-label="Open Gemini"
                     >
                         Open Gemini
@@ -165,7 +189,7 @@ const TailorModal = ({ isOpen, onClose, jobData }) => {
 
                 {/* Footer */}
                 <div className={styles.modalFooter}>
-                    <Link href="/toolkit" className={styles.footerLink}>
+                    <Link href="/resume-prompts" className={styles.footerLink}>
                         Not what you wanted? Browse more prompts
                         <FontAwesomeIcon className={styles.footerArrow} icon={faArrowRight} />
                     </Link>

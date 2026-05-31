@@ -32,7 +32,7 @@ const PromptPageLayout = ({ prompt, relatedPrompts }) => {
             <nav className={styles.breadcrumb} aria-label="Breadcrumb">
                 <Link href="/jobs">Home</Link>
                 <span className={styles.breadcrumbSep}>/</span>
-                <Link href="/toolkit">Toolkit</Link>
+                <Link href="/resume-prompts">Toolkit</Link>
                 <span className={styles.breadcrumbSep}>/</span>
                 <span>{frontmatter.title}</span>
             </nav>

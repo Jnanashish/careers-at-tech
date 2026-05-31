@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import Link from "next/link";
-import { Copy, Check, ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import Badge from "./Badge";
-import { firebaseEventHandler } from "@/core/eventHandler";
 
 const cardBase =
     "group flex flex-col bg-white border rounded-[12px] transition-[box-shadow,border-color] duration-[250ms] ease-out overflow-hidden border-cat-border hover:border-cat-accent-teal shadow-[0px_1px_2px_rgba(16,24,40,0.04)] hover:shadow-[0px_4px_12px_rgba(16,24,40,0.08)]";
@@ -18,39 +17,11 @@ const MetaLine = ({ time, tools }) => (
     </div>
 );
 
-const useCopy = (prompt) => {
-    const [copied, setCopied] = useState(false);
-    const copy = useCallback(
-        (e) => {
-            e?.preventDefault();
-            e?.stopPropagation();
-            const text =
-                prompt?.promptBody ||
-                prompt?.promptPreview ||
-                prompt?.title ||
-                "";
-            try {
-                navigator.clipboard.writeText(text);
-            } catch (_) {}
-            setCopied(true);
-            firebaseEventHandler("toolkit_prompt_copy", {
-                prompt_slug: prompt?.slug || prompt?.id || "",
-                prompt_title: prompt?.title || "",
-                variant: prompt?.__variant || "unknown",
-            });
-            setTimeout(() => setCopied(false), 1400);
-        },
-        [prompt]
-    );
-    return [copied, copy];
-};
-
 const promptHref = (prompt) =>
     prompt?.slug ? `/resume-prompts/${prompt.slug}` : "#";
 
 const PromptCardV3 = ({ prompt, variant = "standard" }) => {
     const p = { ...prompt, __variant: variant };
-    const [copied, copy] = useCopy(p);
     const href = promptHref(p);
     const toolsLabel = Array.isArray(p.tools) ? p.tools.join(" · ") : p.tools;
 
@@ -69,17 +40,13 @@ const PromptCardV3 = ({ prompt, variant = "standard" }) => {
                             <MetaLine time={p.time} tools={toolsLabel} />
                         </div>
                     </div>
-                    <button
-                        onClick={copy}
-                        aria-label={copied ? "Copied" : "Copy prompt"}
-                        className={`flex-shrink-0 w-11 h-11 rounded-[8px] border flex items-center justify-center transition-colors ${
-                            copied
-                                ? "bg-cat-accent-teal text-white border-cat-accent-teal"
-                                : "bg-white text-cat-accent-teal border-cat-border hover:bg-cat-accent-teal-bg"
-                        }`}
+                    <Link
+                        href={href}
+                        aria-label="Open prompt"
+                        className="flex-shrink-0 w-11 h-11 rounded-[8px] border flex items-center justify-center transition-colors bg-white text-cat-accent-teal border-cat-border hover:bg-cat-accent-teal-bg"
                     >
-                        {copied ? <Check size={16} /> : <Copy size={16} />}
-                    </button>
+                        <ArrowRight size={16} />
+                    </Link>
                 </div>
             </div>
         );
@@ -118,20 +85,9 @@ const PromptCardV3 = ({ prompt, variant = "standard" }) => {
                     </div>
                 </div>
                 <div className="flex border-t border-cat-border">
-                    <button
-                        onClick={copy}
-                        className={`flex-1 px-4 py-[14px] flex items-center justify-center gap-2 text-[14px] font-medium border-r border-cat-border transition-colors ${
-                            copied
-                                ? "bg-cat-accent-teal text-white"
-                                : "bg-white text-cat-accent-teal hover:bg-cat-accent-teal-bg"
-                        }`}
-                    >
-                        {copied ? <Check size={14} /> : <Copy size={14} />}
-                        {copied ? "Copied!" : "Copy prompt"}
-                    </button>
                     <Link
                         href={href}
-                        className="flex-1 px-4 py-[14px] flex items-center justify-center gap-2 text-[14px] font-medium text-cat-fg hover:bg-cat-accent-teal-bg hover:text-cat-accent-teal transition-colors"
+                        className="flex-1 px-4 py-[14px] flex items-center justify-center gap-2 text-[14px] font-medium text-cat-accent-teal hover:bg-cat-accent-teal-bg transition-colors"
                     >
                         Use prompt <ArrowRight size={12} />
                     </Link>
@@ -157,24 +113,13 @@ const PromptCardV3 = ({ prompt, variant = "standard" }) => {
                     <MetaLine time={p.time} tools={toolsLabel} />
                 </div>
             </div>
-            <div className="flex items-center justify-between px-6 py-3 border-t border-cat-border">
+            <div className="flex items-center px-6 py-3 border-t border-cat-border">
                 <Link
                     href={href}
                     className="inline-flex items-center gap-1.5 text-[13px] font-medium text-cat-accent-teal hover:gap-2 transition-all"
                 >
                     Use prompt <ArrowRight size={11} />
                 </Link>
-                <button
-                    onClick={copy}
-                    className={`inline-flex items-center gap-1.5 min-h-[36px] px-[14px] py-2 rounded-[8px] border text-[13px] font-medium transition-colors ${
-                        copied
-                            ? "bg-cat-accent-teal text-white border-cat-accent-teal"
-                            : "bg-cat-accent-teal-bg text-cat-accent-teal border-cat-border hover:border-cat-accent-teal"
-                    }`}
-                >
-                    {copied ? <Check size={11} /> : <Copy size={11} />}
-                    {copied ? "Copied" : "Copy"}
-                </button>
             </div>
         </div>
     );

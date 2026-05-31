@@ -211,8 +211,8 @@ const ToolkitHubPage = ({
             {
                 "@type": "HowToStep",
                 position: 2,
-                name: "Copy the prompt",
-                text: "Hit the Copy button on any prompt card. The prompt comes with all the context an AI needs to be useful.",
+                name: "Open the prompt",
+                text: "Open any prompt and hit the Copy button on its page. The prompt comes with all the context an AI needs to be useful.",
             },
             {
                 "@type": "HowToStep",
