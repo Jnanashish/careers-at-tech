@@ -1,26 +1,3 @@
-export const MOCK_PROFILE = {
-    name: "Rohan K.",
-    subtitle: "Bengaluru · React, TS, Node",
-    matchPct: 72,
-    skillsToAdd: 2,
-    targetPct: 85,
-};
-
-export const MOCK_TRENDING = [
-    { tag: "New Grad 2025", count: 184 },
-    { tag: "Remote", count: 96 },
-    { tag: "ML / AI", count: 52 },
-    { tag: "Frontend", count: 78 },
-    { tag: "Backend", count: 112 },
-    { tag: "Product", count: 34 },
-];
-
-export const MOCK_RESOURCES = [
-    { emoji: "📝", title: "Resume templates", meta: "12 templates" },
-    { emoji: "💼", title: "Interview kit", meta: "24 guides" },
-    { emoji: "📊", title: "Salary data 2026", meta: "Live" },
-];
-
 export const QUICK_FILTERS = [
     "New this week",
     "Fresher-friendly",

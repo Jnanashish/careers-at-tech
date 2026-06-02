@@ -13,13 +13,8 @@ import ResultsHeader from "@/components/jobs/ResultsHeader";
 import JobCard from "@/components/jobs/JobCard";
 import JobCardMobile from "@/components/jobs/JobCardMobile";
 import Pagination from "@/components/jobs/Pagination";
-import TrendingBand from "@/components/jobs/TrendingBand";
 
-import ProfileMatch from "@/components/jobs/sidebar/ProfileMatch";
 import WhatsAppDrops from "@/components/jobs/sidebar/WhatsAppDrops";
-import TrendingNow from "@/components/jobs/sidebar/TrendingNow";
-import SavedJobs from "@/components/jobs/sidebar/SavedJobs";
-import Resources from "@/components/jobs/sidebar/Resources";
 
 import {
     applyClientQuickFilter,
@@ -34,7 +29,6 @@ import {
 
 import { listJobsV2 } from "@/core/apis/v2/client";
 import { firebaseEventHandler } from "@/core/eventHandler";
-import { FLAGS } from "@/Helpers/featureFlags";
 
 const PAGE_SIZE = 12;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -319,15 +313,10 @@ const JobList = ({ initialJobs }) => {
                 </div>
 
                 <aside className="v3-main-aside flex flex-col gap-4">
-                    {FLAGS.SIDEBAR_PROFILE_MATCH && <ProfileMatch />}
                     <WhatsAppDrops />
-                    {FLAGS.SIDEBAR_TRENDING && <TrendingNow onSelect={(t) => setSearchInput(t)} />}
-                    {FLAGS.SIDEBAR_SAVED && <SavedJobs savedIds={savedIds} jobs={jobs} onSelect={goToJob} />}
-                    {FLAGS.SIDEBAR_RESOURCES && <Resources />}
                 </aside>
             </div>
 
-            {FLAGS.TRENDING_BAND && <TrendingBand onSelect={(t) => setSearchInput(t)} />}
             <FooterNew />
 
             <MobileFilterSheet
