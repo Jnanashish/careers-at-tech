@@ -3,15 +3,13 @@
 // Backlog: see FEATURE_FLAGS.md at repo root.
 
 export const FLAGS = {
-    HERO_STATS: false,        // Hero right-column stat cards (open / internships / remote / time-to-offer / companies hiring)
-    FILTER_SORT: false,       // Latest / Salary / Deadline sort segment
     JD_E_VARIANT: true,           // JD-E listing-continuity variant of the job detail page
     CARD_SAVE: false,             // Save / bookmark icon on job cards
     CARD_APPLICANTS: false,       // Applicants count on job cards
     CARD_MATCH_SCORE: false,      // "XX% match" chip on job cards
     CARD_CLOSING_DEADLINE: false, // "⏱ Closes {date}" urgency pill on job cards
     RESULTS_SORT_LABEL: false,    // "· sorted by latest" text in results header
-    RESULTS_VIEW_TOGGLE: false,   // List / Grid view toggle buttons in results header
+    RESULTS_VIEW_TOGGLE: false,   // List view button in results header
     FOOTER_RESUME_TOOLKIT: true,  // "Resume Prompts" link in footer company links
     FOOTER_SOCIAL_ICONS: true,    // Social icons (Instagram, LinkedIn, Telegram, WhatsApp)
 };

@@ -54,26 +54,6 @@ const ResultsHeader = ({ count, sort }) => (
                             <path d="M3 6h18M3 12h18M3 18h18" />
                         </svg>
                     </button>
-                    <button
-                        type="button"
-                        aria-label="Grid view"
-                        aria-pressed="false"
-                        style={{
-                            padding: "7px 10px",
-                            background: "var(--v3-paper)",
-                            color: "var(--v3-ink)",
-                            border: "none",
-                            borderLeft: "1px solid var(--v3-line)",
-                            cursor: "pointer",
-                        }}
-                    >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="3" y="3" width="7" height="7" />
-                            <rect x="14" y="3" width="7" height="7" />
-                            <rect x="3" y="14" width="7" height="7" />
-                            <rect x="14" y="14" width="7" height="7" />
-                        </svg>
-                    </button>
                 </div>
             </div>
         )}

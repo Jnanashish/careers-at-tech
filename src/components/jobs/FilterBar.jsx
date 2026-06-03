@@ -1,19 +1,15 @@
 import React, { forwardRef } from "react";
 import SelectChip from "@/components/ui/SelectChip";
-import { FLAGS } from "@/Helpers/featureFlags";
 import {
     TYPE_OPTS,
     LOCATION_OPTS,
     BATCH_OPTS,
-    SORT_OPTS,
 } from "./data";
 
 const FilterBar = forwardRef(function FilterBar(
     {
         query,
         setQuery,
-        sort,
-        setSort,
         quick,
         setQuick,
         type,
@@ -154,42 +150,6 @@ const FilterBar = forwardRef(function FilterBar(
                 </button>
 
                 <span className="hidden md:block flex-1" />
-
-                {FLAGS.FILTER_SORT && (
-                    <div
-                        className="sort-seg inline-flex items-center"
-                        style={{
-                            background: "var(--v3-paper-2)",
-                            borderRadius: 999,
-                            padding: 3,
-                            border: "1px solid var(--v3-line-soft)",
-                            height: 42,
-                        }}
-                    >
-                        {SORT_OPTS.map((s) => {
-                            const on = sort === s;
-                            return (
-                                <button
-                                    key={s}
-                                    type="button"
-                                    onClick={() => setSort(s)}
-                                    className="rounded-full v3-focus-ring cursor-pointer"
-                                    style={{
-                                        padding: "6px 14px",
-                                        border: "none",
-                                        background: on ? "var(--v3-ink)" : "transparent",
-                                        color: on ? "var(--v3-paper)" : "var(--v3-ink-3)",
-                                        fontSize: 12.5,
-                                        fontWeight: 500,
-                                    }}
-                                    aria-pressed={on}
-                                >
-                                    {s}
-                                </button>
-                            );
-                        })}
-                    </div>
-                )}
             </div>
 
             {/* Row 3: active chips */}

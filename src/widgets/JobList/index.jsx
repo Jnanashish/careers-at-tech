@@ -194,17 +194,6 @@ const JobList = ({ initialJobs }) => {
         [router]
     );
 
-    const heroStats = useMemo(
-        () => ({
-            open: total || jobs.length,
-            todayDelta: "+18 today",
-            internships: 38,
-            remote: 61,
-            newGrad: 84,
-        }),
-        [total, jobs.length]
-    );
-
     const featuredJobs = useMemo(() => jobs.filter((j) => j.featured).slice(0, 6), [jobs]);
 
     useEffect(() => {
@@ -225,15 +214,13 @@ const JobList = ({ initialJobs }) => {
             <span ref={announceRef} aria-live="polite" className="sr-only" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }} />
 
             <Header compact={compact} onMobileMenu={() => setSheetOpen(true)} />
-            <Hero stats={heroStats} />
+            <Hero />
 
             <FilterBar
                 ref={searchInputRef}
                 compact={compact}
                 query={searchInput}
                 setQuery={setSearchInput}
-                sort={sort}
-                setSort={setSort}
                 quick={quick}
                 setQuick={setQuick}
                 type={type}
