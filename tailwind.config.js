@@ -58,6 +58,7 @@ module.exports = {
           divider: "var(--cat-divider)",
           "surface-soft": "var(--cat-surface-soft)",
           success: "var(--cat-success)",
+          danger: "#ff3b30",
           "warm-bg": "var(--cat-warm-bg)",
           "warm-ink": "var(--cat-warm-ink)",
           "green-bg": "var(--cat-green-bg)",
@@ -151,6 +152,10 @@ module.exports = {
         "card-hover": "0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04)",
         nav: "0 1px 3px rgba(0,0,0,0.1)",
         "search-focus": "0 0 0 3px rgba(37,99,235,0.1)",
+        "cat-xs": "0 1px 2px rgba(16,24,40,0.05)",
+        "cat-sm": "0 1px 6px rgba(16,24,40,0.05)",
+        "cat-card-hover": "0 2px 20px rgba(0,0,0,0.10)",
+        "cat-dropdown": "0 0 10px 6px rgba(0,0,0,0.07)",
         "linkedin-card": "0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
         "linkedin-card-hover": "0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
         letterpress:
@@ -165,6 +170,7 @@ module.exports = {
         "v3-dropdown": "0 10px 30px rgba(10,14,26,0.10)",
       },
       backgroundImage: {
+        "cat-hero": "linear-gradient(to top, #f4faff, #ffffff)",
         "v3-dot-grid":
           "radial-gradient(circle at 1px 1px, rgba(10,14,26,0.08) 1px, transparent 0)",
         "v3-whatsapp": "linear-gradient(135deg, #128C7E 0%, #25D366 100%)",

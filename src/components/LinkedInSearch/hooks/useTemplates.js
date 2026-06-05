@@ -1,59 +1,46 @@
 import { useState, useEffect, useCallback } from "react";
-import { BUILT_IN_TEMPLATES } from "../lib/templates";
 
-const STORAGE_KEY = "linkedin-search-templates";
+const STORAGE_KEY = "cb_presets_v1";
 
-function loadCustomTemplates() {
+function loadPresets() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   } catch {
     return [];
   }
 }
 
+// Saved presets persist a full { name, state } blob to localStorage.
 export default function useTemplates() {
-  const [customTemplates, setCustomTemplates] = useState([]);
+  const [presets, setPresets] = useState([]);
 
   useEffect(() => {
-    setCustomTemplates(loadCustomTemplates());
+    setPresets(loadPresets());
   }, []);
 
-  const persist = (templates) => {
+  const persist = (next) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(templates));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch {
       // localStorage full or unavailable
     }
   };
 
-  const saveTemplate = useCallback((name, filters) => {
-    const template = {
-      id: `custom-${Date.now()}`,
-      name,
-      filters: { ...filters },
-      isBuiltIn: false,
-      createdAt: Date.now(),
-    };
-    setCustomTemplates((prev) => {
-      const next = [...prev, template];
+  const savePreset = useCallback((name, state) => {
+    setPresets((prev) => {
+      const next = [...prev, { name: name.slice(0, 32), state }];
       persist(next);
       return next;
     });
   }, []);
 
-  const removeTemplate = useCallback((id) => {
-    setCustomTemplates((prev) => {
-      const next = prev.filter((t) => t.id !== id);
+  const removePreset = useCallback((index) => {
+    setPresets((prev) => {
+      const next = prev.filter((_, i) => i !== index);
       persist(next);
       return next;
     });
   }, []);
 
-  return {
-    builtInTemplates: BUILT_IN_TEMPLATES,
-    customTemplates,
-    saveTemplate,
-    removeTemplate,
-  };
+  return { presets, savePreset, removePreset };
 }

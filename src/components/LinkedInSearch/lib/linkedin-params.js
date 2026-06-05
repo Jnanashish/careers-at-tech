@@ -1,102 +1,80 @@
-export const TIME_POSTED = {
-  "Past 10 min": "r600",
-  "Past hour": "r3600",
-  "Past 24 hours": "r86400",
-  "Past week": "r604800",
-  "Past month": "r2592000",
-};
+// linkedin-params.js — option vocabularies + default state for the LinkedIn URL builder.
+// Ported from the CareersAtTech design handoff (builder-core.js). Each option is
+// { value, label } where value is the literal LinkedIn search-param value.
 
-export const SORT_BY = {
-  "Most recent": "DD",
-  "Most relevant": "R",
-};
-
-export const WORK_MODE = {
-  "On-site": "1",
-  Remote: "2",
-  Hybrid: "3",
-};
-
-export const JOB_TYPE = {
-  "Full-time": "F",
-  "Part-time": "P",
-  Contract: "C",
-  Temporary: "T",
-  Internship: "I",
-  Volunteer: "V",
-};
-
-export const EXPERIENCE_LEVEL_PRIMARY = {
-  Internship: "1",
-  "Entry level": "2",
-  Associate: "3",
-};
-
-export const EXPERIENCE_LEVEL_SECONDARY = {
-  "Mid-Senior": "4",
-  Director: "5",
-  Executive: "6",
-};
-
-export const EXPERIENCE_LEVEL = {
-  ...EXPERIENCE_LEVEL_PRIMARY,
-  ...EXPERIENCE_LEVEL_SECONDARY,
-};
-
-export const CONNECTION_DEGREE = {
-  "1st": "F",
-  "2nd": "S",
-  "3rd+": "O",
-};
-
-export const INDIAN_LOCATIONS = [
-  "Bangalore",
-  "Hyderabad",
-  "Mumbai",
-  "Pune",
-  "Delhi NCR",
-  "Chennai",
-  "Noida",
-  "Gurgaon",
-  "Remote",
+export const TIME_POSTED = [
+  { value: "", label: "Any time" },
+  { value: "r86400", label: "Past 24 hours" },
+  { value: "r604800", label: "Past week" },
+  { value: "r2592000", label: "Past month" },
 ];
 
-export const CURRENCIES = {
-  INR: "INR",
-  USD: "USD",
-  EUR: "EUR",
-  GBP: "GBP",
-  CAD: "CAD",
-  AUD: "AUD",
+export const SORT_BY = [
+  { value: "R", label: "Relevance" },
+  { value: "DD", label: "Most recent" },
+];
+
+export const WORK_MODE = [
+  { value: "1", label: "on-site" },
+  { value: "2", label: "remote" },
+  { value: "3", label: "hybrid" },
+];
+
+export const JOB_TYPE = [
+  { value: "F", label: "full-time" },
+  { value: "P", label: "part-time" },
+  { value: "C", label: "contract" },
+  { value: "I", label: "internship" },
+];
+
+export const EXPERIENCE = [
+  { value: "1", label: "internship" },
+  { value: "2", label: "entry" },
+  { value: "3", label: "associate" },
+  { value: "4", label: "mid-senior" },
+];
+
+export const DEGREE = [
+  { value: "F", label: "1st" },
+  { value: "S", label: "2nd" },
+  { value: "O", label: "3rd+" },
+];
+
+// ---------- plain-English vocab ----------
+// job-type value -> plural noun phrase used in the summary
+export const JT_NOUN = {
+  F: "full-time roles",
+  P: "part-time roles",
+  C: "contract roles",
+  I: "internships",
+};
+// experience value -> leading adjective in the summary
+export const EXP_ADJ = {
+  1: "internship",
+  2: "entry-level",
+  3: "associate",
+  4: "mid-senior",
 };
 
-export const INITIAL_JOB_FILTERS = {
-  keywords: "",
-  location: "",
-  timePosted: "",
-  sortBy: "",
-  workMode: [],
-  jobType: [],
-  experienceLevel: [],
-  easyApply: false,
-  minSalary: "",
-  salaryCurrency: "INR",
-};
+// ---------- default state ----------
+export function emptyJob() {
+  return {
+    keywords: "",
+    location: "",
+    timePosted: "",
+    sortBy: "R",
+    workMode: [],
+    jobType: [],
+    experience: [],
+    easyApply: false,
+    minSalary: "",
+  };
+}
 
-export const INITIAL_REFERRAL_FILTERS = {
-  company: "",
-  role: "",
-  connectionDegree: [],
-  location: "",
-};
+export function emptyReferral() {
+  return { company: "", role: "", degree: [], location: "" };
+}
 
-// Reverse lookups: value -> label
-const buildReverseLookup = (obj) =>
-  Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]));
-
-export const TIME_POSTED_LABELS = buildReverseLookup(TIME_POSTED);
-export const SORT_BY_LABELS = buildReverseLookup(SORT_BY);
-export const WORK_MODE_LABELS = buildReverseLookup(WORK_MODE);
-export const JOB_TYPE_LABELS = buildReverseLookup(JOB_TYPE);
-export const EXPERIENCE_LEVEL_LABELS = buildReverseLookup(EXPERIENCE_LEVEL);
-export const CONNECTION_DEGREE_LABELS = buildReverseLookup(CONNECTION_DEGREE);
+export function emptyState() {
+  return { mode: "job", job: emptyJob(), referral: emptyReferral() };
+}
