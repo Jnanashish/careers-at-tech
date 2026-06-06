@@ -2,12 +2,19 @@ import React from "react";
 import styles from "../privacy-policy/privacy.module.scss";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
-import Meta from "../../core/SEO/Meta.jsx";
+import Meta from "@/core/SEO/Meta";
 import Link from "next/link";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
+
 function Terms() {
     return (
         <>
-            <Meta />
+            <Meta
+                title="Terms & Conditions | CareersAt.Tech"
+                description="The terms governing use of CareersAt.Tech — covering licensing, acceptable use, hyperlinking, content liability, and your rights as a user of our tech job board."
+                canonical={`${SITE_URL}/terms-and-conditions`}
+            />
             <Header showBorder={true} />
             <div className={styles.privacyContainer}>
                 <h1>Terms and Conditions</h1>

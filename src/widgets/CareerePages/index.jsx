@@ -21,7 +21,7 @@ function CareerPages({ careerpageData }) {
                             {!!item?.alphabet && <span id={item?.alphabet} className={styles.companylist_alphabet}>{item?.alphabet}</span>}
                             {!!item?.name && (
                                 <span className={styles.companylist_card}>
-                                    {!!item?.logourl && <Image height={40} width={40} src={item?.logourl} />}
+                                    {!!item?.logourl && <Image height={40} width={40} src={item?.logourl} alt={`${item?.name || "Company"} logo`} />}
                                     <h4>{item?.name}</h4>
                                     <a className="desktopview" href={item?.url} target="_blank" rel="noopener noreferrer">{item?.url}</a>
                                 </span>

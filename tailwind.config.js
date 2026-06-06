@@ -116,9 +116,6 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "Noto Sans", "system-ui", "-apple-system", "sans-serif"],
         "serif-display": ["var(--font-instrument-serif)", "Georgia", "serif"],
-        dm: ["var(--font-dm-sans)", "Inter", "sans-serif"],
-        "sans-linkedin": ["var(--font-bricolage)", "system-ui", "sans-serif"],
-        "mono-proof": ["var(--font-jetbrains-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
         "v3-serif": ["var(--font-instrument-serif)", "Times New Roman", "serif"],
         "v3-sans": ["var(--font-geist)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         "v3-mono": ["var(--font-geist-mono)", "ui-monospace", "monospace"],

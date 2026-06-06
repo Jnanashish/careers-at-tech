@@ -3,6 +3,7 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
+                <meta charSet="utf-8" />
                 {/* google ad sence script  */}
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5689754827429199" crossorigin="anonymous"></script>
                 {/* V3 fonts: Geist + Geist Mono (not yet in next/font/google for Next 14.2). Instrument Serif loaded via next/font in _app.js. */}

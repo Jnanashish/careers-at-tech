@@ -1,18 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: false,
-    experimental: {
-        fontLoaders: [
-            {
-                loader: "@next/font/google",
-                options: {
-                    subsets: ["latin"],
-                },
-            },
-        ],
-    },
     images: {
-        domains: ["res.cloudinary.com", "i.ibb.co"],
+        // next/font is built-in (configured in _app.js) — the old
+        // experimental.fontLoaders / @next/font block was legacy and a no-op.
+        // remotePatterns is the modern, stricter replacement for the deprecated
+        // images.domains allowlist.
+        remotePatterns: [
+            { protocol: "https", hostname: "res.cloudinary.com" },
+            { protocol: "https", hostname: "i.ibb.co" },
+        ],
     },
     async redirects() {
         return [

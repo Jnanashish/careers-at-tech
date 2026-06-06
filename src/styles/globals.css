@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700;800&display=swap");
+/* Fonts load via next/font (_app.js) and the Geist <link> in _document.js.
+   The old render-blocking @import (IBM Plex Sans — unused; Inter — duplicate of
+   the next/font load) was removed to stop blocking CSSOM construction. */
 :root {
     --max-width: 1100px;
     --border-radius: 12px;

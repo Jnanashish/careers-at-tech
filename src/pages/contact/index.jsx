@@ -3,7 +3,9 @@ import Image from "next/image";
 import styles from "./contact.module.scss";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
-import Meta from "../../core/SEO/Meta.jsx";
+import Meta from "@/core/SEO/Meta";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
 
 function Contact() {
     const openWhatsApp = () => {
@@ -14,7 +16,11 @@ function Contact() {
 
     return (
         <>
-        <Meta/>
+        <Meta
+            title="Contact CareersAt.Tech — Get in Touch"
+            description="Questions about a job listing or need help with your tech career search? Reach the CareersAt.Tech team by email or WhatsApp — we're happy to help freshers."
+            canonical={`${SITE_URL}/contact`}
+        />
         <div>
             <Header showBorder={true}/>
             <div className={styles.contactContainer}>

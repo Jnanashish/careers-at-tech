@@ -29,7 +29,7 @@ const Header = ({ showBorder = false }) => {
     return (
         <>
             <div className={`${styles.header} ${showBorder ? styles.showborder : ""}`}>
-                <Image onClick={() => handleRedirection()} src={logo} height={30} width={150} />
+                <Image onClick={() => handleRedirection()} src={logo} height={30} width={150} alt="CareersAt.Tech" />
 
                 {/* tabs for desktop device  */}
                 {/* {!isMobile() && <HeaderTabs />} */}

@@ -1,35 +1,26 @@
 import React, { useEffect } from "react";
+import Head from "next/head";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { Inter, Instrument_Serif, DM_Sans, Bricolage_Grotesque, JetBrains_Mono, Fraunces } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono, Fraunces } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { trackPageView } from "@/core/eventHandler";
 import "../styles/globals.css";
 
-// set up inter font for the project
+// Primary UI font. Only the weights actually mapped by Tailwind's font-* utilities
+// (400/500/600/700) are loaded — 300/800 were unused dead weight.
 const inter = Inter({
-    weight: ["300", "400", "500", "600", "700", "800"],
+    weight: ["400", "500", "600", "700"],
     subsets: ["latin"],
+    display: "swap",
 });
 
 const instrumentSerif = Instrument_Serif({
     weight: ["400"],
     subsets: ["latin"],
     variable: "--font-instrument-serif",
-});
-
-const dmSans = DM_Sans({
-    weight: ["400", "500", "600", "700"],
-    subsets: ["latin"],
-    variable: "--font-dm-sans",
-});
-
-const bricolage = Bricolage_Grotesque({
-    weight: ["400", "500", "600", "700"],
-    subsets: ["latin"],
-    variable: "--font-bricolage",
     display: "swap",
 });
 
@@ -62,13 +53,19 @@ const App = (props) => {
 
     return (
         <>
+            {/* Global viewport — lives in _app so every page gets it exactly once
+                (Pages Router does not inject a default). Per-page <Head> handles SEO meta. */}
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Head>
+
             {/* ms clarity integration  */}
             <Script strategy="lazyOnload" id="ms-clarity">
                 {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "iibx8wd1xz");`}
             </Script>
 
             <ErrorBoundary>
-                <main className={`${inter.className} ${instrumentSerif.variable} ${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
+                <main className={`${inter.className} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
                     <Component {...pageProps} />
                 </main>
             </ErrorBoundary>

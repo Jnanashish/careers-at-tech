@@ -2,13 +2,18 @@ import React from "react";
 import styles from "./privacy.module.scss";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
-import Meta from "../../core/SEO/Meta";
+import Meta from "@/core/SEO/Meta";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
 
 function Privacy() {
     return (
         <>
-            <Meta />
+            <Meta
+                title="Privacy Policy | CareersAt.Tech"
+                description="How CareersAt.Tech collects, uses, and protects your data — covering log files, cookies, third-party advertising, and children's privacy on our tech job board."
+                canonical={`${SITE_URL}/privacy-policy`}
+            />
             <Header showBorder={true} />
             <div className={styles.privacyContainer}>
                 <h1>Privacy Policy</h1>

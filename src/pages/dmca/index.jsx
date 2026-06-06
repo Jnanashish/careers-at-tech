@@ -2,13 +2,18 @@ import React from "react";
 import styles from "../privacy-policy/privacy.module.scss";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
-import Meta from "../../core/SEO/Meta";
+import Meta from "@/core/SEO/Meta";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
 
 function Dmca() {
     return (
         <>
-            <Meta/>
+            <Meta
+                title="Disclaimer & DMCA | CareersAt.Tech"
+                description="The official disclaimer for CareersAt.Tech — covering external links, content accuracy, and the third-party websites referenced across our tech job board."
+                canonical={`${SITE_URL}/dmca`}
+            />
             <Header showBorder={true} />
 
             <div className={styles.privacyContainer}>

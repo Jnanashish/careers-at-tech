@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { format } from "timeago.js";
 import {
@@ -30,7 +31,6 @@ import JobNotFound from "@/components/Redesign/JobDetail/JobNotFound";
 import JobDetailSkeleton from "@/components/Redesign/JobDetail/JobDetailSkeleton";
 import SafetyBanner from "@/components/Redesign/JobDetail/SafetyBanner";
 import JDEVariant from "@/components/Redesign/JobDetail/JDE";
-import TailorModal from "@/components/toolkit/TailorModal";
 import { FLAGS } from "@/Helpers/featureFlags";
 
 import {
@@ -58,6 +58,10 @@ import {
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og/default.png`;
+
+// Resume-tailor modal is interaction-only (opens on the CTA or ?tailor=1). Code-split
+// it so react-modal + FontAwesome are not shipped in the initial job-detail bundle.
+const TailorModal = dynamic(() => import("@/components/toolkit/TailorModal"), { ssr: false });
 
 const shouldAnimate =
     typeof window !== "undefined"
@@ -355,59 +359,58 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
         );
     }
 
+    // SEO values shared by both layouts — built once per render rather than
+    // recomputing the JSON-LD objects and meta strings inline several times.
+    const canonical = `${SITE_URL}/jobs/${job.slug}`;
+    const metaTitle = jobMetaTitle(job);
+    const metaDescription = jobMetaDescription(job);
+    const jsonLd = buildJobPostingJsonLd(job);
+
     // JD-E variant — feature-flagged; flip FLAGS.JD_E_VARIANT to enable
     if (FLAGS.JD_E_VARIANT) {
+        const ogImage = job.seo?.ogImage || resolveCompanyLogo(job);
+        const breadcrumbLd = buildBreadcrumbJsonLd([
+            { name: "Jobs", url: `${SITE_URL}/jobs` },
+            { name: job.companyName, url: `${SITE_URL}/jobs` },
+            { name: job.title, url: canonical },
+        ]);
         return (
             <>
                 <Head>
-                    <title>{jobMetaTitle(job)}</title>
-                    <meta name="description" content={jobMetaDescription(job)} />
+                    <title>{metaTitle}</title>
+                    <meta name="description" content={metaDescription} />
                     <meta name="robots" content="index, follow" />
-                    <link rel="canonical" href={`${SITE_URL}/jobs/${job.slug}`} />
+                    <link rel="canonical" href={canonical} />
                     <meta property="og:type" content="website" />
-                    <meta property="og:title" content={jobMetaTitle(job)} />
-                    <meta property="og:description" content={jobMetaDescription(job)} />
-                    <meta property="og:url" content={`${SITE_URL}/jobs/${job.slug}`} />
+                    <meta property="og:title" content={metaTitle} />
+                    <meta property="og:description" content={metaDescription} />
+                    <meta property="og:url" content={canonical} />
                     <meta property="og:site_name" content="CareersAt.Tech" />
                     <meta property="og:locale" content="en_IN" />
-                    {(job.seo?.ogImage || resolveCompanyLogo(job)) && (
-                        <meta property="og:image" content={job.seo?.ogImage || resolveCompanyLogo(job)} />
-                    )}
+                    {ogImage && <meta property="og:image" content={ogImage} />}
                     <meta name="twitter:card" content="summary" />
-                    <meta name="twitter:title" content={jobMetaTitle(job)} />
-                    <meta name="twitter:description" content={jobMetaDescription(job)} />
-                    {buildJobPostingJsonLd(job) && (
+                    <meta name="twitter:title" content={metaTitle} />
+                    <meta name="twitter:description" content={metaDescription} />
+                    {jsonLd && (
                         <script
                             type="application/ld+json"
-                            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJobPostingJsonLd(job)) }}
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                         />
                     )}
-                    {buildBreadcrumbJsonLd([
-                        { name: "Jobs", url: `${SITE_URL}/jobs` },
-                        { name: job.companyName, url: `${SITE_URL}/jobs` },
-                        { name: job.title, url: `${SITE_URL}/jobs/${job.slug}` },
-                    ]) && (
+                    {breadcrumbLd && (
                         <script
                             type="application/ld+json"
-                            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBreadcrumbJsonLd([
-                                { name: "Jobs", url: `${SITE_URL}/jobs` },
-                                { name: job.companyName, url: `${SITE_URL}/jobs` },
-                                { name: job.title, url: `${SITE_URL}/jobs/${job.slug}` },
-                            ])) }}
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
                         />
                     )}
                 </Head>
                 <JDEVariant job={job} similarJobs={similarJobs} />
-                <TailorModal isOpen={tailorOpen} onClose={closeTailor} jobData={tailorJobData} />
+                {tailorOpen && <TailorModal isOpen onClose={closeTailor} jobData={tailorJobData} />}
             </>
         );
     }
 
-    const canonical = `${SITE_URL}/jobs/${job.slug}`;
-    const metaTitle = jobMetaTitle(job);
-    const metaDescription = jobMetaDescription(job);
     const ogImage = job.seo?.ogImage || resolveCompanyLogo(job) || DEFAULT_OG_IMAGE;
-    const jsonLd = buildJobPostingJsonLd(job);
     const breadcrumbLd = buildBreadcrumbJsonLd([
         { name: "Jobs", url: `${SITE_URL}/jobs` },
         { name: job.companyName, url: job.company?.slug ? `${SITE_URL}/companies/${job.company.slug}` : `${SITE_URL}/jobs?company=${encodeURIComponent(job.company?.slug || "")}` },
@@ -650,7 +653,7 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                 </div>
             </div>
 
-            <TailorModal isOpen={tailorOpen} onClose={closeTailor} jobData={tailorJobData} />
+            {tailorOpen && <TailorModal isOpen onClose={closeTailor} jobData={tailorJobData} />}
         </>
     );
 };
