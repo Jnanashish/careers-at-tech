@@ -54,6 +54,7 @@ import {
     resolveCompanyLogo,
     jobMetaDescription,
     jobMetaTitle,
+    jobCategory,
 } from "@/Helpers/jobV2helpers";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
@@ -369,11 +370,19 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
     // JD-E variant — feature-flagged; flip FLAGS.JD_E_VARIANT to enable
     if (FLAGS.JD_E_VARIANT) {
         const ogImage = job.seo?.ogImage || resolveCompanyLogo(job);
-        const breadcrumbLd = buildBreadcrumbJsonLd([
+        const category = jobCategory(job);
+        const breadcrumbItems = [
+            { name: "Home", url: SITE_URL },
             { name: "Jobs", url: `${SITE_URL}/jobs` },
-            { name: job.companyName, url: `${SITE_URL}/jobs` },
-            { name: job.title, url: canonical },
-        ]);
+        ];
+        if (category) {
+            breadcrumbItems.push({
+                name: category.label,
+                url: category.href ? `${SITE_URL}${category.href}` : `${SITE_URL}/jobs`,
+            });
+        }
+        breadcrumbItems.push({ name: job.title, url: canonical });
+        const breadcrumbLd = buildBreadcrumbJsonLd(breadcrumbItems);
         return (
             <>
                 <Head>

@@ -213,8 +213,8 @@ const CompanyDetailPage = ({ company, jobs = [] }) => {
     }
 
     const canonical = `${SITE_URL}/companies/${company.slug}`;
-    const metaTitle = company.seo?.metaTitle || `${company.companyName} jobs and careers — CareersAt.Tech`;
-    const metaDescription = company.seo?.metaDescription || company.description?.short || `Open roles at ${company.companyName}. Browse current jobs, learn about the team, and apply on CareersAt.Tech.`;
+    const metaTitle = company.seo?.metaTitle || `${company.companyName} Jobs & Careers for Freshers | CareersAt.Tech`;
+    const metaDescription = company.seo?.metaDescription || company.description?.short || `Explore open ${company.companyName} jobs and internships for freshers in India. View roles, salary, eligibility & apply — verified on CareersAt.Tech.`;
     const ogImage = company.seo?.ogImage || company.logo?.banner || company.logo?.icon || DEFAULT_OG_IMAGE;
     const orgJsonLd = buildOrganizationJsonLd(company);
     const breadcrumbLd = buildBreadcrumbJsonLd([

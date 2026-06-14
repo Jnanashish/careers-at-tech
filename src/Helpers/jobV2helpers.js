@@ -26,6 +26,27 @@ export function formatWorkMode(mode) {
     return WORK_MODE_LABEL[mode] || null;
 }
 
+// API employmentType → /jobs?type= values that actually drive a filtered
+// listing (FilterBar + widgets/JobList urlToFilters understand these). Other
+// types still get a breadcrumb label, just no link (no filter backs them yet).
+const LINKABLE_CATEGORY = {
+    FULL_TIME: "Full-time",
+    INTERN: "Internship",
+};
+
+// Breadcrumb "category" for a job = its primary employment type.
+// Returns { label, href } where href is null when the type has no filtered view.
+export function jobCategory(job) {
+    const types = job?.employmentType;
+    if (!Array.isArray(types) || types.length === 0) return null;
+    const primary = types[0];
+    const label = EMPLOYMENT_TYPE_LABEL[primary] || primary;
+    if (!label) return null;
+    const filterValue = LINKABLE_CATEGORY[primary] || null;
+    const href = filterValue ? `/jobs?type=${encodeURIComponent(filterValue)}` : null;
+    return { label, href };
+}
+
 export function formatJobLocations(jobLocation) {
     if (!Array.isArray(jobLocation) || jobLocation.length === 0) return null;
     const cities = jobLocation
@@ -103,24 +124,46 @@ export function resolveCompanyLogo(job) {
     return job?.company?.logo?.icon || null;
 }
 
+// SEO meta description for a job detail page. Structured, keyword-front-loaded
+// format (company → role → location → audience → experience/salary) instead of
+// a raw slice of the JD, so the SERP snippet reads cleanly and ranks for the
+// "{company} hiring {role} freshers" intent. An explicit job.seo.metaDescription
+// (admin-set) still wins.
 export function jobMetaDescription(job) {
     if (!job) return "";
     if (job.seo?.metaDescription) return job.seo.metaDescription;
-    const plain = job.jobDescription?.plain;
-    if (plain) return plain.slice(0, 160).trim();
-    const parts = [];
-    if (job.companyName) parts.push(`${job.companyName} is hiring`);
-    parts.push(`for a ${job.title} role`);
+
+    const company = job.companyName || "A top tech company";
+    const role = job.title || "tech role";
+
+    let s = `${company} is hiring a ${role}`;
+
     const loc = formatJobLocations(job.jobLocation);
-    if (loc) parts.push(`in ${loc}`);
-    parts.push("on CareersAt.Tech.");
-    return parts.join(" ");
+    if (loc) s += ` in ${loc}`;
+    else if (job.workMode === "remote") s += " (Remote)";
+
+    const batch = formatBatch(job.batch);
+    const audience = batch ? `${batch} batch` : "freshers";
+    s += ` for ${audience}`;
+
+    const exp = formatExperience(job.experience);
+    const salary = formatBaseSalary(job.baseSalary);
+    const parenParts = [];
+    // Skip experience when it would only echo "freshers" already in the sentence.
+    if (exp && !(audience === "freshers" && exp === "Freshers")) parenParts.push(exp);
+    if (salary) parenParts.push(salary);
+    if (parenParts.length) s += ` (${parenParts.join(", ")})`;
+
+    s += ". View eligibility, skills & apply — verified on CareersAt.Tech.";
+    return s;
 }
 
 export function jobMetaTitle(job) {
-    if (!job) return "Job — CareersAt.Tech";
+    if (!job) return "Tech Jobs for Freshers | CareersAt.Tech";
     if (job.seo?.metaTitle) return job.seo.metaTitle;
-    return `${job.title} at ${job.companyName} — CareersAt.Tech`;
+    const role = job.title || "Tech Role";
+    const base = job.companyName ? `${role} at ${job.companyName} for Freshers` : `${role} for Freshers`;
+    return `${base} | CareersAt.Tech`;
 }
 
 // TODO(api): replace with job.stats.views once backend exposes counts.
@@ -132,6 +175,16 @@ export function pseudoViewCount(slug) {
     }
     const n = Math.abs(h) % 3800;
     return 200 + n;
+}
+
+// Freshness check — true when a job was posted within the last `withinHours`
+// (default 48h). Drives the "New" badge on cards + the job detail page.
+export function isJobNew(dateStr, withinHours = 48) {
+    if (!dateStr) return false;
+    const t = new Date(dateStr).getTime();
+    if (Number.isNaN(t)) return false;
+    const ageHours = (Date.now() - t) / (1000 * 60 * 60);
+    return ageHours >= 0 && ageHours <= withinHours;
 }
 
 export function formatPostedAgo(dateStr) {

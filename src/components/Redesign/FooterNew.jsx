@@ -28,10 +28,10 @@ const footerColumns = [
     title: "Jobs by location",
     links: [
       { label: "Remote Jobs", href: "/jobs?loc=Remote" },
-      { label: "Hybrid Jobs", href: "/jobs?q=hybrid" },
+      { label: "Hybrid Jobs", href: "/jobs?loc=Hybrid" },
       { label: "Jobs in Bengaluru", href: "/jobs?loc=Bengaluru" },
-      { label: "Jobs in Noida", href: "/jobs?q=noida" },
-      { label: "Jobs in Gurgaon", href: "/jobs?q=gurgaon" },
+      { label: "Jobs in Noida", href: "/jobs?loc=Delhi+NCR" },
+      { label: "Jobs in Gurgaon", href: "/jobs?loc=Delhi+NCR" },
       { label: "Jobs in Delhi", href: "/jobs?loc=Delhi+NCR" },
       { label: "Jobs in Pune", href: "/jobs?loc=Pune" },
       { label: "Jobs in Mumbai", href: "/jobs?loc=Mumbai" },

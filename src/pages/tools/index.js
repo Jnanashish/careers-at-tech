@@ -77,12 +77,23 @@ export default function ToolsPage() {
           name="description"
           content="Curated collection of free and freemium tools for Indian tech freshers — resume builders, interview prep, salary calculators, DSA practice, and more."
         />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://careersat.tech/tools" />
         <meta property="og:title" content="Free Career Tools for Tech Freshers | CareersAt.Tech" />
         <meta
           property="og:description"
           content="Resume builders, interview prep, salary tools, and coding practice — vetted and organized for Indian freshers."
         />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://careersat.tech/tools" />
+        <meta property="og:site_name" content="CareersAt.Tech" />
+        <meta property="og:locale" content="en_IN" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Free Career Tools for Tech Freshers | CareersAt.Tech" />
+        <meta
+          name="twitter:description"
+          content="Resume builders, interview prep, salary tools, and coding practice — vetted and organized for Indian freshers."
+        />
       </Head>
 
       <Navbar />

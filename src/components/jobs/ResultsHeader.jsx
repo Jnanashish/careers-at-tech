@@ -8,7 +8,7 @@ const ResultsHeader = ({ count, sort }) => (
                 className="font-v3-serif"
                 style={{ margin: 0, fontSize: 36, lineHeight: 1, color: "var(--v3-ink)" }}
             >
-                {count} <em>roles</em>
+                {count} <em>{count === 1 ? "role" : "roles"}</em>
             </h2>
             {FLAGS.RESULTS_SORT_LABEL && (
                 <span className="font-v3-mono" style={{ fontSize: 12, color: "var(--v3-mute)" }}>

@@ -5,12 +5,15 @@ import {
     formatExperience,
     formatJobLocations,
     formatPostedAgo,
+    isJobNew,
     formatWorkMode,
     pseudoViewCount,
     resolveApplyUrl,
     resolveCompanyLogo,
     daysUntil,
 } from "@/Helpers/jobV2helpers";
+
+import { listJobsV2 } from "@/core/apis/v2/client";
 
 const TYPE_TO_API = {
     "Full-time": "FULL_TIME",
@@ -33,6 +36,45 @@ const HUE_PALETTE = [
 export const typeFilterToApi = (t) => (t === "All" ? null : TYPE_TO_API[t] || null);
 export const locationFilterToWorkMode = (loc) => LOC_TO_WORK_MODE[loc] || null;
 export const locationFilterIsCity = (loc) => loc !== "Anywhere" && !LOC_TO_WORK_MODE[loc];
+
+// City filter → lowercase substrings to match against a job's raw city names.
+// The dataset is not normalized (both "Bangalore" and "Bengaluru" exist, as do
+// "Gurgaon" and "Gurugram"), and the backend has no city param — so city
+// matching happens client-side over the full result set.
+const CITY_ALIASES = {
+    Bengaluru: ["bengaluru", "bangalore"],
+    Hyderabad: ["hyderabad", "secunderabad"],
+    "Delhi NCR": ["delhi", "gurgaon", "gurugram", "noida", "ghaziabad", "faridabad", "ncr"],
+    Mumbai: ["mumbai", "thane"],
+    Pune: ["pune", "pimpri", "chinchwad"],
+};
+
+export const cityAliasesFor = (city) => CITY_ALIASES[city] || [String(city || "").toLowerCase()];
+
+export function jobMatchesCity(job, city) {
+    if (!city) return true;
+    const aliases = cityAliasesFor(city);
+    const cities = Array.isArray(job?.cities) ? job.cities : [];
+    return cities.some((c) => aliases.some((a) => c.includes(a)));
+}
+
+// The backend caps `limit` at 100 and has no city param. When a city filter is
+// active we need the whole result set (after type/batch/search/workMode) so we
+// can filter + paginate by city client-side. Loop pages until the API stops.
+export async function fetchAllJobsV2(params = {}) {
+    const all = [];
+    let page = 1;
+    // Safety cap: 20 × 100 = 2000 jobs, far above the live catalogue size.
+    for (let guard = 0; guard < 20; guard += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const res = await listJobsV2({ ...params, limit: 100, page });
+        const data = res?.data || [];
+        all.push(...data);
+        if (!res?.hasMore || data.length === 0) break;
+        page += 1;
+    }
+    return all;
+}
 
 export function deterministicHueBg(seed = "") {
     let h = 0;
@@ -111,6 +153,9 @@ export function mapJob(job) {
         logoUrl,
         logoBg: deterministicHueBg(company),
         location: formatJobLocations(job.jobLocation),
+        cities: Array.isArray(job.jobLocation)
+            ? job.jobLocation.map((l) => (l?.city || "").toLowerCase()).filter(Boolean)
+            : [],
         mode: formatWorkMode(job.workMode),
         type: formatEmploymentTypes(job.employmentType),
         exp: formatExperience(job.experience),
@@ -120,6 +165,7 @@ export function mapJob(job) {
         topicTags: tags,
         tags,
         posted: formatPostedAgo(job.datePosted),
+        isNew: isJobNew(job.datePosted),
         views,
         applicants,
         featured,

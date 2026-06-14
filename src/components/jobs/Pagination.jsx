@@ -42,7 +42,7 @@ const Pagination = ({ page, totalPages, totalCount, onChange }) => {
         >
             <span className="font-v3-mono" style={{ fontSize: 12, color: "var(--v3-mute)" }}>
                 Page {String(page).padStart(2, "0")} of {String(totalPages).padStart(2, "0")}
-                {typeof totalCount === "number" ? ` · ${totalCount} roles total` : ""}
+                {typeof totalCount === "number" ? ` · ${totalCount} ${totalCount === 1 ? "role" : "roles"} total` : ""}
             </span>
             <div className="flex gap-1.5 flex-wrap">
                 <button

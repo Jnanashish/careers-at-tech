@@ -1,11 +1,15 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import {
     formatBaseSalary,
     formatWorkMode,
     formatJobLocations,
     formatBatch,
     formatPostedAgo,
+    isJobNew,
+    jobCategory,
     pseudoViewCount,
     resolveCompanyLogo,
 } from "@/Helpers/jobV2helpers";
@@ -44,6 +48,8 @@ const JDEHero = ({ job, daysLeft, isUrgent, expired }) => {
 
     const isFeatured = job.sponsorship?.tier === "featured" || job.sponsorship?.tier === "sponsored";
     const isVerified = job.company?.isVerified;
+    const isNew = isJobNew(job.datePosted);
+    const category = jobCategory(job);
 
     // Closes cell config
     const closesLabel = isUrgent ? "Closes soon" : "Closes";
@@ -67,25 +73,45 @@ const JDEHero = ({ job, daysLeft, isUrgent, expired }) => {
             }}
         >
             <div className="max-w-[1280px] mx-auto px-5 lg:px-20 pt-10 pb-0">
-                {/* HIDDEN_FOR_API_INTEGRATION: Breadcrumb — see HIDDEN_FEATURES.md
-                <nav aria-label="breadcrumb" className="mb-5">
-                    <p className="font-jetbrains text-[11px] uppercase tracking-[0.1em] text-gray-400">
-                        <span className="hidden sm:inline">
-                            <Link href="/" className="hover:text-gray-600 transition-colors">Home</Link>
-                            {" / "}
-                            <Link href="/jobs" className="hover:text-gray-600 transition-colors">Jobs</Link>
-                            {" / "}
-                            <span className="text-gray-500">{job.companyName}</span>
-                            {" / "}
-                        </span>
-                        <span className="sm:hidden">
-                            <Link href="/jobs" className="hover:text-gray-600 transition-colors">{job.companyName}</Link>
-                            {" / "}
-                        </span>
-                        <span className="text-gray-800 font-semibold">{job.title}</span>
-                    </p>
+                {/* Breadcrumb — Home › Jobs › {Category} › {Role} */}
+                <nav aria-label="Breadcrumb" className="pt-1 mb-5">
+                    <ol className="flex items-center flex-wrap gap-x-1.5 gap-y-1 font-jetbrains text-[11px] uppercase tracking-[0.08em] text-gray-400">
+                        <li>
+                            <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
+                        </li>
+                        <li aria-hidden="true" className="flex items-center">
+                            <ChevronRight size={12} className="text-gray-300" />
+                        </li>
+                        <li>
+                            <Link href="/jobs" className="hover:text-gray-700 transition-colors">Jobs</Link>
+                        </li>
+                        {category && (
+                            <>
+                                <li aria-hidden="true" className="flex items-center">
+                                    <ChevronRight size={12} className="text-gray-300" />
+                                </li>
+                                <li>
+                                    {category.href ? (
+                                        <Link href={category.href} className="hover:text-gray-700 transition-colors">
+                                            {category.label}
+                                        </Link>
+                                    ) : (
+                                        <span>{category.label}</span>
+                                    )}
+                                </li>
+                            </>
+                        )}
+                        <li aria-hidden="true" className="flex items-center">
+                            <ChevronRight size={12} className="text-gray-300" />
+                        </li>
+                        <li
+                            aria-current="page"
+                            className="text-gray-700 font-semibold normal-case tracking-normal truncate max-w-[200px] sm:max-w-[320px]"
+                        >
+                            {job.title}
+                        </li>
+                    </ol>
                 </nav>
-                */}
 
                 {/* Expired banner */}
                 {expired && (
@@ -104,6 +130,19 @@ const JDEHero = ({ job, daysLeft, isUrgent, expired }) => {
 
                 {/* Tag pill row */}
                 <div className="flex flex-wrap items-center gap-2 mb-5">
+                    {isNew && (
+                        <TagPill
+                            className="border-0 font-semibold"
+                            style={{ background: "#DBEAFE", color: "#1D4ED8" }}
+                        >
+                            <span
+                                aria-hidden="true"
+                                className="inline-block mr-1.5"
+                                style={{ width: 5, height: 5, borderRadius: "50%", background: "currentColor" }}
+                            />
+                            New
+                        </TagPill>
+                    )}
                     {job.employmentType && job.employmentType.length > 0 && (
                         <TagPill className="bg-white border-gray-200 text-gray-600">
                             {job.employmentType.map((t) =>

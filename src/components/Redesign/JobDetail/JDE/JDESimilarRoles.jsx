@@ -9,6 +9,7 @@ import {
     formatWorkMode,
     resolveCompanyLogo,
     formatPostedAgo,
+    isJobNew,
 } from "@/Helpers/jobV2helpers";
 
 const SimilarCard = ({ job }) => {
@@ -18,6 +19,7 @@ const SimilarCard = ({ job }) => {
     const salary = formatBaseSalary(job.baseSalary);
     const mode = formatWorkMode(job.workMode);
     const postedAgo = formatPostedAgo(job.datePosted);
+    const isNew = isJobNew(job.datePosted);
 
     return (
         <Link
@@ -60,6 +62,15 @@ const SimilarCard = ({ job }) => {
 
             {/* Bottom: mode + salary pills */}
             <div className="flex flex-wrap gap-1.5 mt-auto">
+                {isNew && (
+                    <span
+                        className="inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2.5 py-0.5"
+                        style={{ background: "#DBEAFE", color: "#1D4ED8" }}
+                    >
+                        <span aria-hidden="true" className="inline-block" style={{ width: 4, height: 4, borderRadius: "50%", background: "currentColor" }} />
+                        New
+                    </span>
+                )}
                 {mode && (
                     <span className="inline-flex items-center bg-white border border-gray-200 text-gray-600 text-[11px] font-medium rounded-full px-2.5 py-0.5">
                         {mode}

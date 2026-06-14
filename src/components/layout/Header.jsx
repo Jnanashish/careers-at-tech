@@ -63,18 +63,6 @@ const Header = ({ compact = false }) => {
                     <span className="font-v3-serif" style={{ fontSize: 18, color: "var(--v3-ink)" }}>
                         careers <em style={{ color: "var(--v3-accent)" }}>at</em> tech
                     </span>
-                    <span
-                        className="font-v3-mono"
-                        style={{
-                            fontSize: 10,
-                            padding: "2px 6px",
-                            borderRadius: 4,
-                            background: "var(--v3-acid)",
-                            color: "var(--v3-ink)",
-                        }}
-                    >
-                        v3
-                    </span>
                 </Link>
                 <div className="flex items-center gap-2">
                     <Link

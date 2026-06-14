@@ -6,6 +6,7 @@ const TONES = {
     acid:    { bg: "var(--v3-acid)",       fg: "var(--v3-ink)",         bd: "transparent" },
     dark:    { bg: "var(--v3-ink)",        fg: "#fff",                  bd: "var(--v3-ink)" },
     success: { bg: "#E8F8EF",              fg: "#006B3F",               bd: "transparent" },
+    new:     { bg: "var(--v3-accent-soft)", fg: "var(--v3-accent-deep)", bd: "transparent" },
     warn:    { bg: "#FFF1DA",              fg: "#7A4400",               bd: "transparent" },
     ghost:   { bg: "var(--v3-paper-2)",    fg: "var(--v3-ink-2)",       bd: "transparent" },
 };

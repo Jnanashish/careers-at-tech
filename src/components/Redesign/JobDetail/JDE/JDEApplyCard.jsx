@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { ExternalLink, Share2, Wand2 } from "lucide-react";
+import { ExternalLink, Share2, Wand2, ShieldCheck } from "lucide-react";
 import { formatBaseSalary, formatWorkMode, formatJobLocations, resolveApplyUrl } from "@/Helpers/jobV2helpers";
 import { trackJobApplyClick } from "@/core/apis/v2/client";
 import { firebaseEventHandler } from "@/core/eventHandler";
@@ -149,6 +149,19 @@ const JDEApplyCard = ({ job, daysLeft, isUrgent, expired }) => {
             {copied && (
                 <p className="mt-1.5 text-[12px] text-gray-500 text-right">Link copied</p>
             )}
+
+            {/* Trust / safety microcopy — reassures at the point of apply. Anti-scam: apply only on the official page. */}
+            <div className="mt-3 flex items-start gap-1.5">
+                <ShieldCheck
+                    size={13}
+                    className="flex-shrink-0 mt-[1px]"
+                    style={{ color: "var(--jde-brand)" }}
+                    aria-hidden="true"
+                />
+                <p className="text-[11.5px] leading-snug text-gray-500">
+                    CareersAt.Tech curates &amp; verifies listings. Always apply on the official company page.
+                </p>
+            </div>
 
             {/* Secondary CTA — tailor resume to this JD. Distinct (tinted outline) from the solid Apply action. */}
             <div className="mt-4 pt-4 border-t border-dashed border-gray-200">

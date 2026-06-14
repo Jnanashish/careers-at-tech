@@ -19,7 +19,9 @@ import WhatsAppDrops from "@/components/jobs/sidebar/WhatsAppDrops";
 import {
     applyClientQuickFilter,
     applyClientSort,
+    fetchAllJobsV2,
     filtersToQuery,
+    jobMatchesCity,
     locationFilterIsCity,
     locationFilterToWorkMode,
     mapJob,
@@ -62,6 +64,7 @@ const JobList = ({ initialJobs }) => {
 
     const searchInputRef = useRef(null);
     const announceRef = useRef(null);
+    const filterChangeArmed = useRef(false);
 
     useEffect(() => {
         if (!router.isReady || hydrated) return;
@@ -84,8 +87,18 @@ const JobList = ({ initialJobs }) => {
 
     useEffect(() => {
         if (!hydrated) return;
+        // First run after hydration coincides with filters being seeded from the
+        // URL — don't clobber a deep-linked ?page=N. Reset only on later changes.
+        if (!filterChangeArmed.current) {
+            filterChangeArmed.current = true;
+            return;
+        }
         setPage(1);
     }, [search, type, location, batch, sort, hydrated]);
+
+    useEffect(() => {
+        if (totalPages > 0 && page > totalPages) setPage(totalPages);
+    }, [totalPages, page]);
 
     useEffect(() => {
         if (!hydrated) return;
@@ -100,33 +113,43 @@ const JobList = ({ initialJobs }) => {
         const workMode = locationFilterToWorkMode(location);
         const cityFilter = locationFilterIsCity(location) ? location : null;
 
-        const params = {
-            limit: PAGE_SIZE,
-            page,
-            sort: "datePosted:desc",
-        };
-        if (apiType) params.employmentType = apiType;
-        if (workMode) params.workMode = workMode;
-        if (batch !== "All") params.batch = batch;
-        if (search) params.search = search;
+        const baseParams = { sort: "datePosted:desc" };
+        if (apiType) baseParams.employmentType = apiType;
+        if (workMode) baseParams.workMode = workMode;
+        if (batch !== "All") baseParams.batch = batch;
+        if (search) baseParams.search = search;
 
         let cancelled = false;
         setLoading(true);
 
         (async () => {
             try {
-                const res = await listJobsV2(params);
-                if (cancelled) return;
-                let mapped = (res?.data || []).map(mapJob).filter(Boolean);
                 if (cityFilter) {
-                    const lower = cityFilter.toLowerCase();
-                    mapped = mapped.filter((j) => (j.location || "").toLowerCase().includes(lower));
+                    // No backend city param: pull the full filtered set, then
+                    // filter + paginate by city on the client so the count and
+                    // pagination reflect the real number of matching roles.
+                    const all = await fetchAllJobsV2(baseParams);
+                    if (cancelled) return;
+                    let mapped = all.map(mapJob).filter(Boolean);
+                    mapped = mapped.filter((j) => jobMatchesCity(j, cityFilter));
+                    mapped = applyClientQuickFilter(mapped, quick);
+                    mapped = applyClientSort(mapped, sort);
+                    const count = mapped.length;
+                    const pages = Math.max(1, Math.ceil(count / PAGE_SIZE));
+                    const start = (Math.min(page, pages) - 1) * PAGE_SIZE;
+                    setJobs(mapped.slice(start, start + PAGE_SIZE));
+                    setTotal(count);
+                    setTotalPages(count === 0 ? 0 : pages);
+                } else {
+                    const res = await listJobsV2({ ...baseParams, limit: PAGE_SIZE, page });
+                    if (cancelled) return;
+                    let mapped = (res?.data || []).map(mapJob).filter(Boolean);
+                    mapped = applyClientQuickFilter(mapped, quick);
+                    mapped = applyClientSort(mapped, sort);
+                    setJobs(mapped);
+                    setTotal(res?.total ?? mapped.length);
+                    setTotalPages(res?.totalPages ?? 0);
                 }
-                mapped = applyClientQuickFilter(mapped, quick);
-                mapped = applyClientSort(mapped, sort);
-                setJobs(mapped);
-                setTotal(res?.total ?? mapped.length);
-                setTotalPages(res?.totalPages ?? 0);
             } catch (err) {
                 if (cancelled) return;
                 // eslint-disable-next-line no-console
@@ -198,8 +221,8 @@ const JobList = ({ initialJobs }) => {
 
     useEffect(() => {
         if (!announceRef.current) return;
-        announceRef.current.textContent = `${jobs.length} matching ${jobs.length === 1 ? "role" : "roles"}.`;
-    }, [jobs.length]);
+        announceRef.current.textContent = `${total} matching ${total === 1 ? "role" : "roles"}.`;
+    }, [total]);
 
     return (
         <div

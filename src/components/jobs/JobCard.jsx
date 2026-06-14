@@ -19,7 +19,7 @@ const Dot = () => (
 const JobCard = ({ job, saved, onSave, onClick }) => {
     const railW = FLAGS.CARD_SAVE ? 184 : 160;
     const pad = 20;
-    const hasPills = job.featured || (FLAGS.CARD_MATCH_SCORE && job.matchScore) || (FLAGS.CARD_CLOSING_DEADLINE && job.urgency > 0.7 && job.deadline);
+    const hasPills = job.isNew || job.featured || (FLAGS.CARD_MATCH_SCORE && job.matchScore) || (FLAGS.CARD_CLOSING_DEADLINE && job.urgency > 0.7 && job.deadline);
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -54,6 +54,12 @@ const JobCard = ({ job, saved, onSave, onClick }) => {
                     <div>
                         {hasPills && (
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                {job.isNew && (
+                                    <Pill sm tone="new">
+                                        <span aria-hidden="true" style={{ width: 5, height: 5, borderRadius: "50%", background: "currentColor", display: "inline-block" }} />
+                                        New
+                                    </Pill>
+                                )}
                                 {job.featured && (
                                     <Pill sm tone="acid">
                                         ★ Featured
