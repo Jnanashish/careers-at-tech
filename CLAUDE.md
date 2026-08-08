@@ -33,7 +33,8 @@ src/
 │   ├── resume-prompts/         # Resume-prompt toolkit (index.jsx + [slug].jsx)
 │   ├── tools/                  # tools/index.js + tools/linkedin-search.js
 │   ├── career-pages/           # Career guides (+ companycareerspage.json)
-│   ├── sitemap.xml.js          # Dynamic sitemap (getServerSideProps, CDN-cached)
+│   ├── sitemap.xml.js          # Dynamic sitemap (getServerSideProps, CDN-cached 10min)
+│   ├── api/indexnow.js         # Token-auth IndexNow push; backend calls on job publish/delete
 │   └── contact/, dmca/, privacy-policy/, terms-and-conditions/
 ├── components/
 │   ├── Redesign/               # Active V3 components (Navbar, FooterNew, JobDetail/, Tools/, ScrollToTop)
@@ -53,7 +54,8 @@ src/
 │   │   ├── JsonLd.jsx          # <script type="application/ld+json"> wrapper
 │   │   ├── jobPostingJsonLd.js # Google-compliant JobPosting builder (returns null if ineligible)
 │   │   ├── breadcrumbJsonLd.js # BreadcrumbList builder
-│   │   └── organizationJsonLd.js # Organization builder
+│   │   ├── organizationJsonLd.js # Organization builder
+│   │   └── indexnow.js         # IndexNow submit helper (Bing/Yandex; Google not supported)
 │   ├── firebaseConfig.js       # Firebase init (app only)
 │   ├── eventHandler.js         # GA4 analytics (lazy isSupported) + trackPageView
 │   ├── eventAttributes.js      # Analytics attribute constants
@@ -246,6 +248,14 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+```
+
+Server-only (no `NEXT_PUBLIC_` prefix — these are secrets and must never reach the
+client bundle). Both are read only by `pages/api/indexnow.js` / `core/SEO/indexnow.js`:
+
+```
+INDEXNOW_KEY                  # Must equal the basename of public/<key>.txt, else submissions 403
+INDEXNOW_SUBMIT_TOKEN         # Bearer token the backend sends to POST /api/indexnow
 ```
 
 ## Config Files
