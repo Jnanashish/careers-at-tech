@@ -112,12 +112,38 @@ export function daysUntil(dateStr) {
     return diff;
 }
 
+// Only http(s) may ever reach window.open / an href. The apply link is
+// backend-supplied, and window.open("javascript:…") executes that script in a
+// document on our own origin — so an unvalidated value here is a stored-XSS
+// sink, not just a broken link. Same reasoning covers data: and blob:.
+const SAFE_LINK_SCHEMES = new Set(["http:", "https:"]);
+
+function safeExternalUrl(value) {
+    if (typeof value !== "string") return null;
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    // Protocol-relative ("//jobs.example.com/…") used to work via window.open;
+    // keep it working by pinning it to https rather than dropping the link.
+    const candidate = trimmed.startsWith("//") ? `https:${trimmed}` : trimmed;
+    try {
+        const parsed = new URL(candidate);
+        return SAFE_LINK_SCHEMES.has(parsed.protocol) ? candidate : null;
+    } catch {
+        // Relative or malformed. Apply links are always absolute third-party
+        // URLs, so anything unparseable is bad data — drop it and let the UI
+        // fall back to its "apply link unavailable" state.
+        return null;
+    }
+}
+
 export function resolveApplyUrl(job) {
     if (!job) return null;
-    if (job.applyLink) return job.applyLink;
-    if (job.company?.careerPageLink) return job.company.careerPageLink;
-    if (job.company?.website) return job.company.website;
-    return null;
+    return (
+        safeExternalUrl(job.applyLink) ||
+        safeExternalUrl(job.company?.careerPageLink) ||
+        safeExternalUrl(job.company?.website) ||
+        null
+    );
 }
 
 export function resolveCompanyLogo(job) {

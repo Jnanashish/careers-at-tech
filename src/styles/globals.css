@@ -247,21 +247,33 @@ a {
     --jde-brand-ink: #1D4ED8;
 }
 
-/* JD body HTML section-rewrite styles */
-.jde-body .jde-section {
+/* JD body section rhythm.
+   Each <h3> in the description opens a section: divider + 22px of air above,
+   none for the first one. This is deliberately pure CSS. It used to be done in
+   JS — re-parsing the whole description with DOMParser in a useEffect and
+   wrapping each run of nodes in a .jde-section div — which meant the server HTML
+   and the first client render had no wrappers, and every section's padding and
+   border appeared only after hydration. That shifted the entire page down by
+   ~45px per section (a CLS hit on the site's most-indexed template) and burned a
+   full DOM parse + re-render of the largest block on the page. */
+.jde-body {
     padding: 22px 0;
-    border-top: 1px solid #E5E7EB;
-}
-.jde-body .jde-section:first-child {
-    border-top: none;
 }
 .jde-body h3 {
     font-family: var(--font-fraunces), serif;
     font-size: 24px;
     font-weight: 500;
     letter-spacing: -0.02em;
+    margin-top: 22px;
     margin-bottom: 14px;
+    padding-top: 22px;
+    border-top: 1px solid #E5E7EB;
     color: #111827;
+}
+.jde-body > h3:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
 }
 .jde-body ul {
     display: flex;

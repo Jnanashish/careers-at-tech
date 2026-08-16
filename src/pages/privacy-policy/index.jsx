@@ -15,7 +15,7 @@ function Privacy() {
                 canonical={`${SITE_URL}/privacy-policy`}
             />
             <Header showBorder={true} />
-            <div className={styles.privacyContainer}>
+            <main id="main-content" className={styles.privacyContainer}>
                 <h1>Privacy Policy</h1>
                 <p>
                     At CareersAt.Tech, accessible from <a href="http://www.careersat.tech">www.careersat.tech</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy
@@ -77,7 +77,7 @@ function Privacy() {
   
                 <h2>Consent</h2>
                 <p>By using our website, you consent to our Privacy Policy and agree to its Terms and Conditions.</p>
-            </div>
+            </main>
             <Footer />
         </>
     );

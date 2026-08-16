@@ -16,7 +16,7 @@ function Dmca() {
             />
             <Header showBorder={true} />
 
-            <div className={styles.privacyContainer}>
+            <main id="main-content" className={styles.privacyContainer}>
                 <h1>Disclaimer for CareersAt.Tech</h1>
 
                 <p>
@@ -59,7 +59,7 @@ function Dmca() {
                 <h2>Update</h2>
 
                 <p>We may update or amend this disclaimer as needed. Any changes will be prominently posted on this page.</p>
-            </div>
+            </main>
             <Footer />
         </>
     );

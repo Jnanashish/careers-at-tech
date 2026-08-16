@@ -1,47 +1,14 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React from "react";
 import SectionCard from "./primitives/SectionCard";
 
-const rewriteSections = (html) => {
-    if (typeof window === "undefined") return html;
-    try {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        const body = doc.body;
-        const sections = [];
-        let current = null;
-
-        body.childNodes.forEach((node) => {
-            const isH3 = node.nodeName === "H3";
-            if (isH3) {
-                current = document.createElement("div");
-                current.className = "jde-section";
-                current.appendChild(node.cloneNode(true));
-                sections.push(current);
-            } else if (current) {
-                current.appendChild(node.cloneNode(true));
-            } else {
-                // content before first h3
-                current = document.createElement("div");
-                current.className = "jde-section";
-                current.appendChild(node.cloneNode(true));
-                sections.push(current);
-            }
-        });
-
-        return sections.map((s) => s.outerHTML).join("");
-    } catch {
-        return html;
-    }
-};
-
+// The description HTML is sanitized server-side in pages/jobs/[slug].js
+// (getStaticProps) before it ever reaches props, so it is safe to inject here.
+// Section dividers/spacing around each <h3> are handled entirely by the
+// `.jde-body` rules in globals.css — see the comment there for why this is no
+// longer a post-hydration DOM rewrite.
 const JDEDescription = ({ job }) => {
     const html = job.jobDescription?.html || "";
     const isExternal = job.displayMode === "external_redirect";
-
-    const [rewritten, setRewritten] = useState(html);
-    useEffect(() => {
-        setRewritten(rewriteSections(html));
-    }, [html]);
 
     if (!html) {
         if (isExternal) {
@@ -66,7 +33,7 @@ const JDEDescription = ({ job }) => {
         <SectionCard number="01" title="Description">
             <div
                 className="jde-body"
-                dangerouslySetInnerHTML={{ __html: rewritten }}
+                dangerouslySetInnerHTML={{ __html: html }}
             />
         </SectionCard>
     );

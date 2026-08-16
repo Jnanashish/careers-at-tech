@@ -53,10 +53,55 @@ Measured 2026-08-08 against production; both are still submitted for indexing.
 
 - **426 of 827 company pages (52%) have zero live jobs** — 29% of the whole
   sitemap. `/companies/3m` is representative: `openJobsCount: 0`, no jobs, a
-  327-char boilerplate blurb, and `companies/[slug].js:234` hardcodes
+  327-char boilerplate blurb, and `companies/[slug].js` hardcodes
   `index, follow`. Candidate for dropping from the sitemap + `noindex`.
-- **49 expired jobs are still listed.** `jobPostingJsonLd.js:80` correctly returns
+- **49 expired jobs are still listed.** `jobPostingJsonLd.js` correctly returns
   `null` for them so no invalid schema ships, but the pages return 200 with
   `index, follow`. Google's JobPosting guidance is to remove expired postings.
 
 Deferred pending a call on whether these pages have standalone search value.
+`Meta.jsx` now takes a `noindex` prop, so whichever way this is decided the
+page-level half of it is a one-line change.
+
+### 5. Backend does not populate `validThrough` on any job
+
+Confirmed against production on 2026-08-15: `validThrough` is `null` on every job
+returned by `/jobs/v2/:slug`.
+
+`validThrough` is only *recommended* by Google, and `jobPostingJsonLd.js` no
+longer treats it as required — before that fix its absence suppressed the
+JobPosting block on **100%** of job pages, so the site shipped no Google-for-Jobs
+markup at all. The schema is emitting now, but without `validThrough`:
+
+- Google has no expiry signal and will keep a posting live until it 404s or
+  drops out of the sitemap.
+- The JD-E "Closes" spec cell renders `—` on every job, and `daysUntil()` returns
+  null so the urgency pill never fires.
+
+Populating it backend-side is the real fix. Once it exists, revisit item 4 —
+`isExpired` + `validThrough` together make the expired-page policy enforceable.
+
+### 6. Dependency upgrades that need their own PR
+
+`npm audit`: 21 findings, 1 critical, all transitive after the 2026-08-15 pass
+(that pass patched the two that were directly exploitable here — `sanitize-html`
+2.17.3→2.17.7, which fixes an XSS via `xmp` raw-text passthrough in the exact
+call path used for job descriptions, and `postcss` 8.5.13→8.5.26).
+
+- **`firebase@10` → `@12`** (major). Pulls `@firebase/database` →
+  `faye-websocket` → `websocket-driver` (critical). Nothing imports
+  `firebase/database`, so it never reaches the client bundle — this is an audit
+  finding, not a live exposure. Needs an analytics smoke test after upgrading.
+- **`next@14.2.35` → `15`/`16`** (major). 14.2.35 is the last 14.2 patch, so the
+  open advisories cannot be cleared inside the 14 line. Most of them are App
+  Router / Server Actions / RSC / middleware / i18n / self-hosted-image-optimizer
+  issues, none of which this app uses (Pages Router, no middleware, no i18n, no
+  rewrites, Vercel-managed image optimizer). Real work, low urgency.
+
+### 7. No Content-Security-Policy
+
+`next.config.js` sets `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy`, `Permissions-Policy` and `X-DNS-Prefetch-Control`. CSP is
+deliberately absent: AdSense, Clarity, the inline Clarity bootstrap and the
+inline JSON-LD blocks all need either `unsafe-inline` (pointless) or a nonce
+pipeline plus a `Report-Only` rollout. Worth doing, but as its own change.

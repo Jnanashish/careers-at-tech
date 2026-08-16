@@ -42,6 +42,8 @@ import {
 } from "@/core/apis/v2/client";
 import { buildJobPostingJsonLd } from "@/core/SEO/jobPostingJsonLd";
 import { buildBreadcrumbJsonLd } from "@/core/SEO/breadcrumbJsonLd";
+import { serializeJsonLd } from "@/core/SEO/serializeJsonLd";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/core/SEO/constants";
 import {
     formatEmploymentTypes,
     formatWorkMode,
@@ -56,9 +58,6 @@ import {
     jobMetaTitle,
     jobCategory,
 } from "@/Helpers/jobV2helpers";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og/default.png`;
 
 // Resume-tailor modal is interaction-only (opens on the CTA or ?tailor=1). Code-split
 // it so react-modal + FontAwesome are not shipped in the initial job-detail bundle.
@@ -125,6 +124,18 @@ export async function getStaticProps({ params }) {
                 },
                 disallowedTagsMode: "discard",
                 allowedSchemes: ["http", "https", "mailto"],
+                transformTags: {
+                    // Links inside the JD are third-party content we don't vouch
+                    // for. sanitize-html allows target by default, and a bare
+                    // target="_blank" hands the opened page window.opener on our
+                    // origin (reverse tabnabbing). nofollow additionally stops
+                    // every job page from passing ranking signal to whatever the
+                    // employer pasted into the description.
+                    a: sanitizeHtml.simpleTransform("a", {
+                        rel: "nofollow noopener noreferrer",
+                        target: "_blank",
+                    }),
+                },
             }),
         };
     }
@@ -369,7 +380,7 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
 
     // JD-E variant — feature-flagged; flip FLAGS.JD_E_VARIANT to enable
     if (FLAGS.JD_E_VARIANT) {
-        const ogImage = job.seo?.ogImage || resolveCompanyLogo(job);
+        const ogImage = job.seo?.ogImage || resolveCompanyLogo(job) || DEFAULT_OG_IMAGE;
         const category = jobCategory(job);
         const breadcrumbItems = [
             { name: "Home", url: SITE_URL },
@@ -388,7 +399,7 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                 <Head>
                     <title>{metaTitle}</title>
                     <meta name="description" content={metaDescription} />
-                    <meta name="robots" content="index, follow" />
+                    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
                     <link rel="canonical" href={canonical} />
                     <meta property="og:type" content="website" />
                     <meta property="og:title" content={metaTitle} />
@@ -396,20 +407,22 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                     <meta property="og:url" content={canonical} />
                     <meta property="og:site_name" content="CareersAt.Tech" />
                     <meta property="og:locale" content="en_IN" />
-                    {ogImage && <meta property="og:image" content={ogImage} />}
+                    <meta property="og:image" content={ogImage} />
+                    <meta property="og:image:alt" content={`${job.companyName} logo`} />
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:title" content={metaTitle} />
                     <meta name="twitter:description" content={metaDescription} />
+                    <meta name="twitter:image" content={ogImage} />
                     {jsonLd && (
                         <script
                             type="application/ld+json"
-                            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                            dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
                         />
                     )}
                     {breadcrumbLd && (
                         <script
                             type="application/ld+json"
-                            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+                            dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbLd) }}
                         />
                     )}
                 </Head>
@@ -449,7 +462,7 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
             <Head>
                 <title>{metaTitle}</title>
                 <meta name="description" content={metaDescription} />
-                <meta name="robots" content="index, follow" />
+                <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
                 <link rel="canonical" href={canonical} />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={metaTitle} />
@@ -465,13 +478,13 @@ const JobV2DetailPage = ({ job, similarJobs = [] }) => {
                 {jsonLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
                     />
                 )}
                 {breadcrumbLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbLd) }}
                     />
                 )}
             </Head>

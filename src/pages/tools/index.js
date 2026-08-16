@@ -11,6 +11,7 @@ import EmptyState from "@/components/Redesign/Tools/EmptyState";
 import AffiliateDisclosure from "@/components/Redesign/Tools/AffiliateDisclosure";
 import SuggestToolCTA from "@/components/Redesign/Tools/SuggestToolCTA";
 import { TOOLS, CATEGORIES } from "@/components/Redesign/Tools/toolsData";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/core/SEO/constants";
 
 export default function ToolsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -77,23 +78,28 @@ export default function ToolsPage() {
           name="description"
           content="Curated collection of free and freemium tools for Indian tech freshers — resume builders, interview prep, salary calculators, DSA practice, and more."
         />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://careersat.tech/tools" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+        <link rel="canonical" href={`${SITE_URL}/tools`} />
         <meta property="og:title" content="Free Career Tools for Tech Freshers | CareersAt.Tech" />
         <meta
           property="og:description"
           content="Resume builders, interview prep, salary tools, and coding practice — vetted and organized for Indian freshers."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://careersat.tech/tools" />
+        <meta property="og:url" content={`${SITE_URL}/tools`} />
         <meta property="og:site_name" content="CareersAt.Tech" />
         <meta property="og:locale" content="en_IN" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+        <meta property="og:image:alt" content="CareersAt.Tech — free career tools for tech freshers" />
+        {/* The page ships no wide art, so claim the small card: an image-less
+            summary_large_image renders as a bare text card on X. */}
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Free Career Tools for Tech Freshers | CareersAt.Tech" />
         <meta
           name="twitter:description"
           content="Resume builders, interview prep, salary tools, and coding practice — vetted and organized for Indian freshers."
         />
+        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
       </Head>
 
       <Navbar />

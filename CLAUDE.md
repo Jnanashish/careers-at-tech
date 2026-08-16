@@ -24,7 +24,6 @@ src/
 ├── pages/                      # Next.js Pages Router
 │   ├── _app.js                 # next/font setup, global viewport <Head>, Clarity, SpeedInsights, SPA page_view
 │   ├── _document.js            # HTML shell, charset, AdSense + Geist font <link>
-│   ├── index.jsx               # SSR 308 permanent redirect → /jobs
 │   ├── jobs/index.js           # Job listing page (SSG + ISR) — renders widgets/JobList
 │   ├── jobs/[slug].js          # Job detail (SSG + ISR, fallback "blocking") — JSON-LD, JD-E variant
 │   ├── [jobtitle]/[id].js      # Legacy 301→/jobs/:slug redirect shim (else 410 Gone)
@@ -43,10 +42,10 @@ src/
 │   ├── LinkedInSearch/         # LinkedIn URL builder tool UI
 │   ├── common/                 # Header, Footer, ErrorBoundary (legacy; used by legal pages)
 │   ├── layout/                 # Header used by the JobList widget
-│   └── ui/, Banners/, Drawer/, Dropdown/, Input/, Loader/, Pagination/, navHeader/, …
+│   └── ui/                     # Logo, Pill, SelectChip
 ├── widgets/
 │   ├── JobList/                # ACTIVE job-listing controller (filters, URL sync, data fetch)
-│   └── CareerePages/           # Career-pages widget
+│   └── CareerPages/            # Career-pages widget
 ├── core/
 │   ├── apis/v2/client.js       # v2 backend client (listJobsV2, fetchJobV2BySlug, track*, companies*)
 │   ├── SEO/
@@ -54,13 +53,13 @@ src/
 │   │   ├── JsonLd.jsx          # <script type="application/ld+json"> wrapper
 │   │   ├── jobPostingJsonLd.js # Google-compliant JobPosting builder (returns null if ineligible)
 │   │   ├── breadcrumbJsonLd.js # BreadcrumbList builder
+│   │   ├── serializeJsonLd.js  # Script-safe JSON-LD serializer (escapes < > & U+2028/9)
+│   │   ├── constants.js        # SITE_URL / DEFAULT_OG_IMAGE / SITE_NAME
 │   │   ├── organizationJsonLd.js # Organization builder
 │   │   └── indexnow.js         # IndexNow submit helper (Bing/Yandex; Google not supported)
 │   ├── firebaseConfig.js       # Firebase init (app only)
-│   ├── eventHandler.js         # GA4 analytics (lazy isSupported) + trackPageView
-│   ├── eventAttributes.js      # Analytics attribute constants
-│   └── shareJobs.js            # Share helpers
-├── Helpers/                    # utils.js, config.js, featureFlags.js, jobV2helpers.js, socialmediahandler.js
+│   └── eventHandler.js         # GA4 analytics (dynamic-import firebase, idle init) + trackPageView
+├── Helpers/                    # utils.js, featureFlags.js, jobV2helpers.js
 ├── lib/                        # categories.js, prompts.js, stripHtml.js (resume-prompt content)
 ├── content/prompts/            # Markdown prompt content (sitemap + resume-prompts source)
 ├── styles/globals.css          # Tailwind directives + V3/cat design tokens (no @font-face / @import)
@@ -261,7 +260,11 @@ INDEXNOW_SUBMIT_TOKEN         # Bearer token the backend sends to POST /api/inde
 ## Config Files
 
 - `tailwind.config.js` — Extended theme with semantic tokens (colors, fonts, shadows, radii, animations)
-- `next.config.js` — Image hosts via `images.remotePatterns` (Cloudinary, ibb.co), `/toolkit*`→`/resume-prompts*` 301s, strict mode disabled
+- `next.config.js` — Image hosts via `images.remotePatterns` (Cloudinary, ibb.co) with
+  `formats: avif/webp`; `/toolkit*`→`/resume-prompts*` and `/`→`/jobs` 308 redirects;
+  site-wide security headers (`headers()`); `poweredByHeader: false`; strict mode disabled.
+  **There is no `pages/index.jsx`** — `/` is redirected at the routing layer, not by a
+  `getServerSideProps` shim, so the homepage costs no function invocation
 - `jsconfig.json` — Path alias `@/*` → `./src/*`
 - `.eslintrc.json` — Extends `next/core-web-vitals`
 
@@ -272,7 +275,7 @@ INDEXNOW_SUBMIT_TOKEN         # Bearer token the backend sends to POST /api/inde
 - **Firebase config** is in `core/firebaseConfig.js` using v9+ modular SDK — don't use v8 compat imports. Analytics inits lazily behind `isSupported()` in `eventHandler.js`
 - **Image hosts** are allowlisted in `next.config.js` via `images.remotePatterns` (not the deprecated `images.domains`) — add a new source there before using `next/image` with it
 - **The v2 client returns `null` on 404 / `{ data: [] }` on list-miss** — always null-check / default API responses
-- **`components/Temp/`, `widgets/JobListRedesign/`, `Redux/` no longer exist** — older docs/comments may still reference them; the active listing controller is `widgets/JobList`
+- **`components/Temp/`, `widgets/JobListRedesign/`, `Redux/`, `components/Banners|Drawer|Dropdown|Input|Loader|Pagination|navHeader/`, `Helpers/config.js`, `Helpers/socialmediahandler.js`, `core/eventAttributes.js`, `core/shareJobs.js` no longer exist** — older docs/comments may still reference them; the active listing controller is `widgets/JobList`
 - **No TypeScript** — don't create `.ts`/`.tsx` files; use `.js`/`.jsx` with JSDoc if types are needed
 - **`Meta.jsx` canonical** defaults to the current route (self-referential). Still pass an explicit `canonical`/`title`/`description` on every page for unique metadata
 
@@ -281,9 +284,10 @@ INDEXNOW_SUBMIT_TOKEN         # Bearer token the backend sends to POST /api/inde
 Larger cleanups identified but intentionally deferred (each needs its own scoped,
 tested change — don't bundle them into unrelated work):
 
-1. **Unused Redux deps** — `@reduxjs/toolkit`, `react-redux`, `redux`, `redux-persist`,
-   `redux-thunk` are no longer imported anywhere. Remove from `package.json` and
-   re-run `npm install` to shrink the dependency tree.
+1. **Firebase major upgrade** — `firebase@10` pulls `@firebase/database` →
+   `faye-websocket` → `websocket-driver`, which carries a critical advisory. Nothing
+   in `src/` imports `firebase/database`, so it never reaches the client bundle, but
+   `npm audit` stays red until `firebase@12`. Needs an analytics smoke test.
 2. **Two monospace fonts** — Geist Mono (`font-v3-mono`, via `<link>`) and JetBrains Mono
    (`font-jetbrains`, via `next/font`) are both heavily used. Consolidate to one to drop a
    whole font family from the network.

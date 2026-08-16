@@ -27,6 +27,7 @@ import {
   encode,
   decode,
 } from "@/components/LinkedInSearch/lib/url-builder";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/core/SEO/constants";
 
 const LS_STATE = "cb_state_v1";
 const WRAP = "w-full max-w-[1500px] mx-auto px-4 lg:px-10";
@@ -210,7 +211,30 @@ export default function LinkedInSearchPage() {
           name="description"
           content="Free LinkedIn search URL builder for Indian tech freshers. Pick your filters, copy the link, and open LinkedIn already filtered to the right jobs — or find someone to ask for a referral. No login, no tracking."
         />
-        <link rel="canonical" href="https://careersat.tech/tools/linkedin-search" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+        <link rel="canonical" href={`${SITE_URL}/tools/linkedin-search`} />
+
+        {/* Page had no Open Graph or Twitter tags at all — every share of it
+            rendered a bare URL with no title, description or image. */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="LinkedIn Job Search URL Builder | CareersAt.Tech" />
+        <meta
+          property="og:description"
+          content="Build a filtered LinkedIn job-search or referral-search URL in a few clicks. Free, no login, no tracking."
+        />
+        <meta property="og:url" content={`${SITE_URL}/tools/linkedin-search`} />
+        <meta property="og:site_name" content="CareersAt.Tech" />
+        <meta property="og:locale" content="en_IN" />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+        <meta property="og:image:alt" content="CareersAt.Tech LinkedIn search URL builder" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="LinkedIn Job Search URL Builder | CareersAt.Tech" />
+        <meta
+          name="twitter:description"
+          content="Build a filtered LinkedIn job-search or referral-search URL in a few clicks. Free, no login, no tracking."
+        />
+        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
       </Head>
 
       <Navbar />

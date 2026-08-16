@@ -29,15 +29,14 @@ import {
 } from "@/core/apis/v2/client";
 import { buildOrganizationJsonLd } from "@/core/SEO/organizationJsonLd";
 import { buildBreadcrumbJsonLd } from "@/core/SEO/breadcrumbJsonLd";
+import { serializeJsonLd } from "@/core/SEO/serializeJsonLd";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/core/SEO/constants";
 import {
     formatEmploymentTypes,
     formatWorkMode,
     formatJobLocations,
     formatBaseSalary,
 } from "@/Helpers/jobV2helpers";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og/default.png`;
 
 const shouldAnimate =
     typeof window !== "undefined"
@@ -231,7 +230,7 @@ const CompanyDetailPage = ({ company, jobs = [] }) => {
             <Head>
                 <title>{metaTitle}</title>
                 <meta name="description" content={metaDescription} />
-                <meta name="robots" content="index, follow" />
+                <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
                 <link rel="canonical" href={canonical} />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={metaTitle} />
@@ -247,13 +246,13 @@ const CompanyDetailPage = ({ company, jobs = [] }) => {
                 {orgJsonLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(orgJsonLd) }}
                     />
                 )}
                 {breadcrumbLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+                        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbLd) }}
                     />
                 )}
             </Head>

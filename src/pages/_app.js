@@ -65,9 +65,13 @@ const App = (props) => {
             </Script>
 
             <ErrorBoundary>
-                <main className={`${inter.className} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
+                {/* Font-variable carrier only. This used to be a <main>, which
+                    nested every page's own <main id="main-content"> inside a
+                    second one — invalid HTML, and it broke the single-main
+                    landmark that the "Skip to content" link targets. */}
+                <div className={`${inter.className} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
                     <Component {...pageProps} />
-                </main>
+                </div>
             </ErrorBoundary>
 
             <SpeedInsights />

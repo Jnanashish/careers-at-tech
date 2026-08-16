@@ -16,7 +16,7 @@ function Terms() {
                 canonical={`${SITE_URL}/terms-and-conditions`}
             />
             <Header showBorder={true} />
-            <div className={styles.privacyContainer}>
+            <main id="main-content" className={styles.privacyContainer}>
                 <h1>Terms and Conditions</h1>
 
                 <p>Welcome to CareersAt.Tech!</p>
@@ -252,7 +252,7 @@ function Terms() {
                 <br />
 
                 <p>As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>
-            </div>
+            </main>
             <Footer />
         </>
     );

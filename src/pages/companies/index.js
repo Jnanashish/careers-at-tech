@@ -9,11 +9,18 @@ import Navbar from "@/components/Redesign/Navbar";
 import FooterNew from "@/components/Redesign/FooterNew";
 import ScrollToTop from "@/components/Redesign/ScrollToTop";
 import Meta from "@/core/SEO/Meta";
+import { SITE_URL } from "@/core/SEO/constants";
 
 import { listCompaniesV2 } from "@/core/apis/v2/client";
 
 const PAGE_SIZE = 24;
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
+
+// Every other component in the codebase gates Framer Motion on this; the company
+// grid was animating 24 cards regardless of the user's reduced-motion setting.
+const shouldAnimate =
+    typeof window !== "undefined"
+        ? !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        : true;
 
 export async function getStaticProps() {
     let initial = { data: [], total: 0, page: 1, hasMore: false };
@@ -45,8 +52,8 @@ const CompanyCard = ({ company, index = 0 }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={shouldAnimate ? { opacity: 0, y: 12 } : false}
+            animate={shouldAnimate ? { opacity: 1, y: 0 } : false}
             transition={{ duration: 0.25, delay: Math.min(index * 0.02, 0.3) }}
         >
             <Link

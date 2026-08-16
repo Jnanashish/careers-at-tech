@@ -19,8 +19,9 @@ import WhatsAppBanner from "@/components/toolkit/v3/WhatsAppBanner";
 import { CATEGORIES, CATEGORY_BY_KEY, FILTER_CHIPS } from "@/lib/categories";
 import { listJobsV2 } from "@/core/apis/v2/client";
 import { firebaseEventHandler } from "@/core/eventHandler";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/core/SEO/constants";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
+
 
 export async function getStaticProps() {
     const { getAllPrompts, getFeaturedPrompts } = require("@/lib/prompts");
@@ -242,7 +243,10 @@ const ToolkitHubPage = ({
         })),
     };
 
-    const ogImage = `${SITE_URL}/og-image.png`;
+    // Was `${SITE_URL}/og-image.png` — that file has never existed in public/,
+    // so every share of this page rendered an empty card. Points at the real
+    // shared asset now (square, hence "summary" rather than the large card).
+    const ogImage = DEFAULT_OG_IMAGE;
 
     return (
         <>
@@ -253,7 +257,6 @@ const ToolkitHubPage = ({
                     name="keywords"
                     content="resume prompts, AI resume, ChatGPT resume, Claude resume, fresher resume India, ATS resume, tailor resume to JD, college project resume, no experience resume, internship resume, non-CS to tech, LinkedIn headline AI"
                 />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
                 <meta name="author" content="CareersAt.Tech" />
                 <link rel="canonical" href={canonicalUrl} />
@@ -265,10 +268,9 @@ const ToolkitHubPage = ({
                 <meta property="og:site_name" content="CareersAt.Tech" />
                 <meta property="og:locale" content="en_IN" />
                 <meta property="og:image" content={ogImage} />
-                <meta property="og:image:width" content="1200" />
-                <meta property="og:image:height" content="630" />
+                <meta property="og:image:alt" content="CareersAt.Tech resume prompts" />
 
-                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:card" content="summary" />
                 <meta name="twitter:site" content="@Jnanashish" />
                 <meta name="twitter:creator" content="@Jnanashish" />
                 <meta name="twitter:title" content={seoTitle} />

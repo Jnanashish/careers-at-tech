@@ -1,10 +1,18 @@
 // Build a Google-for-Jobs-compliant JobPosting JSON-LD object from a v2 job document.
-// Returns null when any required Google field is missing or the posting is expired —
+// Returns null when a *required* Google field is missing or the posting is expired —
 // emitting a partial/expired schema gets the URL silently dropped from rich results.
 //
-// Required Google fields: title, description, datePosted, validThrough,
-// hiringOrganization, jobLocation (or applicantLocationRequirements for remote),
-// employmentType.
+// Google's REQUIRED set is exactly: title, description, datePosted,
+// hiringOrganization, and jobLocation (or jobLocationType +
+// applicantLocationRequirements for remote roles).
+//
+// validThrough and employmentType are RECOMMENDED, not required. They used to be
+// treated as required here, and since the backend currently returns
+// validThrough: null on every job, that single check suppressed the JobPosting
+// block on 100% of job pages — the site shipped no Google-for-Jobs markup at all.
+// They are now emitted when present and omitted when not, which is what the spec
+// asks for. (Backend should still start populating validThrough: without it
+// Google has no expiry signal and relies on the posting disappearing.)
 //
 // Schema reference: https://developers.google.com/search/docs/appearance/structured-data/job-posting
 
@@ -83,11 +91,10 @@ export function buildJobPostingJsonLd(job) {
     if (!title) return null;
 
     const datePosted = job.datePosted;
-    const validThrough = job.validThrough;
-    if (!datePosted || !validThrough) return null;
+    if (!datePosted) return null;
 
+    const validThrough = job.validThrough || null;
     const employmentType = normalizeEmploymentType(job.employmentType);
-    if (!employmentType) return null;
 
     const hiringOrganization = buildHiringOrganization(job);
     if (!hiringOrganization) return null;
@@ -108,12 +115,12 @@ export function buildJobPostingJsonLd(job) {
         title,
         description,
         datePosted,
-        validThrough,
-        employmentType,
         hiringOrganization,
         directApply: false,
     };
 
+    if (validThrough) ld.validThrough = validThrough;
+    if (employmentType) ld.employmentType = employmentType;
     if (jobLocation) ld.jobLocation = jobLocation;
     if (isRemote) {
         ld.jobLocationType = "TELECOMMUTE";

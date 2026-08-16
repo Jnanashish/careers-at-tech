@@ -6,6 +6,7 @@ import FooterNew from "@/components/Redesign/FooterNew";
 import ScrollToTop from "@/components/Redesign/ScrollToTop";
 import PromptPageLayout from "@/components/toolkit/PromptPageLayout";
 import JsonLd from "@/core/SEO/JsonLd";
+import { DEFAULT_OG_IMAGE } from "@/core/SEO/constants";
 
 export async function getStaticPaths() {
     const { getAllPromptSlugs } = require("@/lib/prompts");
@@ -87,20 +88,24 @@ const ToolkitPromptPage = ({ prompt, relatedPrompts }) => {
             <Head>
                 <title>{frontmatter.seoTitle}</title>
                 <meta name="description" content={frontmatter.seoDescription} />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name="robots" content="index, follow" />
+                <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
                 <link rel="canonical" href={canonicalUrl} />
 
                 <meta property="og:title" content={frontmatter.seoTitle} />
                 <meta property="og:description" content={frontmatter.seoDescription} />
                 <meta property="og:url" content={canonicalUrl} />
                 <meta property="og:type" content="article" />
-                <meta property="og:site_name" content="Careers at Tech" />
-                <meta property="og:locale" content="en_US" />
+                <meta property="og:site_name" content="CareersAt.Tech" />
+                <meta property="og:locale" content="en_IN" />
+                <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+                <meta property="og:image:alt" content={frontmatter.title} />
 
-                <meta name="twitter:card" content="summary_large_image" />
+                {/* summary, not summary_large_image: this page has no wide art,
+                    and the large card with no image renders as a bare text card. */}
+                <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content={frontmatter.seoTitle} />
                 <meta name="twitter:description" content={frontmatter.seoDescription} />
+                <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
             </Head>
             <JsonLd data={howToSchema} />
             <JsonLd data={breadcrumbSchema} />

@@ -66,6 +66,14 @@ const JobList = ({ initialJobs }) => {
     const announceRef = useRef(null);
     const filterChangeArmed = useRef(false);
 
+    // getStaticProps already fetched page 1 with the default sort, and those
+    // rows are sitting in `jobs` before hydration. The fetch effect below used to
+    // fire regardless and pull the exact same 12 records again on every single
+    // /jobs visit — a wasted round trip plus a loading flicker over identical
+    // content. Skip that one run, and only that one: any URL filter, any deeper
+    // page, or an empty SSG payload still fetches as before.
+    const canReuseInitialJobs = useRef(initialMappedJobs.length > 0);
+
     useEffect(() => {
         if (!router.isReady || hydrated) return;
         const f = urlToFilters(router.query || {});
@@ -109,6 +117,23 @@ const JobList = ({ initialJobs }) => {
 
     useEffect(() => {
         if (!hydrated) return undefined;
+
+        if (canReuseInitialJobs.current) {
+            canReuseInitialJobs.current = false;
+            const isUntouchedFirstPage =
+                type === "All" &&
+                location === "Anywhere" &&
+                batch === "All" &&
+                !quick &&
+                !search &&
+                sort === "Latest" &&
+                page === 1;
+            // Same params getStaticProps used (limit 12, page 1, datePosted:desc),
+            // and both client-side passes are no-ops at these defaults — the
+            // response would be byte-identical to what is already rendered.
+            if (isUntouchedFirstPage) return undefined;
+        }
+
         const apiType = typeFilterToApi(type);
         const workMode = locationFilterToWorkMode(location);
         const cityFilter = locationFilterIsCity(location) ? location : null;
@@ -256,7 +281,7 @@ const JobList = ({ initialJobs }) => {
             />
 
             <div className="v3-main-grid">
-                <div className="v3-main-left min-h-[600px]">
+                <main id="main-content" className="v3-main-left min-h-[600px]">
                     <ResumePromptsBanner />
                     <FeaturedCarousel
                         jobs={featuredJobs}
@@ -320,7 +345,7 @@ const JobList = ({ initialJobs }) => {
                     </div>
 
                     <Pagination page={page} totalPages={totalPages} totalCount={total} onChange={setPage} />
-                </div>
+                </main>
 
                 <aside className="v3-main-aside flex flex-col gap-4">
                     <WhatsAppDrops />

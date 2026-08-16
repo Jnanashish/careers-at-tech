@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer/Footer";
-import CareerPages from "@/widgets/CareerePages";
+import CareerPages from "@/widgets/CareerPages";
 import companyData from "./companycareerspage.json";
 import ScrolltoTop from "@/components/common/ScrolltoTop";
 import Meta from "@/core/SEO/Meta";
+import { SITE_URL } from "@/core/SEO/constants";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://careersat.tech";
+// The JSON also carries `originalImage2`, a stale career-pages.vercel.app image
+// URL nothing renders. Shipping it pushed this page's __NEXT_DATA__ to 128 kB —
+// Next's large-page-data warning threshold exactly — for 492 rows. Project down
+// to the four fields the widget actually reads and the payload drops ~41%.
+function toRenderableRows(rows) {
+    if (!Array.isArray(rows)) return [];
+    return rows.map(({ alphabet, name, logourl, url }) => {
+        const row = {};
+        if (alphabet) row.alphabet = alphabet;
+        if (name) row.name = name;
+        if (logourl) row.logourl = logourl;
+        if (url) row.url = url;
+        return row;
+    });
+}
 
-function page({ data }) {
+function CareerPagesRoute({ data }) {
     return (
         <>
             <Meta
@@ -24,20 +39,16 @@ function page({ data }) {
     );
 }
 
-export default page;
+export default CareerPagesRoute;
 
 export async function getStaticProps() {
-    const data = companyData;
+    const data = toRenderableRows(companyData);
 
-    if (!!data) {
-        return {
-            props: {
-                data: data,
-            },
-        };
+    if (data.length === 0) {
+        return { notFound: true };
     }
 
     return {
-        notFound: true,
+        props: { data },
     };
 }

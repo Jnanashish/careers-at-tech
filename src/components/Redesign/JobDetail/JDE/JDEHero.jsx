@@ -195,6 +195,11 @@ const JDEHero = ({ job, daysLeft, isUrgent, expired }) => {
                                         width={74}
                                         height={74}
                                         className="object-contain w-full h-full"
+                                        // Above the fold on every job page and the
+                                        // only image in the hero — preload it
+                                        // instead of letting it queue behind the
+                                        // lazy pass.
+                                        priority
                                     />
                                 ) : (
                                     <span className="text-white text-2xl font-bold select-none">

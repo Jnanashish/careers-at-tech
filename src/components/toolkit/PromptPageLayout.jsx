@@ -27,7 +27,7 @@ const PromptPageLayout = ({ prompt, relatedPrompts }) => {
     const bodyContent = content.replace(/```[\s\S]*?```/, "").trim();
 
     return (
-        <div className={styles.layout}>
+        <main id="main-content" className={styles.layout}>
             {/* Breadcrumb */}
             <nav className={styles.breadcrumb} aria-label="Breadcrumb">
                 <Link href="/jobs">Home</Link>
@@ -113,7 +113,7 @@ const PromptPageLayout = ({ prompt, relatedPrompts }) => {
                     <FontAwesomeIcon className={styles.ctaArrow} icon={faArrowRight} />
                 </Link>
             </div>
-        </div>
+        </main>
     );
 };
 
