@@ -120,6 +120,12 @@ export async function getStaticProps({ params }) {
                 allowedTags: sanitizeHtml.defaults.allowedTags.concat(["h1", "h2", "img"]),
                 allowedAttributes: {
                     ...sanitizeHtml.defaults.allowedAttributes,
+                    // `rel` is not in sanitize-html's default <a> allowlist, so the
+                    // rel below was added by transformTags and then stripped straight
+                    // back off by the attribute filter — the nofollow/noopener control
+                    // was silently a no-op. simpleTransform overwrites attribs, so a
+                    // rel supplied by the backend HTML still cannot win.
+                    a: [...(sanitizeHtml.defaults.allowedAttributes.a || []), "rel"],
                     "*": ["class", "id"],
                 },
                 disallowedTagsMode: "discard",

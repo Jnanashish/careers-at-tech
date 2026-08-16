@@ -84,9 +84,11 @@ Populating it backend-side is the real fix. Once it exists, revisit item 4 —
 ### 6. Dependency upgrades that need their own PR
 
 `npm audit`: 21 findings, 1 critical, all transitive after the 2026-08-15 pass
-(that pass patched the two that were directly exploitable here — `sanitize-html`
-2.17.3→2.17.7, which fixes an XSS via `xmp` raw-text passthrough in the exact
-call path used for job descriptions, and `postcss` 8.5.13→8.5.26).
+(that pass patched the two that were directly exploitable here — `sanitize-html`,
+fixing an XSS via `xmp` raw-text passthrough in the exact call path used for job
+descriptions, and `postcss` 8.5.13→8.5.26). That pass went to `sanitize-html`
+2.17.7 and took the site down; it now sits at 2.17.5, which is advisory-clean.
+See item 8.
 
 - **`firebase@10` → `@12`** (major). Pulls `@firebase/database` →
   `faye-websocket` → `websocket-driver` (critical). Nothing imports
@@ -105,3 +107,37 @@ call path used for job descriptions, and `postcss` 8.5.13→8.5.26).
 deliberately absent: AdSense, Clarity, the inline Clarity bootstrap and the
 inline JSON-LD blocks all need either `unsafe-inline` (pointless) or a nonce
 pipeline plus a `Report-Only` rollout. Worth doing, but as its own change.
+
+### 8. `sanitize-html` is pinned to 2.17.5 and cannot be bumped yet
+
+`sanitize-html` 2.17.6 moved its `htmlparser2` dependency from `^10.1.0` to
+`^12.0.0`. htmlparser2 11 and 12 are ESM-only (`"type": "module"`, no `require`
+export condition) while `sanitize-html` is still CommonJS and does
+`require('htmlparser2')` at the top of `index.js`.
+
+Next.js externalises `node_modules` from the server output and `require()`s them
+at runtime. Vercel's runtime shim (`/opt/rust/nodejs.js`) reimplements
+`Module._load` without Node's `require(esm)` interop, so that require threw
+`ERR_REQUIRE_ESM` and **every uncached render of `/jobs/[slug]` returned a 500**
+(2026-08-16). It does not reproduce locally, because modern Node supports
+`require(esm)` natively — reproduce with
+`node --no-experimental-require-module -e "require('sanitize-html')"`.
+
+2.17.5 is the newest release that is both advisory-clean (it has the `xmp`
+raw-text fix from 2.17.4 and the `formaction`/`poster`/`background`/`data`
+scheme fix from 2.17.5) and CommonJS-safe. The version in `package.json` is an
+exact pin on purpose: a `^` or `~` range resolves to 2.17.6+ and takes the site
+down again. `npm run test:deps` guards this.
+
+Unpin when **either** happens:
+- `sanitize-html` ships a release that works under CJS `require()` again (either
+  it goes ESM/dual itself, or htmlparser2 restores a `require` export condition), or
+- the deploy runtime gains `require(esm)` interop.
+
+Alternative if a newer `sanitize-html` is ever needed urgently: add
+`transpilePackages: ["sanitize-html"]` to `next.config.js` so webpack bundles it
+instead of externalising it. Unverified — it must be tested against a real
+deployment, not `next start`, since the failure lives in Vercel's module loader.
+Do **not** "fix" this with an npm `overrides` pin of `htmlparser2` to v10 while on
+2.17.7: 2.17.7's `<textarea>` escaping is written for htmlparser2 ≥ 11 RCDATA
+decoding, so v10 would mis-escape and reopen the mutation-XSS path.
