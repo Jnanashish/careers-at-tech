@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { Inter, Instrument_Serif, JetBrains_Mono, Fraunces } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono, Fraunces, Manrope } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { trackPageView } from "@/core/eventHandler";
 import "../styles/globals.css";
@@ -14,6 +14,15 @@ import "../styles/globals.css";
 const inter = Inter({
     weight: ["400", "500", "600", "700"],
     subsets: ["latin"],
+    display: "swap",
+});
+
+// Brand wordmark only (components/ui/Wordmark). Two static weights, latin —
+// it replaces a ~70KB outlined-path logo SVG, so this is a net payload win.
+const manrope = Manrope({
+    weight: ["700", "800"],
+    subsets: ["latin"],
+    variable: "--font-manrope",
     display: "swap",
 });
 
@@ -69,7 +78,7 @@ const App = (props) => {
                     nested every page's own <main id="main-content"> inside a
                     second one — invalid HTML, and it broke the single-main
                     landmark that the "Skip to content" link targets. */}
-                <div className={`${inter.className} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
+                <div className={`${inter.className} ${manrope.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
                     <Component {...pageProps} />
                 </div>
             </ErrorBoundary>

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@/components/common/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import Footer from "@/components/common/Footer/Footer";
 import CareerPages from "@/widgets/CareerPages";
 import companyData from "./companycareerspage.json";
@@ -31,8 +31,10 @@ function CareerPagesRoute({ data }) {
                 description="Direct links to the official career pages of top product-based tech companies, sorted A–Z. Skip the aggregators and apply for jobs straight at the source."
                 canonical={`${SITE_URL}/career-pages`}
             />
-            <Header />
-            <CareerPages careerpageData={data} />
+            <Navbar />
+            <div className="pt-16">
+                <CareerPages careerpageData={data} />
+            </div>
             <Footer />
             <ScrolltoTop />
         </>

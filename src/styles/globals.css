@@ -35,7 +35,7 @@
     --v3-green-pulse: #00B86B;
     --v3-warn-orange: #FF8A00;
 
-    --v3-header-h: 74px;
+    --v3-header-h: 64px;
 
     /* ───── Resume Toolkit v3 design tokens (cat-* namespace) ───── */
     --cat-primary: #0050ff;
@@ -79,7 +79,7 @@
 }
 
 @media (max-width: 767px) {
-    :root { --v3-header-h: 66px; }
+    :root { --v3-header-h: 56px; }
 }
 
 /* ───── Resume Toolkit v3 helpers ───── */

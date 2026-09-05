@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../privacy-policy/privacy.module.scss";
-import Header from "@/components/common/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import Footer from "@/components/common/Footer/Footer";
 import Meta from "@/core/SEO/Meta";
 import Link from "next/link";
@@ -15,8 +15,8 @@ function Terms() {
                 description="The terms governing use of CareersAt.Tech — covering licensing, acceptable use, hyperlinking, content liability, and your rights as a user of our tech job board."
                 canonical={`${SITE_URL}/terms-and-conditions`}
             />
-            <Header showBorder={true} />
-            <main id="main-content" className={styles.privacyContainer}>
+            <Navbar />
+            <main id="main-content" className={`${styles.privacyContainer} pt-16`}>
                 <h1>Terms and Conditions</h1>
 
                 <p>Welcome to CareersAt.Tech!</p>

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@/components/layout/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import FooterNew from "@/components/Redesign/FooterNew";
 import ScrollToTop from "@/components/Redesign/ScrollToTop";
 
@@ -20,8 +20,8 @@ const JDEVariant = ({ job, similarJobs = [] }) => {
     const expired = job.isExpired || (daysLeft !== null && daysLeft <= 0);
 
     return (
-        <div className="jde-page bg-page min-h-screen">
-            <Header />
+        <div className="jde-page bg-page min-h-screen pt-16">
+            <Navbar />
 
             <JDEHero
                 job={job}

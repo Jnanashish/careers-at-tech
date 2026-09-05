@@ -40,7 +40,7 @@ const FilterBar = forwardRef(function FilterBar(
         <div
             className="sticky z-20 v3-filterbar"
             style={{
-                top: "var(--v3-header-h, 74px)",
+                top: "var(--v3-header-h, 64px)",
                 background: "rgba(250,250,247,0.72)",
                 backdropFilter: "saturate(180%) blur(18px)",
                 WebkitBackdropFilter: "saturate(180%) blur(18px)",

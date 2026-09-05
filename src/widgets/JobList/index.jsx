@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 
-import Header from "@/components/layout/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import FooterNew from "@/components/Redesign/FooterNew";
 
 import Hero from "@/components/jobs/Hero";
@@ -256,12 +256,14 @@ const JobList = ({ initialJobs }) => {
                 background: "var(--v3-paper)",
                 color: "var(--v3-ink)",
                 letterSpacing: "-0.01em",
-                "--v3-header-h": compact ? "0px" : "74px",
+                // The nav is in normal flow here and scrolls away, so the
+                // FilterBar is the only sticky bar and pins at the very top.
+                "--v3-header-h": "0px",
             }}
         >
             <span ref={announceRef} aria-live="polite" className="sr-only" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }} />
 
-            <Header compact={compact} onMobileMenu={() => setSheetOpen(true)} />
+            <Navbar sticky={false} />
             <Hero />
 
             <FilterBar

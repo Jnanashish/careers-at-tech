@@ -115,6 +115,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Inter", "Noto Sans", "system-ui", "-apple-system", "sans-serif"],
+        manrope: ["var(--font-manrope)", "Inter", "system-ui", "sans-serif"],
         "serif-display": ["var(--font-instrument-serif)", "Georgia", "serif"],
         "v3-serif": ["var(--font-instrument-serif)", "Times New Roman", "serif"],
         "v3-sans": ["var(--font-geist)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
 
-import Header from "@/components/layout/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import FooterNew from "@/components/Redesign/FooterNew";
 import ScrollToTop from "@/components/Redesign/ScrollToTop";
 import JsonLd from "@/core/SEO/JsonLd";
@@ -286,9 +286,9 @@ const ToolkitHubPage = ({
             <JsonLd data={howToSchema} />
             <JsonLd data={itemListSchema} />
 
-            <Header />
+            <Navbar />
 
-            <main className="bg-white text-cat-ink">
+            <main className="bg-white text-cat-ink pt-16">
                 <Hero />
                 <HowItWorks />
                 <Diagnosis />

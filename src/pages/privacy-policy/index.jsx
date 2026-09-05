@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./privacy.module.scss";
-import Header from "@/components/common/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import Footer from "@/components/common/Footer/Footer";
 import Meta from "@/core/SEO/Meta";
 
@@ -14,8 +14,8 @@ function Privacy() {
                 description="How CareersAt.Tech collects, uses, and protects your data — covering log files, cookies, third-party advertising, and children's privacy on our tech job board."
                 canonical={`${SITE_URL}/privacy-policy`}
             />
-            <Header showBorder={true} />
-            <main id="main-content" className={styles.privacyContainer}>
+            <Navbar />
+            <main id="main-content" className={`${styles.privacyContainer} pt-16`}>
                 <h1>Privacy Policy</h1>
                 <p>
                     At CareersAt.Tech, accessible from <a href="http://www.careersat.tech">www.careersat.tech</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy

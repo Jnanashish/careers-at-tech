@@ -141,3 +141,23 @@ deployment, not `next start`, since the failure lives in Vercel's module loader.
 Do **not** "fix" this with an npm `overrides` pin of `htmlparser2` to v10 while on
 2.17.7: 2.17.7's `<textarea>` escaping is written for htmlparser2 ≥ 11 RCDATA
 decoding, so v10 would mis-escape and reopen the mutation-XSS path.
+
+## Dead code left behind by the header consolidation (Sep 2026)
+
+Every page now renders `components/Redesign/Navbar`. Two things are still on
+disk with **zero importers** — deleting them is safe, just not bundled into the
+header change:
+
+- `src/components/common/Header/` (`index.jsx`, `header.module.scss`,
+  `Components/MobileDrawer`, `Components/HeaderTabs`)
+- `src/static/Image/careersattech-biglogo.svg` — the ~70KB outlined-path logo
+  that `common/Header` was the last consumer of
+
+`common/Header` was the last importer of `@fortawesome/react-fontawesome` on the
+legal pages, so this deletion pairs with tech-debt item 3 in `CLAUDE.md`
+(migrate the remaining `components/toolkit/*` FA icons to Lucide, then drop the
+three `@fortawesome/*` deps).
+
+`components/common/Footer/Footer` is **still live** on contact / privacy-policy /
+terms / dmca / career-pages — only the header was swapped. Consolidating those
+onto `Redesign/FooterNew` is a separate change.

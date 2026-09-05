@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../privacy-policy/privacy.module.scss";
-import Header from "@/components/common/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import Footer from "@/components/common/Footer/Footer";
 import Meta from "@/core/SEO/Meta";
 
@@ -14,9 +14,9 @@ function Dmca() {
                 description="The official disclaimer for CareersAt.Tech — covering external links, content accuracy, and the third-party websites referenced across our tech job board."
                 canonical={`${SITE_URL}/dmca`}
             />
-            <Header showBorder={true} />
+            <Navbar />
 
-            <main id="main-content" className={styles.privacyContainer}>
+            <main id="main-content" className={`${styles.privacyContainer} pt-16`}>
                 <h1>Disclaimer for CareersAt.Tech</h1>
 
                 <p>

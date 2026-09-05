@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./contact.module.scss";
-import Header from "@/components/common/Header";
+import Navbar from "@/components/Redesign/Navbar";
 import Footer from "@/components/common/Footer/Footer";
 import Meta from "@/core/SEO/Meta";
 
@@ -31,8 +31,8 @@ function Contact() {
             canonical={`${SITE_URL}/contact`}
         />
         <div>
-            <Header showBorder={true}/>
-            <main id="main-content" className={styles.contactContainer}>
+            <Navbar />
+            <main id="main-content" className={`${styles.contactContainer} pt-16`}>
                 <Image
                     src="https://res.cloudinary.com/dvc6fw5as/image/upload/v1677948702/3d-business-young-woman-talking-online_1_h69v40.png"
                     alt="girl with query"
