@@ -12,7 +12,7 @@ CareersAt.Tech is India's curated job board for freshers and early-career tech p
 - **Animations:** Framer Motion 12
 - **State:** Local component state (`useState`/`useEffect`) + URL query params. **No Redux** in `src/` — the `@reduxjs/toolkit`/`react-redux`/`redux`/`redux-persist`/`redux-thunk` entries in `package.json` are unused legacy and can be removed.
 - **Icons:** Lucide React (primary), FontAwesome (legacy — still in toolkit/legacy header)
-- **Analytics:** Firebase Analytics (GA4), Microsoft Clarity, Vercel Speed Insights
+- **Analytics:** Firebase Analytics (GA4), Microsoft Clarity, PostHog (product analytics + session replay + experiments), Vercel Speed Insights
 - **Backend:** Railway-hosted API (`NEXT_PUBLIC_BACKEND_URL`), consumed via `core/apis/v2/client.js`
 - **Images:** Cloudinary, ibb.co (via `next/image`, allowlisted in `next.config.js` `images.remotePatterns`)
 - **Fonts:** Inter (primary body), Instrument Serif, JetBrains Mono, Fraunces — all via `next/font/google` in `_app.js`; **Geist + Geist Mono** via `<link>` in `_document.js` (not yet in `next/font`). Loaded once each; do not re-add render-blocking `@import`s.
@@ -58,7 +58,9 @@ src/
 │   │   ├── organizationJsonLd.js # Organization builder
 │   │   └── indexnow.js         # IndexNow submit helper (Bing/Yandex; Google not supported)
 │   ├── firebaseConfig.js       # Firebase init (app only)
-│   └── eventHandler.js         # GA4 analytics (dynamic-import firebase, idle init) + trackPageView
+│   ├── eventHandler.js         # Event fan-out: GA4 (firebase) + PostHog; trackPageView is GA4-only
+│   ├── posthog.js              # PostHog init (dynamic import, idle), capture/identify/onFeatureFlags
+│   └── useFeatureVariant.js    # useFeatureVariant / useFeatureEnabled hooks for experiments
 ├── Helpers/                    # utils.js, featureFlags.js, jobV2helpers.js
 ├── lib/                        # categories.js, prompts.js, stripHtml.js (resume-prompt content)
 ├── content/prompts/            # Markdown prompt content (sitemap + resume-prompts source)
@@ -233,6 +235,41 @@ If `DESIGN_SYSTEM.md` doesn't cover a case, match the closest existing pattern. 
 - Add `<Breadcrumb>` on detail pages for navigation context + rich results
 - Canonical URLs on all pages to avoid duplicate content
 
+## Analytics & Experiments
+
+Three tools, deliberately non-overlapping — don't "consolidate" them without asking:
+
+| Tool | Owns | Entry point |
+|------|------|-------------|
+| GA4 (Firebase) | Acquisition, SEO/Search Console reporting, pageviews | `core/eventHandler.js` |
+| Microsoft Clarity | Heatmaps, rage-click, unmetered replay | inline script in `_app.js` |
+| PostHog | Funnels, feature adoption, retention, event-linked replay, A/B tests | `core/posthog.js` |
+
+Rules:
+
+- **Custom events:** keep calling `firebaseEventHandler(name, props)`. It fans out to GA4 **and** PostHog. Don't call `posthogCapture` directly unless the event is deliberately PostHog-only.
+- **Pageviews:** `trackPageView` is GA4-only on purpose. posthog-js captures `$pageview` itself via `capture_pageview: "history_change"` — mirroring it would double-count every SPA navigation.
+- **Bundle:** posthog-js is ~80KB gzipped and must stay out of the shared `_app` chunk. It is behind a dynamic `import()` fired on `requestIdleCallback` — do not convert `core/posthog.js` to a static import, and do not add `@posthog/react` (its provider needs a client at first render, which drags the SDK into the shared chunk).
+- **Reverse proxy:** ingestion is served from `/ingest/*` via `rewrites()` in `next.config.js`, which is why `skipTrailingSlashRedirect: true` is set. That traffic counts against Vercel Fast Data Transfer — session replay is the bulk of it.
+- **Free-tier guards** in `posthog.js`: replay `sampleRate: 0.2`, `capture_pageleave/dead_clicks/heatmaps` off, surveys disabled, `person_profiles: "identified_only"`. Loosen these only with the 1M events / 5K recordings per month ceilings in mind.
+
+### Two kinds of flags — don't mix them
+
+- `Helpers/featureFlags.js` (`FLAGS`) = **build-time** gates for UI whose backend isn't built yet. Static, no rollout, no measurement. See `FEATURE_FLAGS.md`.
+- PostHog flags via `core/useFeatureVariant.js` = **runtime** gates for experiments and staged rollouts.
+
+```jsx
+import { useFeatureVariant } from "@/core/useFeatureVariant";
+
+const { variant, loaded } = useFeatureVariant("jd-apply-cta-test", "control");
+
+// Render the control until flags resolve — the SDK loads at idle, so an
+// unguarded swap on above-the-fold UI flickers on a visitor's first pageview.
+return loaded && variant === "test" ? <NewCta /> : <ControlCta />;
+```
+
+Reading a flag emits `$feature_flag_called`, which is how PostHog counts exposure — call the hook where the variant is actually rendered, not in a parent that mounts for everyone.
+
 ## Environment Variables
 
 All prefixed with `NEXT_PUBLIC_` (client-side accessible):
@@ -247,7 +284,13 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+NEXT_PUBLIC_POSTHOG_KEY        # phc_… project API key (public client-side token)
+NEXT_PUBLIC_POSTHOG_HOST       # "/ingest" — the reverse-proxy path, not the PostHog domain
+NEXT_PUBLIC_POSTHOG_ALLOW_LOCALHOST  # optional; "true" lets localhost send data
 ```
+
+PostHog no-ops entirely when `NEXT_PUBLIC_POSTHOG_KEY` is empty, and skips localhost
+unless `NEXT_PUBLIC_POSTHOG_ALLOW_LOCALHOST=true`.
 
 Server-only (no `NEXT_PUBLIC_` prefix — these are secrets and must never reach the
 client bundle). Both are read only by `pages/api/indexnow.js` / `core/SEO/indexnow.js`:

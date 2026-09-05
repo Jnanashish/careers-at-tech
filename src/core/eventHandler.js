@@ -11,6 +11,8 @@
 // first-load page_view, so waiting for a user event would lose it), just pushed
 // past first paint via requestIdleCallback instead of racing hydration.
 
+import { posthogCapture } from "./posthog";
+
 let analytics = null;
 let logEventFn = null;
 let analyticsReady = null;
@@ -47,25 +49,35 @@ if (typeof window !== "undefined") {
     schedule(() => initAnalytics());
 }
 
-/**
- * Log a custom GA4 event. Safe to call anywhere — no-ops on the server and
- * when analytics is unsupported/uninitialised.
- */
-export const firebaseEventHandler = (eventName, eventAttributes = {}) => {
-    if (typeof window === "undefined" || !eventName) return;
+// GA4-only send. Kept separate from firebaseEventHandler because page views
+// must not be mirrored to PostHog — posthog-js captures $pageview itself off
+// history changes, so mirroring would double-count every SPA navigation.
+const logGa4Event = (eventName, eventAttributes) => {
     initAnalytics().then((a) => {
         if (a && logEventFn) logEventFn(a, eventName, eventAttributes);
     });
 };
 
 /**
+ * Log a custom product event. Fans out to both GA4 and PostHog so the ~19
+ * existing call sites feed funnels/experiments without being rewritten. Safe
+ * to call anywhere — no-ops on the server and when either SDK is unavailable.
+ */
+export const firebaseEventHandler = (eventName, eventAttributes = {}) => {
+    if (typeof window === "undefined" || !eventName) return;
+    logGa4Event(eventName, eventAttributes);
+    posthogCapture(eventName, eventAttributes);
+};
+
+/**
  * Log a SPA page view. Firebase auto-collects page_view on the initial hard
  * load; this fires it for client-side route changes (Next.js Pages Router
- * navigations) which Firebase does not capture automatically.
+ * navigations) which Firebase does not capture automatically. GA4 only — see
+ * logGa4Event.
  */
 export const trackPageView = (url) => {
     if (typeof window === "undefined") return;
-    firebaseEventHandler("page_view", {
+    logGa4Event("page_view", {
         page_path: url,
         page_location: window.location.href,
         page_title: document.title,

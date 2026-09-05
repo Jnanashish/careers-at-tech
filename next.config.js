@@ -22,6 +22,13 @@ const nextConfig = {
     reactStrictMode: false,
     // Don't advertise the framework/version in every response.
     poweredByHeader: false,
+    // PostHog's API uses trailing-slash endpoints (/e/, /s/, /flags/). Without
+    // this, Next 308-redirects them and event capture breaks. Side effect worth
+    // knowing: Next no longer strips trailing slashes on normal routes either,
+    // so /jobs/ serves instead of redirecting to /jobs — the self-referential
+    // canonical in core/SEO/Meta.jsx is what keeps that from becoming a
+    // duplicate-content problem.
+    skipTrailingSlashRedirect: true,
     images: {
         // next/font is built-in (configured in _app.js) — the old
         // experimental.fontLoaders / @next/font block was legacy and a no-op.
@@ -40,6 +47,28 @@ const nextConfig = {
     },
     async headers() {
         return [{ source: "/:path*", headers: SECURITY_HEADERS }];
+    },
+    // PostHog reverse proxy. Serving ingestion from our own origin keeps the
+    // ~15-25% of visitors running content blockers in the data. Order matters:
+    // the two asset rules must precede the catch-all, and the asset host is a
+    // different origin from the API host (it returns cache-control headers the
+    // API host strips). Cost note: this traffic — including session replay —
+    // now counts against Vercel Fast Data Transfer.
+    async rewrites() {
+        return [
+            {
+                source: "/ingest/static/:path*",
+                destination: "https://us-assets.i.posthog.com/static/:path*",
+            },
+            {
+                source: "/ingest/array/:path*",
+                destination: "https://us-assets.i.posthog.com/array/:path*",
+            },
+            {
+                source: "/ingest/:path*",
+                destination: "https://us.i.posthog.com/:path*",
+            },
+        ];
     },
     async redirects() {
         return [

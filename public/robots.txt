@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /_next/
+Disallow: /ingest/
 
 Sitemap: https://careersat.tech/sitemap.xml
