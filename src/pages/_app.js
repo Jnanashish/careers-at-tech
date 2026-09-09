@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { Inter, Instrument_Serif, JetBrains_Mono, Fraunces, Manrope } from "next/font/google";
+import { Inter, Instrument_Sans, Instrument_Serif, JetBrains_Mono, Fraunces, Manrope, Caveat } from "next/font/google";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { trackPageView } from "@/core/eventHandler";
 import "../styles/globals.css";
@@ -23,6 +23,24 @@ const manrope = Manrope({
     weight: ["700", "800"],
     subsets: ["latin"],
     variable: "--font-manrope",
+    display: "swap",
+});
+
+// TRIAL: handwritten accent for "curated" in the /jobs hero.
+const caveat = Caveat({
+    weight: ["600"],
+    subsets: ["latin"],
+    variable: "--font-caveat",
+    display: "swap",
+});
+
+// /jobs hero headline only. Weight 500 is the only one used; italic is loaded
+// for the "curated" <em> so the browser doesn't fake-slant the roman at 84px.
+const instrumentSans = Instrument_Sans({
+    weight: ["500"],
+    style: ["normal", "italic"],
+    subsets: ["latin"],
+    variable: "--font-instrument-sans",
     display: "swap",
 });
 
@@ -78,7 +96,7 @@ const App = (props) => {
                     nested every page's own <main id="main-content"> inside a
                     second one — invalid HTML, and it broke the single-main
                     landmark that the "Skip to content" link targets. */}
-                <div className={`${inter.className} ${manrope.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
+                <div className={`${inter.className} ${manrope.variable} ${instrumentSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
                     <Component {...pageProps} />
                 </div>
             </ErrorBoundary>

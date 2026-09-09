@@ -253,7 +253,7 @@ const JobList = ({ initialJobs }) => {
         <div
             className="font-v3-sans min-h-screen"
             style={{
-                background: "var(--v3-paper)",
+                background: "#F9FAFB",
                 color: "var(--v3-ink)",
                 letterSpacing: "-0.01em",
                 // The nav is in normal flow here and scrolls away, so the
@@ -263,8 +263,13 @@ const JobList = ({ initialJobs }) => {
         >
             <span ref={announceRef} aria-live="polite" className="sr-only" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }} />
 
-            <Navbar sticky={false} />
-            <Hero />
+            {/* The hero wash starts at the very top of the page and runs behind
+                a chrome-less nav — starting it below a white bar left a hard
+                seam where the blue began. */}
+            <div style={{ backgroundImage: "linear-gradient(to bottom, var(--jde-brand-soft, #EFF6FF), #F9FAFB)" }}>
+                <Navbar sticky={false} transparent />
+                <Hero />
+            </div>
 
             <FilterBar
                 ref={searchInputRef}

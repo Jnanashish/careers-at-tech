@@ -6,8 +6,9 @@ const Hero = () => {
             className="bg-v3-dot-grid relative"
             style={{
                 padding: "72px 56px 44px",
-                borderBottom: "1px solid var(--v3-line-soft)",
-                background: "var(--v3-paper)",
+                borderBottom: "1px solid #E5E7EB",
+                // Wash lives on the wrapper in widgets/JobList so it can start
+                // above the nav; this section only adds the dot texture.
                 backgroundImage:
                     "radial-gradient(circle at 1px 1px, rgba(10,14,26,0.08) 1px, transparent 0)",
                 backgroundSize: "24px 24px",
@@ -19,18 +20,18 @@ const Hero = () => {
             >
                 <div>
                     <h1
-                        className="font-v3-serif hero-title"
+                        className="font-instrument-sans hero-title"
                         style={{
                             margin: 0,
                             color: "var(--v3-ink)",
-                            fontWeight: 400,
-                            letterSpacing: "-0.04em",
-                            lineHeight: 0.92,
+                            fontWeight: 500,
+                            letterSpacing: "-0.035em",
+                            lineHeight: 0.98,
                         }}
                     >
                         The <span style={{ color: "var(--v3-accent)" }}>freshers&rsquo;</span> job board,
                         <br />
-                        <em className="mr-3">curated </em> by hand.
+                        <em className="mr-2 font-fraunces" style={{ fontSize: "1.02em", fontWeight: 500 }}>curated </em> by hand.
                     </h1>
 
                     <p
@@ -55,12 +56,12 @@ const Hero = () => {
                 }
                 .hero-title {
                     font-size: 34px;
-                    line-height: 0.95;
+                    line-height: 1.02;
                 }
                 @media (min-width: 1024px) {
                     .hero-title {
-                        font-size: 100px;
-                        line-height: 0.92;
+                        font-size: 84px;
+                        line-height: 0.98;
                     }
                 }
             `}</style>

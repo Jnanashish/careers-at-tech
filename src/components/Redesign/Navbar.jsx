@@ -19,12 +19,17 @@ const NAV_LINKS = [
  * pins its FilterBar at the top instead, and two stacked sticky bars eat a
  * third of a phone viewport.
  *
+ * `transparent` drops the white fill — keeping the bottom rule — so the page's
+ * own background runs behind the bar. /jobs uses it to carry its hero wash up
+ * to the top of the viewport instead of starting it at a hard seam below the
+ * header. Only meaningful together with `sticky={false}`.
+ *
  * The bar always sits in the 1200px content column. It deliberately does NOT
  * adapt to a page's own gutters — /jobs is full-bleed with 56px gutters, and
  * giving it a matching full-bleed nav made the wordmark and tabs jump
  * horizontally on every navigation in or out of that route.
  */
-const Navbar = ({ sticky = true }) => {
+const Navbar = ({ sticky = true, transparent = false }) => {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -66,7 +71,9 @@ const Navbar = ({ sticky = true }) => {
     ? `fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled ? "h-14 bg-white/95 shadow-nav backdrop-blur-md" : "h-16 border-b border-border bg-white"
       }`
-    : "relative z-40 h-16 border-b border-border bg-white";
+    : transparent
+      ? "relative z-40 h-16 border-b border-border"
+      : "relative z-40 h-16 border-b border-border bg-white";
 
   return (
     <>
